@@ -1,0 +1,105 @@
+.l-block {
+    margin-top : 0;
+    margin-bottom : 1rem;
+
+    @include from(l) {
+        margin-bottom : 2rem;
+    }
+}
+
+.l-section {
+    margin-top : 0;
+    margin-bottom : 2rem;
+
+    @include from(l) {
+        margin-bottom : 4rem;
+    }
+}
+
+@mixin texto($tama){
+    font-family: $texto;
+    font-size: $tama;
+}
+
+@mixin input($tam, $pad, $alto){
+    width: $tam;
+    height: $alto;
+    padding: $pad;
+    font-family: $texto;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border:1px solid $azul;
+    &:focus{
+        border:2px solid $azul;
+    }
+}
+
+@mixin textarea($tam){
+    width: $tam;
+    padding:.5em;
+    font-family: $texto;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border:1px solid $azul;
+    &:focus{
+        border:2px solid $azul;
+    }
+}
+
+@mixin boton(){
+    background: $azul;
+    color:#fff;
+    -moz-border-radius: 10px;
+    -webkit-border-radius:10px;
+    border-radius: 10px;
+    &:hover{
+        background: rgba(15,51,81,.95);
+        color:#fff;
+        -moz-border-radius: 10px;
+        -webkit-border-radius:10px;
+        border-radius: 10px;
+        border:2px solid $azul;
+        -moz-box-shadow:5px 5px 5px 0px rgba(19,51,81,.5);
+        -webkit-box-shadow:5px 5px 5px 0px rgba(19,51,81,.5);
+        box-shadow:5px 5px 5px 0px rgba(19,51,81,.5);
+    }
+}
+
+@mixin encabezado-lista(){
+    @include texto($tamaño-letra-lista);
+    color:#fff;
+    background: $azul;
+    @include fromTo(m,xl){
+        @include texto(.75em);
+    }
+}
+
+@mixin lista(){
+    @include texto($tamaño-letra-lista);
+    color:#000;
+    @include fromTo(m,xl){
+        @include texto(.70em);
+    }
+}
+
+@mixin fondomodal(){
+    @include edContainer;
+    @include full;
+    @include mainCenter;
+    @include crossCenter;
+    position:fixed;
+    z-index:1000000000;
+    background:rgba(0,0,0,.5);
+    top:-700em;
+}
+
+@mixin modal($t){
+    @include edItem($t);
+    @include edContainer;
+    background: #fff;
+    border:3px solid $azul;
+    border-radius: 1em;
+    padding:1.5em;
+}

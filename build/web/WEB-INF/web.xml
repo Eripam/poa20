@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- <context-param> <param-name>renew</param-name> <param-value>true</param-value> 
+    </context-param> -->
+    <filter>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+        <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>https://seguridad.espoch.edu.ec/cas</param-value>
+            <!-- <param-value>https://localhost/cas</param-value> -->
+        </init-param>
+    </filter>
+    <listener>
+        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <!--<filter-class>org.jasig.cas.client.authentication.Saml11AuthenticationFilter</filter-class> -->
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+            <param-value>https://seguridad.espoch.edu.ec/cas/login</param-value>
+            <!-- <param-value>https://localhost/cas/login</param-value> -->
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <!-- <param-value>https://pruebas.espoch.edu.ec:8181</param-value> -->
+            <!--<param-value>https://cimogsys.espoch.edu.ec</param-value>-->
+            <!--<param-value>http://172.17.102.69:8080</param-value>-->
+            <!--<param-value>https://planificacion.espoch.edu.ec</param-value>-->
+            <!--<param-value>https://pruebas.espoch.edu.ec:8181</param-value>-->
+            <param-value>http://localhost</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>CAS Validation Filter</filter-name>
+        <!--<filter-class>org.jasig.cas.client.validation.Saml11TicketValidationFilter</filter-class> -->
+        <filter-class>org.jasig.cas.client.validation.Cas30ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>https://seguridad.espoch.edu.ec/cas</param-value>
+            <!-- <param-value>https://localhost/cas</param-value> -->
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <!-- <param-value>https://pruebas.espoch.edu.ec:8181</param-value> -->
+            <!--<param-value>https://cimogsys.espoch.edu.ec</param-value>-->
+            <!--<param-value>http://172.17.102.69:8080</param-value>-->
+            <!--<param-value>https://planificacion.espoch.edu.ec</param-value>-->
+            <!--<param-value>https://pruebas.espoch.edu.ec:8181</param-value>-->
+            <param-value>http://localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectAfterValidation</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>useSession</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <!-- <init-param> <param-name>acceptAnyProxy</param-name> <param-value>true</param-value> 
+        </init-param> <init-param> <param-name>proxyReceptorUrl</param-name> <param-value>/sample/proxyUrl</param-value> 
+        </init-param> <init-param> <param-name>proxyCallbackUrl</param-name> <param-value>https://mmoayyed.unicon.net:9443/sample/proxyUrl</param-value> 
+        </init-param> -->
+        <init-param>
+            <param-name>authn_method</param-name>
+            <param-value>mfa-duo</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+        <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS Single Sign Out Filter</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Validation Filter</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>servUsuario</servlet-name>
+        <servlet-class>poa.controlador.servUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servTecho</servlet-name>
+        <servlet-class>poa.controlador.servTecho</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servPerspectivaObjetivo</servlet-name>
+        <servlet-class>poa.controlador.servPerspectivaObjetivo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servProyecto</servlet-name>
+        <servlet-class>poa.controlador.servProyecto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servComponenteMeta</servlet-name>
+        <servlet-class>poa.controlador.servComponenteMeta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>areaGestion</servlet-name>
+        <servlet-class>poa.controlador.servAreaGestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servAreaGestion</servlet-name>
+        <servlet-class>poa.controlador.servAreaGestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servRequerimientosGenerales</servlet-name>
+        <servlet-class>poa.controlador.servRequerimientosGenerales</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servActividadRequerimiento</servlet-name>
+        <servlet-class>poa.controlador.servActividadRequerimiento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servActividadPresupuestaria</servlet-name>
+        <servlet-class>poa.controlador.servActividadPresupuestaria</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controladorReportesPDF</servlet-name>
+        <servlet-class>poa.reportes.pdf.controladorReportesPDF_2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controladorReportePDF</servlet-name>
+        <servlet-class>poa.reportes.pdf.controladorReportePDF</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servEjecucion</servlet-name>
+        <servlet-class>poa.controlador.servEjecucion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servEvaluacion</servlet-name>
+        <servlet-class>poa.controlador.servEvaluacion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controladorReportePDF2</servlet-name>
+        <servlet-class>poa.reportes.pdf.controladorReportePDF2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reporteExcel</servlet-name>
+        <servlet-class>poa.reportes.excel.reporteExcel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reporteExcel2</servlet-name>
+        <servlet-class>poa.reportes.excel.reporteExcel2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servUsuario</servlet-name>
+        <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servTecho</servlet-name>
+        <url-pattern>/techo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servPerspectivaObjetivo</servlet-name>
+        <url-pattern>/persobj</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servProyecto</servlet-name>
+        <url-pattern>/proyecto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servComponenteMeta</servlet-name>
+        <url-pattern>/componenteMeta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servAreaGestion</servlet-name>
+        <url-pattern>/areaGestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servRequerimientosGenerales</servlet-name>
+        <url-pattern>/requerimientosGenerales</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servActividadRequerimiento</servlet-name>
+        <url-pattern>/actividadReq</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servActividadPresupuestaria</servlet-name>
+        <url-pattern>/acctividadPresupuestaria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorReportePDF</servlet-name>
+        <url-pattern>/controladorReportePDF</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servEjecucion</servlet-name>
+        <url-pattern>/solicitud</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servEvaluacion</servlet-name>
+        <url-pattern>/evaluacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorReportePDF2</servlet-name>
+        <url-pattern>/controladorReportePDF2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reporteExcel</servlet-name>
+        <url-pattern>/reporteExcel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reporteExcel2</servlet-name>
+        <url-pattern>/reporteExcel2</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>
+            index.jsp
+        </welcome-file>
+    </welcome-file-list>
+</web-app>

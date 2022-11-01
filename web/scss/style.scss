@@ -1,0 +1,422 @@
+@import "ed-grid";
+
+body{
+    padding:0em;
+    margin:0em;
+    display:flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header{
+    //z-index: 10000;
+    background: white;
+    img{
+        cursor: pointer;
+    }
+    border-bottom: .25em solid $rojo;
+    p{
+        color: black;
+        font-family: $texto;
+    }
+
+    .header_sesion{
+        ul{
+            @include edItem(15);
+            position:absolute;                    
+            border:2px solid #fff;
+            padding:0;
+            background: rgba(15,51,81,.9);
+            margin-top: -1em;
+            margin-left: -6em;
+            li{
+                @include edItem(100);
+                display:flex;
+                align-items: center;
+                list-style: none;
+                padding: 0;
+                border-bottom: 1px solid #fff;
+                heigh:auto;
+                a{  width: 100%;
+                    @include texto(1em);
+                    padding: 0.25em 0 0.25em 0.5em;
+                    margin:0;
+                    color:#fff;
+                    text-decoration: none;
+                } 
+                &:hover{
+                    background: rgba(255,255,255,.3);
+                }                        
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+
+.main{
+    min-height: 80vh;
+}
+
+.plani{
+    border-bottom: 4px solid $azul;
+}
+
+hr{
+    height: 3px;
+    background: $rojo;
+    margin: 0;
+}
+
+h2{
+    font-family: $texto;
+    font-weight: bold;
+}
+
+/*.btn{
+    background: $azul;
+    color:#fff;
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family:$texto;
+    transition: background .3s;
+    &:hover{
+        font-size: 1em;
+        color:#000;
+        font-weight: bold;
+    }
+}*/
+
+.bton{
+    background: $azul;
+    align-items: center;
+    font-family:$texto;
+    transition: background .3s;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    color:#fff !important;
+    &:hover{
+        font-size: 1em;
+        color:#000 !important;
+        font-weight: bold;
+        background-color: #dae0e5 !important;
+    }
+}
+
+footer{
+    background: $gris-claro;
+    font-family: $texto;
+    z-index:101;
+    color:white;
+}
+
+.content{
+    .pestania{
+        justify-content: center;
+        text-align: center;
+        .titulo{
+            @include texto(2em);
+            color:$azul;
+        }
+        .titulo2{
+            @include texto(1.5em);
+            color:$azul;
+        }
+        .titulo3{
+            @include texto(1em);
+            color:#000;
+            font-weight: bold;
+        }
+        .titulo4{
+            @include texto(.75em);
+            color:#000;
+            font-weight: bold;
+        }
+        .titulo5{
+            @include texto(.65em);
+            color:#000;
+        }
+        .formulario{
+            border: 2px solid $azul;
+            div{
+                label{
+                    @include texto(1em);
+                    font-weight: bold;
+                }
+                input[type="text"]{
+                    @include input(90%, 0.75em, 1.8em);
+                }
+
+                .div_fecha{
+                    .icono{
+                        margin:0em;
+                        padding:0em;
+                        margin-left: -1.25em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.botonmain{
+    background:$azul;
+    color:#fff;
+    font-weight: bold;
+    border-radius: 1em;
+    font-family:$texto;
+    padding:.5em;
+    margin-bottom:1.25em;
+    margin-left: .25em;
+    margin-right:.25em;
+    transition: background .3s;
+    &:hover{
+        box-shadow: 7px 7px 17px 7px rgba(19,51,81,.6);
+        background: #fff;
+        cursor: pointer;
+        color:$azul;
+        border:3px solid $azul;
+    }
+}
+
+.botonmainr{
+    background:$azul;
+    color:#fff;
+    font-weight: bold;
+    border-radius: 4em;
+    font-family:$texto;
+    padding:2em;
+    margin-top: 1.5em;
+    margin-bottom: 1.25em;
+    margin-left: 1em;
+    margin-right:1em;
+    text-align: center;
+    transition: background .3s;
+    &:hover{
+        box-shadow: 7px 7px 17px 7px rgba(19,51,81,.6);
+        background: #fff;
+        cursor: pointer;
+        color:$azul;
+        border:3px solid $azul;
+    }
+}
+
+.table-azul{
+    background-color: $azul;
+    color:#fff;
+}
+
+.mr-6,
+.mx-6 {
+    margin-right: 8rem !important;
+}
+
+.pt-6 {
+    padding-top: 8rem !important;
+}
+
+.mr-7,
+.mx-7 {
+    margin-right: 9rem !important;
+}
+
+.mr-8,
+.mx-8 {
+    margin-right: 14rem !important;
+}
+
+.menuprueba{
+    @include edContainer;
+    @include edItem(25);
+    background: rgba(19,51,81,.9);
+    position: fixed;
+    z-index: 100;
+    top:0;
+    bottom: 0;
+    display:none;
+    padding: 1em;
+    @include fromTo(xs, s){
+        @include edItem(100);
+    }
+    @include fromTo(s, sx){
+        @include edItem(60);
+    }
+    @include fromTo(sx, m){
+        @include edItem(50);
+    }
+    @include fromTo(m, l){
+        @include edItem(40);
+    }
+    @include fromTo(l, xxl){
+        @include edItem(30);
+    }
+    #cerrarM{
+        @include edItem;
+        color:#fff;
+        margin-top:7em;
+        &:hover{
+            background: rgba(255,255,255,.3);
+        }
+        @include from(s){
+            margin-top:5em;
+        }
+        @include from(sx){
+            margin-top:7em;
+        }
+    }
+    .tituloM{
+        @include edItem;
+        color:#fff;
+        font-weight: bold;
+    }
+    .menuUl{
+        @include edContainer;
+        padding:0;
+        overflow-y:scroll;
+        max-height:55vh;
+        margin-bottom:3.5em;
+        li{
+            @include edContainer;
+            @include edItem;
+            list-style: none;
+            padding: 0;
+            border-bottom:1px solid #fff;
+            &:hover > .submenuUl{
+                display:flex;
+            }
+            a{
+                @include edContainer;
+                display: block;
+                padding: .75em;
+                color:#fff;
+                &:hover{
+                    background: rgba(255,255,255,.3);
+                }
+                label{
+                    @include edItem(80);
+                }
+                i{
+                    @include edItem(20);
+                }
+            }
+            .submenuUl{
+                @include edContainer;
+                background:rgba(19,51,81,.7);
+                display:none;
+                transition:display .3s;
+                li:last-child{
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+
+.menuicono{
+    @include edContainer;
+    @include full;
+}
+
+.titulopes{
+    color:$azul;
+    font-family: $texto;
+    font-weight: bold;
+}
+
+.tablas{
+    font-family: $texto;
+}
+
+.estilo{
+    @include mainCenter;
+    @include crossCenter;
+    outline: 1px solid #fff;
+    font-family: $texto;
+    font-weight: bold;
+}
+
+.estilobody{
+    @include mainJustify;
+    @include crossCenter;
+    outline: 1px solid #dee2e6;
+    font-family: $texto;
+}
+
+.tablaover{
+    overflow-x:auto;
+}
+
+.tablasdiv{
+    @include edContainer;
+    @include full;
+    min-width:900px;
+    .centro{
+        @include mainCenter;
+    }
+    .inicio{
+        @include mainStart;
+    }
+    .encabezado{
+        @include edContainer;
+        @include edItem;
+        @include full;
+        &_completo{
+            @include edItem(100);
+        }
+        &_completo_2{
+            @include edContainer;
+            @include edItem;
+        }
+        &_2{
+            @include edItem(20);
+            @include edContainer;
+        }
+        &_3{
+            @include edItem(80);
+            @include edContainer;
+        }
+        &_4{
+            @include edItem(10);
+        }
+        &_5{
+            @include edItem(15);
+            @include edContainer;
+        }
+        &_6{
+            @include edItem(1/3);
+        }
+        &_7{
+            @include edItem(25);
+        }
+        &_8{
+            @include edItem(5);
+        }
+        &_9{
+            @include edItem(30);
+        }
+        &_10{
+            @include edItem(35);
+        }
+        &_11{
+            @include edItem(40);
+        }
+    }   
+}
+
+.w-20{
+    width: 20% !important;
+}

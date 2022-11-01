@@ -1,0 +1,120 @@
+@import 'ed-grid';
+// 1. Personalice sus variables
+$cssCore: false;
+$cssHelpers: true;
+$prototype: false;
+$dev: false;
+.login{
+    @include edContainer;
+    //max-height: 100vh;
+    background-image: url("../img/background.png");
+    @include to(m){
+        background-size: cover;
+        background-position: 10 50;
+    }
+    @include from(m){
+    max-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    }
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    .header, .main, .footer{
+        @include edContainer;
+        margin-bottom: 1em;
+        &__content{
+            @include edItem;
+            @include edContainer;
+           
+            &_item{
+                @include edItem;
+            }
+        }
+    }
+    .header{
+        padding-top: 2em;        
+        &__content{
+            @include edItem;
+            @include edContainer;
+            &_item{
+                @include edItem;                
+            }
+            .btn-login{
+                display: flex;
+                justify-content: flex-end;
+                @include to(m){
+                    justify-content: center;
+                }
+                img{
+                    height: 2em;
+                    width: auto;
+                }
+            }
+        }
+    }
+    .main{
+        min-height: 70vh;
+        &__content{
+            @include edItem;
+            @include edContainer;
+            &_item{
+                @include edItem;
+                display: flex;
+                justify-content: center;    
+                font-size: 2.5em; 
+                @include to(s){
+                    font-size: 2em;
+                }           
+            }
+            .title{
+                
+            }
+            .logo{
+                img{
+                    height: 10em;
+                    width: auto;
+                    @include to(m){
+                        height: 6em;
+                    }
+                }                
+            }
+            .welcome{
+               
+            }
+        }
+    }
+    .footer{
+        &__content{
+            @include edItem;
+            @include edContainer;
+            justify-content: space-between;
+            &_item{
+                @include edItem(100,100,20);
+                display: flex;
+                justify-content: center;
+                align-items: center;  
+                @include to(m){
+                    margin-bottom: 1em;
+                }              
+            }
+            .logo{
+                .img-espoch{
+                    height: 5em;
+                    width: auto;
+                }
+                .img-planificacion{
+                    height: 5em;
+                    width: auto;
+                }
+                .img-cimogsys{
+                    height: 3em;
+                    width: auto;
+                }
+            }
+        } 
+    }
+
+}
