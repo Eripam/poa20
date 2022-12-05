@@ -36,11 +36,8 @@ function listarRequerimientos(ag, anio) {
                         if (this.requerimientos.length > 0) {
                             $.each(this.requerimientos, function (indice, req) {
                                 var iva, re = req.req_id;
-                                if (req.req_iva === 1) {
-                                    iva = "SI";
-                                } else {
-                                    iva = "NO";
-                                }
+                                iva=req.req_iva2;
+                                
                                 var cuatrimestre = "", cuatrimestre2 = "", cuatrimestre3 = "", div;
                                 $.each(req.cuatri, function (indice, cu) {
                                     if (cu.mes_id === 1) {

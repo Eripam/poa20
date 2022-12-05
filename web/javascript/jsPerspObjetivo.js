@@ -91,9 +91,9 @@ $('#objest').on('change', function () {
         async: false
     })
             .done(function (response) {
-                if(response.length>0){
-                    $.each(response, function(){
-                       tipo=this.to_id; 
+                if (response.length > 0) {
+                    $.each(response, function () {
+                        tipo = this.to_id;
                     });
                 }
 
@@ -120,7 +120,6 @@ $('#objest').on('change', function () {
             });
 
 
-
     $.ajax({
         url: "../persobj?accion=ListarObjetivos",
         data: {objetivo: datos},
@@ -135,7 +134,7 @@ $('#objest').on('change', function () {
                 $('#frmAddProyecto').addClass('d-none');
                 $('#actpresup').selectpicker('refresh');
                 $("#frmAddProyecto")[0].reset();
-                if (tipo === "2" || tipo === "3") {
+                if (tipo == "2" || tipo == "3") {
                     $('#perfilInV').removeClass('d-none');
                     $('#perfilInV').addClass('d-block');
                     $('#integrantesInV').removeClass('d-none');
@@ -143,7 +142,7 @@ $('#objest').on('change', function () {
                     $('#multiSelec').removeClass('d-none');
                     $('#multiSelec').addClass('d-block');
                     $('#coejeSelec').addClass('d-none');
-                } else {
+                } else if($('#tipoAg').val()=="4"){
                     $('#perfilInV').removeClass('d-block');
                     $('#perfilInV').addClass('d-none');
                     $('#integrantesInV').removeClass('d-block');
@@ -151,6 +150,14 @@ $('#objest').on('change', function () {
                     $('#multiSelec').removeClass('d-block');
                     $('#multiSelec').addClass('d-none');
                     $('#coejeSelec').removeClass('d-none');
+                }else{
+                    $('#perfilInV').removeClass('d-block');
+                    $('#perfilInV').addClass('d-none');
+                    $('#integrantesInV').removeClass('d-block');
+                    $('#integrantesInV').addClass('d-none');
+                    $('#multiSelec').removeClass('d-block');
+                    $('#multiSelec').addClass('d-none');
+                    $('#coejeSelec').addClass('d-none');
                 }
                 if (response.length > 0) {
                     $('#objobj').append('<option selected="true" disabled>Seleccionar...</option>');

@@ -341,7 +341,6 @@ $('#example').on('click', 'div div #modserv', function () {
     } else if (id === 3) {
         tipo = "Honorario Fijo";
     }
-    alert(data['siniva']);
     $('#rectoringSer').append('<option value="' + data['tipo'] + '" selected="selected">' + tipo + '</option>');
     if (id === 1) {
         $('#horas').removeClass('d-none');

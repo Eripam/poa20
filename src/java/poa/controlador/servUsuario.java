@@ -227,7 +227,7 @@ public class servUsuario extends HttpServlet {
                         }
                     } else {
                         result = adUsuario.AsignarUsuario(oUsuario);
-                        if (result.equals("Correcto") && (tipo.equals("10") || tipo.equals("16") || tipo.equals("17"))) {
+                        if (result.equals("Correcto") && (tipo.equals("10") || tipo.equals("11") || tipo.equals("16") || tipo.equals("17"))) {
                             for (String agAsignadas1 : agAsignadas) {
                                 oArea.setAg_id(Integer.parseInt(agAsignadas1));
                                 oUsuario.setAg(oArea);
@@ -346,7 +346,7 @@ public class servUsuario extends HttpServlet {
             result = "Debe ingresar el nombre";
         } else if (cedula.isEmpty()) {
             result = "Debe ingresar la cédula";
-        } else if (agAsignadas == null && (tipo.equals("10") || tipo.equals("16") || tipo.equals("17")|| tipo.equals("26"))) {
+        } else if (agAsignadas == null && (tipo.equals("10") || tipo.equals("16") || tipo.equals("11") || tipo.equals("17")|| tipo.equals("26"))) {
             result = "Debe ingresar las unidades";
         } else if (titulo.isEmpty()) {
             result = "Debe ingresar el titulo";
@@ -366,7 +366,7 @@ public class servUsuario extends HttpServlet {
                     result = adUsuario.AsignarUsuarioEstado(oUsuario);
                 }
             }
-            if (result.equals("Correcto") && (tipo.equals("10") || tipo.equals("16") || tipo.equals("17") || tipo.equals("26"))) {
+            if (result.equals("Correcto") && (tipo.equals("10") || tipo.equals("11") || tipo.equals("16") || tipo.equals("17") || tipo.equals("26"))) {
                 if (agAsignadas.length != 0) {
                     result = adUsuario.EliminarUsuarioComprasArea(oUsuario);
                     if (result.equals("Correcto")) {

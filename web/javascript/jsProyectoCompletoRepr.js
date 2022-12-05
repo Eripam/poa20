@@ -47,7 +47,7 @@ $(document).ready(function () {
                     $('#objEstartF').html(this.per.perspectiva_nombre);
                     $('#objest option[value="' + this.per.perspectiva_id + '"]').prop('selected', 'true');
                     $('#objest').selectpicker('refresh');
-                    listarObjetivosOperativos(this.per.perspectiva_id, this.per.objetivo_id);
+                    listarObjetivosOperativos(this.per.perspectiva_id, this.per.objetivo_id, this.per.to_id);
                     listarActividadesPresupuestarias(this.per.objetivo_id, this.per.ap_id);
                     $('#objObjF').html(this.per.objetivo_nombre);
                     $('#actividadPresF').html(this.per.ap_nombre);
@@ -1375,7 +1375,7 @@ $('.contenedorActividad').submit(function (event) {
     }
 });
 
-function listarObjetivosOperativos(datos, objetivo_id) {
+function listarObjetivosOperativos(datos, objetivo_id, tipo) {
     //alert('Datos: ' + datos);
     $.ajax({
         url: "../persobj?accion=ListarObjetivos",
@@ -1391,7 +1391,7 @@ function listarObjetivosOperativos(datos, objetivo_id) {
                 //$('#frmAddProyecto').addClass('d-none');
                 //$('#actpresup').selectpicker('refresh');
                 //$("#frmAddProyecto")[0].reset();
-                if (datos === 2 || datos === 3) {
+                if (tipo == "2" || tipo == "3") {
                     $('#perfilInV').removeClass('d-none');
                     $('#perfilInV').addClass('d-block');
                     $('#integrantesInV').removeClass('d-none');
@@ -1855,13 +1855,13 @@ function listaRequerimiento(comp, i) {
                                             }
                                         }
                                     } else if (r.req[ej].req_descripcion === "Aprobado Analista Planificación") {
-                                        ref = r.req[ej].req_reforma + "-STP-2020";
+                                        ref = r.req[ej].req_reforma + "-STP-"+$('#selectoranio').val();
                                         descripcion = r.req[ej].req_descripcion;
 
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;
                                     } else {
-                                        ref = r.req[ej].req_reforma + "-UCP-2020";
+                                        ref = r.req[ej].req_reforma + "-UCP-"+$('#selectoranio').val();
                                         descripcion = r.req[ej].req_descripcion;
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;

@@ -189,6 +189,24 @@ public class adAreaGestion {
         }
         return rs;
     }
+    
+    //Mostrar tipo proyecto
+    static public ResultSet listaFaculAdmin() {
+        ResultSet rs = null;
+        String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    rs = ad.getRs();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
 
     public static List<cAreaGestion> obtenerAreasGestionHijas(Integer intCodigoUnidad) {
         List<cAreaGestion> result = new ArrayList<cAreaGestion>();

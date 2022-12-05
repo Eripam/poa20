@@ -957,14 +957,16 @@ public class controladorReportePDF extends HttpServlet {
                     cell.setRowspan(2);
                     tablereq.addCell(cell);
 
-                    cell = new PdfPCell(new Paragraph("COSTO SIN IVA", fuentetexto));
-                    cell.setPadding(3);
-                    cell.setBackgroundColor(azul);
-                    cell.setBorderWidthRight(1);
-                    cell.setBorderColorRight(BaseColor.WHITE);
-                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    cell.setRowspan(2);
-                    tablereq.addCell(cell);
+                    if (resultproy.get(0).getProyecto_ag() <= 2022) {
+                        cell = new PdfPCell(new Paragraph("COSTO SIN IVA", fuentetexto));
+                        cell.setPadding(3);
+                        cell.setBackgroundColor(azul);
+                        cell.setBorderWidthRight(1);
+                        cell.setBorderColorRight(BaseColor.WHITE);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell.setRowspan(2);
+                        tablereq.addCell(cell);
+                    }
 
                     cell = new PdfPCell(new Paragraph("COSTO TOTAL", fuentetexto));
                     cell.setPadding(3);
@@ -974,6 +976,17 @@ public class controladorReportePDF extends HttpServlet {
                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell.setRowspan(2);
                     tablereq.addCell(cell);
+
+                    if (resultproy.get(0).getProyecto_ag() > 2022) {
+                        cell = new PdfPCell(new Paragraph("GRABA IVA?", fuentetexto));
+                        cell.setPadding(3);
+                        cell.setBackgroundColor(azul);
+                        cell.setBorderWidthRight(1);
+                        cell.setBorderColorRight(azul);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell.setRowspan(2);
+                        tablereq.addCell(cell);
+                    }
 
                     cell = new PdfPCell(new Paragraph("I (%)", fuentetexto));
                     cell.setPadding(3);
@@ -1066,12 +1079,14 @@ public class controladorReportePDF extends HttpServlet {
                                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                 tablereq.addCell(cell);
 
-                                cell = new PdfPCell(new Paragraph("$" + formateador.format(requerimientos.get(in).getReq().get(req).getReq_costo_sin_iva()), fuente3));
-                                cell.setBackgroundColor(BaseColor.WHITE);
-                                cell.setPadding(3);
-                                cell.setBorderWidth(1);
-                                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                                tablereq.addCell(cell);
+                                if (resultproy.get(0).getProyecto_ag() <= 2022) {
+                                    cell = new PdfPCell(new Paragraph("$" + formateador.format(requerimientos.get(in).getReq().get(req).getReq_costo_sin_iva()), fuente3));
+                                    cell.setBackgroundColor(BaseColor.WHITE);
+                                    cell.setPadding(3);
+                                    cell.setBorderWidth(1);
+                                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                    tablereq.addCell(cell);
+                                }
 
                                 cell = new PdfPCell(new Paragraph("$" + formateador.format(requerimientos.get(in).getReq().get(req).getReq_costo_total()), fuente3));
                                 cell.setBackgroundColor(BaseColor.WHITE);
@@ -1080,6 +1095,15 @@ public class controladorReportePDF extends HttpServlet {
                                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                 tablereq.addCell(cell);
                                 mreq += requerimientos.get(in).getReq().get(req).getReq_costo_total();
+
+                                if (resultproy.get(0).getProyecto_ag() > 2022) {
+                                    cell = new PdfPCell(new Paragraph(requerimientos.get(in).getReq().get(req).getReq_iva2(), fuente3));
+                                    cell.setBackgroundColor(BaseColor.WHITE);
+                                    cell.setPadding(3);
+                                    cell.setBorderWidth(1);
+                                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                    tablereq.addCell(cell);
+                                }
                             }
                         } else {
                             cell = new PdfPCell(new Paragraph("No existe requerimientos.", fuente3));

@@ -161,7 +161,7 @@ $('#objest').on('change', function () {
                 //$('#frmAddProyecto').addClass('d-none');
                 //$('#actpresup').selectpicker('refresh');
                 //$("#frmAddProyecto")[0].reset();
-                if (tipo === "2" || tipo === "3") {
+                if (tipo == "2" || tipo == "3") {
                     $('#perfilInV').removeClass('d-none');
                     $('#perfilInV').addClass('d-block');
                     $('#integrantesInV').removeClass('d-none');

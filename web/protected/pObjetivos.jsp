@@ -280,7 +280,7 @@
                             <div><label>Unidad/Dependencia:</label>
                                 <select class="form-control selectpicker" id="slAg" name="slAg" data-live-search="true" multiple data-selected-text-format="count > 6">
                                     <%                                        
-                                        ResultSet rs6 = adAreaGestion.listaAreaGestion();
+                                        ResultSet rs6 = adAreaGestion.listaFaculAdmin();
                                         while (rs6.next()) {
                                     %>
                                     <option value="<%= rs6.getString("ag_id")%>" title="<%=rs6.getString("ag_alias")%>"><%=rs6.getString("ag_nombre")%></option>

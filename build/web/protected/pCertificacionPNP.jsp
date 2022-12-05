@@ -103,6 +103,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label for="recipient-name" class="col-form-label">Necesita Liquidación?</label>
+                                        </div>
+                                        <div class="col-9 row">
+                                            <div class="col-2">
+                                                <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="liquCert" id="liquCert">   
+                                            </div>
+                                            <div class="col-2">
+                                                <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCert" id="liquCert" checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -186,17 +201,34 @@
                                         <textarea name="txtobservacionsp" id="txtobservacionsp" class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3 d-none" id="recurrenteDivsp">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label for="recipient-name" class="col-form-label">Tipo recurrente?</label>
-                                        </div>
-                                        <div class="col-9 row">
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="recurrenteCertsp" id="recurrenteCertsp">   
+                                <div id="recurrenteDivsp" class="d-none row col-12">
+                                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label for="recipient-name" class="col-form-label">Tipo recurrente?</label>
                                             </div>
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCertsp" id="recurrenteCertsp" checked>
+                                            <div class="col-9 row">
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="recurrenteCertsp" id="recurrenteCertsp">   
+                                                </div>
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCertsp" id="recurrenteCertsp">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label for="recipient-name" class="col-form-label">Necesita Liquidación?</label>
+                                            </div>
+                                            <div class="col-9 row">
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="liquCertsp" id="liquCertsp">   
+                                                </div>
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCertsp" id="liquCertsp">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -372,7 +404,7 @@
                                 <div id="listaServicios" class="align-self-center encabezado p-0"></div>
                             </div>
                         </div>
-                        <% if(adEjecucion.fechaporAño(intAnio)){%>
+                        <% if (adEjecucion.fechaporAño(intAnio)) {%>
                         <button class="btn bton mt-4" id="btnAgregarCP">AGREGAR CERTIFICACIÓN PRESUPUESTARIA</button> 
                         <%}%>
                     </div>

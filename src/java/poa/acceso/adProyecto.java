@@ -990,6 +990,7 @@ public class adProyecto {
                         oProy.setProyecto_integrantes(rsProy.getString("proyecto_integrantes"));
                         oPers.setPerspectiva_id(rsProy.getInt("perspectiva_id"));
                         oPers.setPerspectiva_nombre(rsProy.getString("perspectiva_nombre"));
+                        oPers.setTo_id(rsProy.getInt("perspectiva_tp"));
                         oPers.setObjetivo_id(rsProy.getInt("objetivo_id"));
                         oPers.setObjetivo_nombre(rsProy.getString("objetivo_nombre"));
                         oPers.setAp_id(rsProy.getInt("ap_id"));

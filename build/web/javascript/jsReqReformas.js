@@ -111,10 +111,7 @@ $('#buscarCod').on('click', function () {
 
                     if ($('#codigoreq').val() == this.req_id && this.req_reforma == "0") {
                         div = '<i class="fas fa-eye" id="verDatos" title="Ver datos completos" data-id="' + this.req_id + '"></i><i class="fas fa-list-alt" title="Ver estructura presupuestaria" id="verEstructura" data-id="' + this.req_id + '"></i>';
-                    } else if ($('#codigoreq').val() != this.req_id && this.req_estado == "2") {
-                        div = '<i class="fas fa-eye" id="verDatos" title="Ver datos completos" data-id="' + this.req_id + '"></i><i class="fas fa-list-alt" title="Ver estructura presupuestaria" id="verEstructura" data-id="' + this.req_id + '"></i>\n\
-                    <i class="fas fa-trash-alt dataInfo" data-req="' + this.req_id + '" data-nombre="' + this.req_nombre + '" data-reforma="' + this.req_reforma + '" title="Eliminar reforma" id="eliReforma"></i>';
-                    } else {
+                    }  else {
                         div = '<i class="fas fa-edit dataInfo" data-id="' + this.req_id + '" data-nombre="' + this.req_nombre + '" data-descripcion="' + this.req_descripcion + '" data-cantidad="' + this.req_cantidad + '" data-costo="' + this.req_costo_unitario + '" data-iva="' + this.req_iva + '" data-reforma="' + this.req_reforma + '"\n\
                         data-financiamientoid="' + this.financiamiento_id + '" data-financiamienton="' + this.financiamiento_nombre + '" data-tc="' + this.tc_id + '" data-tcnombre="' + this.tc_nombre + '" data-unidad="' + this.unidad_id + '" data-unidadnombre="' + this.unidad_nombre + '" data-cpc="' + this.req_cpc + '" data-actividad="' + actividad + '" \n\
                         data-po1="' + c1 + '" data-po2="' + c2 + '" data-po3="' + c3 + '" data-ejercicio="' + ejercicio + '" data-entidad="' + entidad + '" data-unidad_eje="' + unidad_eje + '" data-unidad_desc="' + unidad_desc + '" data-programa="' + programa + '" data-subprograma="' + subprograma + '" data-proyecto="' + proyecto + '" data-actividadp="' + actividadp + '" data-obra="' + obra + '" data-geografico="' + geografico + '" \n\

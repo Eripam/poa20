@@ -2500,6 +2500,7 @@ public class adActividadRequerimiento {
                         cComp.setReq_costo_sin_iva(rsComp.getDouble("cp_valor_porcentaje"));
                         cComp.setAe_tiempo(rsComp.getInt("cp_recurrente"));
                         cComp.setFecha_inicio(rsComp.getString("cp_fecha_ingreso"));
+                        cComp.setUnidad_id(rsComp.getInt("cp_liquidacion"));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2535,6 +2536,7 @@ public class adActividadRequerimiento {
                         cComp.setReq_costo_sin_iva(rsComp.getDouble("cpsp_valor_porcentaje"));
                         cComp.setAe_tiempo(rsComp.getInt("cpsp_recurrente"));
                         cComp.setFecha_inicio(rsComp.getString("cpsp_fecha_ingreso"));
+                        cComp.setUnidad_id(rsComp.getInt("cpsp_liquidacion"));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2634,6 +2636,7 @@ public class adActividadRequerimiento {
                         cComp.setAe_observacion(rsComp.getString("cpv_observacion"));
                         cComp.setAe_tiempo(rsComp.getInt("cpv_recurrente"));
                         cComp.setFecha_inicio(rsComp.getString("cpv_fecha_ingreso"));
+                        cComp.setUnidad_id(rsComp.getInt("cpv_liquidacion"));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2980,13 +2983,13 @@ public class adActividadRequerimiento {
     public List<cActividadRequerimiento> ListarRequerimientoCompras(cProyecto oProy) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
         String SQL = "select distinct on (req_id) req_id, req_nombre, req_descripcion, req_cantidad_anual, req_costo_unitario, req_iva, pac_unidad, pac_tc, pac_cpc, paces_estado, paces_usuario, paces_fecha, \n"
-                + "                paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre from(select req_id, req_nombre, req_descripcion, req_cantidad_anual, req_costo_unitario, \n"
-                + "                req_iva, pac_unidad, pac_tc, pac_cpc, paces_estado, paces_usuario, paces_fecha, paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre \n"
+                + "                paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre, req_iva2 from(select req_id, req_nombre, req_descripcion, req_cantidad_anual, req_costo_unitario, \n"
+                + "                req_iva, pac_unidad, pac_tc, pac_cpc, paces_estado, paces_usuario, paces_fecha, paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre, req_iva2 \n"
                 + "                from proyecto inner join componente on proyecto_id=componente_proyecto join actividad on componente_id=actividad_componente join requerimiento \n"
                 + "                on actividad_id=req_actividad inner join pac on req_id=pac_req inner join pac_estado on pac_req=paces_pac join estado on paces_estado=estado_id join unidad on pac_unidad=unidad_id \n"
                 + "                join tipo_compra on pac_tc=tc_id where proyecto_id='" + oProy.getProyecto_id() + "' and (pac_verificacion is null or pac_verificacion=0 or pac_verificacion=2 or pac_verificacion=3) and actividad_estado=1 and req_estado=1 and componente_estado=1 order by paces_fecha desc) as su union all \n"
                 + "				(select req_id, req_nombre, req_descripcion, req_cantidad_anual, req_costo_unitario, \n"
-                + "                req_iva, pac_unidad, pac_tc, pac_cpc, paces_estado, paces_usuario, paces_fecha, paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre\n"
+                + "                req_iva, pac_unidad, pac_tc, pac_cpc, paces_estado, paces_usuario, paces_fecha, paces_observacion, estado_id, estado_nombre, pac_verificacion, unidad_nombre, tc_nombre, req_iva2\n"
                 + "                from proyecto inner join componente on proyecto_id=componente_proyecto join actividad on componente_id=actividad_componente join requerimiento \n"
                 + "                on actividad_id=req_actividad join pac on req_id=pac_req left join pac_estado on pac_req=paces_pac left join estado on paces_estado=estado_id join unidad on pac_unidad=unidad_id \n"
                 + "                join tipo_compra on pac_tc=tc_id where proyecto_id='" + oProy.getProyecto_id() + "' and (pac_verificacion is null or pac_verificacion=0 or pac_verificacion=2 or pac_verificacion=3) and actividad_estado=1 and req_estado=1 and componente_estado=1 and paces_estado is null order by paces_fecha desc);";
@@ -3010,6 +3013,7 @@ public class adActividadRequerimiento {
                         cComp.setUnidad_nombre(rsComp.getString("unidad_nombre"));
                         cComp.setTc_nombre(rsComp.getString("tc_nombre"));
                         cComp.setReq_verificacion(rsComp.getInt("pac_verificacion"));
+                        cComp.setReq_iva2(rsComp.getString("req_iva2"));
                         cComp.setCuatri(ListarCuatrimestreReq(cComp));
                         result.add(cComp);
                     }

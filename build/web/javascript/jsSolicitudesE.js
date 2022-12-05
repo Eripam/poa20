@@ -180,7 +180,6 @@ $('#example').on('click', 'tr td #visualReq', function () {
             .done(function (response) {
                 var num = 1, total = 0, totaliv = 0, div;
                 $.each(response, function () {
-                    alert(this.req_costo_total);
                     total += this.req_costo_total;
                     if (this.actividad_eval.length > 0) {
                         div = '<i class="fas fa-list-alt"></i>';
