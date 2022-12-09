@@ -3426,7 +3426,7 @@ public class servEjecucion extends HttpServlet {
         String porcentaje = request.getParameter("porcanticiposp");
         String recu = request.getParameter("recurrenteCertsp");
         String fecha = request.getParameter("fechainsp");
-        String liq=request.getParameter("liquCertsp");
+        String liq = request.getParameter("liquCertsp");
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
         Integer codigoid = 0;
@@ -3636,10 +3636,10 @@ public class servEjecucion extends HttpServlet {
                 cAct.setSolicitud_id(Integer.parseInt(solicitud));
                 cAct.setTc_id(Integer.parseInt(tipo));
                 cAct.setAe_observacion(obs);
-                cAct.setAe_tiempo(Integer.parseInt(recu));
                 cAct.setFecha_inicio(fecha);
-                cAct.setUnidad_id(Integer.parseInt(liqu));
                 if (tipo.equals("1")) {
+                    cAct.setAe_tiempo(Integer.parseInt(recu));
+                    cAct.setUnidad_id(Integer.parseInt(liqu));
                     result = adEj.IngresarCertificacionPVRec(cAct, 1);
                 } else {
                     result = adEj.IngresarCertificacionPV(cAct, 1);
@@ -3655,10 +3655,10 @@ public class servEjecucion extends HttpServlet {
                 cAct.setSolicitud_id(Integer.parseInt(solicitud));
                 cAct.setTc_id(Integer.parseInt(tipo));
                 cAct.setAe_observacion(obs);
-                cAct.setAe_tiempo(Integer.parseInt(recu));
                 cAct.setFecha_inicio(fecha);
-                cAct.setUnidad_id(Integer.parseInt(liqu));
                 if (tipo.equals("1")) {
+                    cAct.setAe_tiempo(Integer.parseInt(recu));
+                    cAct.setUnidad_id(Integer.parseInt(liqu));
                     result = adEj.IngresarCertificacionPVRec(cAct, 2);
                 } else {
                     result = adEj.IngresarCertificacionPV(cAct, 2);
@@ -3673,10 +3673,10 @@ public class servEjecucion extends HttpServlet {
                 cAct.setSolicitud_id(Integer.parseInt(solicitud));
                 cAct.setTc_id(Integer.parseInt(tipo));
                 cAct.setAe_observacion(obs);
-                cAct.setAe_tiempo(Integer.parseInt(recu));
                 cAct.setFecha_inicio(fecha);
-                cAct.setUnidad_id(Integer.parseInt(liqu));
                 if (tipo.equals("1")) {
+                    cAct.setAe_tiempo(Integer.parseInt(recu));
+                    cAct.setUnidad_id(Integer.parseInt(liqu));
                     result = adEj.IngresarCertificacionPVRec(cAct, 3);
                 } else {
                     result = adEj.IngresarCertificacionPV(cAct, 3);
@@ -3974,7 +3974,7 @@ public class servEjecucion extends HttpServlet {
         String observacion = request.getParameter("observacion");
         String rec = request.getParameter("recurrenteCert");
         String fecha = request.getParameter("fechain");
-        String liq=request.getParameter("liquCert");
+        String liq = request.getParameter("liquCert");
         String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
@@ -4033,7 +4033,7 @@ public class servEjecucion extends HttpServlet {
         String observacion = request.getParameter("observacionsp");
         String rec = request.getParameter("recurrenteCertsp");
         String fecha = request.getParameter("fechainsp");
-        String liq=request.getParameter("liquCertsp");
+        String liq = request.getParameter("liquCertsp");
         String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();

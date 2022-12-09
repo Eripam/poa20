@@ -19,6 +19,7 @@ public class cProcesoAcciones {
     private String am_meta;
     private String am_codigo;
     private String am_responsable;
+    private Boolean am_validar;
 
     public String getProceso_codigo() {
         return proceso_codigo;
@@ -82,5 +83,13 @@ public class cProcesoAcciones {
 
     public void setAm_responsable(String am_responsable) {
         this.am_responsable = am_responsable;
+    }
+
+    public Boolean getAm_validar() {
+        return am_validar;
+    }
+
+    public void setAm_validar(Boolean am_validar) {
+        this.am_validar = am_validar;
     }
 }

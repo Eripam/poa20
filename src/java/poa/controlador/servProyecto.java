@@ -93,6 +93,9 @@ public class servProyecto extends HttpServlet {
                 case "EliminarActividadProceso":
                     EliminarActividadProceso(request, response, intIdAreaGestion, strCedula);
                     break;
+                case "ValidarArticulacion":
+                    ValidarArticulacion(request, response, intIdAreaGestion, strCedula);
+                    break;
                 case "ListaProyectoCarreras":
                     ListaProyectoCarreras(request, response);
                     break;
@@ -1117,6 +1120,35 @@ public class servProyecto extends HttpServlet {
         if (result.equals("Correcto")) {
             cTransaccion objTransaccion = new cTransaccion();
             objTransaccion.setTransaccion_descripcion("La actividad \"" + actividad + "\" de articulación del proyecto con código: \"" + proyecto + "\" se elimino correctamente");
+            objTransaccion.setTransaccion_cedula(strCedula);
+            objTransaccion.setTransaccion_ag(intIdAreaGestion);
+            objTransaccion.setTransaccion_tipo(3);
+            ingresarTransaccion(objTransaccion);
+        }
+
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+    
+    private void ValidarArticulacion(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException {
+        String proyecto = request.getParameter("proyecto");
+        String actividad = request.getParameter("id");
+        String validar = request.getParameter("validar");
+        String result;
+        adProyecto aProy = new adProyecto();
+        cProyecto cProy = new cProyecto();
+
+        cProy.setProyecto_id(Integer.parseInt(proyecto));
+        cProy.setProyecto_ag(Integer.parseInt(actividad));
+        cProy.setProyecto_multi(Boolean.parseBoolean(validar));
+
+        result = aProy.ValidarAccionesProceso(cProy);
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_descripcion("La actividad \"" + actividad + "\" de articulación del proyecto con código: \"" + proyecto + "\" se valido correctamente");
             objTransaccion.setTransaccion_cedula(strCedula);
             objTransaccion.setTransaccion_ag(intIdAreaGestion);
             objTransaccion.setTransaccion_tipo(3);

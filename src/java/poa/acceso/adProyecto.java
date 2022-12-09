@@ -412,6 +412,8 @@ public class adProyecto {
                         oProy.setAm_meta(rsProy.getString("actproceso_meta"));
                         oProy.setAm_nombre(rsProy.getString("actproceso_nombre"));
                         oProy.setAm_responsable(rsProy.getString("actproceso_responsable"));
+                        oProy.setAm_validar(rsProy.getBoolean("am_validar"));
+                        oProy.setProceso_tipo(rsProy.getInt("am_id"));
                         result.add(oProy);
                     }
                     ad.desconectar();
@@ -1302,6 +1304,27 @@ public class adProyecto {
         String result = "Error al eliminar";
         String SQL = "DELETE FROM public.acciones_mejora\n"
                 + "	WHERE am_proyecto='" + oProy.getProyecto_id() + "' and am_nombre='" + oProy.getProyecto_acciones() + "';";
+
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.executeUpdate(SQL) != 0) {
+                    result = "Correcto";
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
+    
+    public String ValidarAccionesProceso(cProyecto oProy) {
+        String result = "Error al validar";
+        String SQL = "UPDATE public.acciones_mejora SET am_validar='"+oProy.getProyecto_multi()+"'\n"
+                + "	WHERE am_proyecto='" + oProy.getProyecto_id() + "' and am_id='" + oProy.getProyecto_ag() + "';";
 
         try {
             // Crear un AccesoDatos

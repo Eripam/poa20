@@ -156,13 +156,19 @@ $(document).ready(function () {
                         $('#modAccionInstitucionalMod').append('<div class="row container main-center cross-center" id="acmins"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejins[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconoplusins"></i></div></div>');
                         $('#modAccionCarreraMod').append('<div class="row container main-center cross-center" id="acmcar"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejca[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconopluscar"></i></div></div>');
                     }
-                    if ((tusu === "3" && estadof === 2) || (tusu === "4" && (estadof === 4 || estadof === 8 || estadof === 9)) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || (tusu === "5" && (estadof === 2 || estadof === 9)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 27 || estadof === 22 || estadof === 2 || estadof === 9)) || (tusu==="26" && (estadof===15 || estadof===6 || estadof===10 || estadof===11))) {
+                    if ((tusu === "3" && estadof === 2) || (tusu === "4" && (estadof === 4 || estadof === 8 || estadof === 9)) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || (tusu === "5" && (estadof === 2 || estadof === 9)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 27 || estadof === 22 || estadof === 2 || estadof === 9)) && (tusu !== "26")) {
                         //if ((tusu === "3" && estadof === 2) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 21 || estadof === 22 || estadof === 2))) {
                         $('#btn_proyecto_enviar').css({"display": "flex"});
+                        $('#btn_proyecto_articulacion').addClass('d-none');
                     } else if (tusu === "7" && (estadof === 4 || estadof === 8 || estadof === 9)) {
                         $('#btn_proyecto_enviar').css({"display": "flex"});
+                        $('#btn_proyecto_articulacion').addClass('d-none');
+                    } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
+                        $('#btn_proyecto_enviar').css({"display": "flex"});
+                        $('#btn_proyecto_articulacion').css({"display": "flex"});
                     } else {
                         $('#btn_proyecto_enviar').addClass('d-none');
+                        $('#btn_proyecto_articulacion').addClass('d-none');
                     }
                 });
                 listarComponente(proy);
@@ -229,13 +235,46 @@ function listaProcesosAr() {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
                         } else if (tusu === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26)) {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
+                        } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
+                            if (this.am_validar) {
+                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" checked name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                            } else {
+                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                            }
                         } else {
-                            div = '';
+                            if (this.am_validar) {
+                                div = '<i class="fas fa-check"></i>';
+                            } else {
+                                div = '<i class="fas fa-times"></i>';
+                            }
                         }
                         $('#listaAccionesM').append('<div class="p-0 estilobody encabezado_4 centro">' + this.proceso_codigo + '</div><div class="p-0 estilobody encabezado_4 text-justify">' + this.proceso_nombre + '</div><div class="p-0 estilobody encabezado_4 centro">' + this.am_codigo + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_meta + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_nombre + '</div><div class="estilobody text-center encabezado_5 centro">' + this.am_responsable + '</div><div class="estilobody centro encabezado_8">' + div + '</div>');
                     });
-                }else{
+                } else {
                     $('#listaAccionesM').append('<div class="p-0 estilobody encabezado_completo centro">SIN ARTICULACIÓN</div>');
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+function validarArt(id) {
+    $.ajax({
+        url: "../proyecto?accion=ValidarArticulacion",
+        type: 'POST',
+        data: {proyecto: $("#idProy").val(), id: id, validar: $('#checkvalidar'+id).is(':checked')},
+        dataType: 'json',
+        cache: false
+    })
+            .done(function (response) {
+                if (response === "Correcto") {
+                    alert("Ingresado correctamente");
+                } else {
+                    alert(response);
                 }
             })
             .fail(function () {
@@ -586,7 +625,7 @@ function listaRequerimiento(comp, i) {
                                         }
                                     }
                                 }
-                               if($('#stlAnio').val()<='2022'){
+                                if ($('#stlAnio').val() <= '2022') {
                                     $('#listaRequerimiento' + i).children('#listaact' + id + i).append('<div class="encabezado_2 estilobody text-justify" style="background-color:' + color + '">' + r.req_nombre + '</div><div class="estilobody encabezado_2 p-0" style="background-color:' + color + '" id="cuatrireq' + r.req_id + '"></div>\n\
                                 <div class="estilobody encabezado_4 centro" style="background-color:' + color + '">' + r.req_cantidad + '</div><div class="estilobody encabezado_4 centro" style="background-color:' + color + '">' + new Intl.NumberFormat("US", formateador()).format(r.req_costo_sin_iva) + '</div>\n\
                                 <div class="estilobody encabezado_5 centro" style="background-color:' + color + '">' + new Intl.NumberFormat("US", formateador()).format(r.req_costo_total) + '</div><div class="encabezado_5 estilobody centro" style="background-color:' + color + '">' + new Intl.NumberFormat("US", formateador()).format(r.ae_ejecucion) + '</div>\n\
@@ -594,7 +633,7 @@ function listaRequerimiento(comp, i) {
                                 <div class="estilobody encabezado_completo" id="desrequerimiento' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>\n\
                                 <div class="estilobody encabezado_completo_2" id="ejecucionreq' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>\n\
                                 <div class="estilobody encabezado_completo_2" id="serviciospro' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>');
-                               }else{
+                                } else {
                                     $('#listaRequerimiento' + i).children('#listaact' + id + i).append('<div class="encabezado_2 estilobody text-justify" style="background-color:' + color + '">' + r.req_nombre + '</div><div class="estilobody encabezado_2 p-0" style="background-color:' + color + '" id="cuatrireq' + r.req_id + '"></div>\n\
                                 <div class="estilobody encabezado_4 centro" style="background-color:' + color + '">' + r.req_cantidad + '</div><div class="estilobody encabezado_4 centro" style="background-color:' + color + '">' + new Intl.NumberFormat("US", formateador()).format(r.req_costo_total) + '</div>\n\
                                 <div class="estilobody encabezado_5 centro" style="background-color:' + color + '">' + new Intl.NumberFormat("US", formateador()).format(r.ae_ejecucion) + '</div><div class="encabezado_5 estilobody centro" style="background-color:' + color + '">' + r.req_iva2 + '</div>\n\
@@ -602,7 +641,7 @@ function listaRequerimiento(comp, i) {
                                 <div class="estilobody encabezado_completo" id="desrequerimiento' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>\n\
                                 <div class="estilobody encabezado_completo_2" id="ejecucionreq' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>\n\
                                 <div class="estilobody encabezado_completo_2" id="serviciospro' + this.req_id + i + '" style="display:none; background-color:rgba(0,0,0,0.15);"></div>');
-                               }
+                                }
                                 var pres, req = this.req_id;
                                 if (prio === 1) {
                                     pres = 'año:' + r.actividad_id;
@@ -643,13 +682,13 @@ function listaRequerimiento(comp, i) {
                                             }
                                         }
                                     } else if (r.req[ej].req_descripcion === "Aprobado Analista Planificación") {
-                                        ref = r.req[ej].req_reforma + "-STP-"+$('#stlAnio').val();
+                                        ref = r.req[ej].req_reforma + "-STP-" + $('#stlAnio').val();
                                         descripcion = r.req[ej].req_descripcion;
 
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;
                                     } else {
-                                        ref = r.req[ej].req_reforma + "-UCP-"+$('#stlAnio').val();
+                                        ref = r.req[ej].req_reforma + "-UCP-" + $('#stlAnio').val();
                                         descripcion = r.req[ej].req_descripcion;
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;
@@ -703,6 +742,37 @@ function listaRequerimiento(comp, i) {
 $(".encabezado").on('click', '.encabezado_4 #verReq', function () {
     var data = $(this).data();
     $('#desrequerimiento' + data['req'] + data['valor']).slideToggle();
+});
+
+$('#btn_proyecto_articulacion').on('click', function () {
+    $('.formulario#formArticulacion').removeClass('d-none');
+    window.location.href = '#formArticulacion';
+});
+
+//Ingresar articulación
+$('.col-10').on('click', '#btnGuardarArti', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: "../proyecto?accion=AgregarArticulacion",
+        type: 'POST',
+        data: $("#formArticulacion").serialize(),
+        dataType: 'json',
+        cache: false
+    })
+            .done(function (response) {
+                if (response === "Correcto") {
+                    listaProcesosAr();
+                } else {
+                    alert(response);
+                    listaProcesosAr();
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
 });
 
 //Ver modal requerimientos
@@ -860,7 +930,7 @@ $('#btn_proyecto_enviar').on('click', function (event) {
     } else if ($('#tipousuario').val() === "11" && estadof === 9) {
         $('#aprobarRadios').val(15);
         $('#modificarRadios').val(14);
-    }else if ($('#tipousuario').val() === "26") {
+    } else if ($('#tipousuario').val() === "26") {
         $('#aprobarRadios').val(52);
         $('#modificarRadios').val(51);
     }

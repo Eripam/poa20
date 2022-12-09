@@ -335,6 +335,7 @@
                         <%if (intAnio >= 2022) {%>
                         <div class="row justify-content-center">
                             <div class="col-12 row justify-content-center mt-5 mb-2 align-items-center"><p class="col-9 titulo2 p-0 m-0">ARTICULACIÓN CON PLANES DE ASEGURAMIENTO DE LA CALIDAD Y DE MEJORAS INSTITUCIONALES</p></div>
+                            <div class="row col-12"><button class="btn bton" id="btn_proyecto_articulacion">ARTICULAR PROYECTO <i class="fa fa-plus"></i></button></div>
                             <form class="col-10 container-fluid p-3 formulario pt-3 mt-4 needs-validation d-none" novalidate accept-charset="UTF-8" id="formArticulacion">
                                 <p class="titulo2">ARTICULACIÓN DE PROYECTO</p>
                                 <input type="hidden" name="proyectoArt" id="proyectoArt" value="<%=request.getParameter("id")%>">
@@ -367,8 +368,6 @@
                                 <button class="btn bton" id="btnGuardarArti">GUARDAR</button>
                                 <button class="btn bton" id="btncancelarArticu">CANCELAR</button>
                             </form>
-
-
                             <div class="tablaover">
                                 <div class="table mt-5 table-bordered table-striped table-responsive-md table-responsive-sm tablasdiv listaArticulacion">
                                     <div class="table-azul encabezado p-0">
