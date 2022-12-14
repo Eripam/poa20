@@ -50,6 +50,7 @@ public class servProyecto extends HttpServlet {
             HttpSession sesionOk = request.getSession(false);
             String strCedula = (String) sesionOk.getAttribute("cedulaUsuario");
             Integer intIdAreaGestion = (Integer) sesionOk.getAttribute("idAreaGestion");
+            Integer intTipoUsuario = (Integer) sesionOk.getAttribute("idTipoUsuario");
             switch (strAccion) {
                 case "ListarFecha":
                     ListarFecha(request, response);
@@ -88,7 +89,7 @@ public class servProyecto extends HttpServlet {
                     IngresarProyecto(request, response, intIdAreaGestion);
                     break;
                 case "AgregarArticulacion":
-                    AgregarArticulacion(request, response, intIdAreaGestion, strCedula);
+                    AgregarArticulacion(request, response, intIdAreaGestion, strCedula, intTipoUsuario);
                     break;
                 case "EliminarActividadProceso":
                     EliminarActividadProceso(request, response, intIdAreaGestion, strCedula);
@@ -385,7 +386,7 @@ public class servProyecto extends HttpServlet {
                             if (aProy.ValidarAcciones(oProy)) {
                                 sum++;
                             } else {
-                                result = aProy.IngresarAccionesCarreraProyecto(oProy);
+                                result = aProy.IngresarAccionesCarreraProyecto(oProy, false);
                             }
 
                             if (result.equals("Correcto")) {
@@ -858,11 +859,11 @@ public class servProyecto extends HttpServlet {
         }
     }
 
-    private void AgregarArticulacion(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException {
+    private void AgregarArticulacion(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula, Integer TipoUsuario) throws IOException {
         String proyecto = request.getParameter("proyectoArt");
         String actividades[] = request.getParameterValues("selectAcciones[]");
         String proceso = request.getParameter("selectProceso");
-
+        
         String result = "Error";
         adProyecto aProy = new adProyecto();
         cProyecto cProy = new cProyecto();
@@ -877,7 +878,11 @@ public class servProyecto extends HttpServlet {
                 if (aProy.ValidarAcciones(cProy)) {
                     sum++;
                 } else {
-                    result = aProy.IngresarAccionesCarreraProyecto(cProy);
+                    if(TipoUsuario==26){
+                        result = aProy.IngresarAccionesCarreraProyecto(cProy, true);
+                    }else{
+                        result = aProy.IngresarAccionesCarreraProyecto(cProy, false);
+                    }
                 }
 
                 if (result.equals("Correcto")) {

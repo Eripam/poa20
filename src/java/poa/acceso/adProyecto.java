@@ -1363,11 +1363,11 @@ public class adProyecto {
         return result;
     }
 
-    public String IngresarAccionesCarreraProyecto(cProyecto oProy) {
+    public String IngresarAccionesCarreraProyecto(cProyecto oProy, Boolean Validar) {
         String result = "Error al ingresar acciones";
         String SQL = "INSERT INTO public.acciones_mejora(\n"
-                + "	am_proceso, am_nombre, am_id, am_proyecto)\n"
-                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "');";
+                + "	am_proceso, am_nombre, am_id, am_proyecto, am_validar)\n"
+                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "', '"+Validar+"');";
 
         try {
             // Crear un AccesoDatos
