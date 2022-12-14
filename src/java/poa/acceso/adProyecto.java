@@ -412,6 +412,8 @@ public class adProyecto {
                         oProy.setAm_meta(rsProy.getString("actproceso_meta"));
                         oProy.setAm_nombre(rsProy.getString("actproceso_nombre"));
                         oProy.setAm_responsable(rsProy.getString("actproceso_responsable"));
+                        oProy.setAm_validar(rsProy.getBoolean("am_validar"));
+                        oProy.setProceso_tipo(rsProy.getInt("am_id"));
                         result.add(oProy);
                     }
                     ad.desconectar();
@@ -1318,6 +1320,27 @@ public class adProyecto {
         }
         return result;
     }
+    
+    public String ValidarAccionesProceso(cProyecto oProy) {
+        String result = "Error al validar";
+        String SQL = "UPDATE public.acciones_mejora SET am_validar='"+oProy.getProyecto_multi()+"'\n"
+                + "	WHERE am_proyecto='" + oProy.getProyecto_id() + "' and am_id='" + oProy.getProyecto_ag() + "';";
+
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.executeUpdate(SQL) != 0) {
+                    result = "Correcto";
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
 
     public String EliminarIntegrantes(Integer proy) {
         String result = "Error al eliminar";
@@ -1340,11 +1363,11 @@ public class adProyecto {
         return result;
     }
 
-    public String IngresarAccionesCarreraProyecto(cProyecto oProy) {
+    public String IngresarAccionesCarreraProyecto(cProyecto oProy, Boolean Validar) {
         String result = "Error al ingresar acciones";
         String SQL = "INSERT INTO public.acciones_mejora(\n"
-                + "	am_proceso, am_nombre, am_id, am_proyecto)\n"
-                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "');";
+                + "	am_proceso, am_nombre, am_id, am_proyecto, am_validar)\n"
+                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "', '"+Validar+"');";
 
         try {
             // Crear un AccesoDatos

@@ -58,7 +58,7 @@
                                         <select class="selectpicker my-select" multiple data-width="67%" data-live-search="true" name="ag" id="ag">
                                             <%
                                                 ResultSet rs2;
-                                                rs2 = adAreaGestion.listaAreaGestionFE();
+                                                rs2 = adAreaGestion.listaFaculAdmin();
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

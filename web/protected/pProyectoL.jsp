@@ -28,6 +28,12 @@
                     </div>
                     <div class="modal-body">
                         <form>
+                            <%if (intIdTipoUsuario == 26) {%>
+                            <div class="form-check col-6">
+                                <input class="form-check-input" type="radio" name="verificarRadios" id="aprobarRadios">
+                                <label class="form-check-label" for="exampleRadios1">Validar</label>
+                            </div>
+                            <%} else {%>
                             <div class="form-check col-6">
                                 <input class="form-check-input" type="radio" name="verificarRadios" id="aprobarRadios">
                                 <label class="form-check-label" for="exampleRadios1">Enviar/Aprobar</label>
@@ -36,6 +42,7 @@
                                 <input class="form-check-input" type="radio" name="verificarRadios" id="modificarRadios">
                                 <label class="form-check-label" for="exampleRadios2">Enviar a Modificar</label>
                             </div>
+                            <%}%>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Observación:</label>
                                 <textarea class="form-control" id="observacionEnviar" placeholder="Debe ingresar observación solo si va a enviar a modificar el proyecto"></textarea>
@@ -335,6 +342,7 @@
                         <%if (intAnio >= 2022) {%>
                         <div class="row justify-content-center">
                             <div class="col-12 row justify-content-center mt-5 mb-2 align-items-center"><p class="col-9 titulo2 p-0 m-0">ARTICULACIÓN CON PLANES DE ASEGURAMIENTO DE LA CALIDAD Y DE MEJORAS INSTITUCIONALES</p></div>
+                            <div class="row col-12"><button class="btn bton" id="btn_proyecto_articulacion">ARTICULAR PROYECTO <i class="fa fa-plus"></i></button></div>
                             <form class="col-10 container-fluid p-3 formulario pt-3 mt-4 needs-validation d-none" novalidate accept-charset="UTF-8" id="formArticulacion">
                                 <p class="titulo2">ARTICULACIÓN DE PROYECTO</p>
                                 <input type="hidden" name="proyectoArt" id="proyectoArt" value="<%=request.getParameter("id")%>">
@@ -367,18 +375,16 @@
                                 <button class="btn bton" id="btnGuardarArti">GUARDAR</button>
                                 <button class="btn bton" id="btncancelarArticu">CANCELAR</button>
                             </form>
-
-
                             <div class="tablaover">
                                 <div class="table mt-5 table-bordered table-striped table-responsive-md table-responsive-sm tablasdiv listaArticulacion">
                                     <div class="table-azul encabezado p-0">
                                         <div class="p-0 estilo encabezado_4">COD. PLAN</div>
                                         <div class="p-0 estilo encabezado_4">PLAN</div>
                                         <div class="estilo encabezado_4">NUM. ACT</div>
-                                        <div class="estilo encabezado_7">META</div>
+                                        <div class="estilo encabezado_2">META</div>
                                         <div class="estilo encabezado_7">ACTIVIDAD</div>
                                         <div class="estilo encabezado_5">RESPONSABLE</div>
-                                        <div class="estilo encabezado_8">X</div>
+                                        <div class="estilo encabezado_4">VALIDACIÓN</div>
                                     </div>
                                     <div id="listaAccionesM" class="align-self-center encabezado p-0"></div>
                                 </div>
