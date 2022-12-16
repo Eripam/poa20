@@ -3079,7 +3079,7 @@ public class adActividadRequerimiento {
         List<cProyecto> result = new ArrayList<cProyecto>();
         String SQL = "select * from (select distinct on(deudas_id) deudas_id, deudas_oei, deudas_proyecto, deudas_nombre_proceso, deudas_contrato, deudas_tcon, deudas_financiamiento, deudas_monto, deudas_ag, deudas_estado, deudas_iva, deudas_presupuesto, \n"
                 + "deudas_tipo, deudas_anticipo, deudas_area, deudas_reforma, deudas_anio, deudas_monto_pendiente, de_usuario, de_estado, financiamiento_nombre, tcon_nombre, ag_nombre from (select * from deudas inner join deudas_estado on deudas_id=de_deudas join financiamiento on deudas_financiamiento=financiamiento_id join tipo_contratacion on deudas_tcon=tcon_id join area_gestion on deudas_ag=ag_id order by de_deudas, de_fecha desc) as con)as con \n"
-                + "where deudas_id='"+codigo+"' and de_estado=22";
+                + "where deudas_id='" + codigo + "' and de_estado=22";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -3224,11 +3224,11 @@ public class adActividadRequerimiento {
             return result;
         }
     }
-    
+
     //Listar presupuesto deudas
     public List<cActividadRequerimiento> ListarPresupuestoDeudas(Integer req) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select * from deudas_estructura where de_deudas='"+req+"';";
+        String SQL = "select * from deudas_estructura where de_deudas='" + req + "';";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -3996,7 +3996,7 @@ public class adActividadRequerimiento {
             return result;
         }
     }
-    
+
     //Lista para reporte excel
     public List<cActividadRequerimiento> ListarRequerimientosExcel23() {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
@@ -4081,7 +4081,7 @@ public class adActividadRequerimiento {
                         cComp.setCp_valor(rsComp.getDouble("valorcertificacion"));
                         cComp.setCp_tipo(rsComp.getString("tipocert"));
                         cComp.setAe_observacion(rsComp.getString("codigocp"));
-                        cComp.setAp_id(rsComp.getInt("apid"));
+                        //cComp.setAp_id(rsComp.getInt("apid"));
                         cComp.setObjetivo_nombre(rsComp.getString("apr_nombre"));
                         cComp.setVerificado_iva(rsComp.getDouble("verificados"));
                         if (rsComp.getDouble("sp_total") > 0) {
@@ -4733,9 +4733,14 @@ public class adActividadRequerimiento {
     }
 
     //Lista para reporte excel deudas
-    public List<cActividadRequerimiento> ListarRequerimientosExcelDeudas22() {
+    public List<cActividadRequerimiento> ListarRequerimientosExcelDeudas22(Integer anio) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz22;";
+        String SQL;
+        if (anio == 2022) {
+            SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz22;";
+        } else {
+            SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz23;";
+        }
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

@@ -1177,7 +1177,7 @@ public class reporteExcel extends HttpServlet {
             re = aReq.ListarRequerimientosExcel21();
         } else if (anio.equals("2022")) {
             re = aReq.ListarRequerimientosExcel22();
-        }else{
+        } else {
             re = aReq.ListarRequerimientosExcel23();
         }
         re2 = aReq.ListarRequerimientosExcelDeudas2(Integer.parseInt(anio));
@@ -4246,12 +4246,12 @@ public class reporteExcel extends HttpServlet {
         if (anio.equals("2021")) {
             re = aReq.ListarRequerimientosExcel21();
             deudas = aReq.ListarRequerimientosExcelDeudas21();
-        } else if(anio.equals("2022")){
+        } else if (anio.equals("2022")) {
             re = aReq.ListarRequerimientosExcel22();
-            deudas = aReq.ListarRequerimientosExcelDeudas22();
+            deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
         } else {
             re = aReq.ListarRequerimientosExcel23();
-            deudas = aReq.ListarRequerimientosExcelDeudas22();
+            deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
         }
         Row row = sheet.createRow(0);
         Row row2 = sheet.createRow(1);
@@ -8936,7 +8936,7 @@ public class reporteExcel extends HttpServlet {
             }
             Integer r = aRequ.IngresarPresupuesto(cRequ);
             if (r > 0) {
-                result = "," + r;
+                result = result + "," + r;
                 sum++;
             }
         }
@@ -11025,7 +11025,7 @@ public class reporteExcel extends HttpServlet {
                 result = aRequ.IngresarRequerimientoCuatrimestre(cRequ);
             }
             if (result.equals("Correcto")) {
-                val =val+ "," + r;
+                val = val + "," + r;
                 sum++;
             }
         }

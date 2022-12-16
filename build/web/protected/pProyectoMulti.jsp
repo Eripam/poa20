@@ -62,6 +62,12 @@
                     </div>
                     <div class="modal-body">
                         <form>
+                            <%if (intIdTipoUsuario == 26) {%>
+                            <div class="form-check col-6">
+                                <input class="form-check-input" type="radio" name="verificarRadios" id="aprobarRadios">
+                                <label class="form-check-label" for="exampleRadios1">Validar</label>
+                            </div>
+                            <%} else {%>
                             <div class="form-check col-6">
                                 <input class="form-check-input" type="radio" name="verificarRadios" id="aprobarRadios">
                                 <label class="form-check-label" for="exampleRadios1">Enviar/Aprobar</label>
@@ -70,6 +76,7 @@
                                 <input class="form-check-input" type="radio" name="verificarRadios" id="modificarRadios">
                                 <label class="form-check-label" for="exampleRadios2">Enviar a Modificar</label>
                             </div>
+                            <%}%>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Observación:</label>
                                 <textarea class="form-control" id="observacionEnviar" placeholder="Debe ingresar observación solo si va a enviar a modificar el proyecto"></textarea>

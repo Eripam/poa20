@@ -32,7 +32,7 @@ function listarProyectoCarreras(tipou, areapadre, ti, area, anio) {
                     } else {
                         estado = this.estado_nombre;
                     }
-                    if (this.ag.ag_id.toString() === area && tipou !== "2" && tipou !== "5" && $("#tipoUsuario").val() !== "4" && this.proyecto_multi === false) {
+                    if (this.ag.ag_id.toString() === area && tipou !== "2" && tipou !== "5" && $("#tipoUsuario").val() !== "4" && $("#tipoUsuario").val() !== "26" && this.proyecto_multi === false) {
                         enlace = '<a href="pProyecto.jsp?id=' + this.proyecto_id + '" title="Ir a proyecto"><i class="fas fa-external-link-alt"></i></a>';
                     } else if (tipou === "1" && this.proyecto_multi === false) {
                         enlace = '<a href="pProyectoPrio.jsp?id=' + this.proyecto_id + '" title="Ir a proyecto"><i class="fas fa-external-link-alt"></i></a>';
