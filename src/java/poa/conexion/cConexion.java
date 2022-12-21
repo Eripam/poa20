@@ -11,9 +11,9 @@ package poa.conexion;
  */
 
 public class cConexion {
-    /*public static String driverClass = "org.postgresql.Driver";
-    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-17-11-2022";
-    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-06-12-2022";
+    public static String driverClass = "org.postgresql.Driver";
+    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-16-12-2022";
+    //public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-06-12-2022";
     public static String usuarioDB = "postgres";
     public static String claveDB = "123";
     
@@ -28,9 +28,9 @@ public class cConexion {
     public static String usuarioDB = "user_sieb";
     public static String claveDB = "dM<31B)8)I&Z";*/
     
-    /*Servidor de pruebas*/
+    /*Servidor de pruebas
     public static String driverClass = "org.postgresql.ds.PGSimpleDataSource";
     public static String databaseURL = "jdbc:postgresql://172.17.103.25:5445/sip";
     public static String usuarioDB = "usiplan";
-    public static String claveDB = "2022usiplan@@";
+    public static String claveDB = "2022usiplan@@";*/
 }
