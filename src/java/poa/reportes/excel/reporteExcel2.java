@@ -1991,7 +1991,7 @@ public class reporteExcel2 extends HttpServlet {
             deudas = aReq.ListarRequerimientosExcelDeudas21();
         } else {
             re = aReq.ListarRequerimientosExcel22();
-            deudas = aReq.ListarRequerimientosExcelDeudas22();
+            deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
         }
         Row row = sheet.createRow(0);
         Row row2 = sheet.createRow(1);

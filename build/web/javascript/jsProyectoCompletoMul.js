@@ -239,7 +239,7 @@ $(document).ready(function () {
                         $('#btn_proyecto_eliminar').addClass('d-none');
                     } else if (tusu === "26" && estadof === 15) {
                         $('#btn_proyecto_enviar').removeClass('d-none');
-                        $('#btn_proyecto_articulacion').addClass('d-none');
+                        $('#btn_proyecto_articulacion').css({"display": "flex"});
                         $('#btn-modificar').addClass('d-none');
                         $('#btn_proyecto_eliminar').addClass('d-none');
                     } else if (tusu === "1" && estadof === 15) {
@@ -768,13 +768,46 @@ function listaProcesosAr() {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
                         } else if (tusu === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26)) {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
+                        } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
+                            if (this.am_validar) {
+                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" checked name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                            } else {
+                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                            }
                         } else {
-                            div = '';
+                            if (this.am_validar) {
+                                div = '<i class="fas fa-check"></i>';
+                            } else {
+                                div = '<i class="fas fa-times"></i>';
+                            }
                         }
                         $('#listaAccionesM').append('<div class="p-0 estilobody encabezado_4 centro">' + this.proceso_codigo + '</div><div class="p-0 estilobody encabezado_4 text-justify">' + this.proceso_nombre + '</div><div class="p-0 estilobody encabezado_4 centro">' + this.am_codigo + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_meta + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_nombre + '</div><div class="estilobody text-center encabezado_5 centro">' + this.am_responsable + '</div><div class="estilobody centro encabezado_8">' + div + '</div>');
                     });
                 }else{
                     $('#listaAccionesM').append('<div class="p-0 estilobody encabezado_completo centro">SIN ARTICULACIÓN</div>');
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+function validarArt(id) {
+    $.ajax({
+        url: "../proyecto?accion=ValidarArticulacion",
+        type: 'POST',
+        data: {proyecto: $("#idProy").val(), id: id, validar: $('#checkvalidar'+id).is(':checked')},
+        dataType: 'json',
+        cache: false
+    })
+            .done(function (response) {
+                if (response === "Correcto") {
+                    alert("Ingresado correctamente");
+                } else {
+                    alert(response);
                 }
             })
             .fail(function () {
@@ -3096,7 +3129,6 @@ $('#btn_proyecto_enviar').on('click', function (event) {
         $('#modificarRadios').val(14);
     } else if ($('#tipousuario').val() === "26") {
         $('#aprobarRadios').val(52);
-        $('#modificarRadios').val(51);
     } else if ($('#tipousuario').val() === "1") {
         $('#aprobarRadios').val(17);
         $('#modificarRadios').val(14);

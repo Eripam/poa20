@@ -11,9 +11,10 @@ package poa.conexion;
  */
 
 public class cConexion {
+    /*Base local*/
     public static String driverClass = "org.postgresql.Driver";
-    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-16-12-2022";
-    //public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-06-12-2022";
+    //public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-17-11-2022";
+    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-20-12-2022";
     public static String usuarioDB = "postgres";
     public static String claveDB = "123";
     
