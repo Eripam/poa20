@@ -17,6 +17,7 @@ $(document).ready(function () {
 
 function listarProyectoCarreras(tipou, areapadre, ti, area, anio) {
     $('#listaProyectos').empty();
+    $('#loader').removeClass("d-none");
     $.ajax({
         url: "../proyecto?accion=ListaProyectoUnidades",
         type: 'POST',
@@ -45,14 +46,38 @@ function listarProyectoCarreras(tipou, areapadre, ti, area, anio) {
                     $('#listaProyectos').append('<tr><td class="text-justify col-2">' + this.ag.ag_nombre + '</td><td class="text-justify">' + this.proyecto_nombre + '</td><td class="text-justify">' + this.proyecto_responsable + '</td><td>' + this.tp_nombre + '</td><td>' + new Intl.NumberFormat("US", formateador()).format(this.proyecto_monto) + '</td><td>' + estado + '</td><td>' + enlace + '</td></tr>');
                 });
                 $('#listaProyectos').append('<tr><td class="text-center" colspan="7">' + new Intl.NumberFormat("US", formateador()).format(total) + '</td></tr>');
+                $('#loader').addClass('d-none');
             })
             .fail(function () {
                 console.log('No existe conexión con la base de datos.');
+                $('#loader').addClass('d-none');
             })
             .always(function () {
                 console.log('Se completo correctamente');
             });
 }
+
+
+$('#actualizarM').on('click', function () {
+    $('#loader').removeClass("d-none");
+    $.ajax({
+        url: "../proyecto?accion=EjecutarFuncionMontos",
+        type: 'POST',
+        data: {anio: $('#selectoranio').val()},
+        dataType: 'json'
+    })
+            .done(function (response) {
+                alert(response);
+                $('#loader').addClass('d-none');
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+                $('#loader').addClass('d-none');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+});
 
 $('#selectareas').on('change', function () {
     let tip;

@@ -385,8 +385,10 @@ public class adTecho {
             SQL = "SELECT * FROM public.vpresupuesto";
         } else if (anio == 2021) {
             SQL = "SELECT * FROM public.vpresupuesto2";
-        } else {
+        } else if(anio==2022){
             SQL = "SELECT * FROM public.vpresupuesto3";
+        } else {
+            SQL = "SELECT * FROM public.vpresupuesto4";
         }
         try {
             // Crear un AccesoDatos
@@ -664,8 +666,10 @@ public class adTecho {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar where reqanio=2021 and agid=vs.agid) from vsalvaguardar as vs where reqanio=2021";
         } else if (anio == 2021) {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar21 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar21 as vs where reqanio>'" + anio + "'";
-        } else {
+        } else if(anio == 2022){
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar22 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar22 as vs where reqanio>'" + anio + "'";
+        } else {
+            SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar23 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar23 as vs where reqanio>'" + anio + "'";
         }
         try {
             // Crear un AccesoDatos

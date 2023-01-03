@@ -11,18 +11,18 @@ package poa.conexion;
  */
 
 public class cConexion {
-    /*Base local*/
+    /*Base local
     public static String driverClass = "org.postgresql.Driver";
     //public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-17-11-2022";
     public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-20-12-2022";
     public static String usuarioDB = "postgres";
     public static String claveDB = "123";
     
-    /*Servidor institucional 
+    /*Servidor institucional*/
     public static String driverClass = "org.postgresql.Driver";
     public static String databaseURL = "jdbc:postgresql://172.17.102.150:3311/sip";
     public static String usuarioDB = "user_sieb";
-    public static String claveDB = "3sp0chPlanificacion";*/
+    public static String claveDB = "3sp0chPlanificacion";
       
     /*public static String driverClass = "org.postgresql.ds.PGSimpleDataSource";
     public static String databaseURL = "jdbc:postgresql://localhost/sip";

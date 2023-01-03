@@ -217,6 +217,9 @@ public class servProyecto extends HttpServlet {
                 case "EliminarEstructuraD":
                     EliminarEstructuraD(request, response);
                     break;
+                case "EjecutarFuncionMontos":
+                    EjecutarFuncionMontos(request, response);
+                    break;
             }
         }
     }
@@ -689,6 +692,19 @@ public class servProyecto extends HttpServlet {
         adProyecto aProy = new adProyecto();
 
         result = aProy.VerificacionProyecto(Integer.parseInt(proy), Integer.parseInt(anio));
+
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+    
+    private void EjecutarFuncionMontos(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String anio = request.getParameter("anio");
+        String result;
+        adProyecto aProy = new adProyecto();
+
+        result = aProy.ejecutarActualizarMontos(Integer.parseInt(anio));
 
         String json = new Gson().toJson(result);
         response.setContentType("application/json");

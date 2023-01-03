@@ -242,7 +242,7 @@ $(document).ready(function () {
                         $('#btn_proyecto_articulacion').css({"display": "flex"});
                         $('#btn-modificar').addClass('d-none');
                         $('#btn_proyecto_eliminar').addClass('d-none');
-                    } else if (tusu === "1" && estadof === 15) {
+                    } else if (tusu === "1" && estadof === 52) {
                         $('#btn_proyecto_enviar').removeClass('d-none');
                         $('#btn_proyecto_articulacion').removeClass('d-none');
                         $('#btn-modificar').addClass('d-none');
@@ -1180,7 +1180,7 @@ function listaActividad(comp, i, numero) {
                         $('#btn_proyecto_enviar').css({"display": "flex"});
                     } else if (tusu === "26" && estadof === 15) {
                         $('#btn_proyecto_enviar').css({"display": "flex"});
-                    } else if (tusu === "1" && estadof === 15) {
+                    } else if (tusu === "1" && estadof === 52) {
                         $('#btn_proyecto_enviar').css({"display": "flex"});
                     } else {
                         $('#btn_proyecto_enviar').css({"display": "none"});

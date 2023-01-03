@@ -13,6 +13,11 @@
     <%@include file="plantillas/head.jsp" %> 
     <link rel="stylesheet" type="text/css" href="../css/dataTables.bootstrap4.min.css">
     <body>
+        <div class="cross-center main-center d-none" id="loader" style="background: rgba(0,0,0,.1); z-index: 1000; position: absolute; width: 100%; min-height: 100vh;">
+            <div class="spinner-border text-info" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <%@include file="plantillas/header.jsp" %> 
         <div class="container-fluid p-0 main">
             <div class="row mt-3">
@@ -47,7 +52,7 @@
                                 <label>Unidad:</label>
                                 <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" data-selected-text-format="count > 6" id="selectareas" name="selectareas">
                                     <option disabled selected>Seleccionar..</option>
-                                    <%if (intIdTipoUsuario != 11 && intIdTipoUsuario!=26) {%>
+                                    <%if (intIdTipoUsuario != 11 && intIdTipoUsuario != 26) {%>
                                     <option value="0">Todos</option>
                                     <%}
                                         ResultSet rs;
@@ -79,6 +84,9 @@
                                 </select>
                             </div>
                             <%}%>
+                            <div class="col-3">
+                                <button id="actualizarM">Actualizar Montos</button>
+                            </div>
                         </div>
                         <table class="container-fluid table table-sm mt-5 table-bordered table-hover table-striped  table-responsive-md table-responsive-sm" id="listaProyectoTable">
                             <thead class="table-azul">

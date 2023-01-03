@@ -70,6 +70,26 @@ public class adProyecto {
         return rs;
     }
 
+    //Ejecutar montos
+    public String ejecutarActualizarMontos(Integer anio) {
+        String rs = "Error";
+        String SQL = "select * from f_actualizarmontosproy2021(?);";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelectPersObj(SQL, anio) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    rs = rsCodigo.getString("f_actualizarmontosproy2021");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+
     //Mostrar Procesos
     static public ResultSet listarProcesosAutoevalActivos() {
         ResultSet rs = null;
@@ -1320,10 +1340,10 @@ public class adProyecto {
         }
         return result;
     }
-    
+
     public String ValidarAccionesProceso(cProyecto oProy) {
         String result = "Error al validar";
-        String SQL = "UPDATE public.acciones_mejora SET am_validar='"+oProy.getProyecto_multi()+"'\n"
+        String SQL = "UPDATE public.acciones_mejora SET am_validar='" + oProy.getProyecto_multi() + "'\n"
                 + "	WHERE am_proyecto='" + oProy.getProyecto_id() + "' and am_id='" + oProy.getProyecto_ag() + "';";
 
         try {
@@ -1367,7 +1387,7 @@ public class adProyecto {
         String result = "Error al ingresar acciones";
         String SQL = "INSERT INTO public.acciones_mejora(\n"
                 + "	am_proceso, am_nombre, am_id, am_proyecto, am_validar)\n"
-                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "', '"+Validar+"');";
+                + "	VALUES ('" + oProy.getProyecto_proceso() + "', '" + oProy.getProyecto_acciones() + "', '" + codigoSiguienteacciones() + "' , '" + oProy.getProyecto_id() + "', '" + Validar + "');";
 
         try {
             // Crear un AccesoDatos
@@ -2578,10 +2598,10 @@ public class adProyecto {
     public String ModificarDeudasEstructura(cActividadRequerimiento cAct) {
         String result = "Error al ingresar";
         String SQL = "UPDATE public.deudas_estructura\n"
-                + "	SET de_programa='"+cAct.getPresupuesto_programa()+"', de_subprograma='"+cAct.getPresupuesto_subprograma()+"', de_proyecto='"+cAct.getPresupuesto_proyecto()+"', de_actividad='"+cAct.getPresupuesto_actividad()+"', de_renglo='"+cAct.getPresupuesto_renglo()+"', "
-                + "     de_geografico='"+cAct.getPresupuesto_geografico()+"', de_fuente='"+cAct.getPresupuesto_fuente()+"', de_organismo='"+cAct.getPresupuesto_organismo()+"', de_correlativo='"+cAct.getPresupuesto_correlativo()+"', de_ejercicio='"+cAct.getPresupuesto_ejercicio()+"', "
-                + "     de_entidad='"+cAct.getPresupuesto_entidad()+"', de_unidad_desc='"+cAct.getPresupuesto_unidad_desc()+"', de_unidad_ejec='"+cAct.getPresupuesto_unidad_ejec()+"', de_obra='"+cAct.getPresupuesto_obra()+"', de_renglo_aux='"+cAct.getPresupuesto_renglo_aux()+"'\n"
-                + "	WHERE de_deudas='"+cAct.getReq_id()+"' and de_iva='"+cAct.getPresupuesto_id()+"';";
+                + "	SET de_programa='" + cAct.getPresupuesto_programa() + "', de_subprograma='" + cAct.getPresupuesto_subprograma() + "', de_proyecto='" + cAct.getPresupuesto_proyecto() + "', de_actividad='" + cAct.getPresupuesto_actividad() + "', de_renglo='" + cAct.getPresupuesto_renglo() + "', "
+                + "     de_geografico='" + cAct.getPresupuesto_geografico() + "', de_fuente='" + cAct.getPresupuesto_fuente() + "', de_organismo='" + cAct.getPresupuesto_organismo() + "', de_correlativo='" + cAct.getPresupuesto_correlativo() + "', de_ejercicio='" + cAct.getPresupuesto_ejercicio() + "', "
+                + "     de_entidad='" + cAct.getPresupuesto_entidad() + "', de_unidad_desc='" + cAct.getPresupuesto_unidad_desc() + "', de_unidad_ejec='" + cAct.getPresupuesto_unidad_ejec() + "', de_obra='" + cAct.getPresupuesto_obra() + "', de_renglo_aux='" + cAct.getPresupuesto_renglo_aux() + "'\n"
+                + "	WHERE de_deudas='" + cAct.getReq_id() + "' and de_iva='" + cAct.getPresupuesto_id() + "';";
 
         try {
             // Crear un AccesoDatos
@@ -2598,16 +2618,16 @@ public class adProyecto {
         }
         return result;
     }
-    
+
     //Ingresar Deudas estructura
     public String IngresarDeudasEstructura(cActividadRequerimiento cAct) {
         String result = "Error al ingresar";
         String SQL = "INSERT INTO public.deudas_estructura(de_programa, de_subprograma, de_proyecto, de_actividad, de_renglo, de_geografico, de_fuente, de_organismo, de_correlativo, de_ejercicio,"
                 + "     de_entidad, de_unidad_desc, de_unidad_ejec, de_obra, de_renglo_aux, de_deudas, de_iva)\n"
-                + "	 values('"+cAct.getPresupuesto_programa()+"', '"+cAct.getPresupuesto_subprograma()+"', '"+cAct.getPresupuesto_proyecto()+"', '"+cAct.getPresupuesto_actividad()+"', '"+cAct.getPresupuesto_renglo()+"', "
-                + "     '"+cAct.getPresupuesto_geografico()+"', '"+cAct.getPresupuesto_fuente()+"', '"+cAct.getPresupuesto_organismo()+"', '"+cAct.getPresupuesto_correlativo()+"', '"+cAct.getPresupuesto_ejercicio()+"', "
-                + "     '"+cAct.getPresupuesto_entidad()+"', '"+cAct.getPresupuesto_unidad_desc()+"', '"+cAct.getPresupuesto_unidad_ejec()+"', '"+cAct.getPresupuesto_obra()+"', '"+cAct.getPresupuesto_renglo_aux()+"',\n"
-                + "	'"+cAct.getReq_id()+"', '"+cAct.getPresupuesto_id()+"');";
+                + "	 values('" + cAct.getPresupuesto_programa() + "', '" + cAct.getPresupuesto_subprograma() + "', '" + cAct.getPresupuesto_proyecto() + "', '" + cAct.getPresupuesto_actividad() + "', '" + cAct.getPresupuesto_renglo() + "', "
+                + "     '" + cAct.getPresupuesto_geografico() + "', '" + cAct.getPresupuesto_fuente() + "', '" + cAct.getPresupuesto_organismo() + "', '" + cAct.getPresupuesto_correlativo() + "', '" + cAct.getPresupuesto_ejercicio() + "', "
+                + "     '" + cAct.getPresupuesto_entidad() + "', '" + cAct.getPresupuesto_unidad_desc() + "', '" + cAct.getPresupuesto_unidad_ejec() + "', '" + cAct.getPresupuesto_obra() + "', '" + cAct.getPresupuesto_renglo_aux() + "',\n"
+                + "	'" + cAct.getReq_id() + "', '" + cAct.getPresupuesto_id() + "');";
 
         try {
             // Crear un AccesoDatos
@@ -2624,11 +2644,11 @@ public class adProyecto {
         }
         return result;
     }
-    
+
     //Eliminar Deudas estructura
     public String EliminarDeudasEstructura(cActividadRequerimiento cAct) {
         String result = "Error al ingresar";
-        String SQL = "DELETE FROM public.deudas_estructura where de_deudas='"+cAct.getReq_id()+"' and de_iva='"+cAct.getTc_id()+"';";
+        String SQL = "DELETE FROM public.deudas_estructura where de_deudas='" + cAct.getReq_id() + "' and de_iva='" + cAct.getTc_id() + "';";
 
         try {
             // Crear un AccesoDatos
