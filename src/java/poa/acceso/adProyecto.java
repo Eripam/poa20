@@ -414,9 +414,14 @@ public class adProyecto {
     }
 
     //Listar actividades proceso
-    public List<cProcesoAcciones> ListarProcesoActividad(Integer proyecto) {
+    public List<cProcesoAcciones> ListarProcesoActividad(Integer proyecto, Integer tipo) {
         List<cProcesoAcciones> result = new ArrayList<cProcesoAcciones>();
-        String SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "';";
+        String SQL;
+        if (tipo == 1) {
+            SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "';";
+        } else {
+            SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "' and am_validar=true;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1033,7 +1038,7 @@ public class adProyecto {
                         oProy.setEstado(ListarProyectoEstados(proy));
                         oProy.setAreas(ListarProyectoAreas(proy));
                         if (rsProy.getInt("proyecto_anio") >= 2022) {
-                            oProy.setProceso(ListarProcesoActividad(proy));
+                            oProy.setProceso(ListarProcesoActividad(proy, 2));
                         } else {
                             oProy.setProceso(ListarProyectoAcciones(proy));
                         }

@@ -677,7 +677,7 @@ public class servProyecto extends HttpServlet {
         List<cProcesoAcciones> result = new ArrayList<cProcesoAcciones>();
         adProyecto aProy = new adProyecto();
 
-        result = aProy.ListarProcesoActividad(Integer.parseInt(proy));
+        result = aProy.ListarProcesoActividad(Integer.parseInt(proy), 1);
 
         String json = new Gson().toJson(result);
         response.setContentType("application/json");

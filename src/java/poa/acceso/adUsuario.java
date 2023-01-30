@@ -71,7 +71,7 @@ public class adUsuario {
     //Listar Usuario login
     public static List<cUsuario> ListaTiposUsuarioLogin(String oLogin) {
         List<cUsuario> result = new ArrayList<cUsuario>();
-        String SQL = "select *, 2022 as anio from asignar_usuario inner join tipo_usuario on au_tu=tu_id join area_gestion on au_ag=ag_id join tipo_area_gestion on tag_id=ag_tag where au_usuario='" + oLogin + "' and au_estado=1 order by tu_id asc";
+        String SQL = "select *, 2023 as anio from asignar_usuario inner join tipo_usuario on au_tu=tu_id join area_gestion on au_ag=ag_id join tipo_area_gestion on tag_id=ag_tag where au_usuario='" + oLogin + "' and au_estado=1 order by tu_id asc";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

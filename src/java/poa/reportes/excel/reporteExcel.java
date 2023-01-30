@@ -733,7 +733,7 @@ public class reporteExcel extends HttpServlet {
 
     private static final String[] titles2 = {
         "CODIGO CATEGORIA CPC A NIVEL 9", "TIPO COMPRA (Bien, obras, servicio o consultoría)",
-        "DETALLE DEL PRODUCTO (Descripción de la contratación)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares)", "COSTO TOTAL (Dólares)", "COSTO TOTAL IVA (Dólares)", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)",
+        "DETALLE DEL PRODUCTO (Descripción de la contratación)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares)", "SUBTOTAL", "TOTAL", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)",
         "CUATRIMESTRE 2 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 3 (marcar con una S en el cuatrimestre que va a contratar)", "TIPO DE PRODUCTO (normalizado / no normalizado)",
         "CATALOGO ELECTRÓNICO (si/no)", "PROCEDIMIENTO SUGERIDO (son los procedimientos de contratación)", "FONDOS BID (si/no)", "NUMERO CÓDIGO DE OPERACIÓN DEL PRÉSTAMO BID",
         "NUMERO CÓDIGO DE PROYECTO BID", "TIPO DE RÉGIMEN (común, especial)", "TIPO DE PRESUPUESTO (proyecto de inversión, gasto corriente)"
@@ -751,7 +751,7 @@ public class reporteExcel extends HttpServlet {
     private static final String[] titles2j = {
         "CODIGO CATEGORIA CPC A NIVEL 9", "TIPO COMPRA (Bien, obras, servicio o consultoría)",
         "DETALLE DEL PRODUCTO (Descripción de la contratación) (PLANIFICADO)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL (PLANIFICADO)", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares) (PLANIFICADO)",
-        "COSTO TOTAL (Dólares)(PLANIFICADO)", "COSTO TOTAL IVA(Dólares)(PLANIFICADO)", "DETALLE DEL PRODUCTO (UNIFICADO)", "CANTIDAD ANUAL (UNIFICADO)", "COSTO UNITARIO (Dólares) (UNIFICADO)", "COSTO TOTAL (Dólares)(UNIFICADO)",
+        "SUBTOTAL", "TOTAL", "DETALLE DEL PRODUCTO (UNIFICADO)", "CANTIDAD ANUAL (UNIFICADO)", "COSTO UNITARIO (Dólares) (UNIFICADO)", "COSTO TOTAL (Dólares)(UNIFICADO)",
         "JUSTIFICATIVO", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 2 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 3 (marcar con una S en el cuatrimestre que va a contratar)",
         "TIPO DE PRODUCTO (normalizado / no normalizado)", "CATALOGO ELECTRÓNICO (si/no)", "PROCEDIMIENTO SUGERIDO (son los procedimientos de contratación)", "FONDOS BID (si/no)", "NUMERO CÓDIGO DE OPERACIÓN DEL PRÉSTAMO BID",
         "NUMERO CÓDIGO DE PROYECTO BID", "TIPO DE RÉGIMEN (común, especial)", "TIPO DE PRESUPUESTO (proyecto de inversión, gasto corriente)"

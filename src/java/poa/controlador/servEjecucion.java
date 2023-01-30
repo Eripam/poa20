@@ -3362,8 +3362,6 @@ public class servEjecucion extends HttpServlet {
             } else {
                 obs = observacion;
             }
-            cAct.setAe_tiempo(Integer.parseInt(recu));
-            cAct.setUnidad_id(Integer.parseInt(liq));
             cAct.setActividad_id(codigoid);
             cAct.setReq_id(Integer.parseInt(req));
             cAct.setReq_costo_total(redondearDecimales(total, 2));
@@ -3374,6 +3372,8 @@ public class servEjecucion extends HttpServlet {
             cAct.setFecha_inicio(fecha);
 
             if (tipo.equals("1")) {
+                cAct.setAe_tiempo(Integer.parseInt(recu));
+                cAct.setUnidad_id(Integer.parseInt(liq));
                 result = adEj.IngresarCertificacionPRec(cAct);
             } else if (tipo.equals("2")) {
                 double anticipo;
@@ -3452,7 +3452,6 @@ public class servEjecucion extends HttpServlet {
             } else {
                 obs = observacion;
             }
-            cAct.setAe_tiempo(Integer.parseInt(recu));
             cAct.setActividad_id(codigoid);
             cAct.setReq_id(Integer.parseInt(req));
             cAct.setReq_costo_total(redondearDecimales(total, 2));
@@ -3461,9 +3460,10 @@ public class servEjecucion extends HttpServlet {
             cAct.setTc_id(Integer.parseInt(tipo));
             cAct.setAe_observacion(obs);
             cAct.setFecha_inicio(fecha);
-            cAct.setUnidad_id(Integer.parseInt(liq));
 
             if (tipo.equals("1")) {
+                cAct.setUnidad_id(Integer.parseInt(liq));
+                cAct.setAe_tiempo(Integer.parseInt(recu));
                 result = adEj.IngresarCertificacionPRecSP(cAct);
             } else if (tipo.equals("2")) {
                 double anticipo;
@@ -3541,7 +3541,6 @@ public class servEjecucion extends HttpServlet {
             } else {
                 obs = observacion;
             }
-            cAct.setAe_tiempo(Integer.parseInt(recu));
             cAct.setActividad_id(codigoid);
             cAct.setReq_id(Integer.parseInt(req));
             cAct.setReq_costo_total(redondearDecimales(total, 2));
@@ -3552,6 +3551,7 @@ public class servEjecucion extends HttpServlet {
             cAct.setFecha_inicio(fecha);
 
             if (tipo.equals("1")) {
+                cAct.setAe_tiempo(Integer.parseInt(recu));
                 result = adEj.IngresarCertificacionPRecSPOP(cAct);
             } else if (tipo.equals("2")) {
                 double anticipo;
@@ -3971,7 +3971,7 @@ public class servEjecucion extends HttpServlet {
         String tipo = request.getParameter("rectoring");
         String codigo = request.getParameter("codigocp");
         String valor = request.getParameter("valorcp");
-        String observacion = request.getParameter("observacion");
+        String observacion = request.getParameter("txtobservacion");
         String rec = request.getParameter("recurrenteCert");
         String fecha = request.getParameter("fechain");
         String liq = request.getParameter("liquCert");

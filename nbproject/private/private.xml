@@ -3,19 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsRequerimientosJ.js</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/conexion/cConexion.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsProyectoListaU.js</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/controlador/servEjecucion.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pGenerarJ.jsp</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adEjecucion.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/controlador/servProyecto.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pCertificacionP.jsp</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adProyecto.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsCertificacionP.js</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pListaProyectosU.jsp</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pCertificacionP.jsp</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsCertificacionPOP.js</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servActividadRequerimiento.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsCertificacionPNP.js</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/conexion/cConexion.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsRequerimientosJNPTH.js</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsCertificacionP.js</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/reportes/excel/reporteExcel.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servEjecucion.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/scss/style.scss</file>
         </group>
     </open-files>
 </project-private>

@@ -2386,6 +2386,7 @@ public class adActividadRequerimiento {
                         cComp.setReq_cantidad(rsComp.getDouble("solreq_cantidad"));
                         cComp.setReq_costo_unitario(rsComp.getDouble("solreq_costo_unitario"));
                         cComp.setReq_costo_sin_iva(rsComp.getDouble("solreq_costo_sin_iva"));
+                        cComp.setReq_costo_total(rsComp.getDouble("solreq_costo_iva"));
                         cComp.setPresupuesto_fuente(rsComp.getString("presupuestofuente"));
                         cComp.setPresupuesto_renglo(rsComp.getInt("presupuestorenglo"));
                         cComp.setReq_iva(rsComp.getInt("reqiva"));
@@ -4512,8 +4513,10 @@ public class adActividadRequerimiento {
             SQL = "select * from f_listarequerimientosexcel() where agid='" + ag + "' or agidp='" + agp + "';";
         } else if (anio == 2021) {
             SQL = "select * from f_listarequerimientosexcel21() where agid='" + ag + "' or agidp='" + agp + "';";
-        } else {
+        } else if (anio == 2022) {
             SQL = "select * from f_listarequerimientosexcel22() where agid='" + ag + "' or agidp='" + agp + "';";
+        }else{
+              SQL = "select * from f_listarequerimientosexcel23() where agid='" + ag + "' or agidp='" + agp + "';";
         }
         try {
             //Crear un AccesoDatos

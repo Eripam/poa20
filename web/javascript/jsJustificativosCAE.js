@@ -300,6 +300,8 @@ $('#example').on('click', 'tr td #entregar', function () {
     $('#idreqregresarj').val(data['sol']);
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
+    $('#observacionreg').val("");
+    $('#observacionregv').val("");
     $('#regresarModal').modal();
 });
 
@@ -308,6 +310,8 @@ $('#example').on('click', 'tr td #verificarR', function () {
     $('#idreqregresarjv').val(data['sol']);
     $('#centroCregV').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
+    $('#observacionreg').val("");
+    $('#observacionregv').val("");
     $('#regresarModalVer').modal();
 });
 
