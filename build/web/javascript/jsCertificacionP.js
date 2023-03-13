@@ -209,6 +209,7 @@ $('#btnAgregarCP').on('click', function () {
     $('#codigocpg').val('');
     $('#codigocpivag').val('');
     $('#fechaing').val('');
+    $('#txtobservaciong').val('');
     var array = [];
     var sumi = 0, sumt = 0, iva;
     var options2 = {style: "currency", currency: "USD"};

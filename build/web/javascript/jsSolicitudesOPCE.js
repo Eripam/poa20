@@ -145,6 +145,7 @@ function activarPDF(id) {
 
 $('#example').on('click', 'tr td #anularSol', function () {
     var data = $(this).data();
+    $('#txtobservanulados').val('');
     $('#anularSelim').html('<input type="hidden" id="solicitudid" value="' + data['id'] + '"><input type="hidden" id="solicitudcodigo" value="' + data['codigo'] + '">SOLICITUD: ' + data['codigo'] + '-STP-' + $('#selectanio').val());
     $('#eliminarModalA').modal();
 });
@@ -152,6 +153,7 @@ $('#example').on('click', 'tr td #anularSol', function () {
 $('#example').on('click', 'tr td #verificarR', function () {
     var data = $(this).data();
     $('#idreqregresarjv').val(data['sol']);
+    $('#observacionregv').val('');
     $('#centroCregV').html("<div style='font-weight: bold'>DEPENDENCIA: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVer').modal();
@@ -160,6 +162,7 @@ $('#example').on('click', 'tr td #verificarR', function () {
 $('#example').on('click', 'tr td #verificarRA', function () {
     var data = $(this).data();
     $('#idreqregresarjvA').val(data['sol']);
+    $('#observacionregvA').val();
     $('#centroCregVA').html("<div style='font-weight: bold'>DEPENDENCIA: </div><div>" + data['centro'] + "</div>");
     $('#montoregVA').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVerA').modal();
@@ -198,7 +201,7 @@ $('#example').on('click', 'tr td #visualReq', function () {
                     <td class="text-center" id="servprof" data-req="' + this.req_id + '" data-nombre="' + this.req_nombre + '" data-ag="' + data['ag'] + '" data-estado="' + data['estado'] + '" data-sol="' + data['sol'] + '">' + div + '</td></tr>');
                     num++;
                 });
-                $('#listaRequerimientosSolVis').append('<tr><td colspan="6" class="text-right">TOTAL: ' + new Intl.NumberFormat("US", options2).format(total) + '</td></tr>');
+                $('#listaRequerimientosSolVis').append('<tr><td colspan="8" class="text-center">TOTAL: ' + new Intl.NumberFormat("US", options2).format(total) + '</td></tr>');
             })
             .fail(function () {
                 console.log('No existe conexión con la base de datos.');

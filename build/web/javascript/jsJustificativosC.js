@@ -62,15 +62,15 @@ function listaSolicitud(t) {
                         codigo = this.solicitud_codigo + '-UCP-' + $('#selectanio').val();
                     }
                     var div;
-                    if(!validacion){
-                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a>';
-                    }else if (this.solicitud_estado === 31) {
+                    if (!validacion) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-check-square"></i></a>';
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a>';
+                    } else if (this.solicitud_estado === 31) {
+                        div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-proceso="' + this.pc_nombre + '" data-codigo="' + this.solicitud_codigo + '"><i class="far fa-check-square"></i></a><a href="#" title="Modificar Proceso de contrataci\u00f3n" class="icon_sol m-1" id="modificarJr" data-sol="' + this.solicitud_id + '" data-codigo="' + this.solicitud_codigo + '" data-monto="' + this.actividad_monto + '" data-pcid="' + this.pc_id + '" data-pcnombre="' + this.pc_nombre + '"><i class="far fa-edit"></i></a>';
                     } else if (this.solicitud_estado === 39) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar devuelto" class="icon_sol" id="verificarRD" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="fas fa-check-square"></i></a>';
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar devuelto" class="icon_sol" id="verificarRD" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-proceso="' + this.pc_nombre + '" data-codigo="' + this.solicitud_codigo + '"><i class="fas fa-check-square"></i></a>';
                     } else if (this.solicitud_estado === 1) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a><a href="#" title="Verificar Justificativo" class="icon_sol" id="verificarJust" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="fas fa-check-circle"></i></a>\n\
                         <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a>';
@@ -80,10 +80,10 @@ function listaSolicitud(t) {
                         <input type="hidden" name="numerooficio" id="numerooficio" value="' + this.solestado_numero + '"><input type="hidden" name="tipo" id="tipo" value="1"><input type="hidden" name="agid" id="agid" value="' + ag + '"><input type="hidden" name="observacion" id="observacion" value="' + observacion + '"><a href="#" title="Descargar Oficio" class="icon_sol" id="descargarOficio" data-sol="' + this.solicitud_id + '"><i class="fas fa-file-download"></i></a></form>';
                     } else if (this.solicitud_estado === 36) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-sestado="' + this.solicitud_estado + '"><i class="far fa-check-square"></i></a>';
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-sestado="' + this.solicitud_estado + '" data-proceso="' + this.pc_nombre + '" data-codigo="' + this.solicitud_codigo + '"><i class="far fa-check-square"></i></a>';
                     } else if (this.solicitud_estado === 37) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-sestado="' + this.solicitud_estado + '"><i class="far fa-check-square"></i></a>';
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Verificar recibido" class="icon_sol" id="verificarR" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '" data-sestado="' + this.solicitud_estado + '" data-proceso="' + this.pc_nombre + '" data-codigo="' + this.solicitud_codigo + '"><i class="far fa-check-square"></i></a>';
                     } else {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-custodio="' + this.solicitud_nombre + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-eye"></i></a>\n\
                         <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-monto="' + this.actividad_monto + '"><i class="far fa-calendar-alt"></i></a>';
@@ -246,16 +246,20 @@ $('#modalGuardarJustVis').on('click', function () {
 $('#example').on('click', 'tr td #verificarJust', function () {
     var data = $(this).data();
     $('#idreqregresarj').val(data['sol']);
+    $('#codigoJu').html("<div style='font-weight: bold'>CODIGO: </div><div>" + data['codigo'] + '-UCP-' + $('#selectanio').val() + "</div>");
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
+    $('#procesoC').html("<div style='font-weight: bold'>PROCESO DE CONTRATACION: </div><div>" + data['proceso'] + "</div>");
     $('#regresarModal').modal();
 });
 
 $('#example').on('click', 'tr td #verificarR', function () {
     var data = $(this).data();
     $('#idreqregresarjv').val(data['sol']);
+    $('#codigoJuV').html("<div style='font-weight: bold'>CODIGO: </div><div>" + data['codigo'] + '-UCP-' + $('#selectanio').val() + "</div>");
     $('#centroCregV').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
+    $('#procesoCV').html("<div style='font-weight: bold'>PROCESO DE CONTRATACION: </div><div>" + data['proceso'] + "</div>");
     if (data['sestado'] === 36) {
         $("#intreaprobar").addClass('d-none');
         $("#intreregresar").addClass('d-none');
@@ -266,10 +270,24 @@ $('#example').on('click', 'tr td #verificarR', function () {
     $('#regresarModalVer').modal();
 });
 
+$('#example').on('click', 'tr td #modificarJr', function () {
+    var data = $(this).data();
+    $('#idreqregresarM').val(data['sol']);
+    $('#observacionprocM').val("");
+    $('#observacionregM').val("");
+    $('input[name="inpprocesoM"]:checked').val("0");
+    $('#codigoJuM').html("<div style='font-weight: bold'>CODIGO: </div><div>" + data['codigo'] + '-UCP-' + $('#selectanio').val() + "</div>");
+    $('#montoregM').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
+    $('#procesoCM').html("<div style='font-weight: bold'>PROCESO DE CONTRATACION: </div><div>" + data['pcnombre'] + "</div>");
+    $('#editarAprobacion').modal();
+});
+
 $('#example').on('click', 'tr td #verificarRD', function () {
     var data = $(this).data();
     $('#idreqregresarjvd').val(data['sol']);
+    $('#codigoJuVd').html("<div style='font-weight: bold'>CODIGO: </div><div>" + data['codigo'] + '-UCP-' + $('#selectanio').val() + "</div>");
     $('#centroCregVd').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
+    $('#procesoCVd').html("<div style='font-weight: bold'>PROCESO DE CONTRATACION: </div><div>" + data['proceso'] + "</div>");
     $('#montoregVd').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVerd').modal();
 });
@@ -350,6 +368,34 @@ $('.intrevisarvd').on('click', function () {
             url: "../solicitud?accion=EnviarSolicitudJus",
             type: 'POST',
             data: {idSolicitud: $('#idreqregresarjvd').val(), cedula: $('#cedulaP').val(), estado: data['estado'], observacion: observacion, tipo: tipo, anio: $('#selectanio').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        window.location.reload();
+                    } else {
+                        alert(response);
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    }
+});
+
+$('#modificarProceso').on('click', function () {
+    var data = $(this).data();
+    var observacion = $('textarea[name=observacionregM]').val();
+    if ((observacion == "" || observacion == null || observacion == '') && data['estado'] !== 31) {
+        alert("Debe ingresar la observacion");
+    } else {
+        $.ajax({
+            url: "../solicitud?accion=ModificarProceso",
+            type: 'POST',
+            data: {idSolicitud: $('#idreqregresarM').val(), cedula: $('#cedulaP').val(), pc:$('input[name="inpprocesoM"]:checked').val(), observacion:$('#observacionregM').val(), obsproceso: $('#observacionprocM').val()},
             dataType: 'json'
         })
                 .done(function (response) {

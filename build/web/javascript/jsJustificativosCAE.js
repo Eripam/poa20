@@ -39,7 +39,7 @@ function listaSolicitud(t) {
     $.ajax({
         url: "../solicitud?accion=ListaSolicitudesCAE",
         type: 'POST',
-        data: {area: ag, anio: anio},
+        data: {area: ag, anio: anio, tipo: 1},
         dataType: 'json'
     })
             .done(function (response) {
@@ -110,6 +110,7 @@ function activarPDF(id) {
 
 $('#example').on('click', 'tr td #visualReq', function () {
     var data = $(this).data();
+    $('#loader').removeClass("d-none");
     $('#centrovis').val(data['centro']);
     $('#idsolvist').val(data['sol']);
     $('#custodiovis').val(data['custodio']);
@@ -133,7 +134,7 @@ $('#example').on('click', 'tr td #visualReq', function () {
                     }
                     id = this.req_id;
                     totaliva += iva;
-                    $('#listaRequerimientosSolVis').append('<tr><td class="text-center">'+this.req_id+'</td><td class="text-center">OEI-0' + this.perspectiva_id + '</td><td class="text-center">' + this.req_cantidad + '</td>\n\
+                    $('#listaRequerimientosSolVis').append('<tr><td class="text-center">' + this.req_id + '</td><td class="text-center">OEI-0' + this.perspectiva_id + '</td><td class="text-center">' + this.req_cantidad + '</td>\n\
                     <td class="text-center">' + this.unidad_nombre + '</td><td>' + this.req_nombre + '</td><td>' + this.req_descripcion + '</td>\n\
                     <td class="text-center">' + new Intl.NumberFormat("US", options2).format(this.req_costo_unitario) + '</td>\n\
                     <td class="text-center">' + new Intl.NumberFormat("US", options2).format(this.req_costo_sin_iva) + '</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(iva) + '</td>\n\
@@ -149,9 +150,11 @@ $('#example').on('click', 'tr td #visualReq', function () {
                     }
                 });
                 $('#listaRequerimientosSolVis').append('<tr><td colspan="7" class="text-center">TOTAL</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(total) + '</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(totaliva) + '</td></tr>');
+                $('#loader').addClass('d-none');
             })
             .fail(function () {
                 console.log('No existe conexión con la base de datos.');
+                $('#loader').addClass('d-none');
             })
             .always(function () {
                 console.log('Se completo correctamente');

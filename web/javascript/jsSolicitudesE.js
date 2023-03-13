@@ -144,6 +144,7 @@ function activarPDFTH(id) {
 $('#example').on('click', 'tr td #verificarR', function () {
     var data = $(this).data();
     $('#idreqregresarjv').val(data['sol']);
+    $('#observacionregv').val();
     $('#centroCregV').html("<div style='font-weight: bold'>DEPENDENCIA: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVer').modal();
@@ -152,6 +153,7 @@ $('#example').on('click', 'tr td #verificarR', function () {
 $('#example').on('click', 'tr td #verificarRA', function () {
     var data = $(this).data();
     $('#idreqregresarjvA').val(data['sol']);
+    $('#observacionregvA').val('');
     $('#centroCregVA').html("<div style='font-weight: bold'>DEPENDENCIA: </div><div>" + data['centro'] + "</div>");
     $('#montoregVA').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVerA').modal();
@@ -159,6 +161,7 @@ $('#example').on('click', 'tr td #verificarRA', function () {
 
 $('#example').on('click', 'tr td #anularSol', function () {
     var data = $(this).data();
+    $('#txtobservanulados').val('');
     $('#anularSelim').html('<input type="hidden" id="solicitudid" value="' + data['id'] + '"><input type="hidden" id="solicitudcodigo" value="' + data['codigo'] + '">SOLICITUD: ' + data['codigo'] + '-STP-' + $('#selectanio').val());
     $('#eliminarModal').modal();
 });

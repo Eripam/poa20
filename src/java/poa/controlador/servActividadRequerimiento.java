@@ -1187,6 +1187,7 @@ public class servActividadRequerimiento extends HttpServlet {
         String c2 = request.getParameter("cuatrimestre2");
         String c3 = request.getParameter("cuatrimestre3");
         String cedula = request.getParameter("cedula");
+        boolean cuat1=false, cuat2=false, cuat3=false;
         String[] cuatri1 = new Gson().fromJson(c1, String[].class);
         String[] cuatri2 = new Gson().fromJson(c2, String[].class);
         String[] cuatri3 = new Gson().fromJson(c3, String[].class);
@@ -1196,13 +1197,28 @@ public class servActividadRequerimiento extends HttpServlet {
         Double suma = 0.0;
         if (!porcentaje1.isEmpty()) {
             suma += Double.parseDouble(porcentaje1);
-        }
+        }else if(aComp.ValidarRequerimientoCu(Integer.parseInt(actividad), 1)>0){
+            cuat1=true;
+        }else{
+            cuat1=false;
+        } 
+        
         if (!porcentaje2.isEmpty()) {
             suma += Double.parseDouble(porcentaje2);
+        }else if(aComp.ValidarRequerimientoCu(Integer.parseInt(actividad), 2)>0){
+            cuat2=true;
+        }else{
+            cuat2=false;
         }
+        
         if (!porcentaje3.isEmpty()) {
             suma += Double.parseDouble(porcentaje3);
+        }else if(aComp.ValidarRequerimientoCu(Integer.parseInt(actividad), 3)>0){
+            cuat3=true;
+        }else{
+            cuat3=false;
         }
+        
         if (nombre.isEmpty()) {
             result = "Debe ingresar el nombre de la actividad.";
         } else if (responsable.isEmpty()) {
@@ -1220,6 +1236,12 @@ public class servActividadRequerimiento extends HttpServlet {
                 result = "Debe ingresar el porcentaje para el tercer cuatrimestre";
             } else if (suma != 100 || suma != 100.00) {
                 result = "La suma de los porcentajes debe ser el 100%";
+            }else if(cuat1){
+                result="No se puede eliminar el porcentaje del cuatrimestre 1, por lo que tiene requerimientos planificados, cambie los porcentajes de los requerimientos y luego vuelva a modificar la actividad.";
+            }else if(cuat2){
+                result="No se puede eliminar el porcentaje del cuatrimestre 2, por lo que tiene requerimientos planificados, cambie los porcentajes de los requerimientos y luego vuelva a modificar la actividad.";
+            }else if(cuat3){
+                result="No se puede eliminar el porcentaje del cuatrimestre 3, por lo que tiene requerimientos planificados, cambie los porcentajes de los requerimientos y luego vuelva a modificar la actividad.";
             } else {
                 cComp.setActividad_id(Integer.parseInt(actividad));
                 cComp.setActividad_nombre(nombre);

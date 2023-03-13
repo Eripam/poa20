@@ -834,9 +834,20 @@ $('.btn_indicador_detalle').on('click', function () {
 
 $('#btn_proyecto_enviar').on('click', function (event) {
     event.preventDefault();
-    if ($('#tipousuario').val() === "3" && estadof === 2) {
+    $('#alertEnviar').empty();
+    let alertEnviar=document.getElementById('alertEnviar');
+    if ($('#tipousuario').val() === "3" && estadof === 2 && ($('#tipoAg').val()==="2" || $('#tipoAg').val()==="3")) {
         $('#aprobarRadios').val(4);
         $('#modificarRadios').val(5);
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
+    }else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val()==="5") {
+        $('#aprobarRadios').val(4);
+        $('#modificarRadios').val(5);
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
+    }else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val()==="4") {
+        $('#aprobarRadios').val(4);
+        $('#modificarRadios').val(5);
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
     } else if (($('#tipousuario').val() === "4" || $('#tipousuario').val() === "5" || $('#tipousuario').val() === "7" || $('#tipousuario').val() === "11") && estadof !== 9) {
         $.ajax({
             url: "../proyecto?accion=VerificaProyecto" + "&proyecto=" + proy,
@@ -848,9 +859,11 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                         if (response.numrequerimientos !== response.numrequerimientosverificado) {
                             $('#aprobarRadios').prop("disabled", true);
                             if ($('#tipousuario').val() === "4") {
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                                 $('#modificarRadios').val(7);
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#modificarRadios').val(3);
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#modificarRadios').val(12);
                             } else if ($('#tipousuario').val() === "11") {
@@ -860,15 +873,19 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             if ($('#tipousuario').val() === "4") {
                                 $('#aprobarRadios').val(6);
                                 $('#modificarRadios').val(7);
+                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la unidad correspondiente de validaci\u00F3n.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#aprobarRadios').val(22);
                                 $('#modificarRadios').val(3);
+                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la Direcci\u00F3n de Planificaci\u00F3n.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#aprobarRadios').val(10);
                                 $('#modificarRadios').val(12);
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "11") {
                                 $('#aprobarRadios').val(15);
                                 $('#modificarRadios').val(14);
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
                             }
                         }
                     } else {
@@ -876,8 +893,10 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             $('#aprobarRadios').prop("disabled", true);
                             if ($('#tipousuario').val() === "4") {
                                 $('#modificarRadios').val(7);
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#modificarRadios').val(3);
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#modificarRadios').val(12);
                             } else if ($('#tipousuario').val() === "11") {
@@ -887,15 +906,19 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             if ($('#tipousuario').val() === "4") {
                                 $('#aprobarRadios').val(6);
                                 $('#modificarRadios').val(7);
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#aprobarRadios').val(22);
                                 $('#modificarRadios').val(3);
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#aprobarRadios').val(10);
                                 $('#modificarRadios').val(12);
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
                             } else if ($('#tipousuario').val() === "11") {
                                 $('#aprobarRadios').val(15);
                                 $('#modificarRadios').val(14);
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
                             }
                         }
                     }
@@ -914,24 +937,27 @@ $('#btn_proyecto_enviar').on('click', function (event) {
         $('#modificarRadios').val(3);
     } else if ($('#tipousuario').val() === "7") {
         $('#aprobarRadios').val(10);
-        $('#modificarRadios').val(12);
+        $('#modificarRadios').val(12);    
     } else if ($('#tipousuario').val() === "8") {
         $('#aprobarRadios').val(11);
-        $('#modificarRadios').val(13);
+        $('#modificarRadios').val(13); 
     } else if ($('#tipousuario').val() === "7" && estadof === 9) {
         $('#aprobarRadios').val(10);
         $('#modificarRadios').val(12);
     } else if ($('#tipousuario').val() === "16") {
         $('#aprobarRadios').val(23);
         $('#modificarRadios').val(25);
+        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a IDI.', 'info', alertEnviar);  
     } else if ($('#tipousuario').val() === "17") {
         $('#aprobarRadios').val(24);
         $('#modificarRadios').val(26);
+        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a de Vinculaci\u00F3n.', 'info', alertEnviar);  
     } else if ($('#tipousuario').val() === "11" && estadof === 9) {
         $('#aprobarRadios').val(15);
         $('#modificarRadios').val(14);
     } else if ($('#tipousuario').val() === "26") {
         $('#aprobarRadios').val(52);
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va a priorizaci\u00F3n y aprobaci\u00F3n final', 'info', alertEnviar);
     }
     $('#estadoproy').val(proy);
 });

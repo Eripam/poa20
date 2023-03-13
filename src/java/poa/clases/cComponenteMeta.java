@@ -12,6 +12,7 @@ import java.util.List;
  * @author Erika Arévalo
  */
 public class cComponenteMeta {
+
     private Integer componente_id;
     private String componente_nombre;
     private Integer meta_id;
@@ -25,10 +26,11 @@ public class cComponenteMeta {
     private String indicador_planificado;
     private String indicador_tipo;
     private Double indicador_numero;
-     private Integer me_cuatrimestre;
+    private Integer me_cuatrimestre;
     private Double me_porcentaje;
     private List<cComponenteMeta> mes;
     private List<cActividadRequerimiento> actividad;
+    private Integer indicador_valor;
 
     public Integer getComponente_id() {
         return componente_id;
@@ -164,5 +166,13 @@ public class cComponenteMeta {
 
     public void setActividad(List<cActividadRequerimiento> actividad) {
         this.actividad = actividad;
+    }
+
+    public Integer getIndicador_valor() {
+        return indicador_valor;
+    }
+
+    public void setIndicador_valor(Integer indicador_valor) {
+        this.indicador_valor = indicador_valor;
     }
 }

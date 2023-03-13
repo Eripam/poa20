@@ -10220,7 +10220,7 @@ public class reporteExcel extends HttpServlet {
             }
             //Monto iva
             cRequ.setReq_cantidad(0.0);
-            String r = aRequ.IngresaComprometidos(cRequ, 2022);
+            String r = aRequ.IngresaComprometidos(cRequ, 2023);
             if (r.equals("Correcto")) {
                 cRequ.setTc_id(0);
                 r = aRequ.IngresaComprometidosestructura(cRequ);
@@ -11333,16 +11333,16 @@ public class reporteExcel extends HttpServlet {
             //Reforma
             switch (filar.getCell(43).getCellTypeEnum().toString()) {
                 case "NUMERIC":
-                    cRequ.setReq_nombre(String.valueOf(filar.getCell(43).getNumericCellValue()));
+                    cRequ.setReq_estado((int)(filar.getCell(43).getNumericCellValue()));
                     break;
                 case "STRING":
-                    cRequ.setReq_nombre(filar.getCell(43).getStringCellValue());
+                    cRequ.setReq_estado(Integer.parseInt(filar.getCell(43).getStringCellValue()));
                     break;
             }
 
             Integer r = aRequ.IngresarReqReformaPres(cRequ);
             if (r > 0) {
-                result = "," + r;
+                result = result+"," + r;
                 sum++;
             }
         }

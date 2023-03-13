@@ -20,7 +20,7 @@
             </div>
         </div>
         <%@include file="plantillas/header.jsp" %> 
-        <div class="container-fluid p-0 main">
+        <div class="container-fluid p-0 mb-2 main">
             <div class="row mt-3">
                 <%@include file="plantillas/menu.jsp" %>
                 <div class="content col-11 container-fluid">
@@ -41,9 +41,9 @@
                                         <input type="hidden" value="<%=intAnio%>" name="anioS" id="anioS">
                                         <%if (intAnio == 2020 && intIdTipoUsuario != 9) {%>
                                         <input type="hidden" value="reporteExcel" name="accion">
-                                        <%} else if ((intAnio == 2021 || intAnio==2022 || intAnio==2023) && intIdTipoUsuario != 9) {%>
+                                        <%} else if ((intAnio == 2021 || intAnio == 2022 || intAnio == 2023) && intIdTipoUsuario != 9) {%>
                                         <input type="hidden" value="reporteExcel21" name="accion">
-                                        <%} else if ((intAnio == 2021 || intAnio==2022 || intAnio == 2023) && intIdTipoUsuario == 9) {%>
+                                        <%} else if ((intAnio == 2021 || intAnio == 2022 || intAnio == 2023) && intIdTipoUsuario == 9) {%>
                                         <input type="hidden" value="reporteExcelCompras" name="accion">
                                         <%}%>
                                         <a href="#" onclick="activarEx();"><i class="fas fa-file-download"></i></a>

@@ -199,6 +199,9 @@ public class servProyecto extends HttpServlet {
                 case "EliminarEstado":
                     EliminarEstado(request, response);
                     break;
+                case "EliminarEstadoDeuda":
+                    EliminarEstadoDeuda(request, response);
+                    break;
                 case "IngresarEstadoEv":
                     IngresarEstadoEv(request, response);
                     break;
@@ -306,7 +309,7 @@ public class servProyecto extends HttpServlet {
             }
             if (multi == null && coe == null) {
                 oProy.setProyecto_multi(false);
-                if (integrantes.length == 0 && (oei.equals("2") || oei.equals("3"))) {
+                if ((integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) && (oei.equals("2") || oei.equals("3"))) {
                     result = "Debe ingresar los integrantes del proyecto.";
                 } else {
                     result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
@@ -314,14 +317,14 @@ public class servProyecto extends HttpServlet {
             } else if (coe == null && multi != null) {
                 if (multi[0].equals("0")) {
                     oProy.setProyecto_multi(false);
-                    if (integrantes.length == 0 && (oei.equals("2") || oei.equals("3"))) {
+                    if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty()) && (oei.equals("2") || oei.equals("3"))) {
                         result = "Debe ingresar los integrantes del proyecto.";
                     } else {
                         result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
                     }
                 } else {
                     oProy.setProyecto_multi(true);
-                    if (integrantes.length == 0) {
+                    if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) {
                         result = "Debe ingresar los integrantes del proyecto.";
                     } else {
                         result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
@@ -1055,6 +1058,39 @@ public class servProyecto extends HttpServlet {
         if (result.equals("Correcto")) {
             cTransaccion objTransaccion = new cTransaccion();
             objTransaccion.setTransaccion_descripcion("El estado \"" + estado + "\" del proyecto con código: \"" + proyecto + "\" con observacion: \"" + observacion + "\" se elimino correctamente");
+            objTransaccion.setTransaccion_cedula(cedulaad);
+            objTransaccion.setTransaccion_ag(1);
+            objTransaccion.setTransaccion_tipo(3);
+            ingresarTransaccion(objTransaccion);
+        }
+
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+    
+    private void EliminarEstadoDeuda(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String proyecto = request.getParameter("deuda");
+        String cedulaad = request.getParameter("cedulaProyecto");
+        String cedula = request.getParameter("cedula");
+        String estado = request.getParameter("estado");
+        String fecha = request.getParameter("fecha");
+        String observacion = request.getParameter("observacion");
+        String result;
+        adProyecto aProy = new adProyecto();
+        cProyecto cProy = new cProyecto();
+
+        cProy.setProyecto_id(Integer.parseInt(proyecto));
+        cProy.setEstado_id(Integer.parseInt(estado));
+        cProy.setUsuario_nombre(cedula);
+        cProy.setDeudas_contrato(fecha);
+
+        result = aProy.EliminarEstadoDeudas(cProy);
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_descripcion("El estado \"" + estado + "\" del valor pendiente con código: \"" + proyecto + "\" con observacion: \"" + observacion + "\" se elimino correctamente");
             objTransaccion.setTransaccion_cedula(cedulaad);
             objTransaccion.setTransaccion_ag(1);
             objTransaccion.setTransaccion_tipo(3);

@@ -82,7 +82,6 @@ function listaObjetivoAreas(area) {
 $('#objest').on('change', function () {
     var datos = $(this).val();
     var tipo;
-    $('#idOEIForm').val(datos);
     $.ajax({
         url: "../persobj?accion=ListarTipoOEI",
         data: {oei: datos},
@@ -159,6 +158,7 @@ $('#objest').on('change', function () {
                     $('#multiSelec').addClass('d-none');
                     $('#coejeSelec').addClass('d-none');
                 }
+                $('#idOEIForm').val(tipo);
                 if (response.length > 0) {
                     $('#objobj').append('<option selected="true" disabled>Seleccionar...</option>');
                     $.each(response, function () {

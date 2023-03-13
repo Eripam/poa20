@@ -39,7 +39,7 @@
                         </div>
                         <div class="row main-end">
                             <div class="col-2 main-end" style="font-weight: bold">Techo Disponible:</div>
-                            <div class="col-2">$ <%=formateador.format(aT.techoInstitucional(intAnio) - aT.techoPriorizado(intAnio) - aT.techoObligaciones(intAnio))%></div>
+                            <div class="col-2">$ <%=formateador.format(aT.techoInstitucional(intAnio) - (aT.techoPriorizado(intAnio) + aT.techoObligaciones(intAnio)))%></div>
                         </div>
                         <%}%>
                         <p class="titulo">LISTA DE PROYECTOS</p>

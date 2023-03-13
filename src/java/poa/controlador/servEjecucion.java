@@ -155,6 +155,9 @@ public class servEjecucion extends HttpServlet {
                 case "EnviarSolicitud":
                     EnviarSolicitud(request, response);
                     break;
+                case "ModificarProceso":
+                    ModificarProceso(request, response);
+                    break;
                 case "EnviarSolicitudNP":
                     EnviarSolicitudNP(request, response);
                     break;
@@ -964,9 +967,10 @@ public class servEjecucion extends HttpServlet {
     private void ListaSolicitudesCAE(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
         String anio = request.getParameter("anio");
+        String tipo = request.getParameter("tipo");
         adEjecucion aEjecucion = new adEjecucion();
 
-        result = aEjecucion.ListarSolicitudAreasCAE(Integer.parseInt(anio));
+        result = aEjecucion.ListarSolicitudAreasCAE(Integer.parseInt(anio), Integer.parseInt(tipo));
 
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
@@ -1125,10 +1129,10 @@ public class servEjecucion extends HttpServlet {
             if (con1 == (reql.size() + req_id.length) || con2 == (reql.size() + req_id.length)) {
                 for (int i = 0; i < req_id.length; i++) {
                     cCom.setReq_id(Integer.parseInt(req_id[i][0]));
-                    double cant = Double.parseDouble(req_id[i][1]), costou = Double.parseDouble(req_id[i][2]);
-                    cCom.setReq_cantidad(cant);
-                    cCom.setReq_costo_unitario(costou);
-                    cCom.setReq_costo_sin_iva(costou * cant);
+                    cCom.setReq_cantidad(Double.parseDouble(req_id[i][1]));
+                    cCom.setReq_costo_unitario(Double.parseDouble(req_id[i][2]));
+                    cCom.setReq_costo_sin_iva(Double.parseDouble(req_id[i][3]));
+                    cCom.setReq_costo_total(Double.parseDouble(req_id[i][4]));
                     result = aEje.AgregarRequerimientos(cCom);
                 }
             } else {
@@ -1176,10 +1180,10 @@ public class servEjecucion extends HttpServlet {
             if (con1 == (reql.size() + req_id.length) || con2 == (reql.size() + req_id.length)) {
                 for (int i = 0; i < req_id.length; i++) {
                     cCom.setReq_id(Integer.parseInt(req_id[i][0]));
-                    double cant = Double.parseDouble(req_id[i][1]), costou = Double.parseDouble(req_id[i][2]);
-                    cCom.setReq_cantidad(cant);
-                    cCom.setReq_costo_unitario(costou);
-                    cCom.setReq_costo_sin_iva(costou * cant);
+                    cCom.setReq_cantidad(Double.parseDouble(req_id[i][1]));
+                    cCom.setReq_costo_unitario(Double.parseDouble(req_id[i][2]));
+                    cCom.setReq_costo_sin_iva(Double.parseDouble(req_id[i][3]));
+                    cCom.setReq_costo_total(Double.parseDouble(req_id[i][4]));
                     result = aEje.AgregarRequerimientosNP(cCom);
                 }
             } else {
@@ -1321,7 +1325,7 @@ public class servEjecucion extends HttpServlet {
         if (req_id.length > 0) {
             for (int i = 0; i < req_id.length; i++) {
                 cCom.setReq_id(Integer.parseInt(req_id[i][0]));
-                double cant = Math.round(Double.parseDouble(req_id[i][1]) * 100) / 100d, costou = Double.parseDouble(req_id[i][2]);
+                double cant = Math.round(Double.parseDouble(req_id[i][1]) * 100) / 100d, costou = (Double.parseDouble(req_id[i][2]) * 100) / 100d;
                 cCom.setReq_cantidad(cant);
                 cCom.setReq_costo_unitario(costou);
                 cCom.setReq_costo_sin_iva(Math.round((costou * cant) * 100) / 100d);
@@ -1779,6 +1783,37 @@ public class servEjecucion extends HttpServlet {
             result = "No se puede enviar porque se aplicó una reforma en disminución, por favor verifique.";
         }
 
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void ModificarProceso(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String result = "No se modificado el proceso del justificativo.";
+        adEjecucion aEjecucion = new adEjecucion();
+        String usuario = request.getParameter("cedula");
+        String proceso = request.getParameter("pc");
+        String solicitud = request.getParameter("idSolicitud");
+        String observacion = request.getParameter("observacion");
+        String obsproceso = request.getParameter("obsproceso");
+        cActividadRequerimiento cComp = new cActividadRequerimiento();
+
+        cComp.setPc_id(Integer.parseInt(proceso));
+        cComp.setSolicitud_id(Integer.parseInt(solicitud));
+        cComp.setUsuario_nombre(usuario);
+        cComp.setPc_nombre(obsproceso);
+
+        result = aEjecucion.ModificarProceso(cComp);
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_descripcion("El proceso de contratación: \"" + proceso + "\" - \"" + obsproceso + "\" del justificativo con código: \"" + solicitud + "\" se modificó correctamente con observación: \"" + observacion + "\"");
+            objTransaccion.setTransaccion_cedula(usuario);
+            objTransaccion.setTransaccion_ag(1);
+            objTransaccion.setTransaccion_tipo(2);
+            ingresarTransaccion(objTransaccion);
+        }
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -2251,24 +2286,31 @@ public class servEjecucion extends HttpServlet {
                 }
             }
         } else if (estado.equals("40")) {
-            Integer num = 0;
-            if (req.size() > 0) {
-                for (int i = 0; i < req.size(); i++) {
-                    if (result2.equals("Incorrecto") || result2.equals("Correcto")) {
-                        num++;
-                        cComp.setReq_id(req.get(i).getReq_id());
-                        cComp.setReq_cantidad(req.get(i).getReq_cantidad());
-                        cComp.setReq_costo_unitario(req.get(i).getReq_costo_unitario());
-                        cComp.setReq_costo_sin_iva(req.get(i).getReq_costo_sin_iva());
-                        cComp.setSolicitud_id(Integer.parseInt(solicitud));
-                        result2 = aEjecucion.InsertAnulados(cComp);
+            if (tipo.equals("1")) {
+                Integer num = 0;
+                if (req.size() > 0) {
+                    for (int i = 0; i < req.size(); i++) {
+                        if (result2.equals("Incorrecto") || result2.equals("Correcto")) {
+                            num++;
+                            cComp.setReq_id(req.get(i).getReq_id());
+                            cComp.setReq_cantidad(req.get(i).getReq_cantidad());
+                            cComp.setReq_costo_unitario(req.get(i).getReq_costo_unitario());
+                            cComp.setReq_costo_sin_iva(req.get(i).getReq_costo_sin_iva());
+                            cComp.setSolicitud_id(Integer.parseInt(solicitud));
+                            result2 = aEjecucion.InsertAnulados(cComp);
+                        }
+                    }
+                    if (result2.equals("Correcto") && num == req.size()) {
+                        result = aEjecucion.EliminarReqSolicitud(cComp);
+                        if (result.equals("Correcto")) {
+                            result = aEjecucion.EnviarSolicitudObser(cComp);
+                        }
                     }
                 }
-                if (result2.equals("Correcto") && num == req.size()) {
-                    result = aEjecucion.EliminarReqSolicitud(cComp);
-                    if (result.equals("Correcto")) {
-                        result = aEjecucion.EnviarSolicitudObser(cComp);
-                    }
+            } else {
+                result = aEjecucion.EliminarReqSolicitudUnif(cComp);
+                if (result.equals("Correcto")) {
+                    result = aEjecucion.EnviarSolicitudObserUnif(cComp);
                 }
             }
         } else {

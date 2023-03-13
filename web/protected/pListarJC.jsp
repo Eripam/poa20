@@ -92,8 +92,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJu"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCreg"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoreg"></label>
+                                <label for="recipient-name" class="col-form-label col-12" id="procesoC"></label>
                                 <div class="col-12 p-2 row">
                                     <div class="col-12" style="font-weight: bold">Seleccionar proceso de contratación:</div>
                                     <% ResultSet rsp;
@@ -124,6 +126,50 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="editarAprobacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR PROCESO DE CONTRATACIÓN</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJuM"></label>
+                                <label for="recipient-name" class="col-form-label col-12" id="montoregM"></label>
+                                <label for="recipient-name" class="col-form-label col-12" id="procesoCM"></label>
+                                <div class="col-12 p-2 row">
+                                    <div class="col-12" style="font-weight: bold">Seleccionar proceso de contratación:</div>
+                                    <% ResultSet rsp2;
+                                        rsp2 = adEjecucion.ListarProcesos();
+                                        while (rsp2.next()) {
+                                    %>
+                                    <div class="col-1">
+                                        <input type="radio" name="inpprocesoM" id="inpprocesoM" value="<%= rsp2.getString("pc_id")%>">
+                                    </div>
+                                    <div class="col-11">
+                                        <%=rsp2.getString("pc_nombre")%>
+                                    </div>
+                                    <%}%>
+                                    <textarea class="form-control" name="observacionprocM" id="observacionprocM" placeholder="Ingresar en caso de seleccionar otro"></textarea>
+                                </div>
+                                <label for="recipient-name" class="col-form-label col-12" style="font-weight: bold">OBSERVACIÓN:</label>
+                                <input type="hidden" class="col-12" name="idreqregresarM" id="idreqregresarM">
+                                <textarea class="form-control" name="observacionregM" id="observacionregM"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bton" id="modificarProceso">MODIFICAR</button>
+                        <button type="button" class="btn bton intrevisarvM" data-estado="19">REGRESAR</button>
+                        <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="regresarModalVer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -136,8 +182,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJuV"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCregV"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoregV"></label>
+                                <label for="recipient-name" class="col-form-label col-12" id="procesoCV"></label>
                                 <label for="recipient-name" class="col-form-label col-12">OBSERVACIÓN:</label>
                                 <input type="hidden" name="idreqregresar" id="idreqregresarjv">
                                 <textarea class="form-control" name="observacionregv" id="observacionregv"></textarea>
@@ -166,8 +214,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJuVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCregVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoregVd"></label>
+                                <label for="recipient-name" class="col-form-label col-12" id="procesoCVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12">OBSERVACIÓN:</label>
                                 <input type="hidden" name="idreqregresar" id="idreqregresarjvd">
                                 <textarea class="form-control" name="observacionregvd" id="observacionregvd"></textarea>

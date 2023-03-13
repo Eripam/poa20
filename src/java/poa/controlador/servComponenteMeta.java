@@ -222,20 +222,19 @@ public class servComponenteMeta extends HttpServlet {
                 } else {
                     cComp.setIndicador_ejecutado(ejecu);
                     cComp.setIndicador_planificado(plan);
-                    if (tiponum.equals("1")) {
-                        cComp.setIndicador_numero(Double.parseDouble(valplan) / 100);
-                    } else {
-                        cComp.setIndicador_numero(Double.parseDouble(valplan));
-                    }
+                    cComp.setIndicador_valor(Integer.parseInt(tiponum));
+                    cComp.setIndicador_numero(Double.parseDouble(valplan));
                     objJson.addProperty("ejecutado", ejecu);
                     objJson.addProperty("planificado", plan);
                     objJson.addProperty("valor", valplan);
+                    objJson.addProperty("tipoval", tiponum);
                     result = aComp.IngresarIndicador(cComp);
                 }
             } else {
                 cComp.setIndicador_ejecutado("vacio");
                 cComp.setIndicador_planificado("vacio");
                 cComp.setIndicador_numero(0.0);
+                cComp.setIndicador_valor(0);
                 result = aComp.IngresarIndicador(cComp);
             }
             if (result.equals("Correcto")) {

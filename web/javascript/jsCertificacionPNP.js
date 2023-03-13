@@ -175,6 +175,7 @@ $('#listaServicios').on('click', '.estilobody #ingresarCP', function () {
     $('#montoIvaCP').removeClass('d-none');
     $('#generarCP').modal();
     $('#valoriva').val(iv);
+    $('#txtobservacion').val('');
     banservicios = true;
 });
 
@@ -192,6 +193,7 @@ $('#listaServicios').on('click', '.encabezado .estilobody #ingresarCPsp', functi
     $('#montoIvaCPsp').removeClass('d-none');
     $('#generarCPSP').modal();
     $('#valorivasp').val(iv);
+    $('#txtobservacionsp').val('');
     banservicios = true;
 });
 
@@ -385,6 +387,7 @@ $('#btnAgregarCP').on('click', function () {
     $('#codigocpg').val('');
     $('#codigocpivag').val('');
     $('#fechaing').val('');
+    $('#txtobservaciong').val('');
     var array = [];
     var sumi = 0, sumt = 0, iva;
     var options2 = {style: "currency", currency: "USD"};

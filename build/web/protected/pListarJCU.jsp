@@ -92,6 +92,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJu"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCreg"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoreg"></label>
                                 <label for="recipient-name" class="col-form-label col-12" style="font-weight: bold">OBSERVACIÓN:</label>
@@ -121,6 +122,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJuV"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCregV"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoregV"></label>
                                 <label for="recipient-name" class="col-form-label col-12">OBSERVACIÓN:</label>
@@ -133,6 +135,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn bton intrevisarv" data-estado="32">APROBAR</button>
                         <button type="button" class="btn bton intrevisarv" data-estado="33">REGRESAR</button>
+                        <button type="button" class="btn bton intrevisarv" data-estado="40">ANULAR</button>
                         <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
                     </div>
                 </div>
@@ -266,6 +269,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 mb-3">
+                                <label for="recipient-name" class="col-form-label col-12" id="codigoJuVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="centroCregVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12" id="montoregVd"></label>
                                 <label for="recipient-name" class="col-form-label col-12">OBSERVACIÓN:</label>

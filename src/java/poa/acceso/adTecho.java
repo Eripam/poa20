@@ -385,7 +385,7 @@ public class adTecho {
             SQL = "SELECT * FROM public.vpresupuesto";
         } else if (anio == 2021) {
             SQL = "SELECT * FROM public.vpresupuesto2";
-        } else if(anio==2022){
+        } else if (anio == 2022) {
             SQL = "SELECT * FROM public.vpresupuesto3";
         } else {
             SQL = "SELECT * FROM public.vpresupuesto4";
@@ -501,6 +501,28 @@ public class adTecho {
                     ad.desconectar();
                 }
             }
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+        } finally {
+            return result;
+        }
+    }
+
+    public Double ListarPresupuestoOEI(Integer tipo, Integer anio) {
+        Double result = 0.0;
+        String SQL = "select sum(f_listatechosoei) from (select * from f_listatechosoei('"+tipo+"', '"+anio+"') union all \n"
+                + "select sum(deudas_monto_pendiente+deudas_iva) from vdeudas where deudas_anio='"+anio+"' and deudas_oei='"+tipo+"') as con";
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    result = rsCodigo.getDouble("sum");
+                }
+            }
+            ad.desconectar();
         } catch (Exception e) {
             System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
         } finally {
@@ -632,11 +654,10 @@ public class adTecho {
         Double result = null;
         String SQL;
         if (tipo == 4) {
-            SQL = "select sum(deudas_monto_pendiente+deudas_iva+deudas_anticipo) from vdeudas where deudas_anio='" + anio + "' and ag_id='" + ag + "' and deudas_oei='" + oei + "' group by ag_id, agnombre";
+            SQL = "select sum(deudas_monto_pendiente+deudas_iva) from vdeudas where deudas_anio='" + anio + "' and ag_id='" + ag + "' and deudas_oei='" + oei + "' group by ag_id, agnombre";
         } else {
             SQL = "select sum(total1) from (\n"
-                    + "select sum(deudas_monto_pendiente+deudas_iva+deudas_anticipo) as total1 from vdeudas where deudas_anio='" + anio + "' and ag_id='" + ag + "' and deudas_oei='" + oei + "' group by ag_id, agnombre union all\n"
-                    + "select sum(deudas_anticipo) as total1 from vdeudas where deudas_anio='" + anio + "' and ag_id='" + ag + "'  and deudas_oei='" + oei + "' group by ag_id, agnombre) as con";
+                    + "select sum(deudas_monto_pendiente+deudas_iva) as total1 from vdeudas where deudas_anio='" + anio + "' and ag_id='" + ag + "' and deudas_oei='" + oei + "' group by ag_id, agnombre) as con";
         }
         try {
             cAccesoDatos ad = new cAccesoDatos();
@@ -666,7 +687,7 @@ public class adTecho {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar where reqanio=2021 and agid=vs.agid) from vsalvaguardar as vs where reqanio=2021";
         } else if (anio == 2021) {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar21 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar21 as vs where reqanio>'" + anio + "'";
-        } else if(anio == 2022){
+        } else if (anio == 2022) {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar22 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar22 as vs where reqanio>'" + anio + "'";
         } else {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar23 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar23 as vs where reqanio>'" + anio + "'";

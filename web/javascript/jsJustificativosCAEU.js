@@ -201,6 +201,7 @@ $('#example').on('click', 'tr td #listarFechas', function () {
 $('#example').on('click', 'tr td #entregar', function () {
     var data = $(this).data();
     $('#idreqregresarj').val(data['sol']);
+    $('#observacionreg').val('');
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModal').modal();
@@ -209,6 +210,7 @@ $('#example').on('click', 'tr td #entregar', function () {
 $('#example').on('click', 'tr td #verificarJust', function () {
     var data = $(this).data();
     $('#idreqregresarj').val(data['sol']);
+    $('#observacionreg').val('');
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModal').modal();
@@ -217,6 +219,7 @@ $('#example').on('click', 'tr td #verificarJust', function () {
 $('#example').on('click', 'tr td #verificarR', function () {
     var data = $(this).data();
     $('#idreqregresarjv').val(data['sol']);
+    $('#observacionregv').val('');
     $('#centroCregV').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVer').modal();

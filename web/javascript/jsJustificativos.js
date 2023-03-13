@@ -237,6 +237,7 @@ $('#modalGuardarJustAgreg').on('click', function () {
         rem.push(d['costosin']);
         rem.push(d['costoiva']);
         rem.push(d['prproyecto']);
+        rem.push(d['iva']);
         re.push(rem);
     });
     var req = JSON.stringify(re);

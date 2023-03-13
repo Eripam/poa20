@@ -396,6 +396,7 @@ public class cAccesoDatos {
             stm.setString(6, cCom.getIndicador_ejecutado());
             stm.setString(7, cCom.getIndicador_planificado());
             stm.setDouble(8, cCom.getIndicador_numero());
+            stm.setInt(9, cCom.getIndicador_valor());
             stm.executeUpdate();
             desconectar();
             this.rs = null;

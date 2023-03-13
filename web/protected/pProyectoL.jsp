@@ -49,6 +49,7 @@
                             </div>
                         </form>
                     </div>
+                    <div id="alertEnviar"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn bton" id="guardarEnviar">GUARDAR</button>
                         <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>

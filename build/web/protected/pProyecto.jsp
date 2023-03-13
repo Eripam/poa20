@@ -44,6 +44,7 @@
                         </button>
                     </div>
                     <div class="modal-body"></div>
+                    <div id="alertEnviar"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn bton" id="enviarModalBton">ENVIAR</button>
                         <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
@@ -76,6 +77,7 @@
                             </div>
                         </form>
                     </div>
+                    <div id="alertEnviarV"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn bton" id="guardarEnviar">GUARDAR</button>
                         <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
@@ -428,9 +430,9 @@
                                 </div>
                                 <button class="btn bton" id="btnGuardarArti">GUARDAR</button>
                                 <button class="btn bton" id="btncancelarArticu">CANCELAR</button>
+                                <div id="alertArticulacion">
+                                </div>
                             </form>
-
-
                             <div class="tablaover">
                                 <div class="table mt-5 table-bordered table-striped table-responsive-md table-responsive-sm tablasdiv listaArticulacion">
                                     <div class="table-azul encabezado p-0">
@@ -542,18 +544,21 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonindicadorg1">GUARDAR</button>
                                         <button class="btn bton btncancelarind" data-id="1">CANCELAR</button>
+                                        <div id="alertIndicador1">
+                                        </div>
                                     </form>
                                     <!--Lista indicadores-->
                                     <table class="container-fluid table mt-5 table-bordered table-hover table-striped table-responsive-md table-responsive-sm tablas d-none" id="listaIndicadorTabla1">
                                         <thead class="table-azul">
                                             <tr>
-                                                <th colspan="4" class="p-0">INDICADORES</th>
+                                                <th colspan="5" class="p-0">INDICADORES</th>
                                             </tr>
                                             <tr>
                                                 <th class="p-0">NOMBRE</th>
                                                 <th class="p-0">DESCRIPCIÓN</th>
                                                 <th class="p-0">TIPO</th>
                                                 <th class="p-0">FORMULA</th>
+                                                <th class="p-0">VALOR</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaIndicadores1"></tbody>
@@ -617,6 +622,8 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="actividadBoton1">GUARDAR</button>
                                         <button class="btn bton btncancelaract" data-id="1">CANCELAR</button>
+                                        <div id="alertActividad1">
+                                        </div>
                                     </form>
                                     <!--Lista Actividades-->
                                     <div class="tablaover">
@@ -649,8 +656,8 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                                <div class="col-11 mb-3 row p-1" style="border:1px solid #000000; background: #EBF5FB">
-                                                    <div class="col-1 align-self-center"><i class="fas fa-info-circle fa-2x" style="color: #EC7063"></i></div>
+                                                <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                    <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
                                             </div>
@@ -770,6 +777,7 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonrequerimientog1">GUARDAR</button>
                                         <button class="btn bton btncancelarreq" data-id="1">CANCELAR</button>
+                                        <div id="alertRequerimiento1"></div>
                                     </form>
                                     <!--Modificar año-->
                                     <form class="container-fluid p-3 formulario pt-3 mt-4 needs-validation contenedorRequerimientos d-none"  method="POST" action="../actividadReq?accion=ModificarAnioReq"  id="contenedorReqMod1" data-id="1" novalidate accept-charset="UTF-8">
@@ -897,18 +905,21 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonindicadorg2">GUARDAR</button>
                                         <button class="btn bton btncancelarind" data-id="2">CANCELAR</button>
+                                        <div id="alertIndicador2">
+                                        </div>
                                     </form>
                                     <!--Lista indicadores-->
                                     <table class="container-fluid table mt-5 table-bordered table-hover table-striped table-responsive-md table-responsive-sm tablas d-none" id="listaIndicadorTabla2">
                                         <thead class="table-azul">
                                             <tr>
-                                                <th colspan="4" class="p-0">INDICADORES</th>
+                                                <th colspan="5" class="p-0">INDICADORES</th>
                                             </tr>
                                             <tr>
                                                 <th class="p-0">NOMBRE</th>
                                                 <th class="p-0">DESCRIPCIÓN</th>
                                                 <th class="p-0">TIPO</th>
                                                 <th class="p-0">FORMULA</th>
+                                                <th class="p-0">VALOR</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaIndicadores2"></tbody>
@@ -919,13 +930,13 @@
                                         <div class="form-row">
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
+                                                    <label for="validationCustom02" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
                                                     <textarea class="form-control col-10 col-xs-10 col-md-8" id="txtnombreActividad2" name="txtnombreActividad2" required minlength="1"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
+                                                    <label for="validationCustom02" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
                                                     <input type="text" class="col-12 col-xs-12 col-md-8" id="inpresponsable2" name="inpresponsable2">
                                                 </div>
                                             </div>
@@ -972,6 +983,8 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="actividadBoton2">GUARDAR</button>
                                         <button class="btn bton  btncancelaract" data-id="2">CANCELAR</button>
+                                        <div id="alertActividad2">
+                                        </div>
                                     </form>
                                     <!--Lista Actividades-->
                                     <div class="tablaover">
@@ -1004,8 +1017,8 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                                <div class="col-11 mb-3 row p-1" style="border:1px solid #000000; background: #EBF5FB">
-                                                    <div class="col-1 align-self-center"><i class="fas fa-info-circle fa-2x" style="color: #EC7063"></i></div>
+                                                <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                    <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
                                             </div>
@@ -1125,6 +1138,7 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonrequerimientog2">GUARDAR</button>
                                         <button class="btn bton btncancelarreq" data-id="2">CANCELAR</button>
+                                        <div id="alertRequerimiento2"></div>
                                     </form>
                                     <!--Modificar año-->
                                     <form class="container-fluid p-3 formulario pt-3 mt-4 needs-validation contenedorRequerimientos d-none"  method="POST" action="../actividadReq?accion=ModificarAnioReq"  id="contenedorReqMod2" data-id="2" novalidate accept-charset="UTF-8">
@@ -1252,18 +1266,21 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonindicadorg3">GUARDAR</button>
                                         <button class="btn bton btncancelarind" data-id="3">CANCELAR</button>
+                                        <div id="alertIndicador3">
+                                        </div>
                                     </form>
                                     <!--Lista indicadores-->
                                     <table class="container-fluid table mt-5 table-bordered table-hover table-striped table-responsive-md table-responsive-sm tablas d-none" id="listaIndicadorTabla3">
                                         <thead class="table-azul">
                                             <tr>
-                                                <th colspan="4" class="p-0">INDICADORES</th>
+                                                <th colspan="5" class="p-0">INDICADORES</th>
                                             </tr>
                                             <tr>
                                                 <th class="p-0">NOMBRE</th>
                                                 <th class="p-0">DESCRIPCIÓN</th>
                                                 <th class="p-0">TIPO</th>
                                                 <th class="p-0">FORMULA</th>
+                                                <th class="p-0">VALOR</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaIndicadores3"></tbody>
@@ -1274,13 +1291,13 @@
                                         <div class="form-row">
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
+                                                    <label for="validationCustom03" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
                                                     <textarea class="form-control col-10 col-xs-10 col-md-8" id="txtnombreActividad3" name="txtnombreActividad3" required minlength="1"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
+                                                    <label for="validationCustom03" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
                                                     <input type="text" class="col-12 col-xs-12 col-md-8" id="inpresponsable3" name="inpresponsable3">
                                                 </div>
                                             </div>
@@ -1327,6 +1344,8 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="actividadBoton3">GUARDAR</button>
                                         <button class="btn bton  btncancelaract" data-id="3">CANCELAR</button>
+                                        <div id="alertActividad3">
+                                        </div>
                                     </form>
                                     <!--Lista Actividades-->
                                     <div class="tablaover">
@@ -1359,8 +1378,8 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                                <div class="col-11 mb-3 row p-1" style="border:1px solid #000000; background: #EBF5FB">
-                                                    <div class="col-1 align-self-center"><i class="fas fa-info-circle fa-2x" style="color: #EC7063"></i></div>
+                                               <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                    <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
                                             </div>
@@ -1480,6 +1499,7 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonrequerimientog3">GUARDAR</button>
                                         <button class="btn bton btncancelarreq" data-id="3">CANCELAR</button>
+                                        <div id="alertRequerimiento3"></div>
                                     </form>
                                     <!--Modificar año-->
                                     <form class="container-fluid p-3 formulario pt-3 mt-4 needs-validation contenedorRequerimientos d-none"  method="POST" action="../actividadReq?accion=ModificarAnioReq"  id="contenedorReqMod3" data-id="3" novalidate accept-charset="UTF-8">
@@ -1607,18 +1627,21 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonindicadorg4">GUARDAR</button>
                                         <button class="btn bton btncancelarind" data-id="4">CANCELAR</button>
+                                        <div id="alertIndicador4">
+                                        </div>
                                     </form>
                                     <!--Lista indicadores-->
                                     <table class="container-fluid table mt-5 table-bordered table-hover table-striped table-responsive-md table-responsive-sm tablas d-none" id="listaIndicadorTabla4">
                                         <thead class="table-azul">
                                             <tr>
-                                                <th colspan="4" class="p-0">INDICADORES</th>
+                                                <th colspan="5" class="p-0">INDICADORES</th>
                                             </tr>
                                             <tr>
                                                 <th class="p-0">NOMBRE</th>
                                                 <th class="p-0">DESCRIPCIÓN</th>
                                                 <th class="p-0">TIPO</th>
                                                 <th class="p-0">FORMULA</th>
+                                                <th class="p-0">VALOR</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaIndicadores4"></tbody>
@@ -1629,13 +1652,13 @@
                                         <div class="form-row">
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
+                                                    <label for="validationCustom04" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
                                                     <textarea class="form-control col-10 col-xs-10 col-md-8" id="txtnombreActividad4" name="txtnombreActividad4" required minlength="1"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
+                                                    <label for="validationCustom04" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
                                                     <input type="text" class="col-12 col-xs-12 col-md-8" id="inpresponsable4" name="inpresponsable4">
                                                 </div>
                                             </div>
@@ -1682,6 +1705,8 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="actividadBoton4">GUARDAR</button>
                                         <button class="btn bton  btncancelaract" data-id="4">CANCELAR</button>
+                                        <div id="alertActividad4">
+                                        </div>
                                     </form>
                                     <!--Lista Actividades-->
                                     <div class="tablaover">
@@ -1713,8 +1738,8 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                                <div class="col-11 mb-3 row p-1" style="border:1px solid #000000; background: #EBF5FB">
-                                                    <div class="col-1 align-self-center"><i class="fas fa-info-circle fa-2x" style="color: #EC7063"></i></div>
+                                                <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                    <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
                                             </div>
@@ -1834,6 +1859,7 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonrequerimientog4">GUARDAR</button>
                                         <button class="btn bton btncancelarreq" data-id="4">CANCELAR</button>
+                                        <div id="alertRequerimiento4"></div>
                                     </form>
                                     <!--Modificar año-->
                                     <form class="container-fluid p-3 formulario pt-3 mt-4 needs-validation contenedorRequerimientos d-none"  method="POST" action="../actividadReq?accion=ModificarAnioReq"  id="contenedorReqMod4" data-id="4" novalidate accept-charset="UTF-8">
@@ -1961,18 +1987,21 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonindicadorg5">GUARDAR</button>
                                         <button class="btn bton btncancelarind" data-id="5">CANCELAR</button>
+                                        <div id="alertIndicador5">
+                                        </div>
                                     </form>
                                     <!--Lista indicadores-->
                                     <table class="container-fluid table mt-5 table-bordered table-hover table-striped table-responsive-md table-responsive-sm tablas d-none" id="listaIndicadorTabla5">
                                         <thead class="table-azul">
                                             <tr>
-                                                <th colspan="4" class="p-0">INDICADORES</th>
+                                                <th colspan="5" class="p-0">INDICADORES</th>
                                             </tr>
                                             <tr>
                                                 <th class="p-0">NOMBRE</th>
                                                 <th class="p-0">DESCRIPCIÓN</th>
                                                 <th class="p-0">TIPO</th>
                                                 <th class="p-0">FORMULA</th>
+                                                <th class="p-0">VALOR</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaIndicadores5"></tbody>
@@ -1983,7 +2012,7 @@
                                         <div class="form-row">
                                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                                 <div class="row main-center">
-                                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
+                                                    <label for="validationCustom05" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Nombre:</label>
                                                     <textarea class="form-control col-10 col-xs-10 col-md-8" id="txtnombreActividad5" name="txtnombreActividad5" required minlength="1"></textarea>
                                                 </div>
                                             </div>
@@ -2036,6 +2065,8 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="actividadBoton5">GUARDAR</button>
                                         <button class="btn bton  btncancelaract" data-id="5">CANCELAR</button>
+                                        <div id="alertActividad5">
+                                        </div>
                                     </form>
                                     <!--Lista Actividades-->
                                     <div class="tablaover">
@@ -2067,8 +2098,8 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                                <div class="col-11 mb-3 row p-1" style="border:1px solid #000000; background: #EBF5FB">
-                                                    <div class="col-1 align-self-center"><i class="fas fa-info-circle fa-2x" style="color: #EC7063"></i></div>
+                                               <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                    <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
                                             </div>
@@ -2188,6 +2219,7 @@
                                         </div>
                                         <button class="btn bton" type="submit" id="botonrequerimientog5">GUARDAR</button>
                                         <button class="btn bton btncancelarreq" data-id="5">CANCELAR</button>
+                                        <div id="alertRequerimiento5"></div>
                                     </form>
                                     <!--Modificar año-->
                                     <form class="container-fluid p-3 formulario pt-3 mt-4 needs-validation contenedorRequerimientos d-none"  method="POST" action="../actividadReq?accion=ModificarAnioReq"  id="contenedorReqMod5" data-id="5" novalidate accept-charset="UTF-8">

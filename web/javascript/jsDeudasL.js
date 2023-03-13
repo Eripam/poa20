@@ -14,10 +14,12 @@ function listarDeudas(ag) {
                 var estado, div, st = 0, siva = 0, santicipo = 0, spendiente = 0, stotalpe = 0, tipo;
                 $.each(response, function () {
                     estado = this.estado_nombre;
-                    if (this.estado_id === 1) {
+                    if (this.estado_id === 1 && $('#idTipoUsu').val() != "24") {
                         div = '<i class="far fa-paper-plane" title="Enviar Deuda" id="enviarDeuda" data-deuda="' + this.deudas_id + '"></i><i class="far fa-eye" id="verestadosreq" data-deuda="' + this.deudas_id + '"></i>';
-                    } else {
+                    } else if ($('#idTipoUsu').val() != "24") {
                         div = '<i class="far fa-eye" id="verestadosreq" data-deuda="' + this.deudas_id + '"></i>';
+                    } else {
+                        div = '<i class="far fa-eye" id="verestadosreq" data-deuda="' + this.deudas_id + '"></i><i class="far fa-trash-alt" id="eliminarEstado" data-deuda="' + this.deudas_id + '" data-proceso="' + this.deudas_proceso + '" data-estadonombre="' + this.estado_nombre + '" data-estadoid="' + this.estado_id + '" data-estadofecha="' + this.deudas_contrato + '" data-observacion="' + this.estado_observacion + '" data-usuario="' + this.usuario_nombre + '" title="Eliminar Estado"></i>';
                     }
 
                     if (this.tp_id === 1) {
@@ -32,7 +34,7 @@ function listarDeudas(ag) {
                     siva = siva + this.deuda_monto_iva;
                     santicipo = santicipo + this.deudas_anticipo;
                     spendiente = spendiente + this.deudas_monto_pendiente;
-                    stotalpe=stotalpe+(this.deuda_monto_iva+this.deudas_monto_pendiente);
+                    stotalpe = stotalpe + (this.deuda_monto_iva + this.deudas_monto_pendiente);
                 });
                 $('#proyectosForm').append('<tr><td colspan="8">TOTAL</td><td>' + new Intl.NumberFormat("US", formateador()).format(st) + '</td><td>' + new Intl.NumberFormat("US", formateador()).format(siva) + '</td><td>' + new Intl.NumberFormat("US", formateador()).format(santicipo) + '</td><td>' + new Intl.NumberFormat("US", formateador()).format(spendiente) + '</td>\n\
                   <td>' + new Intl.NumberFormat("US", formateador()).format(stotalpe) + '</td></tr>');
@@ -84,6 +86,14 @@ $("table").on('click', 'tbody tr td #verestadosreq', function () {
     $('#devolverModal').modal();
 });
 
+//Ver modal requerimientos
+$("table").on('click', 'tbody tr td #eliminarEstado', function () {
+    var data = $(this).data();
+    $('#nombrePE').html('<input type="hidden" name="iddeuda" id="iddeuda" value="' + data['deuda'] + '">' + data['proceso'])
+    $('#estadoP').html('<input type="hidden" name="idestado" id="idestado" value="' + data['estadoid'] + '"><input type="hidden" name="fechae" id="fechae" value="' + data['estadofecha'] + '"><input type="hidden" name="usuarioe" id="usuarioe" value="' + data['usuario'] + '"><input type="hidden" name="observacione" id="observacione" value="' + data['observacion'] + '">' + data['estadonombre'])
+    $('#eliminarDeuda').modal();
+});
+
 $("table").on('click', 'tbody tr td #enviarDeuda', function () {
     var data = $(this).data();
     $('#aprobarRadios').val(22);
@@ -118,3 +128,26 @@ $('#guardarEnviar').on('click', function () {
                 console.log('Se completo correctamente');
             });
 });
+
+$('#modalEliminarEstados').on('click', function () {
+    $.ajax({
+        url: '../proyecto?accion=EliminarEstadoDeuda',
+        type: 'POST',
+        dataType: 'json',
+        cache: false,
+        data: {cedulaProyecto: $('#cedulaProyecto').val(), deuda: $('#iddeuda').val(), estado: $('#idestado').val(), fecha: $('#fechae').val(), cedula: $('#usuarioe').val(), observacion: $('#observacione').val()}
+    })
+            .done(function (response) {
+                if (response === "Correcto") {
+                    window.location.reload();
+                } else {
+                    alert(response);
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+})
