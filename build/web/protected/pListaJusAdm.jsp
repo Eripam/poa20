@@ -72,6 +72,40 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade bd-example-modal-xl" id="eliminarJustificativo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title main-center" id="exampleModalLabel" style="color:#133351">ELIMINAR ÚLTIMO ESTADO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="modal-body" id="frmIngresarCP">
+                        <input type="hidden" value="<%=strCedulaUsuario%>" id="cedulaProyecto" name="cedulaProyecto">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                    <div class="row">
+                                        <div class="col-12" style="font-weight: bold" id="nombrePE"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
+                                    <div class="row">
+                                        <label for="recipient-name" class="col-form-label" id="codigolbl">Estados:</label>
+                                        <div class="col-12" style="font-weight: bold" id="estadoP"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bton" id="modalEliminarEstados">ELIMINAR</button>
+                        <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="regresarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

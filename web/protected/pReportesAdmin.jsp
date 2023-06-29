@@ -35,7 +35,8 @@
                         <div class="container p-2 formulario pt-3">
                             <p class="titulo2 mb-0"><u>Excel</u></p>
                             <div class="row">
-                                <div class="col-10">Descargar Excel</div>
+                                <div class="col-8 text-end">Descargar Excel</div>
+                                <div class="col-2"></div>
                                 <div class="col-1">
                                     <form method="POST" action="../reporteExcel" id="FrmDescargarExcel" class="instructivos_archivos_icono">
                                         <input type="hidden" value="<%=intAnio%>" name="anioS" id="anioS">
@@ -52,7 +53,8 @@
                             </div>
                             <%if (intIdTipoUsuario != 9) {%>
                             <div class="row">
-                                <div class="col-10">Descargar Excel Verificados</div>
+                                <div class="col-8 text-end">Descargar Excel Verificados</div>
+                                <div class="col-2"></div>
                                 <div class="col-1">
                                     <form method="POST" action="../reporteExcel" id="FrmDescargarExcelV" class="instructivos_archivos_icono">
                                         <input type="hidden" value="<%=intAnio%>" id="anioS" name="anioS">
@@ -66,7 +68,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-10">Descargar Excel Verificados Final</div>
+                                <div class="col-8 text-end">Descargar Excel Verificados Final</div>
+                                <div class="col-2"></div>
                                 <div class="col-1">
                                     <form method="POST" action="../reporteExcel2" id="FrmDescargarExcelVC" class="instructivos_archivos_icono">
                                         <input type="hidden" value="<%=intAnio%>" id="anioS" name="anioS">
@@ -94,7 +97,8 @@
                                 </div>
                             </div>-->
                             <div class="row">
-                                <div class="col-10">Descargar Techos Priorizados</div>
+                                <div class="col-8 text-end">Descargar Techos Priorizados</div>
+                                <div class="col-2"></div>
                                 <div class="col-1">
                                     <form method="POST" action="../controladorReportePDF2" id="FrmTechoPrior" class="instructivos_archivos_icono" target="_blank">
                                         <%if (intAnio != 2020) {%>
@@ -108,7 +112,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-10">Descargar POA <%=intAnio%></div>
+                                <div class="col-8 text-end">Descargar POA <%=intAnio%></div>
+                                <div class="col-2"></div>
                                 <div class="col-1">
                                     <form method="POST" action="../controladorReportePDF" id="FrmDescargarPOA" class="instructivos_archivos_icono" target="_blank">
                                         <input type="hidden" value="<%=intAnio%>" id="anioS" name="anioS">
@@ -122,6 +127,21 @@
                                         <input type="hidden" value="<%=strAliasAreaGestion%>" name="agaliaspoa">
                                         <input type="hidden" value="<%=intAnio%>" name="anioreporte">
                                         <a href="#" onclick="activarPOA();"><i class="fas fa-file-download"></i></a>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">Descargar Excel DEAC - <%=intAnio%></div>
+                                <div class="col-3">
+                                    <form method="POST" action="../reporteExcel2" id="FrmReporteEval" class="instructivos_archivos_icono">
+                                        <input type="hidden" value="reporteExcelDEAC" name="accion">
+                                        <input type="hidden" id="selectanioD" name="selectanioD" value="<%=intAnio%>">
+                                        <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" data-selected-text-format="count > 6" id="cuatrimestreEval" name="cuatrimestreEval">
+                                            <option value="1">I Cuatrimestre</option>
+                                            <option value="2">II Cuatrimestre</option>
+                                            <option value="3">III Cuatrimestre</option>
+                                        </select>
+                                        <a href="#" onclick="activarEvalu();"><i class="fas fa-file-download"></i></a>
                                     </form>
                                 </div>
                             </div>
@@ -192,7 +212,7 @@
                             <%}%>
                         </div>
                         <%if (intIdTipoUsuario != 9) {%>
-                        <p class="titulo mb-0"><u>REPORTES EVALUACIÓN</u></p>
+                        <p class="titulo mb-0"><u>REPORTES SELECCIONABLES</u></p>
                         <div class="container p-2 formulario pt-3">
                             <p class="titulo2 mb-0"><u>PDF</u></p>
                             <div class="row main-center">

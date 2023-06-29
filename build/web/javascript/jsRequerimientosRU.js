@@ -91,7 +91,7 @@ $('#example tbody').on('click', 'tr', function () {
 
 $('#example').on('click', 'tbody tr td .dat #modReqUni', function () {
     var data = $(this).data();
-    var sum = 0, sumto = 0, total = 0, sumci = 0;
+    var sum = 0, sumto = 0, total = 0, sumci = 0, tipo;
     $('#requnifid').val(data['id']);
     $('#nombreunif').val(data['nombre']);
     $('#descunif').val(data['descripcion']);
@@ -101,9 +101,14 @@ $('#example').on('click', 'tbody tr td .dat #modReqUni', function () {
     $('#selunidaduni').append('<option value="' + data['unidadid'] + '" selected="selected">' + data['unidad'] + '</option>');
     $('#tituloEnviarUnif').html("Modificar Unificacion");
     $('#listaRequerimientosUnificaReq').empty();
+    if(data['cantidad']>1){
+        tipo=2
+    }else{
+        tipo=1
+    }
     $.ajax({
         url: "../solicitud?accion=ListaRequerimientosU",
-        data: {req: data['id']},
+        data: {req: data['id'], tipo:tipo},
         type: 'POST',
         dataType: 'json'
     })

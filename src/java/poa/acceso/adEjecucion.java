@@ -3162,9 +3162,9 @@ public class adEjecucion {
     }
 
     //Listar requerimientos que fueron unificados
-    public List<cActividadRequerimiento> ListarRequerimientosUnificadosUnion(Integer req) {
+    public List<cActividadRequerimiento> ListarRequerimientosUnificadosUnion(Integer req, Integer tipo) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select * from f_listarequeunificados('" + req + "', 2)";
+        String SQL = "select * from f_listarequeunificados('" + req + "', '"+tipo+"')";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

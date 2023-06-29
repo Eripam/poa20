@@ -310,16 +310,21 @@ $('.intrevisarv').on('click', function () {
 ////Mostrar requerimientos
 $('#listaRequerimientosSolVis').on('click', 'tr td #mostrarReq', function () {
     var data = $(this).data();
-    var sum = 0, sumto = 0, total = 0, sumci = 0;
+    var sum = 0, sumto = 0, total = 0, sumci = 0, tipo;
     $('#nombreunif').val(data['nombre']);
     $('#descunif').val(data['descripcion']);
     $('#cantidadunif').val(data['cantidad']);
     $('#costounif').val(data['costo']);
     $('#unidadinp').val(data['unidad']);
     $('#listaRequerimientosUnificaReq').empty();
+    if(data['cantidad']>1){
+        tipo=2;
+    }else{
+        tipo=1;
+    }
     $.ajax({
         url: "../solicitud?accion=ListaRequerimientosU",
-        data: {req: data['req']},
+        data: {req: data['req'], tipo:tipo},
         type: 'POST',
         dataType: 'json'
     })

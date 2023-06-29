@@ -2538,11 +2538,11 @@ public class servEjecucion extends HttpServlet {
                 }
             } else {
                 for (int i = 0; i < req_id.length; i++) {
-//                    if (req_id[i][4].equals("1")) {
-//                        con1++;
-//                    } else {
-//                        con2++;
-//                    }
+                    if (req_id[i][4].equals("1")) {
+                        con1++;
+                    } else {
+                        con2++;
+                    }
                     if (i == 0) {
                         for (int j = 1; j < req_id.length; j++) {
                             if (req_id[i][5].equals(req_id[j][5])) {
@@ -2551,145 +2551,146 @@ public class servEjecucion extends HttpServlet {
                         }
                     }
                 }
-//                if ((con1 == req_id.length || con2 == req_id.length) && conun == req_id.length) {
-                if (conun == req_id.length) {
-                    for (String[] req_id1 : req_id) {
-                        if (req_id1[3].equals("1")) {
-                            //cantidad1 += Double.parseDouble(req_id1[2]);
-                            cantidad1 = 1.0;
-                            cos1 += Double.parseDouble(req_id1[6]);
-                        }
-                    }
-                    if (cantidad1 > 0) {
-                        id1 = aEjecucion.codigoSiguienteUnificado();
-                        cComp.setReq_nombre(nombre);
-                        cComp.setReq_id(id1);
-                        cComp.setReq_costo_unitario(cos1);
-                        cComp.setReq_costo_sin_iva(cantidad1 * cos1);
-                        cComp.setPerspectiva_id(1);
-                        cComp.setReq_cantidad(cantidad1);
-                        cComp.setReq_descripcion(descripcion);
-                        cComp.setReq_verificacion(Integer.parseInt(estado));
-                        cComp.setUnidad_id(Integer.parseInt(unidad));
-//                        if (con1 > 0) {
-                        cComp.setReq_iva(1);
-//                        }
-                        result = aEjecucion.IngresarRequerimientosUnificados(cComp);
-                        if (result.equals("Correcto")) {
-                            cTransaccion objTransaccion = new cTransaccion();
-                            objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id1 + "\" se ingresò correctamente");
-                            objTransaccion.setTransaccion_cedula(cedula);
-                            objTransaccion.setTransaccion_ag(intIdAg);
-                            objTransaccion.setTransaccion_tipo(1);
-                            ingresarTransaccion(objTransaccion);
-                        }
-                    }
-                    for (String[] req_id1 : req_id) {
-                        if (req_id1[3].equals("2")) {
-                            //cantidad2 += Double.parseDouble(req_id1[2]);
-                            cantidad2 = 1.0;
-                            cos2 += Double.parseDouble(req_id1[6]);
-                        }
-                    }
-                    if (cantidad2 > 0) {
-                        id2 = aEjecucion.codigoSiguienteUnificado();
-                        cComp.setReq_nombre(nombre);
-                        cComp.setReq_id(id2);
-                        cComp.setReq_costo_unitario(cos2);
-                        cComp.setReq_costo_sin_iva(cantidad2 * cos2);
-                        cComp.setPerspectiva_id(2);
-                        cComp.setReq_cantidad(cantidad2);
-                        cComp.setReq_descripcion(descripcion);
-                        cComp.setReq_verificacion(Integer.parseInt(estado));
-                        cComp.setUnidad_id(Integer.parseInt(unidad));
-//                        if (con1 > 0) {
-                        cComp.setReq_iva(1);
-//                        }
-                        result = aEjecucion.IngresarRequerimientosUnificados(cComp);
-                        if (result.equals("Correcto")) {
-                            cTransaccion objTransaccion = new cTransaccion();
-                            objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id2 + "\" se ingresò correctamente");
-                            objTransaccion.setTransaccion_cedula(cedula);
-                            objTransaccion.setTransaccion_ag(intIdAg);
-                            objTransaccion.setTransaccion_tipo(1);
-                            ingresarTransaccion(objTransaccion);
-                        }
-                    }
-                    for (String[] req_id1 : req_id) {
-                        if (req_id1[3].equals("3")) {
-                            //cantidad3 += Double.parseDouble(req_id1[2]);
-                            cantidad3 = 1.0;
-                            cos3 += Double.parseDouble(req_id1[6]);
-                        }
-                    }
-                    if (cantidad3 > 0) {
-                        id3 = aEjecucion.codigoSiguienteUnificado();
-                        cComp.setReq_nombre(nombre);
-                        cComp.setReq_id(id3);
-                        cComp.setReq_costo_unitario(cos3);
-                        cComp.setReq_costo_sin_iva(cantidad3 * cos3);
-                        cComp.setPerspectiva_id(3);
-                        cComp.setReq_cantidad(cantidad3);
-                        cComp.setReq_descripcion(descripcion);
-                        cComp.setReq_verificacion(Integer.parseInt(estado));
-                        cComp.setUnidad_id(Integer.parseInt(unidad));
-//                        if (con1 > 0) {
-                        cComp.setReq_iva(1);
-//                        }
-                        result = aEjecucion.IngresarRequerimientosUnificados(cComp);
-                        if (result.equals("Correcto")) {
-                            cTransaccion objTransaccion = new cTransaccion();
-                            objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id3 + "\" se ingresò correctamente");
-                            objTransaccion.setTransaccion_cedula(cedula);
-                            objTransaccion.setTransaccion_ag(intIdAg);
-                            objTransaccion.setTransaccion_tipo(1);
-                            ingresarTransaccion(objTransaccion);
-                        }
-                    }
-                    for (String[] req_id1 : req_id) {
-                        if (req_id1[3].equals("4")) {
-                            //cantidad4 += Double.parseDouble(req_id1[2]);
-                            cantidad4 = 1.0;
-                            cos4 += Double.parseDouble(req_id1[6]);
-                        }
-                    }
-                    if (cantidad4 > 0) {
-                        id4 = aEjecucion.codigoSiguienteUnificado();
-                        cComp.setReq_nombre(nombre);
-                        cComp.setReq_id(id4);
-                        cComp.setReq_costo_unitario(cos4);
-                        cComp.setReq_costo_sin_iva(cantidad4 * cos4);
-                        cComp.setPerspectiva_id(4);
-                        cComp.setReq_cantidad(cantidad4);
-                        cComp.setReq_descripcion(descripcion);
-                        cComp.setReq_verificacion(Integer.parseInt(estado));
-                        cComp.setUnidad_id(Integer.parseInt(unidad));
-//                        if (con1 > 0) {
-                        cComp.setReq_iva(1);
-//                        }
-                        result = aEjecucion.IngresarRequerimientosUnificados(cComp);
-                        if (result.equals("Correcto")) {
-                            cTransaccion objTransaccion = new cTransaccion();
-                            objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id4 + "\" se ingresò correctamente");
-                            objTransaccion.setTransaccion_cedula(cedula);
-                            objTransaccion.setTransaccion_ag(intIdAg);
-                            objTransaccion.setTransaccion_tipo(1);
-                            ingresarTransaccion(objTransaccion);
-                        }
-                    }
-                    if (result.equals("Correcto")) {
+                if ((con1 == req_id.length || con2 == req_id.length) && conun == req_id.length) {
+                    if (conun == req_id.length) {
                         for (String[] req_id1 : req_id) {
                             if (req_id1[3].equals("1")) {
-                                cComp.setReq_id(id1);
-                            } else if (req_id1[3].equals("2")) {
-                                cComp.setReq_id(id2);
-                            } else if (req_id1[3].equals("3")) {
-                                cComp.setReq_id(id3);
-                            } else if (req_id1[3].equals("4")) {
-                                cComp.setReq_id(id4);
+                                //cantidad1 += Double.parseDouble(req_id1[2]);
+                                cantidad1 = 1.0;
+                                cos1 += Double.parseDouble(req_id1[6]);
                             }
-                            cComp.setActividad_id(Integer.parseInt(req_id1[0]));
-                            result = aEjecucion.IngresarRequerimientosUnificadosRelacionado(cComp);
+                        }
+                        if (cantidad1 > 0) {
+                            id1 = aEjecucion.codigoSiguienteUnificado();
+                            cComp.setReq_nombre(nombre);
+                            cComp.setReq_id(id1);
+                            cComp.setReq_costo_unitario(cos1);
+                            cComp.setReq_costo_sin_iva(cantidad1 * cos1);
+                            cComp.setPerspectiva_id(1);
+                            cComp.setReq_cantidad(cantidad1);
+                            cComp.setReq_descripcion(descripcion);
+                            cComp.setReq_verificacion(Integer.parseInt(estado));
+                            cComp.setUnidad_id(Integer.parseInt(unidad));
+                            if (con1 > 0) {
+                                cComp.setReq_iva(1);
+                            }
+                            result = aEjecucion.IngresarRequerimientosUnificados(cComp);
+                            if (result.equals("Correcto")) {
+                                cTransaccion objTransaccion = new cTransaccion();
+                                objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id1 + "\" se ingresò correctamente");
+                                objTransaccion.setTransaccion_cedula(cedula);
+                                objTransaccion.setTransaccion_ag(intIdAg);
+                                objTransaccion.setTransaccion_tipo(1);
+                                ingresarTransaccion(objTransaccion);
+                            }
+                        }
+                        for (String[] req_id1 : req_id) {
+                            if (req_id1[3].equals("2")) {
+                                //cantidad2 += Double.parseDouble(req_id1[2]);
+                                cantidad2 = 1.0;
+                                cos2 += Double.parseDouble(req_id1[6]);
+                            }
+                        }
+                        if (cantidad2 > 0) {
+                            id2 = aEjecucion.codigoSiguienteUnificado();
+                            cComp.setReq_nombre(nombre);
+                            cComp.setReq_id(id2);
+                            cComp.setReq_costo_unitario(cos2);
+                            cComp.setReq_costo_sin_iva(cantidad2 * cos2);
+                            cComp.setPerspectiva_id(2);
+                            cComp.setReq_cantidad(cantidad2);
+                            cComp.setReq_descripcion(descripcion);
+                            cComp.setReq_verificacion(Integer.parseInt(estado));
+                            cComp.setUnidad_id(Integer.parseInt(unidad));
+                            if (con1 > 0) {
+                                cComp.setReq_iva(1);
+                            }
+                            result = aEjecucion.IngresarRequerimientosUnificados(cComp);
+                            if (result.equals("Correcto")) {
+                                cTransaccion objTransaccion = new cTransaccion();
+                                objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id2 + "\" se ingresò correctamente");
+                                objTransaccion.setTransaccion_cedula(cedula);
+                                objTransaccion.setTransaccion_ag(intIdAg);
+                                objTransaccion.setTransaccion_tipo(1);
+                                ingresarTransaccion(objTransaccion);
+                            }
+                        }
+                        for (String[] req_id1 : req_id) {
+                            if (req_id1[3].equals("3")) {
+                                //cantidad3 += Double.parseDouble(req_id1[2]);
+                                cantidad3 = 1.0;
+                                cos3 += Double.parseDouble(req_id1[6]);
+                            }
+                        }
+                        if (cantidad3 > 0) {
+                            id3 = aEjecucion.codigoSiguienteUnificado();
+                            cComp.setReq_nombre(nombre);
+                            cComp.setReq_id(id3);
+                            cComp.setReq_costo_unitario(cos3);
+                            cComp.setReq_costo_sin_iva(cantidad3 * cos3);
+                            cComp.setPerspectiva_id(3);
+                            cComp.setReq_cantidad(cantidad3);
+                            cComp.setReq_descripcion(descripcion);
+                            cComp.setReq_verificacion(Integer.parseInt(estado));
+                            cComp.setUnidad_id(Integer.parseInt(unidad));
+                            if (con1 > 0) {
+                                cComp.setReq_iva(1);
+                            }
+                            result = aEjecucion.IngresarRequerimientosUnificados(cComp);
+                            if (result.equals("Correcto")) {
+                                cTransaccion objTransaccion = new cTransaccion();
+                                objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id3 + "\" se ingresò correctamente");
+                                objTransaccion.setTransaccion_cedula(cedula);
+                                objTransaccion.setTransaccion_ag(intIdAg);
+                                objTransaccion.setTransaccion_tipo(1);
+                                ingresarTransaccion(objTransaccion);
+                            }
+                        }
+                        for (String[] req_id1 : req_id) {
+                            if (req_id1[3].equals("4")) {
+                                //cantidad4 += Double.parseDouble(req_id1[2]);
+                                cantidad4 = 1.0;
+                                cos4 += Double.parseDouble(req_id1[6]);
+                            }
+                        }
+                        if (cantidad4 > 0) {
+                            id4 = aEjecucion.codigoSiguienteUnificado();
+                            cComp.setReq_nombre(nombre);
+                            cComp.setReq_id(id4);
+                            cComp.setReq_costo_unitario(cos4);
+                            cComp.setReq_costo_sin_iva(cantidad4 * cos4);
+                            cComp.setPerspectiva_id(4);
+                            cComp.setReq_cantidad(cantidad4);
+                            cComp.setReq_descripcion(descripcion);
+                            cComp.setReq_verificacion(Integer.parseInt(estado));
+                            cComp.setUnidad_id(Integer.parseInt(unidad));
+                            if (con1 > 0) {
+                                cComp.setReq_iva(1);
+                            }
+                            result = aEjecucion.IngresarRequerimientosUnificados(cComp);
+                            if (result.equals("Correcto")) {
+                                cTransaccion objTransaccion = new cTransaccion();
+                                objTransaccion.setTransaccion_descripcion("El requerimiento con código: \"" + id4 + "\" se ingresò correctamente");
+                                objTransaccion.setTransaccion_cedula(cedula);
+                                objTransaccion.setTransaccion_ag(intIdAg);
+                                objTransaccion.setTransaccion_tipo(1);
+                                ingresarTransaccion(objTransaccion);
+                            }
+                        }
+                        if (result.equals("Correcto")) {
+                            for (String[] req_id1 : req_id) {
+                                if (req_id1[3].equals("1")) {
+                                    cComp.setReq_id(id1);
+                                } else if (req_id1[3].equals("2")) {
+                                    cComp.setReq_id(id2);
+                                } else if (req_id1[3].equals("3")) {
+                                    cComp.setReq_id(id3);
+                                } else if (req_id1[3].equals("4")) {
+                                    cComp.setReq_id(id4);
+                                }
+                                cComp.setActividad_id(Integer.parseInt(req_id1[0]));
+                                result = aEjecucion.IngresarRequerimientosUnificadosRelacionado(cComp);
+                            }
                         }
                     }
                 } else {
@@ -2823,8 +2824,9 @@ public class servEjecucion extends HttpServlet {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
         adEjecucion aEjecucion = new adEjecucion();
         String estado = request.getParameter("req");
+        String tipo = request.getParameter("tipo");
 
-        result = aEjecucion.ListarRequerimientosUnificadosUnion(Integer.parseInt(estado));
+        result = aEjecucion.ListarRequerimientosUnificadosUnion(Integer.parseInt(estado), Integer.parseInt(tipo));
 
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
@@ -3355,8 +3357,10 @@ public class servEjecucion extends HttpServlet {
             result = aEjecucion.ListarRequerimientosExcel();
         } else if (anio.equals("2021")) {
             result = aEjecucion.ListarRequerimientosExcel21();
-        } else {
+        } else if (anio.equals("2022")) {
             result = aEjecucion.ListarRequerimientosExcel22();
+        } else {
+            result = aEjecucion.ListarRequerimientosExcel23();
         }
 
         String json = new Gson().toJson(result);
@@ -3924,6 +3928,7 @@ public class servEjecucion extends HttpServlet {
         String porcentaje = request.getParameter("porcentaje");
         String fecha = request.getParameter("fechain");
         String recurrente = request.getParameter("recurrente");
+        String liq = request.getParameter("liquidacion");
         String[][] req_id = new Gson().fromJson(req, String[][].class);
         List<cActividadRequerimiento> listareq = new ArrayList<cActividadRequerimiento>();
 
@@ -3942,13 +3947,19 @@ public class servEjecucion extends HttpServlet {
             result = "Debe ingresar la fecha de aprobación";
         } else {
             for (int i = 0; i < req_id.length; i++) {
+                int tipo2;
                 if (observacion.isEmpty()) {
                     obs = "Sin observación";
                 } else {
                     obs = observacion;
                 }
+                if (Integer.parseInt(req_id[i][3]) > 1) {
+                    tipo2 = 2;
+                } else {
+                    tipo2 = 1;
+                }
 
-                listareq = adEj.ListarRequerimientosUnificadosUnion(Integer.parseInt(req_id[i][0]));
+                listareq = adEj.ListarRequerimientosUnificadosUnion(Integer.parseInt(req_id[i][0]), tipo2);
 
                 for (int j = 0; j < listareq.size(); j++) {
                     if (codigoiva.isEmpty()) {
@@ -3968,6 +3979,8 @@ public class servEjecucion extends HttpServlet {
                     cAct.setFecha_inicio(fecha);
 
                     if (tipo.equals("1")) {
+                        cAct.setAe_tiempo(Integer.parseInt(recurrente));
+                        cAct.setUnidad_id(Integer.parseInt(liq));
                         result = adEj.IngresarCertificacionPRec(cAct);
                     } else if (tipo.equals("2")) {
                         double anticipo;

@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import poa.clases.cActividadRequerimiento;
+import poa.clases.cAreaGestion;
 import poa.clases.cComponenteMeta;
+import poa.clases.cProcesoAcciones;
 import poa.clases.cProyecto;
 import poa.conexion.cAccesoDatos;
 
@@ -927,5 +929,50 @@ public class adEvaluacion {
             this.error = e;
         }
         return result;
+    }
+
+    //Listar proyectos para deac
+    public List<cProyecto> ListarProyectosDEAC(Integer anio, Integer cuatrimestre) {
+        List<cProyecto> result = new ArrayList<cProyecto>();
+        String SQL = "select proceso_id, proceso_nombre, actproceso_codigo, actproceso_nombre, proyectoid, proyectocodigo, proyectonombre, proyectoproposito, dependencia, responsable, planificado, programa, devengado, comprometido,\n"
+                + "(select pe_eficiencia from proyecto_evaluacion where pe_proyecto=proyectoid and pe_cuatrimestre="+cuatrimestre+") as eficiencia\n"
+                + "from f_listaproyectoprograma("+anio+") left join acciones_mejora on proyectoid=am_proyecto left join actividad_proceso on am_nombre=actproceso_id\n"
+                + "left join proceso on am_proceso=proceso_codigo order by proceso_id, actproceso_codigo, proyectoid";
+        try {
+            //Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {  //Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsComp = ad.getRs();
+                    while (rsComp.next()) {
+                        cProyecto cComp = new cProyecto();
+                        cProcesoAcciones cProc = new cProcesoAcciones();
+                        cAreaGestion cAg = new cAreaGestion();
+                        cProc.setProceso_nombre(rsComp.getString("proceso_nombre"));
+                        cProc.setAm_codigo(rsComp.getString("actproceso_codigo"));
+                        cProc.setAm_nombre(rsComp.getString("actproceso_nombre"));
+                        cComp.setProac(cProc);
+                        cComp.setProyecto_codigo(rsComp.getString("proyectocodigo"));
+                        cComp.setProyecto_nombre(rsComp.getString("proyectonombre"));
+                        cComp.setProyecto_proposito(rsComp.getString("proyectoproposito"));
+                        cAg.setAg_nombre(rsComp.getString("dependencia"));
+                        cComp.setAg(cAg);
+                        cComp.setProyecto_responsable(rsComp.getString("responsable"));
+                        cComp.setTp_nombre(rsComp.getString("programa"));
+                        cComp.setProyecto_monto(rsComp.getDouble("planificado"));
+                        cComp.setDeuda_monto_contrato(rsComp.getDouble("comprometido"));
+                        cComp.setDeudas_anticipo(rsComp.getDouble("devengado"));
+                        cComp.setPe_eficiencia(rsComp.getDouble("eficiencia"));
+                        result.add(cComp);
+                    }
+                    ad.desconectar();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        } finally {
+            return result;
+        }
     }
 }

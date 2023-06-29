@@ -468,8 +468,10 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="servProfDispo"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-list fa-3x"></i></span><p class="col-12 p-0 m-0">SERVICIOS PROFESIONALES DE DISPONIBILIDAD</p></div>
                   <%} else if (intIdTipoUsuario == 26) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosU"><i class="fas fa-list-ul"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosU"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosF"><i class="fas fa-list-ul fa-3x"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>       
+                <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                 <%}%>
             </div>
         </div>
