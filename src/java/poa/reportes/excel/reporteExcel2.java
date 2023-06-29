@@ -52,6 +52,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 import poa.acceso.adActividadRequerimiento;
+import poa.acceso.adEvaluacion;
 import poa.acceso.adProyecto;
 import poa.clases.cActividadRequerimiento;
 import poa.clases.cProyecto;
@@ -85,6 +86,14 @@ public class reporteExcel2 extends HttpServlet {
                     }
                 }
                 break;
+                case "reporteExcelDEAC": {
+                    try {
+                        reporteExcelDEAC(request, response);
+                    } catch (DocumentException ex) {
+                        Logger.getLogger(reporteExcel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
             }
         }
     }
@@ -111,7 +120,132 @@ public class reporteExcel2 extends HttpServlet {
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         style.setFont(titleFont);
         styles.put("title", style);
-
+        
+        Font titleFontD = wb.createFont();
+        titleFontD.setFontHeightInPoints((short) 15);
+        titleFontD.setBold(true);
+        titleFontD.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorD = palette.findSimilarColor(255, 255, 255);
+        short palIndexD = myColorD.getIndex();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(palIndexD);
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setFont(titleFontD);
+        styles.put("titleDEAC", style);
+        
+        Font titleFontD2 = wb.createFont();
+        titleFontD2.setFontHeightInPoints((short) 11);
+        titleFontD2.setBold(true);
+        titleFontD2.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorD2 = palette.findSimilarColor(165, 210, 233);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(myColorD2.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(titleFontD2);
+        styles.put("titleDEAC2", style);
+        
+        Font titleFontD2C = wb.createFont();
+        titleFontD2C.setFontHeightInPoints((short) 10);
+        titleFontD2C.setBold(true);
+        titleFontD2C.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorD2C = palette.findSimilarColor(165, 210, 233);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(myColorD2C.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(titleFontD2C);
+        styles.put("titleDEAC2C", style);
+       
+        Font titleFontD3 = wb.createFont();
+        titleFontD3.setFontHeightInPoints((short) 10);
+        titleFontD3.setBold(true);
+        titleFontD3.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorD3 = palette.findSimilarColor(248, 203, 173);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(myColorD3.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(titleFontD3);
+        styles.put("titleDEAC3", style);
+        
+        Font titleFontD3T = wb.createFont();
+        titleFontD3T.setFontHeightInPoints((short) 11);
+        titleFontD3T.setBold(true);
+        titleFontD3T.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorD3T = palette.findSimilarColor(248, 203, 173);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(myColorD3T.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(titleFontD3T);
+        styles.put("titleDEAC3T", style);
+        
+        Font titleFontTotal = wb.createFont();
+        titleFontTotal.setFontHeightInPoints((short) 11);
+        titleFontTotal.setBold(true);
+        titleFontTotal.setFontName("Arial");
+        style = wb.createCellStyle();
+        HSSFColor myColorTotal = palette.findSimilarColor(255, 255, 255);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(myColorTotal.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(titleFontTotal);
+        styles.put("titleFontTotal", style);
+               
+                
         Font titleFont2 = wb.createFont();
         titleFont2.setFontHeightInPoints((short) 9);
         HSSFColor myColor2 = palette.findSimilarColor(130, 191, 248);
@@ -3157,6 +3291,208 @@ public class reporteExcel2 extends HttpServlet {
                 m++;
                 n++;
             }*/
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        // Write the output to a file
+        try {
+            // FileOutputStream fileOut = new FileOutputStream("requerimientos.xlsx");
+            // wb.write(fileOut);
+            //String path = "/var/www/html/ieb_docs/reportes/";
+            wb.write(response.getOutputStream()); // Write workbook to response.
+            wb.close();
+            //fileOut.close();
+//            File file = new File("requerimientos.xlsx");
+////            // Abrir el archivo
+//            Desktop.getDesktop().open(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void reporteExcelDEAC(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException, IOException, DocumentException {
+        response.setContentType("application/vnd.ms-excel");
+        String anio = request.getParameter("selectanioD");
+        String cuatrimestre = request.getParameter("cuatrimestreEval");
+        response.setHeader("Content-Disposition", "attachment; filename=proyectosDEAC-"+cuatrimestre+"-"+anio+".xls");
+        DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm:ss");
+        String fecha = dateFormat.format(Calendar.getInstance().getTime());
+        Workbook wb = new HSSFWorkbook(); //or new HSSFWorkbook();
+        Sheet sheet = wb.createSheet("new sheet");
+        Map<String, CellStyle> styles = createStyles(wb);
+        adEvaluacion adEval = new adEvaluacion();
+        List<cProyecto> proyectos = new ArrayList<cProyecto>();
+        
+        Row row = sheet.createRow(0);
+        Row row2 = sheet.createRow(1);
+        Row row3 = sheet.createRow(2);
+        Row row4 = sheet.createRow(3);
+        Row row6 = sheet.createRow(4);
+        row.setHeightInPoints(40);
+        row2.setHeightInPoints(30);
+        row3.setHeightInPoints(30);
+        Cell cell = row.createCell(0);
+        Cell cell2 = row2.createCell(0);
+        Cell cell7 = row2.createCell(1);
+        Cell cell3 = row2.createCell(4);
+        Cell cell8 = row2.createCell(5);
+        Cell cell4 = row3.createCell(0);
+        Cell cell5 = row3.createCell(3);
+        Cell cell9 = row3.createCell(2);
+        Cell cell10 = row3.createCell(6);
+        Cell cell11 = row2.createCell(2);
+        Cell cell12 = row2.createCell(6);
+        Cell cell13 = row3.createCell(7);
+        Cell cell14 = row3.createCell(8);
+        Cell cell15 = row3.createCell(9);
+        Cell cell16 = row3.createCell(10);
+        Cell cell17 = row3.createCell(11);
+        Cell cell18 = row3.createCell(12);
+        Cell cell6;
+        cell.setCellValue("ARTICULACIÓN DEL PLAN OPERATIVO ANUAL "+anio+" CON LOS PLANES DE MEJORAS Y DE ASEGURAMIENTO DE LA CALIDAD DEL "+cuatrimestre+" CUATRIMESTRE");
+        cell2.setCellValue("TOTAL PRESUPUESTO INSTITUCIONAL EN EJECUCIÓN");
+        cell3.setCellValue("FECHA REPORTE");
+        cell12.setCellValue(fecha);
+        cell4.setCellValue("PLAN DE MEJORAS / ASEGURAMIENTO DE LA CALIDAD");
+        cell5.setCellValue("INFORMACIÓN PLAN OPERATIVO ANUAL");
+        cell.setCellStyle(styles.get("titleDEAC"));
+        cell2.setCellStyle(styles.get("titleFontTotal"));
+        cell9.setCellStyle(styles.get("titleFontTotal"));
+        cell10.setCellStyle(styles.get("titleFontTotal"));
+        cell11.setCellStyle(styles.get("titleFontTotal"));
+        cell12.setCellStyle(styles.get("titleFontTotal"));
+        cell13.setCellStyle(styles.get("titleFontTotal"));
+        cell14.setCellStyle(styles.get("titleFontTotal"));
+        cell15.setCellStyle(styles.get("titleFontTotal"));
+        cell16.setCellStyle(styles.get("titleFontTotal"));
+        cell17.setCellStyle(styles.get("titleFontTotal"));
+        cell18.setCellStyle(styles.get("titleFontTotal"));
+        cell7.setCellStyle(styles.get("titleFontTotal"));
+        cell3.setCellStyle(styles.get("titleFontTotal"));
+        cell8.setCellStyle(styles.get("titleFontTotal"));
+        cell4.setCellStyle(styles.get("titleDEAC2"));
+        cell5.setCellStyle(styles.get("titleDEAC3T"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$M$1"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$2:$B$2"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$E$2:$F$2"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$3:$C$3"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$D$3:$M$3"));
+        sheet.setAutoFilter(CellRangeAddress.valueOf("A4:M4"));
+        sheet.setColumnWidth(0,9000);
+        sheet.setColumnWidth(1,3500);
+        sheet.setColumnWidth(2,4500);
+        sheet.setColumnWidth(3,3500);
+        sheet.setColumnWidth(4,6500);
+        sheet.setColumnWidth(5,4000);
+        sheet.setColumnWidth(6,4500);
+        sheet.setColumnWidth(7,6000);
+        sheet.setColumnWidth(8,5000);
+        sheet.setColumnWidth(9,5500);
+        sheet.setColumnWidth(10,5500);
+        sheet.setColumnWidth(11,5500);
+        sheet.setColumnWidth(12,5500);
+
+        cell6 = row4.createCell(0);
+        cell6.setCellValue("PLAN DE MEJORAS/ASEGURAMIENTO DE LA CALIDAD");
+        cell6.setCellStyle(styles.get("titleDEAC2C"));
+        cell6 = row4.createCell(1);
+        cell6.setCellValue("NUM. ACTIVIDAD");
+        cell6.setCellStyle(styles.get("titleDEAC2C"));
+        cell6 = row4.createCell(2);
+        cell6.setCellValue("ACTIVIDAD");
+        cell6.setCellStyle(styles.get("titleDEAC2C"));
+        cell6 = row4.createCell(3);
+        cell6.setCellValue("CÓDIGO PROYECTO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(4);
+        cell6.setCellValue("NOMBRE DEL PROYECTO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(5);
+        cell6.setCellValue("PROPÓSITO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(6);
+        cell6.setCellValue("DEPENDENCIA");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(7);
+        cell6.setCellValue("UNIDAD RESPONSABLE");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(8);
+        cell6.setCellValue("PROGRAMA PRESUPUESTARIO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(9);
+        cell6.setCellValue("PRESUPUESTO PLANIFICADO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(10);
+        cell6.setCellValue("PRESUPUESTO COMPROMETIDO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(11);
+        cell6.setCellValue("PRESUPUESTO DEVENGADO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        cell6 = row4.createCell(12);
+        cell6.setCellValue("ESTADO DE EJECUCIÓN DEL PROYECTO");
+        cell6.setCellStyle(styles.get("titleDEAC3"));
+        
+        proyectos=adEval.ListarProyectosDEAC(Integer.parseInt(anio), Integer.parseInt(cuatrimestre));
+        int k=0, m=4;
+        try {
+           while (k < proyectos.size()) {
+                row6 = sheet.createRow(m);
+                //Plan de mejoras
+                cell7 = row6.createCell(0);
+                cell7.setCellValue(proyectos.get(k).getProac().getProceso_nombre());
+                cell7.setCellStyle(styles.get("title5"));
+                //Numero actividad
+                cell7 = row6.createCell(1);
+                cell7.setCellValue(proyectos.get(k).getProac().getAm_codigo());
+                cell7.setCellStyle(styles.get("title5"));
+                //Actividad
+                cell7 = row6.createCell(2);
+                cell7.setCellValue(proyectos.get(k).getProac().getAm_nombre());
+                cell7.setCellStyle(styles.get("title5"));
+                //Código proyecto
+                cell7 = row6.createCell(3);
+                cell7.setCellValue(proyectos.get(k).getProyecto_codigo());
+                cell7.setCellStyle(styles.get("title5"));
+                //Nombre proyecto
+                cell7 = row6.createCell(4);
+                cell7.setCellValue(proyectos.get(k).getProyecto_nombre());
+                cell7.setCellStyle(styles.get("title5"));
+                //Proposito
+                cell7 = row6.createCell(5);
+                cell7.setCellValue(proyectos.get(k).getProyecto_proposito());
+                cell7.setCellStyle(styles.get("title5"));
+                //Dependencia
+                cell7 = row6.createCell(6);
+                cell7.setCellValue(proyectos.get(k).getAg().getAg_nombre());
+                cell7.setCellStyle(styles.get("title5"));
+                //Unidad Responsable
+                cell7 = row6.createCell(7);
+                cell7.setCellValue(proyectos.get(k).getProyecto_responsable());
+                cell7.setCellStyle(styles.get("title5"));
+                //Programa
+                cell7 = row6.createCell(8);
+                cell7.setCellValue(proyectos.get(k).getTp_nombre());
+                cell7.setCellStyle(styles.get("title5"));
+                //Monto planificado
+                cell7 = row6.createCell(9);
+                cell7.setCellValue(proyectos.get(k).getProyecto_monto());
+                cell7.setCellStyle(styles.get("title5"));
+                //Comprometido
+                cell7 = row6.createCell(10);
+                cell7.setCellValue(proyectos.get(k).getDeuda_monto_contrato());
+                cell7.setCellStyle(styles.get("title5"));
+                //Devengado
+                cell7 = row6.createCell(11);
+                cell7.setCellValue(proyectos.get(k).getDeudas_anticipo());
+                cell7.setCellStyle(styles.get("title5"));
+                //eFICIENCIA
+                cell7 = row6.createCell(12);
+                cell7.setCellValue(proyectos.get(k).getPe_eficiencia());
+                cell7.setCellStyle(styles.get("title5"));
+                k++;
+                m++;
+           }
+     
         } catch (Exception ex) {
             ex.printStackTrace();
         }

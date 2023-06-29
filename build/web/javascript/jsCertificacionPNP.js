@@ -65,7 +65,7 @@ function listaCertificacion() {
                     }
                     if (this.req.length > 0) {
                         $.each(this.req, function (indice, cp) {
-                            if (cp.fecha_inicio == null || cp.fecha_inicio === "undefined") {
+                            if (cp.fecha_inicio == null || cp.fecha_inicio == "undefined") {
                                 fecha = '---';
                             } else {
                                 fecha = cp.fecha_inicio;
@@ -83,9 +83,9 @@ function listaCertificacion() {
                             }
                             saldo = Math.round((saldo - cp.req_costo_total) * 100) / 100;
                             if (!validacion) {
-                                $('#listaServicios').children('#certip' + req).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezadp_5 estilobody">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"></div>');
+                                $('#listaServicios').children('#certip' + req).append('<div class="encabezado_5 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_2 estilobody m-0">Observación: ' + cp.ae_observacion + '</div>');
                             } else {
-                                $('#listaServicios').children('#certip' + req).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezadp_5 estilobody">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"><i class="fas fa-edit" id="modificarCP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="'+cp.unidad_id+'" title="Modificar"></i><i class="fas fa-trash" id="eliminarCP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
+                                $('#listaServicios').children('#certip' + req).append('<div class="encabezado_4 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody m-0">Observación: ' + cp.ae_observacion + '</div><div class="encabezado_4 estilobody m-0" style="justify-content: center;"><i class="fas fa-edit" id="modificarCP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-liquidacion="' + cp.unidad_id + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="' + cp.unidad_id + '" title="Modificar"></i><i class="fas fa-trash" id="eliminarCP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
                             }
                         });
                     }
@@ -118,7 +118,7 @@ function listaCertificacion() {
                                 estadosp = ser.estado_nombre;
                             }
                             if (!validacion) {
-                                div = '';
+                                div = '<i class="fas fa-angle-down" id="listaCPSP" data-req="' + ser.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             } else {
                                 div = '<i class="fas fa-plus" id="ingresarCPsp" data-req="' + ser.req_id + '" data-costosi="' + ser.req_costo_sin_iva + '" data-costot="' + ser.req_costo_total + '" data-serv="1" title="Ingresar Certificaci\u00f3n"></i><i class="fas fa-angle-down" id="listaCPSP" data-req="' + ser.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             }
@@ -141,9 +141,9 @@ function listaCertificacion() {
                                     }
                                     saldo = Math.round((saldo - cp.req_costo_total) * 100) / 100;
                                     if (!validacion) {
-                                        $('#listaServicios').children('#servicios' + req).children('#certipserv' + ser.req_id).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezadp_5 estilobody">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"></div>');
+                                        $('#listaServicios').children('#servicios' + req).children('#certipserv' + ser.req_id).append('<div class="encabezado_5 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_2 estilobody m-0">Observación: ' + cp.ae_observacion + '</div>');
                                     } else {
-                                        $('#listaServicios').children('#servicios' + req).children('#certipserv' + ser.req_id).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezadp_5 estilobody">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"><i class="fas fa-edit" id="modificarCPSP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="' + cp.unidad_id + '" title="Modificar"></i><i class="fas fa-trash" id="eliminarCPSP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
+                                        $('#listaServicios').children('#servicios' + req).children('#certipserv' + ser.req_id).append('<div class="encabezado_4 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody m-0">Observación: ' + cp.ae_observacion + '</div><div class="encabezado_4 estilobody m-0" style="justify-content: center;"><i class="fas fa-edit" id="modificarCPSP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="' + cp.unidad_id + '" title="Modificar"></i><i class="fas fa-trash" id="eliminarCPSP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
                                     }
                                 });
                             }
@@ -175,6 +175,7 @@ $('#listaServicios').on('click', '.estilobody #ingresarCP', function () {
     $('#montoIvaCP').removeClass('d-none');
     $('#generarCP').modal();
     $('#valoriva').val(iv);
+    $('#txtobservacion').val('');
     banservicios = true;
 });
 
@@ -192,6 +193,7 @@ $('#listaServicios').on('click', '.encabezado .estilobody #ingresarCPsp', functi
     $('#montoIvaCPsp').removeClass('d-none');
     $('#generarCPSP').modal();
     $('#valorivasp').val(iv);
+    $('#txtobservacionsp').val('');
     banservicios = true;
 });
 
@@ -385,6 +387,7 @@ $('#btnAgregarCP').on('click', function () {
     $('#codigocpg').val('');
     $('#codigocpivag').val('');
     $('#fechaing').val('');
+    $('#txtobservaciong').val('');
     var array = [];
     var sumi = 0, sumt = 0, iva;
     var options2 = {style: "currency", currency: "USD"};

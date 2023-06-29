@@ -99,7 +99,7 @@
                                                     <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="recurrenteCert" id="recurrenteCert">   
                                                 </div>
                                                 <div class="col-2">
-                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCert" id="recurrenteCert" checked>
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCert" id="recurrenteCert">
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                                     <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="liquCert" id="liquCert">   
                                                 </div>
                                                 <div class="col-2">
-                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCert" id="liquCert" checked>
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCert" id="liquCert">
                                                 </div>
                                             </div>
                                         </div>

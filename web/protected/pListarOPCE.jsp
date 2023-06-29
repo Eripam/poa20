@@ -70,20 +70,22 @@
                                     </div>
                                 </div>                             
                             </div>
-                            <table class="table table-sm mt-5 table-bordered table-hover table-striped table-responsive-lg p-0" style="width: 100% !important">
-                                <thead class="table-azul">
-                                    <tr>
-                                        <th class="text-center align-middle">CÓDIGO</th>
-                                        <th class="text-center align-middle">TIPO</th>
-                                        <th class="text-center align-middle">OEI</th>
-                                        <th class="text-center align-middle">DESCRIPCIÓN REQ.</th>
-                                        <th class="text-center align-middle">MONTO</th>
-                                        <th class="text-center align-middle">MONTO IVA</th>
-                                        <th class="text-center align-middle">MONTO ANTICIPO (998)</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="listaRequerimientosSolVis"></tbody>
-                            </table>
+                            <div class="row flex">
+                                <table class="table table-sm mt-5 table-bordered table-hover table-striped table-responsive p-0" style="width: 100% !important">
+                                    <thead class="table-azul">
+                                        <tr>
+                                            <th class="text-center align-middle">CÓDIGO</th>
+                                            <th class="text-center align-middle">TIPO</th>
+                                            <th class="text-center align-middle">OEI</th>
+                                            <th class="text-center align-middle">DESCRIPCIÓN REQ.</th>
+                                            <th class="text-center align-middle">MONTO</th>
+                                            <th class="text-center align-middle">MONTO IVA</th>
+                                            <th class="text-center align-middle">MONTO ANTICIPO (998)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaRequerimientosSolVis"></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

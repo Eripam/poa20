@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsRequerimientosJ.js</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/reportes/pdf/controladorReportePDF2.java</file>
@@ -14,6 +15,17 @@
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsCertificacionP.js</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/reportes/pdf/controladorReportePDF.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsProyectoCompletoMul.js</file>
+=======
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adEvaluacion.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/conexion/cConexion.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adTecho.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/reportes/pdf/controladorReportePDF2.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/reportes/excel/reporteExcel2.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/reportes/excel/reporteExcel.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pReportesUsu.jsp</file>
+>>>>>>> c819e66a4ed5f8f72e31f32933c7f804fe4160c3
         </group>
     </open-files>
 </project-private>

@@ -28,7 +28,7 @@
                        Tab panes 
                        <div class="container-fluid pestania"><br>-->
                     <div class="tab-content ml-5 mr-5 pestania">
-                        <%if (intIdTipoUsuario != 16 && intIdTipoUsuario != 17 && intIdTipoUsuario != 14) {%>
+                        <%if (intIdTipoUsuario != 16 && intIdTipoUsuario != 17 && intIdTipoUsuario != 14 && intIdTipoUsuario != 26) {%>
                         <p class="titulo mb-0"><u>REPORTES POA</u></p>
                         <input type="hidden" value="<%=intIdTipoAreaGestion%>" id="tipoAg">
                         <input type="hidden" value="<%=IntIdAreaGestion%>" id="idAgObEs">
@@ -54,9 +54,9 @@
                                 <div class="col-5 main-end">Descargar Excel</div>
                                 <div class="col-5">
                                     <form method="POST" action="../reporteExcel" id="FrmDescargarExcel" class="instructivos_archivos_icono">
-                                        <%if(intAnio==2020){%>
+                                        <%if (intAnio == 2020) {%>
                                         <input type="hidden" value="reporteExcelUnidades" name="accion">
-                                        <%}else{%>
+                                        <%} else {%>
                                         <input type="hidden" value="reporteExcelUnidades21" name="accion">
                                         <%}%>
                                         <input type="hidden" value="<%=IntIdAreaGestion%>" name="agidpoaEx">
@@ -70,7 +70,8 @@
                                 </div>
                             </div>
                         </div>
-                        <%}%>
+                        <%}
+                            if (intIdTipoUsuario != 26) {%>
                         <p class="titulo mb-0"><u>REPORTES EVALUACIÓN</u></p>
                         <div class="container p-2 formulario pt-3">
                             <div class="row main-center">
@@ -192,6 +193,30 @@
                             </div>
                             <%}%>
                         </div>
+                        <%}
+                            if (intIdTipoUsuario == 26 || (intIdTipoUsuario==5 && IntIdAreaGestion==53)) {%>
+                        <div class="tab-content ml-5 mr-5 pestania">
+                            <p class="titulo mb-0"><u>REPORTES DEAC</u></p>
+                            <div class="container p-2 formulario pt-3">
+                                <p class="titulo2 mb-0"><u>Excel</u></p>
+                                <div class="row">
+                                    <div class="col-8">Descargar Excel DEAC - <%=intAnio%></div>
+                                    <div class="col-3">
+                                        <form method="POST" action="../reporteExcel2" id="FrmReporteEval" class="instructivos_archivos_icono">
+                                            <input type="hidden" value="reporteExcelDEAC" name="accion">
+                                            <input type="hidden" id="selectanioD" name="selectanioD" value="<%=intAnio%>">
+                                            <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" data-selected-text-format="count > 6" id="cuatrimestreEval" name="cuatrimestreEval">
+                                                <option value="1">I Cuatrimestre</option>
+                                                <option value="2">II Cuatrimestre</option>
+                                                <option value="3">III Cuatrimestre</option>
+                                            </select>
+                                            <a href="#" onclick="activarEvalu();"><i class="fas fa-file-download"></i></a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
                     </div>
                 </div>
             </div>

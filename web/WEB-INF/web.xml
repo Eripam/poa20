@@ -28,9 +28,9 @@
             <!-- <param-value>https://pruebas.espoch.edu.ec:8181</param-value> -->
             <!--<param-value>https://cimogsys.espoch.edu.ec</param-value>-->
             <!--<param-value>http://172.17.102.69:8080</param-value>-->
-            <param-value>https://planificacion.espoch.edu.ec</param-value>
+            <!--<param-value>https://planificacion.espoch.edu.ec</param-value>-->
             <!--<param-value>https://pruebas.espoch.edu.ec:8181</param-value>-->
-            <!--<param-value>http://localhost</param-value>-->
+            <param-value>http://localhost</param-value>
         </init-param>
     </filter>
     <filter>
@@ -47,9 +47,9 @@
             <!-- <param-value>https://pruebas.espoch.edu.ec:8181</param-value> -->
             <!--<param-value>https://cimogsys.espoch.edu.ec</param-value>-->
             <!--<param-value>http://172.17.102.69:8080</param-value>-->
-            <param-value>https://planificacion.espoch.edu.ec</param-value>
+            <!--<param-value>https://planificacion.espoch.edu.ec</param-value>-->
             <!--<param-value>https://pruebas.espoch.edu.ec:8181</param-value>-->
-            <!--<param-value>http://localhost</param-value>-->
+            <param-value>http://localhost</param-value>
         </init-param>
         <init-param>
             <param-name>redirectAfterValidation</param-name>

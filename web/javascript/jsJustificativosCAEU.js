@@ -201,6 +201,7 @@ $('#example').on('click', 'tr td #listarFechas', function () {
 $('#example').on('click', 'tr td #entregar', function () {
     var data = $(this).data();
     $('#idreqregresarj').val(data['sol']);
+    $('#observacionreg').val('');
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModal').modal();
@@ -209,6 +210,7 @@ $('#example').on('click', 'tr td #entregar', function () {
 $('#example').on('click', 'tr td #verificarJust', function () {
     var data = $(this).data();
     $('#idreqregresarj').val(data['sol']);
+    $('#observacionreg').val('');
     $('#centroCreg').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoreg').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModal').modal();
@@ -217,6 +219,7 @@ $('#example').on('click', 'tr td #verificarJust', function () {
 $('#example').on('click', 'tr td #verificarR', function () {
     var data = $(this).data();
     $('#idreqregresarjv').val(data['sol']);
+    $('#observacionregv').val('');
     $('#centroCregV').html("<div style='font-weight: bold'>CENTRO DE COSTO: </div><div>" + data['centro'] + "</div>");
     $('#montoregV').html("<div style='font-weight: bold'>MONTO: </div><div>" + new Intl.NumberFormat("US", options2).format(data['monto']) + "</div>");
     $('#regresarModalVer').modal();
@@ -289,16 +292,21 @@ $('.intrevisarv').on('click', function () {
 ////Mostrar requerimientos
 $('#listaRequerimientosSolVis').on('click', 'tr td #mostrarReq', function () {
     var data = $(this).data();
-    var sum = 0, sumto = 0, total = 0, sumci = 0;
+    var sum = 0, sumto = 0, total = 0, sumci = 0, tipo;
     $('#nombreunif').val(data['nombre']);
     $('#descunif').val(data['descripcion']);
     $('#cantidadunif').val(data['cantidad']);
     $('#costounif').val(data['costo']);
     $('#unidadinp').val(data['unidad']);
     $('#listaRequerimientosUnificaReq').empty();
+    if(data['cantidad']>1){
+        tipo=2;
+    }else{
+        tipo=1;
+    }
     $.ajax({
         url: "../solicitud?accion=ListaRequerimientosU",
-        data: {req: data['req']},
+        data: {req: data['req'], tipo:tipo},
         type: 'POST',
         dataType: 'json'
     })

@@ -36,8 +36,11 @@ $(document).ready(function () {
                                 integrantes += ' - ' + inte.proyecto_integrantes + ', ';
                             }
                         });
-                    } else if ((this.proyecto_integrantes == null || this.proyecto_integrantes == 'null') && this.integrantes.length == 0) {
+                    } else if ((this.proyecto_integrantes == null || this.proyecto_integrantes == 'null') && this.integrantes.length == 0 && this.per.to_id != "2" && this.per.to_id != "3") {
                         integrantes = "No tiene integrantes";
+                    } else if ((this.proyecto_integrantes == null || this.proyecto_integrantes == 'null') && this.integrantes.length == 0 && (this.per.to_id == '2' || this.per.to_id == '3')) {
+                        integrantes = "No tiene integrantes";
+                        $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]"></textarea></div><i class="fas fa-plus" id="iconoplusint"></i></div>');
                     } else {
                         integrantes = this.proyecto_integrantes;
                     }
@@ -433,6 +436,7 @@ $('.col-1').on('click', '#ingresarComponente', function () {
 //Ingresar articulación
 $('.col-10').on('click', '#btnGuardarArti', function (event) {
     event.preventDefault();
+    var alertaArt = document.getElementById('alertArticulacion');
     $.ajax({
         url: "../proyecto?accion=AgregarArticulacion",
         type: 'POST',
@@ -442,9 +446,10 @@ $('.col-10').on('click', '#btnGuardarArti', function (event) {
     })
             .done(function (response) {
                 if (response === "Correcto") {
+                    alertaM(mensajeCorrecto, insertadoCorrecto, correcto, alertaArt, 'fa-check-circle');
                     listaProcesosAr();
                 } else {
-                    alert(response);
+                    alertaM(mensajeError, response, error, alertaArt, 'fa-check-circle');
                     listaProcesosAr();
                 }
             })
@@ -624,10 +629,12 @@ function listaProcesosAr() {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
                         } else if (tusu === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26)) {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
-                        } else if ((tusu === "2" || tusu === "3" || tusu === "5" || tusu === "7" || tusu === "8" || tusu === "15" || tusu === "19") && estadof === 51) {
-                            div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
                         } else {
-                            div = '';
+                            if (this.am_validar) {
+                                div = '<i class="fas fa-check"></i>';
+                            } else {
+                                div = '<i class="fas fa-times"></i>';
+                            }
                         }
                         $('#listaAccionesM').append('<div class="p-0 estilobody encabezado_4 centro">' + this.proceso_codigo + '</div><div class="p-0 estilobody encabezado_4 text-justify">' + this.proceso_nombre + '</div><div class="p-0 estilobody encabezado_4 centro">' + this.am_codigo + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_meta + '</div><div class="estilobody encabezado_7 text-justify">' + this.am_nombre + '</div><div class="estilobody text-center encabezado_5 centro">' + this.am_responsable + '</div><div class="estilobody centro encabezado_8">' + div + '</div>');
                     });
@@ -644,7 +651,7 @@ function listaProcesosAr() {
 }
 
 //Ver descripcion requerimientos
-$(".encabezado").on('click', '.encabezado_8 #btn_eliminar_articulacion', function () {
+$(".encabezado").on('click', '.encabezado_4 #btn_eliminar_articulacion', function () {
     var data = $(this).data();
     $('#eliminarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('Esta seguro que desea eliminar la articulación con la actividad <b>"' + data['actividadnombre'] + '"</b>?<input type="hidden" name="idactividadart" id="idactividadart" value="' + data['actividad'] + '"><input type="hidden" name="tipom" id="tipom" value="articulacion">');
     $('#eliminarModal').modal();
@@ -688,7 +695,7 @@ function listarIndicador(meta, i) {
                         if (this.indicador_tipo === "Cualitativo") {
                             formula = "No tiene formula";
                         } else {
-                            formula = this.indicador_ejecutado + " / " + this.indicador_planificado + "(" + this.indicador_numero + ")";
+                            formula = this.indicador_ejecutado + " / " + this.indicador_planificado;
                         }
                         if (con === 1) {
                             indic = "Indicadores: ";
@@ -697,23 +704,30 @@ function listarIndicador(meta, i) {
                         }
                         if ((tusu === "15" || tusu === "3") && estadof === 3) {
                             $('#lisIndicador' + i).append('<div class="col-12 col-xs-12 col-sm-12 col-md-2 titulopes text-justify">' + indic + '</div><div class="col-12 col-xs-12 col-sm-12 col-md-10 text-justify"><div class="row" id="rowindicador"><li class="col-12 col-sm-11 p-0 text-justify">' + this.indicador_nombre + '</li><div class="col-12 col-sm-1 p-0 text-end" id="btnBotonIndicador' + i + '"><i class="fas fa-edit" title="Editar Indicador" id="modIndicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i></div></div></div>');
-                            $("#listaIndicadores" + i).append('<tr><td class="text-justify align-middle">' + this.indicador_nombre + '</td><td class="text-justify align-middle">' + this.indicador_descripcion + '</td><td class="align-middle">' + this.indicador_tipo + '</td><td class="text-justify align-middle">' + formula + '</td></tr>');
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i></div></div></div>');
                         } else if ((tusu === "2" || tusu === "5" || tusu === "15" || tusu === "3" || tusu === "8" || tusu === "7" || tusu === "19") && (estadof === 0 || estadof === 3 || estadof === 5 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26)) {
                             $('#lisIndicador' + i).append('<div class="col-12 col-xs-12 col-sm-12 col-md-2 titulopes text-justify">' + indic + '</div><div class="col-12 col-xs-12 col-sm-12 col-md-10 text-justify"><div class="row" id="rowindicador"><li class="col-12 col-sm-11 p-0 text-justify">' + this.indicador_nombre + '</li><div class="col-12 col-sm-1 p-0 text-end" id="btnBotonIndicador' + i + '"><i class="fas fa-edit" title="Editar Indicador" id="modIndicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i></div></div></div>');
-                            $("#listaIndicadores" + i).append('<tr><td class="text-justify align-middle">' + this.indicador_nombre + '</td><td class="text-justify align-middle">' + this.indicador_descripcion + '</td><td class="align-middle">' + this.indicador_tipo + '</td><td class="text-justify align-middle">' + formula + '</td></tr>');
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i></div></div></div>');
                         } else if (tusu === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26)) {
                             $('#lisIndicador' + i).append('<div class="col-12 col-xs-12 col-sm-12 col-md-2 titulopes text-justify">' + indic + '</div><div class="col-12 col-xs-12 col-sm-12 col-md-10 text-justify"><div class="row" id="rowindicador"><li class="col-12 col-sm-11 p-0 text-justify">' + this.indicador_nombre + '</li><div class="col-12 col-sm-1 p-0 text-end" id="btnBotonIndicador' + i + '"><i class="fas fa-edit" title="Editar Indicador" id="modIndicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
-                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '"></i></div></div></div>');
-                            $("#listaIndicadores" + i).append('<tr><td class="text-justify align-middle">' + this.indicador_nombre + '</td><td class="text-justify align-middle">' + this.indicador_descripcion + '</td><td class="align-middle">' + this.indicador_tipo + '</td><td class="text-justify align-middle">' + formula + '</td></tr>');
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i><i class="fas fa-trash-alt" id="elimIndicador" title="Eliminar indicador" data-id="' + i + '" data-idindicador="' + this.indicador_id + '" \n\
+                data-nombre="' + this.indicador_nombre + '" data-descripcion="' + this.indicador_descripcion + '" data-tipo="' + this.indicador_tipo + '" data-ejecutado="' + this.indicador_ejecutado + '" data-planificado="' + this.indicador_planificado + '" data-valor="' + this.indicador_numero + '" data-tipovalor="' + this.indicador_valor + '"></i></div></div></div>');
                         } else {
                             $('#lisIndicador' + i).append('<div class="col-12 col-xs-12 col-sm-12 col-md-2 titulopes text-justify">' + indic + '</div><div class="col-12 col-xs-12 col-sm-12 col-md-10 text-justify"><div class="row"><li class="col-12 col-sm-11 p-0 text-justify">' + this.indicador_nombre + '</li><div class="col-12 col-sm-1 p-0 text-end" id="btnBotonIndicador' + i + '"></div></div></div>');
-                            $("#listaIndicadores" + i).append('<tr><td class="text-justify align-middle">' + this.indicador_nombre + '</td><td class="text-justify align-middle">' + this.indicador_descripcion + '</td><td class="align-middle">' + this.indicador_tipo + '</td><td class="text-justify align-middle">' + formula + '</td></tr>');
                         }
+                        if (this.indicador_valor > 0) {
+                            var tipo;
+                            if (this.indicador_valor == 1) {
+                                tipo = this.indicador_numero + "%";
+                            } else {
+                                tipo = this.indicador_numero + " #";
+                            }
+                        } else {
+                            tipo = '(' + this.indicador_numero + ')';
+                        }
+                        $("#listaIndicadores" + i).append('<tr><td class="text-justify align-middle">' + this.indicador_nombre + '</td><td class="text-justify align-middle">' + this.indicador_descripcion + '</td><td class="align-middle">' + this.indicador_tipo + '</td><td class="text-justify align-middle">' + formula + '</td><td>' + tipo + '</td></tr>');
                         con++;
                     });
                 } else {
@@ -1030,6 +1044,7 @@ $('.reqprogramacion').on('change', function () {
 $('.contenedorIndicador').submit(function (event) {
     event.preventDefault();
     var data = $(this).data();
+    var alertIndicador = document.getElementById("alertIndicador" + data['id']);
     if (banIndicaroEl) {
         if (banIndicador) {
             $.ajax({
@@ -1043,12 +1058,12 @@ $('.contenedorIndicador').submit(function (event) {
             })
                     .done(function (response) {
                         if (response.result === "Correcto") {
-                            $("#contenedorIndicador" + data['id']).addClass('d-none');
                             $("#botonActividad" + data['id']).removeClass('d-none');
                             $("#botonIndicador" + data['id']).removeClass('d-none');
+                            alertaM(mensajeCorrecto, insertadoCorrecto + ' el indicador.', correcto, alertIndicador, 'fa-check-circle');
                             listarIndicador($("#idMeta" + data['id']).val(), data['id']);
                         } else {
-                            alert(response.result);
+                            alertaM(mensajeError, response.result, error, alertIndicador, 'fa-check-circle');
                         }
                     })
                     .fail(function () {
@@ -1070,9 +1085,10 @@ $('.contenedorIndicador').submit(function (event) {
                     .done(function (response) {
                         if (response === "Correcto") {
                             $("#contenedorIndicador" + data['id']).removeClass('d-none');
+                            alertaM(mensajeCorrecto, modificadoCorrecto + ' el indicador.', correcto, alertIndicador, 'fa-check-circle');
                             listarIndicador($("#idMeta" + data['id']).val(), data['id']);
                         } else {
-                            alert(response);
+                            alertaM(mensajeError, response.result, error, alertIndicador, 'fa-check-circle');
                         }
                     })
                     .fail(function () {
@@ -1179,12 +1195,14 @@ $('.btn_proyecto_agregar_indicador').on('click', function () {
     $('#txtnombreIndicador' + data['id']).val("").removeAttr("readonly");
     $('#txtdescipcionIndicador' + data['id']).val("").removeAttr("readonly");
     $('[name="tipoIndicador' + data['id'] + '"]').attr("disabled", false);
+    $('[name="valorIndicador' + data['id'] + '"]').attr("disabled", false);
     $('#txtindicadorejecutadovalor' + data['id']).val("").removeAttr("readonly");
     $('#txtindicadorplanificadovalor' + data['id']).val("").removeAttr("readonly");
     $('#txtindicadorplanificado' + data['id']).val("").removeAttr("readonly");
     $('#contenedorIndicador' + data['id'])[0].reset();
     $('#contenedorIndicador' + data['id']).removeClass('d-none');
     $('#formulaIndicador' + data['id']).addClass('d-none');
+    $('.alert.alert-success').alert('close');
     window.location.href = '#contenedorIndicador' + data['id'];
     banIndicador = true;
 });
@@ -1222,6 +1240,7 @@ $(".btn_proyecto_actividad").on('click', function () {
     }
     $('#contenedorActividad' + data['id']).removeClass('d-none');
     $('#contenedorActividad' + data['id']).addClass('d-block');
+    $('.alert.alert-success').alert('close');
     window.location.href = '#contenedorActividad' + data['id'];
     banActividad = true;
 });
@@ -1284,6 +1303,7 @@ $('.contenedorActividad').submit(function (event) {
     event.preventDefault();
     let metodo = $(this).attr("method");
     let accion = $(this).attr("action");
+    var alertActividad = document.getElementById('alertActividad' + data['id']);
     var cua1 = [];
     var cua2 = [];
     var cua3 = [];
@@ -1335,8 +1355,9 @@ $('.contenedorActividad').submit(function (event) {
                             $("#contenedorActividad" + data['id'])[0].reset();
                             listaActividad($('#idComponente' + data['id']).val(), data['id'], long);
                             $('#agregaC').removeClass('d-none');
+                            alertaM(mensajeCorrecto, insertadoCorrecto + ' la actividad.', correcto, alertActividad, 'fa-check-circle');
                         } else {
-                            alert(response);
+                            alertaM(mensajeError, response, error, alertActividad, 'fa-check-circle');
                         }
                     })
                     .fail(function () {
@@ -1361,8 +1382,9 @@ $('.contenedorActividad').submit(function (event) {
                             $("#contenedorActividad" + data['id'])[0].reset();
                             listaActividad($('#idComponente' + data['id']).val(), data['id'], long);
                             listaRequerimiento($('#idComponente' + data['id']).val(), data['id']);
+                            alertaM(mensajeCorrecto, modificadoCorrecto + ' la actividad.', correcto, alertActividad, 'fa-check-circle');
                         } else {
-                            alert(response);
+                            alertaM(mensajeError, response, error, alertActividad, 'fa-check-circle');
                         }
                     })
                     .fail(function () {
@@ -1581,6 +1603,7 @@ $('.contenedorRequerimientos').submit(function (event) {
     let data = $(this).data();
     let cuat = [];
     let unidad, tipoc, cpc;
+    let alertReq = document.getElementById('alertRequerimiento' + data['id']);
     if (banRequerimientoElim && !banAnio) {
         if ($('input[name=tipoReq' + data['id'] + ']:checked', '#contenedorReqPac' + data['id']).val() > 0) {
 
@@ -1616,8 +1639,9 @@ $('.contenedorRequerimientos').submit(function (event) {
                                 $('#montoF').html(new Intl.NumberFormat("US", formateador()).format(response.monto));
                                 listaActividad($('#idComponente' + data['id']).val(), data['id'], long);
                                 listaRequerimiento($('#idComponente' + data['id']).val(), data['id']);
+                                alertaM(mensajeCorrecto, insertadoCorrecto + ' el requerimiento.', correcto, alertReq, 'fa-check-circle');
                             } else {
-                                alert(response.result);
+                                alertaM(mensajeError, response.result, error, alertReq, 'fa-check-circle');
                             }
                         })
                         .fail(function () {
@@ -1643,8 +1667,9 @@ $('.contenedorRequerimientos').submit(function (event) {
                                 $('#montoF').html(new Intl.NumberFormat("US", formateador()).format(response.monto));
                                 listaActividad($('#idComponente' + data['id']).val(), data['id'], long);
                                 listaRequerimiento($('#idComponente' + data['id']).val(), data['id']);
+                                alertaM(mensajeCorrecto, modificadoCorrecto + ' el requerimiento.', correcto, alertReq, 'fa-check-circle');
                             } else {
-                                alert(response.result);
+                                alertaM(mensajeError, response.result, error, alertReq, 'fa-check-circle');
                             }
                         })
                         .fail(function () {
@@ -1855,13 +1880,13 @@ function listaRequerimiento(comp, i) {
                                             }
                                         }
                                     } else if (r.req[ej].req_descripcion === "Aprobado Analista Planificación") {
-                                        ref = r.req[ej].req_reforma + "-STP-"+$('#selectoranio').val();
+                                        ref = r.req[ej].req_reforma + "-STP-" + $('#selectoranio').val();
                                         descripcion = r.req[ej].req_descripcion;
 
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;
                                     } else {
-                                        ref = r.req[ej].req_reforma + "-UCP-"+$('#selectoranio').val();
+                                        ref = r.req[ej].req_reforma + "-UCP-" + $('#selectoranio').val();
                                         descripcion = r.req[ej].req_descripcion;
                                         total = r.req[ej].req_costo_total;
                                         monto = disponible;
@@ -2032,6 +2057,7 @@ $(".pestania").on('click', '.col-12 #rowindicador .col-12 #modIndicador', functi
     $('#txtdescipcionIndicador' + data['id']).val(data['descripcion']).removeAttr("readonly");
     $('[name="tipoIndicador' + data['id'] + '"][value="' + data['tipo'] + '"]').prop("checked", true);
     $('[name="tipoIndicador' + data['id'] + '"]').attr("disabled", false);
+    $('[name="valorIndicador' + data['id'] + '"]').attr("disabled", false);
     if (data['tipo'] === "Cuantitativo") {
         $('#formulaIndicador' + data['id']).removeClass('d-none');
     } else {
@@ -2050,11 +2076,16 @@ $(".pestania").on('click', '.col-12 #rowindicador .col-12 #modIndicador', functi
     }
     $('#txtindicadorejecutadovalor' + data['id']).val(eje).removeAttr("readonly");
     $('#txtindicadorplanificadovalor' + data['id']).val(plan).removeAttr("readonly");
-    if (data['valor'] <= 1) {
-        $('[name="valorIndicador' + data['id'] + '"][value="2"]').prop("checked", true);
-        $('#txtindicadorplanificado' + data['id']).val(data['valor'] * 100).removeAttr("readonly");
+    if (data['tipovalor'] === 0) {
+        if (data['valor'] <= 1) {
+            $('[name="valorIndicador' + data['id'] + '"][value="1"]').prop("checked", true);
+            $('#txtindicadorplanificado' + data['id']).val(data['valor'] * 100).removeAttr("readonly");
+        } else {
+            $('[name="valorIndicador' + data['id'] + '"][value="2"]').prop("checked", true);
+            $('#txtindicadorplanificado' + data['id']).val(data['valor']).removeAttr("readonly");
+        }
     } else {
-        $('[name="valorIndicador' + data['id'] + '"][value="1"]').prop("checked", true);
+        $('[name="valorIndicador' + data['id'] + '"][value="' + data['tipovalor'] + '"]').prop("checked", true);
         $('#txtindicadorplanificado' + data['id']).val(data['valor']).removeAttr("readonly");
     }
     $('#contenedorIndicador' + data['id']).removeClass('d-none');
@@ -2076,10 +2107,11 @@ $(".pestania").on('click', '.col-12 #rowindicador .col-12 #elimIndicador', funct
     $('#txtdescipcionIndicador' + data['id']).val(data['descripcion']).attr("readonly", "readonly");
     $('[name="tipoIndicador' + data['id'] + '"][value="' + data['tipo'] + '"]').prop("checked", true);
     $('[name="tipoIndicador' + data['id'] + '"]').attr("disabled", "true");
+    $('[name="valorIndicador' + data['id'] + '"]').attr("disabled", "true");
     if (data['tipo'] === "Cuantitativo") {
-        $('#formulaIndicador' + data['id']).removeClass('d-none');
+        $('.form-row').children('#formulaIndicador' + data['id']).removeClass('d-none');
     } else {
-        $('#formulaIndicador' + data['id']).addClass('d-none');
+        $('.form-row').children('#formulaIndicador' + data['id']).addClass('d-none');
     }
 
     var eje, plan;
@@ -2189,6 +2221,7 @@ $(".encabezado").on('click', '.encabezado_4 #modActividad', function () {
     $('#actividadBoton' + data['id']).html('MODIFICAR');
     $('#actividadBoton' + data['id']).removeAttr("data-toggle", "modal");
     $('#actividadBoton' + data['id']).removeAttr("data-target", "#eliminarModal");
+    $('.alert.alert-success').alert('close');
     banActividad = false;
     banActividadElim = true;
 });
@@ -2684,24 +2717,60 @@ $('#eliminarModalBton').on('click', function () {
 $('#btn_proyecto_enviar').on('click', function (event) {
     event.preventDefault();
     let proy;
-    if ($('#tipousuario').val() === "15") {
+    $('#alertEnviar').empty();
+    $('#alertEnviarV').empty();
+    let alertEnviar=document.getElementById('alertEnviar');
+    let alertEnviarV=document.getElementById('alertEnviarV');
+    if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="2") {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 1;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a.', 'info', alertEnviar);
+    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="3") {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        proy = 1;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Coordinador/a de Carrera.', 'info', alertEnviar);
+    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="4") {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        proy = 1;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad.', 'info', alertEnviar);
+    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="5") {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        proy = 1;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede.', 'info', alertEnviar);
     } else if ($('#tipousuario').val() === "3" && estadof === 3) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 8;
-    } else if (($('#tipousuario').val() === "2" || $('#tipousuario').val() === "5" || $('#tipousuario').val() === "7" || $('#tipousuario').val() === "8") && (estadof === 0 || estadof === 5 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+    } else if (($('#tipousuario').val() === "2") && (estadof === 0 || estadof === 5 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Planificador/a', 'info', alertEnviarV);
         proy = 2;
-    } else if ($('#tipousuario').val() === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+    } else if (($('#tipousuario').val() === "5" || $('#tipousuario').val() === "7" || $('#tipousuario').val() === "8") && (estadof === 0 || estadof === 5 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        alertaModal('NOTA:', 'Debe recordar que al enviar su proyecto iniciara con el proceso de validacion.', 'info', alertEnviarV);
+        proy = 2;
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="2" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 8;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a.', 'info', alertEnviar);
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="4" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        proy = 8;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad.', 'info', alertEnviar);
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="5" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+        $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
+        proy = 8;
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede.', 'info', alertEnviar);
     } else if ($('#tipousuario').val() === "19" && (estadof === 0)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 27;
-    } else if (($('#tipousuario').val() === "2" || $('#tipousuario').val() === "5") && (estadof === 1 || estadof === 8 || estadof === 4)) {
+    } else if ($('#tipousuario').val() === "2" && (estadof === 1 || estadof === 8 || estadof === 4)) {
         $('#aprobarRadios').val(2);
         $('#modificarRadios').val(3);
+        alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Planificador/a.', 'info', alertEnviarV);
+    } else if ($('#tipousuario').val() === "5" && (estadof === 1 || estadof === 8 || estadof === 4)) {
+        $('#aprobarRadios').val(2);
+        $('#modificarRadios').val(3);
+        alertaModal('NOTA:', 'Debe recordar que al aprobar su proyecto inicia con el proceso de validación.', 'info', alertEnviarV);
     } else if ($('#tipousuario').val() === "7" && (estadof === 1 || estadof === 8 || estadof === 4)) {
         $('#aprobarRadios').val(10);
         $('#modificarRadios').val(12);
@@ -2711,6 +2780,7 @@ $('#btn_proyecto_enviar').on('click', function (event) {
     } else if (($('#tipousuario').val() === "3") && estadof === 1) {
         $('#aprobarRadios').val(4);
         $('#modificarRadios').val(5);
+        alertaModal('NOTA:', 'Debe recordar que al enviar su proyecto se va al Decano de facultad o Director departamental.', 'info', alertEnviarV);
     } else if (($('#tipousuario').val() === "19") && (estadof === 1 || estadof === 8)) {
         $('#aprobarRadios').val(27);
         $('#modificarRadios').val(3);

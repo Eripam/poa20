@@ -92,7 +92,12 @@
                         <p class="titulo2">INGRESAR PROYECTO</p>
                         <div class="form-row">
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-                                <div style="color: red; font-weight: bold; font-size: .80em">Por favor no ingresar con tildes ni caracteres especiales, y revisar la gramática</div>
+                                <div class="row justify-content-center">
+                                    <div class="alert alert-warning col-9" role="alert">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Por favor no ingresar con tildes ni caracteres especiales, y revisar la gramática
+                                    </div>
+                                </div>
                                 <!--<div class="row main-center cross-center">
                                     <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Proyectos 2019: </label>
                                     <select class="col-10 col-xs-10 col-md-8 p-0 selectpicker" id="selectServicios" name="selectServicios">
@@ -311,6 +316,8 @@
     </div>-->
                         <%}%>
                         <button class="btn bton" type="submit">GUARDAR</button>
+                        <div id="alertProyecto">
+                        </div>
                     </form>
                     <table class="container-fluid table table-sm mt-5 table-bordered table-hover table-striped  table-responsive-md table-responsive-sm">
                         <thead class="table-azul">

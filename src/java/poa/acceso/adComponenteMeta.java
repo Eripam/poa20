@@ -308,8 +308,8 @@ public class adComponenteMeta {
     public String IngresarIndicador(cComponenteMeta cIndicador) {
         String result = "Error al ingresar el indicador";
         String SQL = "INSERT INTO public.indicador(\n"
-                + "	indicador_id, indicador_meta, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                + "	indicador_id, indicador_meta, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion, indicador_valor)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             // Crear un AccesoDatos
@@ -331,8 +331,8 @@ public class adComponenteMeta {
     public String IngresarIndicadorRepro(cComponenteMeta cIndicador) {
         String result = "Error al ingresar el indicador";
         String SQL = "INSERT INTO public.indicador(\n"
-                + "	indicador_id, ind_indicador_id, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                + "	indicador_id, ind_indicador_id, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion, indicador_valor)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             // Crear un AccesoDatos
@@ -354,8 +354,8 @@ public class adComponenteMeta {
     public String IngresarIndicadorRep(cComponenteMeta cIndicador) {
         String result = "Error al ingresar el indicador";
         String SQL = "INSERT INTO public.indicador(\n"
-                + "	indicador_id, indicador_meta, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion, indicador_fecha)\n"
-                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, now());";
+                + "	indicador_id, indicador_meta, indicador_nombre, indicador_descripcion, indicador_tipo, indicador_ejecutado, indicador_planificado, indicador_evaluacion, indicador_fecha, indicador_valor)\n"
+                + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), ?);";
 
         try {
             // Crear un AccesoDatos
@@ -623,6 +623,7 @@ public class adComponenteMeta {
                         cComp.setIndicador_planificado(rsComp.getString("indicadorplanificado"));
                         cComp.setIndicador_tipo(rsComp.getString("indicadortipo"));
                         cComp.setIndicador_numero(rsComp.getDouble("indicadorevaluacion"));
+                        cComp.setIndicador_valor(rsComp.getInt("indicadorvalor"));
                         cComp.setComponente_id(rsComp.getInt("indicadoridid"));
                         result.add(cComp);
                     }

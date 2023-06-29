@@ -113,6 +113,8 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reqReformas"><i class="fas fa-clipboard-list"></i></span><p class="col-10 p-0 m-0">LISTAR REFORMAS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudasLR"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">REFORMAS VALORES PENDIENTES</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="activarProy"><i class="fas fa-calendar-check"></i></span><p class="col-10 p-0 m-0">ACTIVAR FECHAS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaJustAdm"><i class="fas fa-shopping-cart fa-3x"></i></span><p class="col-10 p-0 m-0">JUSTIFICATIVOS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudasL"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">LISTA OBLIGACIONES PENDIENTES</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="Lsalvaguardar"><i class="fas fa-lock"></i></span><p class="col-10 p-0 m-0">SALVAGUARDAR</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesAdmin"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
@@ -126,6 +128,8 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reqReformas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-list fa-3x"></i></span><p class="col-12 p-0 m-0">LISTAR REFORMAS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudasLR"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">REFORMAS VALORES PENDIENTES</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="activarProy"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-calendar-check fa-3x"></i></span><p class="col-12 p-0 m-0">ACTIVAR FECHAS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaJustAdm"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-shopping-cart fa-3x"></i></i></span><p class="col-12 p-0 m-0">JUSTIFICATIVOS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudasL"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA OBLIGACIONES PENDIENTES</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="Lsalvaguardar"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-lock fa-3x"></i></span><p class="col-12 p-0 m-0">SALVAGUARDAR</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesAdmin"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                 <%}else if (intIdTipoUsuario == 25) {%>
@@ -314,7 +318,6 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                         <%} else if (intIdTipoUsuario == 7 || intIdTipoUsuario == 8) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoPlanificadora"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
-                <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="usuariosIDV"><i class="fas fa-users"></i></span><p class="col-10 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS UNIDAD POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS REVISIÓN POA</p></div>
@@ -328,7 +331,6 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoPlanificadora"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
-                <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="usuariosIDV"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-users fa-3x"></i></span><p class="col-12 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS UNIDAD POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosU"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS REVISIÓN POA</p></div>
@@ -466,8 +468,10 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="servProfDispo"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-list fa-3x"></i></span><p class="col-12 p-0 m-0">SERVICIOS PROFESIONALES DE DISPONIBILIDAD</p></div>
                   <%} else if (intIdTipoUsuario == 26) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosU"><i class="fas fa-list-ul"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
+                <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosU"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosF"><i class="fas fa-list-ul fa-3x"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>       
+                <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                 <%}%>
             </div>
         </div>
@@ -626,6 +630,9 @@
             });
             $('.row').on('click', '#objetivoE', function () {
                 window.location = "pObjetivos.jsp";
+            });
+            $('.row').on('click', '#listaJustAdm', function () {
+                window.location = "pListaJusAdm.jsp";
             });
 
             $("#selAnio option[value=" + $('#anioplan').val() + "]").attr("selected", true);

@@ -200,7 +200,7 @@ $('#selectareas').on('change', function () {
 $('#selectortipo').change(function () {
     $('#listaProyectos').empty();
     var area;
-    if ($('#selectareas').val() == null) {
+    if ($('#selectareas').val() === "0") {
         area = $("#areaPadre").val();
     } else {
         area = $('#selectareas').val();

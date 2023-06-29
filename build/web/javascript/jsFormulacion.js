@@ -1,3 +1,5 @@
+var alerta = document.getElementById('alertProyecto');
+
 $(document).ready(function () {
     $('#textFechaI').datepicker({
         minDate: "01/01/" + $('#selectanio').val(),
@@ -35,6 +37,7 @@ $('#frmAddProyecto').submit(function (event) {
                 })
                         .done(function (response) {
                             if (response === "Correcto") {
+                                alertaM('Proyecto Ingresado', 'sucess');
                                 resetform();
                                 listarProyectos();
                             } else {
@@ -62,10 +65,11 @@ $('#frmAddProyecto').submit(function (event) {
             })
                     .done(function (response) {
                         if (response === "Correcto") {
+                            alertaM(mensajeCorrecto, insertadoCorrecto+' el proyecto',correcto, alerta, 'fa-check-circle');
                             resetform();
                             listarProyectos();
                         } else {
-                            alert(response);
+                            alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
                         }
                     })
                     .fail(function () {
@@ -88,10 +92,11 @@ $('#frmAddProyecto').submit(function (event) {
                 })
                         .done(function (response) {
                             if (response === "Correcto") {
+                                alertaM(mensajeCorrecto, insertadoCorrecto+' el proyecto',correcto, alerta, 'fa-check-circle');
                                 resetform();
                                 listarProyectos();
                             } else {
-                                alert(response);
+                                alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
                             }
                         })
                         .fail(function () {
@@ -125,7 +130,7 @@ function comprueba_extension(archivo, nombre) {
         }
     }
     if (!permitida) {
-        alert("Compruebe la extensión de los archivos a subir.");
+        alertaM(mensajeError, 'Compruebe la extensión de los archivos a subir.',error, alerta, 'fa-times-circle');
     } else {
         return 1;
     }
@@ -228,7 +233,7 @@ $('#generarproy').on('click', function () {
                 if (response === "Correcto") {
                     window.location.reload();
                 } else {
-                    alert(response);
+                    alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

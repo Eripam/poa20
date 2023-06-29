@@ -55,7 +55,7 @@ function listaCertificacion() {
                         //div2 = '<i class="fas fa-plus" id="ingresarCP" data-req="' + this.req_id + '" data-costosi="' + this.req_costo_sin_iva + '" data-costot="' + total + '" title="Ingresar Certificaci\u00f3n"></i><i class="fas fa-angle-down" id="listaCP" data-req="' + this.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                     }
                     $('#listaServicios').append('<div class="estilobody encabezado_4" style="justify-content: center;">' + this.req_id + '</div><div class="estilobody encabezado_7">' + this.req_nombre + '</div><div class="estilobody encabezado_2" style="justify-content: center;">' + new Intl.NumberFormat("US", options2).format(this.req_costo_sin_iva) + '</div>\n\
-                    <div class="estilobody encabezado_2" style="justify-content: center;">' + new Intl.NumberFormat("US", options2).format(total) + '</div><div class="estilobody encabezado_5" style="justify-content: center;">' + estado + '</div><div class="estilobody encabezado_4" data-req="' + this.req_id + '" data-costosi="' + this.req_costo_sin_iva + '" data-costot="' + total + '" data-nombre="' + this.req_nombre + '">' + div2 + '</div>\n\
+                    <div class="estilobody encabezado_2" style="justify-content: center;">' + new Intl.NumberFormat("US", options2).format(total) + '</div><div class="estilobody encabezado_5" style="justify-content: center;">' + estado + '</div><div class="estilobody encabezado_4" data-req="' + this.req_id + '" data-cantidad="' + this.req_cantidad + '" data-costosi="' + this.req_costo_sin_iva + '" data-costot="' + total + '" data-nombre="' + this.req_nombre + '">' + div2 + '</div>\n\
                     <div style="display:none; background:rgba(0, 0, 0, 0.1); font-weight:bold;" id="certip' + this.req_id + '" class="align-self-center encabezado p-0"></div>');
                     if (this.req.length > 0) {
                         var estadoreq, div;
@@ -72,12 +72,12 @@ function listaCertificacion() {
                                 estadoreq = requ.estado_nombre;
                             }
                             if (!validacion) {
-                                div = '';
+                                div = '<i class="fas fa-angle-down" id="listaCPUN" data-req="' + requ.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             } else {
-                                div = '<i class="fas fa-plus" id="ingresarCP" data-req="' + requ.req_id + '" data-costosi="' + requ.req_costo_sin_iva + '" data-costot="' + total + '" title="Ingresar Certificaci\u00f3n"></i><i class="fas fa-angle-down" id="listaCPUN" data-req="' + requ.req_id + '" title="Listar Certificaci\u00f3n"></i></div><div style="display:none; background:rgba(0, 0, 0, 0.1);" id="certipreq' + requ.req_id + '" class="align-self-center encabezado p-0">';
+                                div = '<i class="fas fa-plus" id="ingresarCP" data-req="' + requ.req_id + '" data-costosi="' + requ.req_costo_sin_iva + '" data-costot="' + total + '" title="Ingresar Certificaci\u00f3n"></i><i class="fas fa-angle-down" id="listaCPUN" data-req="' + requ.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             }
                             saldo = Math.round(requ.req_costo_total * 100) / 100;
-                            $('#listaServicios').children('#certip' + req).append('<div class="encabezado_7 estilobody text-justify">' + requ.ag_nombre + '</div><div class="encabezado_4 estilobody text-justify">C\u00f3digo: ' + requ.req_id + '</div><div class="encabezado_2 estilobody text-justify">Nombre: ' + requ.req_nombre + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(requ.req_costo_total) + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">F: ' + requ.presupuesto_fuente + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">I: ' + requ.presupuesto_renglo + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">' + estadoreq + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">' + div + '</div>');
+                            $('#listaServicios').children('#certip' + req).append('<div class="encabezado_7 estilobody text-justify">' + requ.ag_nombre + '</div><div class="encabezado_4 estilobody text-justify">C\u00f3digo: ' + requ.req_id + '</div><div class="encabezado_2 estilobody text-justify">Nombre: ' + requ.req_nombre + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(requ.req_costo_total) + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">F: ' + requ.presupuesto_fuente + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">I: ' + requ.presupuesto_renglo + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">' + estadoreq + '</div><div class="encabezado_8 estilobody" style="justify-content: center;">' + div + '</div><div style="display:none; background:rgba(0, 0, 0, 0.1);" id="certipreq' + requ.req_id + '" class="align-self-center encabezado p-0">');
                             if (requ.req.length > 0) {
                                 $.each(requ.req, function (indice, cp) {
                                     if (cp.fecha_inicio == null || cp.fecha_inicio === "undefined") {
@@ -98,9 +98,9 @@ function listaCertificacion() {
                                     }
                                     saldo = Math.round((saldo - cp.req_costo_total) * 100) / 100;
                                     if (!validacion) {
-                                        $('#listaServicios').children('#certip' + req).children('#certipreq' + requ.req_id).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody centro">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"></div>');
+                                        $('#listaServicios').children('#certip' + req).children('#certipreq' + requ.req_id).append('<div class="encabezado_5 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_2 estilobody m-0">Observación: ' + cp.ae_observacion + '</div>');
                                     } else {
-                                        $('#listaServicios').children('#certip' + req).children('#certipreq' + requ.req_id).append('<div class="encabezado_5 estilobody text-justify">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify">' + cp.tc_nombre + '</div><div class="encabezado_7 estilobody" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody centro">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody" style="justify-content: center;"><i class="fas fa-edit" id="modificarCPSP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="'+cp.unidad_id+'" title="Modificar"></i><i class="fas fa-trash" id="eliminarCPSP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
+                                        $('#listaServicios').children('#certip' + req).children('#certipreq' + requ.req_id).append('<div class="encabezado_4 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_5 estilobody m-0">Observación: ' + cp.ae_observacion + '</div><div class="encabezado_4 estilobody m-0" style="justify-content: center;"><i class="fas fa-edit" id="modificarCPSP" data-id="' + cp.req_id + '" data-rec="' + cp.ae_tiempo + '" data-tc="' + cp.tc_id + '" data-tcnombre="' + cp.tc_nombre + '" data-valor="' + cp.req_costo_total + '" data-codigo="' + cp.req_nombre + '" data-obs="' + cp.ae_observacion + '" data-fecha="' + cp.fecha_inicio + '" data-liquidacion="' + cp.unidad_id + '" title="Modificar"></i><i class="fas fa-trash" id="eliminarCPSP" data-id="' + cp.req_id + '" title="Eliminar"></i></div>');
                                     }
                                 });
                             }
@@ -232,7 +232,8 @@ $('#btnAgregarCP').on('click', function () {
                 'costot': data.costot,
                 'fuente': data.fuente,
                 'item': data.item,
-                'nombre': data.nombre
+                'nombre': data.nombre,
+                'cantidad': data.cantidad
             });
             array.push(art);
         }
@@ -243,7 +244,7 @@ $('#btnAgregarCP').on('click', function () {
         $('#listaRequerimientos').append('<tr><td class="text-center">' + array[i].req + '</td>\n\
                         <td>' + array[i].nombre + '</td>\n\
                         <td class="text-center">' + new Intl.NumberFormat("US", options2).format(array[i].costot) + '</td>\n\
-                        <td><input type="checkbox" value="' + array[i].req + '" name="re" id="re" checked="checked" data-costoi="' + array[i].costosi + '" data-costot="' + array[i].costot + '"></td>\n\
+                        <td><input type="checkbox" value="' + array[i].req + '" name="re" id="re" checked="checked" data-costoi="' + array[i].costosi + '" data-costot="' + array[i].costot + '" data-cantidad="' + array[i].cantidad + '"></td>\n\
                     </tr>');
     }
     iva = sumt - sumi
@@ -261,6 +262,7 @@ $('#modalGuardarCPG').on('click', function () {
     var porcentaje = $('#porcanticipog').val();
     var fecha = $('#fechainUn').val();
     var recurrente = $('input[name=recurrenteCertUn]:checked').val();
+    var liquidacion = $('input[name=liquCertUn]:checked').val();
     var re = [];
     $("input[name=re]:checked").each(function () {
         var rem = [];
@@ -268,6 +270,7 @@ $('#modalGuardarCPG').on('click', function () {
         rem.push($(this).val());
         rem.push(data['costoi']);
         rem.push(data['costot']);
+        rem.push(data['cantidad']);
         re.push(rem);
     });
     var req = JSON.stringify(re);
@@ -280,6 +283,7 @@ $('#modalGuardarCPG').on('click', function () {
     formData.append('observacion', observacion);
     formData.append('porcentaje', porcentaje);
     formData.append('recurrente', recurrente);
+    formData.append('liquidacion', liquidacion);
     formData.append('fechain', fecha);
     $.ajax({
         url: "../solicitud?accion=IngresarCertificacionPGU",

@@ -88,32 +88,34 @@
                                         <textarea name="txtobservacion" id="txtobservacion" class="form-control"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3 d-none" id="recurrenteDiv">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label for="recipient-name" class="col-form-label">Tipo recurrente?</label>
-                                        </div>
-                                        <div class="col-9 row">
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="recurrenteCert" id="recurrenteCert">   
+                                <div id="recurrenteDiv" class="d-none row col-12">
+                                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label for="recipient-name" class="col-form-label">Tipo recurrente?</label>
                                             </div>
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCert" id="recurrenteCert" checked>
+                                            <div class="col-9 row">
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="recurrenteCert" id="recurrenteCert">   
+                                                </div>
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="recurrenteCert" id="recurrenteCert">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <label for="recipient-name" class="col-form-label">Necesita Liquidación?</label>
-                                        </div>
-                                        <div class="col-9 row">
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="liquCert" id="liquCert">   
+                                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label for="recipient-name" class="col-form-label">Necesita Liquidación?</label>
                                             </div>
-                                            <div class="col-2">
-                                                <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCert" id="liquCert" checked>
+                                            <div class="col-9 row">
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">SI</label><input type="radio" value="1" name="liquCert" id="liquCert">   
+                                                </div>
+                                                <div class="col-2">
+                                                    <label class="col-form-label mr-1">NO</label><input type="radio" value="0" name="liquCert" id="liquCert">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

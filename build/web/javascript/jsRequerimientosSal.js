@@ -49,30 +49,299 @@ function POAPLAN(t) {
     })
             .done(function (response) {
                 $.each(response, function () {
-                    var addID, verificado = 0.0, estado, disponible, visto;
-                    if ((this.verificado_iva === null || this.verificado_iva == null || this.verificado_iva === '' || this.verificado_iva === 'undefined' || this.verificado_iva === 0) && this.verificado_uni_iva > 0) {
+                    var addID, verificado = 0.0, estado, disponible, visto, to;
+                    to=this.req_costo_total + this.req_incremento;
+//                    if ((this.verificado_iva === null || this.verificado_iva == null || this.verificado_iva === '' || this.verificado_iva === 'undefined' || this.verificado_iva === 0) && this.verificado_uni_iva > 0) {
+//                        verificado = this.verificado_uni_iva;  
+//                    } else {
+//                        verificado = this.verificado_iva;
+//                    }
+
+                    if (this.actividad_monto == 0 && this.actividad_porcentaje > 0 && this.c1 == 0 && this.cp_valor == 0) {
+                        //Estado
+                        if (this.solicitud_cargo == null) {
+                            estado = "";
+                        } else {
+                            if (this.solicitud_cargo == "Entregado Financiero") {
+                                estado = "Dirección Financiera";
+                            } else if (this.solicitud_cargo == "Aprobado Compras") {
+                                estado = "Documento Aprobado";
+                            } else if (this.solicitud_cargo == "Recibido") {
+                                estado = "Compras Públicas";
+                            } else if (this.solicitud_cargo == "Recibido Planificación") {
+                                estado = "Dirección de Planificación";
+                            } else if (this.solicitud_cargo == "Enviado por Devolución Compras") {
+                                estado = "Devuelto a la unidad";
+                            } else if (this.solicitud_cargo == "Anulado") {
+                                estado = "Anulado";
+                            } else {
+                                estado = "";
+                            }
+                        }
                         verificado = this.verificado_uni_iva;
-                        estado = this.solicitud_cargo;
-                    } else {
+                        disponible = to - this.verificado_uni_iva;
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje > 0 && this.c1 == 0 && this.cp_valor > 0) {
+                        //Estado
+                        if (this.solicitud_cargo == null) {
+                            estado = "";
+                        } else {
+                            if (this.solicitud_cargo == "Entregado Financiero") {
+                                estado = "Dirección Financiera";
+                            } else if (this.solicitud_cargo == "Aprobado Compras") {
+                                estado = "Documento Aprobado";
+                            } else if (this.solicitud_cargo == "Recibido") {
+                                estado = "Compras Públicas";
+                            } else if (this.solicitud_cargo == "Recibido Planificación") {
+                                estado = "Dirección de Planificación";
+                            } else if (this.solicitud_cargo == "Enviado por Devolución Compras") {
+                                estado = "Devuelto a la unidad";
+                            } else if (this.solicitud_cargo == "Anulado") {
+                                estado = "Anulado";
+                            } else {
+                                estado = "";
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = to - this.cp_valor;
+                    } else if (this.ctividad_monto > 0 && this.actividad_porcentaje == 0 && this.c1 > 0 && this.cp_valor == 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            if (this.solestado_observacion == "Entregado Financiero") {
+                                estado = "Dirección Financiera";
+                            } else if (this.solestado_observacion == "Aprobado Compras") {
+                                estado = "Documento Aprobado";
+                            } else if (this.solestado_observacion == "Recibido") {
+                                estado = "Compras Públicas";
+                            } else if (this.solestado_observacion == "Recibido Planificación") {
+                                estado = "Dirección de Planificación";
+                            } else if (this.solestado_observacion == "Enviado por Devolución Compras") {
+                                estado = "Devuelto a la unidad";
+                            } else if (this.solestado_observacion == "Anulado") {
+                                estado = "Anulado";
+                            } else {
+                                estado = "";
+                            }
+                        }
+                        verificado = this.verificado_iva + this.verificado_uni_npac;
+                        disponible = to - (this.verificado_iva + this.verificado_uni_npac);
+                    } else if (this.actividad_monto > 0 && this.actividad_porcentaje == 0 && this.c1 > 0 && this.cp_valor > 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    etsado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                case "Anulado":
+                                    estado = "Anulado";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = ((to) - (this.cp_valor));
+                    } else if (this.actividad_monto > 0 && this.actividad_porcentaje == 0 && this.c1 == 0 && this.cp_valor == 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    estado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                case "Anulado":
+                                    estado = "Anulado";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
                         verificado = this.verificado_iva;
-                        estado = this.solestado_observacion;
+                        disponible = (to - this.verificado_iva);
+                    } else if (this.actividad_monto > 0 && this.actividad_porcentaje == 0 && this.c1 == 0 && this.cp_valor > 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    estado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                case "Anulado":
+                                    estado = "Anulado";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = (to - this.cp_valor);
+                    } else if (this.actividad_monto > 0 && this.actividad_porcentaje > 0 && this.c1 == 0 && this.cp_valor > 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    estado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                case "Anulado":
+                                    estado = "Anulado";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = (to - this.cp_valor);
+                    } else if (this.actividad_monto > 0 && this.actividad_porcentaje > 0 && this.c1 == 0 && this.cp_valor == 0) {
+                        //Estado
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    estado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = (to - this.cp_valor);
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje == 0 && this.c1 == 0 && this.cp_valor == 0 && this.solicitud_codigo != null) {
+                        if (this.solestado_observacion == null) {
+                            estado = "";
+                        } else {
+                            switch (this.solestado_observacion) {
+                                case "Entregado Financiero":
+                                    estado = "Dirección Financiera";
+                                    break;
+                                case "Aprobado Compras":
+                                    estado = "Documento Aprobado";
+                                    break;
+                                case "Recibido":
+                                    estado = "Compras Públicas";
+                                    break;
+                                case "Recibido Planificación":
+                                    estado = "Dirección de Planificación";
+                                    break;
+                                case "Enviado por Devolución Compras":
+                                    estado = "Devuelto a la unidad";
+                                    break;
+                                case "Anulado":
+                                    estado = "Anulado";
+                                    break;
+                                default:
+                                    estado = "";
+                                    break;
+                            }
+                        }
+                        verificado = this.cp_valor;
+                        disponible = (to - this.cp_valor);
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje == 0 && this.c1 > 0 && this.cp_valor == 0) {
+                        //Estado
+                        estado = "Dirección Financiera";
+                        verificado = this.verificado_uni_npac;
+                        disponible = (to - this.verificado_uni_npac);
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje == 0 && this.c1 > 0 && this.cp_valor > 0) {
+                        //Estado
+                        estado = "Dirección Financiera";
+                        //Costo Verificado IVA
+                        disponible = this.cp_valor;
+                        disponible = (to - this.cp_valor);
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje == 0 && this.c1 == 0 && this.cp_valor == 0 && this.solicitud_nombre != null) {
+                        //Estado
+                        estado = "Documento Aprobado";
+                        estado = 0;
+                        disponible = to;
+                    } else if (this.actividad_monto == 0 && this.actividad_porcentaje == 0 && this.c1 == 0 && this.cp_valor == 0 && this.solicitud_nombre == null) {
+                        //Estado
+                        estado = "Sin Acción";
+                        verificado = 0;
+                        disponible = to;
                     }
-                    if (estado === 'undefined' || estado == null || estado === null || estado === '' || estado == '') {
-                        estado = 'Sin acci\u00F3n';
-                    }
-                    disponible = this.req_costo_total - verificado;
+
+
                     if (this.req_salvaguardar) {
                         visto = '<input type="checkbox" name="reqfinmod" id="reqfinmod' + this.req_req_id + '" checked onchange="guardarverificacion(' + this.req_req_id + ')">';
                     } else {
                         visto = '<input type="checkbox" name="reqfinmod" id="reqfinmod' + this.req_req_id + '"  onchange="guardarverificacion(' + this.req_req_id + ')">';
                     }
-                    if (disponible > 0) {
-                        addID = t.row.add(['<div style="text-align:justify;">' + this.ag_nombre + '</div>', '<div>' + this.req_id + '</div>', '<div>OEI-' + this.perspectiva_id + '</div>', '<div class="text-justify">' + this.proyecto_nombre + '</div>',
-                            '<div>' + this.req_nombre + '</div>', '<div>' + this.req_descripcion + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(this.req_costo_total) + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(verificado) + '</div>',
-                            '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(disponible) + '</div>', '<div class="dat">' + estado + '</div>', '<div class="dat">' + visto + '</div>']).draw(false);
-                        var theNode = $('#example').dataTable().fnSettings().aoData[addID[0]].nTr; //Poniendo Id al tr(fila o row) que se acaba de añadir.
-                        theNode.setAttribute('id', this.req_id);
-                    }
+                    addID = t.row.add(['<div style="text-align:justify;">' + this.ag_nombre + '</div>', '<div>' + this.req_req_id + '</div>', '<div>OEI-' + this.perspectiva_id + '</div>', '<div class="text-justify">' + this.proyecto_nombre + '</div>',
+                        '<div>' + this.req_nombre + '</div>', '<div>' + this.req_descripcion + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(to) + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(verificado) + '</div>',
+                        '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(disponible) + '</div>', '<div class="dat">' + estado + '</div>', '<div class="dat">' + visto + '</div>']).draw(false);
+                    var theNode = $('#example').dataTable().fnSettings().aoData[addID[0]].nTr; //Poniendo Id al tr(fila o row) que se acaba de añadir.
+                    theNode.setAttribute('id', this.req_id);
                 });
                 $('#loader').addClass('d-none');
             })

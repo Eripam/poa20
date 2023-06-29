@@ -2386,6 +2386,7 @@ public class adActividadRequerimiento {
                         cComp.setReq_cantidad(rsComp.getDouble("solreq_cantidad"));
                         cComp.setReq_costo_unitario(rsComp.getDouble("solreq_costo_unitario"));
                         cComp.setReq_costo_sin_iva(rsComp.getDouble("solreq_costo_sin_iva"));
+                        cComp.setReq_costo_total(rsComp.getDouble("solreq_costo_iva"));
                         cComp.setPresupuesto_fuente(rsComp.getString("presupuestofuente"));
                         cComp.setPresupuesto_renglo(rsComp.getInt("presupuestorenglo"));
                         cComp.setReq_iva(rsComp.getInt("reqiva"));
@@ -2850,6 +2851,29 @@ public class adActividadRequerimiento {
                     ResultSet rsCodigo = ad.getRs();
                     rsCodigo.next();
                     result = rsCodigo.getString("f_modificar_requerimiento");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
+    
+    //Validación de cuatrimestre con requerimiento
+    public int ValidarRequerimientoCu(int actividad, int cuatrimestre) {
+        int result = 0;
+        String SQL = "select sum(rm_porcentaje) from requerimiento inner join requerimiento_cuatrimestre on req_id=rm_req where req_actividad='"+actividad+"' and rm_mes='"+cuatrimestre+"';";
+
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    result = rsCodigo.getInt("sum");
                 }
             }
             ad.desconectar();
@@ -4512,8 +4536,10 @@ public class adActividadRequerimiento {
             SQL = "select * from f_listarequerimientosexcel() where agid='" + ag + "' or agidp='" + agp + "';";
         } else if (anio == 2021) {
             SQL = "select * from f_listarequerimientosexcel21() where agid='" + ag + "' or agidp='" + agp + "';";
-        } else {
+        } else if (anio == 2022) {
             SQL = "select * from f_listarequerimientosexcel22() where agid='" + ag + "' or agidp='" + agp + "';";
+        }else{
+              SQL = "select * from f_listarequerimientosexcel23() where agid='" + ag + "' or agidp='" + agp + "';";
         }
         try {
             //Crear un AccesoDatos
@@ -5034,7 +5060,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "', '"+cComp.getPresupuesto_organismo()+"', '"+cComp.getPresupuesto_correlativo()+"')";
 
         try {
             // Crear un AccesoDatos
@@ -5485,7 +5511,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getPresupuesto_geografico() + "', '" + cComp.getPresupuesto_correlativo() + "', '" + cComp.getPresupuesto_organismo() + "')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getReq_estado()+ "', '" + cComp.getPresupuesto_geografico() + "', '" + cComp.getPresupuesto_correlativo() + "', '" + cComp.getPresupuesto_organismo() + "')";
 
         try {
             // Crear un AccesoDatos

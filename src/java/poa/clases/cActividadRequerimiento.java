@@ -158,6 +158,8 @@ public class cActividadRequerimiento {
     private String logro_nombre;
     private String nudo_nombre;
     private String req_iva2;
+    private Integer pc_id;
+    private String pc_nombre;
 
     public Integer getActividad_id() {
         return actividad_id;
@@ -1310,5 +1312,20 @@ public class cActividadRequerimiento {
     public void setReq_iva2(String req_iva2) {
         this.req_iva2 = req_iva2;
     }
-    
+
+    public Integer getPc_id() {
+        return pc_id;
+    }
+
+    public void setPc_id(Integer pc_id) {
+        this.pc_id = pc_id;
+    }
+
+    public String getPc_nombre() {
+        return pc_nombre;
+    }
+
+    public void setPc_nombre(String pc_nombre) {
+        this.pc_nombre = pc_nombre;
+    }
 }

@@ -297,12 +297,18 @@ public class adEjecucion {
                     + "                							(select count(solnpac_id) from solicitud_nopac inner join sol_req_deudas on solnpac_id=solnpd_solicitud where solnpd_req=reqid) as totalge\n"
                     + "                                            from(select distinct on(reqid) reqid, reqnombre, reqdescripcion, req_costototal, reqestado_estado, proyectonombre, agid, agnombre_i, perspectivatp, presupuestoproyecto, reqiva, reqestado_fecha \n"
                     + "                                            from(SELECT * FROM f_listarequerimientosexcel21() inner join requerimiento_estado on reqid=reqestado_req where paccpc is null order by reqid, reqestado_fecha desc) as con)as con2 where (reqestado_estado=1 or reqestado_estado=32) order by reqestado_fecha asc)as sel where total is not null and total>0;";
-        } else {
+        } else if (anio == 2022) {
             SQL = "select * from (select *, (select sum(sp_valor_total) from servicios_profesionales where sp_req=reqid and sp_solicitud is null and sp_solicitud_anulado is null)as total, (select sum(sp_valor_total) from servicios_profesionales where sp_req=reqid)as totalsol, \n"
                     + "                (select count(reqestado_solicitud) from(select distinct on(reqestado_solicitud) reqestado_solicitud from (select *from solicitud_nopac inner join sol_req_deudas on solnpac_id=solnpd_solicitud join requerimiento_estado on solnpd_req=reqestado_req where solnpd_req=reqid)as con where reqestado_solicitud is not null)as c)as tenviado, \n"
                     + "                							(select count(solnpac_id) from solicitud_nopac inner join sol_req_deudas on solnpac_id=solnpd_solicitud where solnpd_req=reqid) as totalge\n"
                     + "                                            from(select distinct on(reqid) reqid, reqnombre, reqdescripcion, req_costototal, reqestado_estado, proyectonombre, agid, agnombre_i, perspectivatp, presupuestoproyecto, reqiva, reqestado_fecha \n"
                     + "                                            from(SELECT * FROM f_listarequerimientosexcel22() inner join requerimiento_estado on reqid=reqestado_req where paccpc is null order by reqid, reqestado_fecha desc) as con)as con2 where (reqestado_estado=1 or reqestado_estado=32) order by reqestado_fecha asc)as sel where total is not null and total>0;";
+        } else {
+            SQL = "select * from (select *, (select sum(sp_valor_total) from servicios_profesionales where sp_req=reqid and sp_solicitud is null and sp_solicitud_anulado is null)as total, (select sum(sp_valor_total) from servicios_profesionales where sp_req=reqid)as totalsol, \n"
+                    + "                (select count(reqestado_solicitud) from(select distinct on(reqestado_solicitud) reqestado_solicitud from (select *from solicitud_nopac inner join sol_req_deudas on solnpac_id=solnpd_solicitud join requerimiento_estado on solnpd_req=reqestado_req where solnpd_req=reqid)as con where reqestado_solicitud is not null)as c)as tenviado, \n"
+                    + "                							(select count(solnpac_id) from solicitud_nopac inner join sol_req_deudas on solnpac_id=solnpd_solicitud where solnpd_req=reqid) as totalge\n"
+                    + "                                            from(select distinct on(reqid) reqid, reqnombre, reqdescripcion, req_costototal, reqestado_estado, proyectonombre, agid, agnombre_i, perspectivatp, presupuestoproyecto, reqiva, reqestado_fecha \n"
+                    + "                                            from(SELECT * FROM f_listarequerimientosexcel23th(" + anio + ") inner join requerimiento_estado on reqid=reqestado_req where paccpc is null order by reqid, reqestado_fecha desc) as con)as con2 where (reqestado_estado=1 or reqestado_estado=32) order by reqestado_fecha asc)as sel where total is not null and total>0;";
         }
         try {
             //Crear un AccesoDatos
@@ -475,11 +481,11 @@ public class adEjecucion {
             return result;
         }
     }
-    
+
     //Validación de fechas por año
     static public Boolean fechaporAño(Integer anio) {
         Boolean result = false;
-        String SQL = "select exists(select * from tiempos where tiempos_anio='"+anio+"' and tiempos_tipo=1 and tiempos_fecha>now())";
+        String SQL = "select exists(select * from tiempos where tiempos_anio='" + anio + "' and tiempos_tipo=1 and tiempos_fecha>now())";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -578,7 +584,7 @@ public class adEjecucion {
             return result;
         }
     }
-    
+
     //Codigo Siguiente certificación presupuestaria servicio profesional
     public Integer codigoSiguienteCPSP() {
         Integer result = null;
@@ -607,7 +613,7 @@ public class adEjecucion {
             return result;
         }
     }
-    
+
     //Codigo Siguiente certificación presupuestaria servicio profesional op
     public Integer codigoSiguienteCPSPOP() {
         Integer result = null;
@@ -831,7 +837,7 @@ public class adEjecucion {
         String result = "Error, valor sobrepasado al planificado disponible. Por favor verifique el monto ingresado y la cantidad.";
         String SQL = "INSERT INTO public.solicitud_requerimiento(\n"
                 + "	solreq_requerimiento, solreq_solicitud, solreq_cantidad, solreq_costo_unitario, solreq_costo_sin_iva, solreq_costo_iva)\n"
-                + "	VALUES ('" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', round('" + cComp.getReq_costo_sin_iva() + "',2), round('"+cComp.getReq_costo_total()+"', 2));";
+                + "	VALUES ('" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', round('" + cComp.getReq_costo_sin_iva() + "',2), round('" + cComp.getReq_costo_total() + "', 2));";
 
         try {
             // Crear un AccesoDatos
@@ -854,7 +860,7 @@ public class adEjecucion {
         String result = "Error, valor sobrepasado al planificado disponible. Por favor verifique el monto ingresado y la cantidad.";
         String SQL = "INSERT INTO public.sol_req_deudas(\n"
                 + "	solnpd_req, solnpd_solicitud, solnpd_cantidad, solnpd_costo_unitario, solnpd_costo_total, solnpd_costo_iva)\n"
-                + "	VALUES ('" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', '" + cComp.getReq_costo_sin_iva() + "', round('"+cComp.getReq_costo_total()+"',2));";
+                + "	VALUES ('" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', '" + cComp.getReq_costo_sin_iva() + "', round('" + cComp.getReq_costo_total() + "',2));";
 
         try {
             // Crear un AccesoDatos
@@ -1357,7 +1363,7 @@ public class adEjecucion {
     //Lista de solicitudes por area
     public List<cActividadRequerimiento> ListarSolicitudAreasC(Integer anio) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "SELECT *FROM public.vsolitiudesc where solicitud_anio='" + anio + "' order by solestado_fecha asc, solestado_estado desc;";
+        String SQL = "SELECT *FROM public.vsolitiudesc left join proceso_contratacion on solicitud_pc=pc_id where solicitud_anio='" + anio + "' order by solestado_fecha asc, solestado_estado desc;";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1381,6 +1387,8 @@ public class adEjecucion {
                         cComp.setSolicitud_nombre(rsComp.getString("solicitud_custodio_nombre"));
                         cComp.setSolicitud_cargo(rsComp.getString("solicitud_custodio_cargo"));
                         cComp.setSolestado_numero(rsComp.getInt("solestado_numero"));
+                        cComp.setPc_id(rsComp.getInt("pc_id"));
+                        cComp.setPc_nombre(rsComp.getString("pc_nombre"));
                         cComp.setActividad_monto(montoJustificativo(cComp));
                         result.add(cComp);
                     }
@@ -1396,9 +1404,14 @@ public class adEjecucion {
     }
 
     //Lista de solicitudes para usuario ejecucion
-    public List<cActividadRequerimiento> ListarSolicitudAreasCAE(Integer anio) {
+    public List<cActividadRequerimiento> ListarSolicitudAreasCAE(Integer anio, Integer tipo) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "SELECT *FROM public.vsolitiudesc where (solestado_estado<>1 and solestado_estado<>31 and solestado_estado<>33 and solestado_estado<>19) and solicitud_anio='" + anio + "' order by solestado_fecha asc, solestado_estado desc;";
+        String SQL;
+        if (tipo == 1) {
+            SQL = "SELECT *FROM public.vsolitiudesc where (solestado_estado<>1 and solestado_estado<>31 and solestado_estado<>33 and solestado_estado<>19) and solicitud_anio='" + anio + "' order by solestado_fecha asc, solestado_estado desc;";
+        } else {
+            SQL = "SELECT *FROM public.vsolitiudesc where solicitud_anio='" + anio + "' order by solicitud_codigo;";
+        }
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1665,7 +1678,7 @@ public class adEjecucion {
     //Agregar Requerimientos
     public String AgregarRequerimientos(cActividadRequerimiento cComp) {
         String result = "Error al ingresar el componente";
-        String SQL = "Select * from f_agregarreqsol('" + cComp.getSolicitud_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', '" + cComp.getReq_costo_sin_iva() + "')";
+        String SQL = "Select * from f_agregarreqsol('" + cComp.getSolicitud_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getReq_cantidad() + "', '" + cComp.getReq_costo_unitario() + "', '" + cComp.getReq_costo_sin_iva() + "', '" + cComp.getReq_costo_total() + "')";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1971,16 +1984,42 @@ public class adEjecucion {
         }
         return result;
     }
-    
-    //Validar Justificativo
-    public List<cActividadRequerimiento> VerificarSolicitud(Integer solicitud, Integer tipo) {
-        List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "Select * from f_verificacionenviojust('"+solicitud+"', '"+tipo+"');";
+
+    //Modificar proceso de contratación de solicitud
+    public String ModificarProceso(cActividadRequerimiento cComp) {
+        String result = "Error al modificar el proceso de contratación";
+        String SQL;
+        if (cComp.getPc_id() == 7) {
+            SQL = "UPDATE solicitud SET solicitud_pc='" + cComp.getPc_id() + "', solicitud_pc_observacion='" + cComp.getPc_nombre() + "' WHERE solicitud_id='" + cComp.getSolicitud_id() + "';";
+        } else {
+            SQL = "UPDATE solicitud SET solicitud_pc='" + cComp.getPc_id() + "', solicitud_pc_observacion=null WHERE solicitud_id='" + cComp.getSolicitud_id() + "';";
+        }
+
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) { //  Solicitar conectar a la BD
-                 if (ad.ejecutarSelect(SQL) != 0) {
+                if (ad.executeUpdate(SQL) != 0) {
+                    result = "Correcto";
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
+
+    //Validar Justificativo
+    public List<cActividadRequerimiento> VerificarSolicitud(Integer solicitud, Integer tipo) {
+        List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
+        String SQL = "Select * from f_verificacionenviojust('" + solicitud + "', '" + tipo + "');";
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
                     ResultSet rsComp = ad.getRs();
                     while (rsComp.next()) {
                         cActividadRequerimiento cComp = new cActividadRequerimiento();
@@ -3123,9 +3162,9 @@ public class adEjecucion {
     }
 
     //Listar requerimientos que fueron unificados
-    public List<cActividadRequerimiento> ListarRequerimientosUnificadosUnion(Integer req) {
+    public List<cActividadRequerimiento> ListarRequerimientosUnificadosUnion(Integer req, Integer tipo) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select * from f_listarequeunificados('" + req + "', 2)";
+        String SQL = "select * from f_listarequeunificados('" + req + "', '"+tipo+"')";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -3157,7 +3196,7 @@ public class adEjecucion {
             return result;
         }
     }
-    
+
     //Listar requerimientos que fueron unificados
     public List<cActividadRequerimiento> ListarRequerimientosUnificadosUnionCP(Integer req, Integer solicitud) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
@@ -3386,7 +3425,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Eliminar certificacón servicios profesionales
     public String EliminarCertificacionSP(cActividadRequerimiento cComp) {
         String result = "Error al eliminar la certificacion";
@@ -3408,7 +3447,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Eliminar certificacón servicios profesionales op
     public String EliminarCertificacionSPOP(cActividadRequerimiento cComp) {
         String result = "Error al eliminar la certificacion";
@@ -4022,7 +4061,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicios profesionales
     public String IngresarCertificacionPSP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
@@ -4046,7 +4085,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicios profesionales op
     public String IngresarCertificacionPSPOP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
@@ -4076,7 +4115,7 @@ public class adEjecucion {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
         String SQL = "INSERT INTO public.certificacion_presupuestaria(\n"
                 + "	cp_id, cp_codigo, cp_valor, cp_tipo, cp_req, cp_solicitud, cp_observacion, cp_recurrente, cp_fecha_ingreso, cp_liquidacion)\n"
-                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + cComp.getFecha_inicio() + "', '"+cComp.getUnidad_id()+"');";
+                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + cComp.getFecha_inicio() + "', '" + cComp.getUnidad_id() + "');";
 
         try {
             // Crear un AccesoDatos
@@ -4094,13 +4133,13 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicios profesionales
     public String IngresarCertificacionPRecSP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
         String SQL = "INSERT INTO public.certificacion_presupuestaria_sp(\n"
                 + "	cpsp_id, cpsp_codigo, cpsp_valor, cpsp_tipo, cpsp_servprof, cpsp_observacion, cpsp_recurrente, cpsp_fecha_ingreso, cpsp_liquidacion)\n"
-                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + cComp.getFecha_inicio() + "', '"+cComp.getUnidad_id()+"');";
+                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + cComp.getFecha_inicio() + "', '" + cComp.getUnidad_id() + "');";
 
         try {
             // Crear un AccesoDatos
@@ -4118,7 +4157,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicios profesionales op
     public String IngresarCertificacionPRecSPOP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
@@ -4172,7 +4211,7 @@ public class adEjecucion {
         String result = "Error al ingresar";
         String SQL = "INSERT INTO public.certificacion_presupuestaria_valores(\n"
                 + "	cpv_id, cpv_codigo, cpv_valor_monto, cpv_fecha, cpv_tipo, cpv_deuda, cpv_solicitud, cpv_observacion, cpv_recurrente, cpv_tipov, cpv_fecha_ingreso, cpv_liquidacion)\n"
-                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', now(), '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + tipo + "', '" + cComp.getFecha_inicio() + "', '"+cComp.getUnidad_id()+"');";
+                + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', now(), '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + tipo + "', '" + cComp.getFecha_inicio() + "', '" + cComp.getUnidad_id() + "');";
 
         try {
             // Crear un AccesoDatos
@@ -4214,7 +4253,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicio profesional
     public String IngresarCertificacionPCompSP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
@@ -4238,7 +4277,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Ingresar certificación presupuestaria servicio profesional op
     public String IngresarCertificacionPCompSPOP(cActividadRequerimiento cComp) {
         String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
@@ -4286,7 +4325,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Modificar certificación presupuestaria servicios profesionales
     public String ModificarCertificacionPSP(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
@@ -4310,7 +4349,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Modificar certificación presupuestaria servicios profesionales op
     public String ModificarCertificacionPSPOP(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
@@ -4363,7 +4402,7 @@ public class adEjecucion {
     public String ModificarCertificacionPRec(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
         String SQL = "UPDATE certificacion_presupuestaria SET\n"
-                + "	cp_codigo='" + cComp.getReq_nombre() + "', cp_valor='" + cComp.getReq_costo_total() + "', cp_tipo='" + cComp.getTc_id() + "', cp_observacion='" + cComp.getAe_observacion() + "', cp_recurrente='" + cComp.getAe_tiempo() + "', cp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cp_liquidacion='"+cComp.getUnidad_id()+"' where\n"
+                + "	cp_codigo='" + cComp.getReq_nombre() + "', cp_valor='" + cComp.getReq_costo_total() + "', cp_tipo='" + cComp.getTc_id() + "', cp_observacion='" + cComp.getAe_observacion() + "', cp_recurrente='" + cComp.getAe_tiempo() + "', cp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cp_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cp_id='" + cComp.getActividad_id() + "';";
 
         try {
@@ -4382,12 +4421,12 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Modificar certificación presupuestaria servicio profesionales
     public String ModificarCertificacionPRecSP(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
         String SQL = "UPDATE certificacion_presupuestaria_sp SET\n"
-                + "	cpsp_codigo='" + cComp.getReq_nombre() + "', cpsp_valor='" + cComp.getReq_costo_total() + "', cpsp_tipo='" + cComp.getTc_id() + "', cpsp_observacion='" + cComp.getAe_observacion() + "', cpsp_recurrente='" + cComp.getAe_tiempo() + "', cpsp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpsp_liquidacion='"+cComp.getUnidad_id()+"' where\n"
+                + "	cpsp_codigo='" + cComp.getReq_nombre() + "', cpsp_valor='" + cComp.getReq_costo_total() + "', cpsp_tipo='" + cComp.getTc_id() + "', cpsp_observacion='" + cComp.getAe_observacion() + "', cpsp_recurrente='" + cComp.getAe_tiempo() + "', cpsp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpsp_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cpsp_id='" + cComp.getActividad_id() + "';";
 
         try {
@@ -4406,7 +4445,7 @@ public class adEjecucion {
         }
         return result;
     }
-    
+
     //Modificar certificación presupuestaria servicio profesionales op
     public String ModificarCertificacionPRecSPOP(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
@@ -4435,7 +4474,7 @@ public class adEjecucion {
     public String ModificarCertificacionPRecVP(cActividadRequerimiento cComp) {
         String result = "Error al modificar la certificación presupuestaria";
         String SQL = "UPDATE certificacion_presupuestaria_valores SET\n"
-                + "	cpv_codigo='" + cComp.getReq_nombre() + "', cpv_valor_monto='" + cComp.getReq_costo_total() + "', cpv_tipo='" + cComp.getTc_id() + "', cpv_observacion='" + cComp.getAe_observacion() + "', cpv_recurrente='" + cComp.getAe_tiempo() + "', cpv_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpv_liquidacion='"+cComp.getUnidad_id()+"' where\n"
+                + "	cpv_codigo='" + cComp.getReq_nombre() + "', cpv_valor_monto='" + cComp.getReq_costo_total() + "', cpv_tipo='" + cComp.getTc_id() + "', cpv_observacion='" + cComp.getAe_observacion() + "', cpv_recurrente='" + cComp.getAe_tiempo() + "', cpv_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpv_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cpv_id='" + cComp.getActividad_id() + "';";
 
         try {

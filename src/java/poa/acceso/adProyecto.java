@@ -414,9 +414,14 @@ public class adProyecto {
     }
 
     //Listar actividades proceso
-    public List<cProcesoAcciones> ListarProcesoActividad(Integer proyecto) {
+    public List<cProcesoAcciones> ListarProcesoActividad(Integer proyecto, Integer tipo) {
         List<cProcesoAcciones> result = new ArrayList<cProcesoAcciones>();
-        String SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "';";
+        String SQL;
+        if (tipo == 1) {
+            SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "';";
+        } else {
+            SQL = "select * from acciones_mejora inner join proceso on am_proceso=proceso_codigo join actividad_proceso on am_nombre=actproceso_id where am_proyecto='" + proyecto + "' and am_validar=true;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -839,8 +844,8 @@ public class adProyecto {
     public List<cProyecto> ListarDeudasLA(Integer anio) {
         List<cProyecto> result = new ArrayList<cProyecto>();
         String SQL = "select distinct on(deudas_id) deudas_id, deudas_oei, deudas_proyecto, deudas_nombre_proceso, deudas_contrato, deudas_tcon, \n"
-                + "deudas_financiamiento, deudas_monto, deudas_ag, deudas_iva, deudas_presupuesto, financiamiento_nombre, tcon_nombre, de_estado, estado_nombre, deudas_monto_pendiente, deudas_tipo, deudas_anticipo \n"
-                + "from(select * from deudas inner join financiamiento on deudas_financiamiento=financiamiento_id join tipo_contratacion on deudas_tcon=tcon_id \n"
+                + "deudas_financiamiento, deudas_monto, deudas_ag, deudas_iva, deudas_presupuesto, financiamiento_nombre, tcon_nombre, de_estado, estado_nombre, de_fecha, deudas_monto_pendiente, deudas_tipo, deudas_anticipo, \n"
+                + "de_observacion, de_usuario from(select * from deudas inner join financiamiento on deudas_financiamiento=financiamiento_id join tipo_contratacion on deudas_tcon=tcon_id \n"
                 + " inner join deudas_estado on de_deudas=deudas_id inner join estado on de_estado=estado_id where deudas_estado=1 and deudas_anio='" + anio + "' order by deudas_id asc, de_fecha desc) as con;";
         try {
             // Crear un AccesoDatos
@@ -864,6 +869,9 @@ public class adProyecto {
                         oProy.setDeudas_presupuesto(rsProy.getString("deudas_presupuesto"));
                         oProy.setEstado_id(rsProy.getInt("de_estado"));
                         oProy.setEstado_nombre(rsProy.getString("estado_nombre"));
+                        oProy.setDeudas_contrato(rsProy.getString("de_fecha"));
+                        oProy.setEstado_observacion(rsProy.getString("de_observacion"));
+                        oProy.setUsuario_nombre(rsProy.getString("de_usuario"));
                         oProy.setTp_id(rsProy.getInt("deudas_tipo"));
                         oProy.setDeudas_anticipo(rsProy.getDouble("deudas_anticipo"));
                         oProy.setDeudas_monto_pendiente(rsProy.getDouble("deudas_monto_pendiente"));
@@ -1033,7 +1041,7 @@ public class adProyecto {
                         oProy.setEstado(ListarProyectoEstados(proy));
                         oProy.setAreas(ListarProyectoAreas(proy));
                         if (rsProy.getInt("proyecto_anio") >= 2022) {
-                            oProy.setProceso(ListarProcesoActividad(proy));
+                            oProy.setProceso(ListarProcesoActividad(proy, 2));
                         } else {
                             oProy.setProceso(ListarProyectoAcciones(proy));
                         }
@@ -1596,6 +1604,28 @@ public class adProyecto {
         String result = "Error";
         String SQL = "DELETE FROM public.proyecto_estado\n"
                 + "	WHERE pe_proyecto='" + oProy.getProyecto_id() + "' and pe_fecha='" + oProy.getDeudas_contrato() + "' and pe_usuario='" + oProy.getUsuario_nombre() + "' and pe_estado='" + oProy.getEstado_id() + "';";
+
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.executeUpdate(SQL) != 0) {
+                    result = "Correcto";
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
+    
+    //Enviar deudas Observacion
+    public String EliminarEstadoDeudas(cProyecto oProy) {
+        String result = "Error";
+        String SQL = "DELETE FROM public.deudas_estado\n"
+                + "	WHERE de_deudas='" + oProy.getProyecto_id() + "' and de_fecha='" + oProy.getDeudas_contrato() + "' and de_usuario='" + oProy.getUsuario_nombre() + "' and de_estado='" + oProy.getEstado_id() + "';";
 
         try {
             // Crear un AccesoDatos

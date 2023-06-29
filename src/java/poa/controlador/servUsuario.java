@@ -35,7 +35,7 @@ public class servUsuario extends HttpServlet {
             String strAccion = request.getParameter("accion");
             HttpSession sesionOk = request.getSession(false);
             Integer intIdAreaGestion = (Integer) sesionOk.getAttribute("idAreaGestion");
-            String strCedula = (String) sesionOk.getAttribute("Cedula");
+            String strCedula = (String) sesionOk.getAttribute("cedulaUsuario");
 
             switch (strAccion) {
                 case "VerificacionUsuario":

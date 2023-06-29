@@ -733,7 +733,7 @@ public class reporteExcel extends HttpServlet {
 
     private static final String[] titles2 = {
         "CODIGO CATEGORIA CPC A NIVEL 9", "TIPO COMPRA (Bien, obras, servicio o consultoría)",
-        "DETALLE DEL PRODUCTO (Descripción de la contratación)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares)", "COSTO TOTAL (Dólares)", "COSTO TOTAL IVA (Dólares)", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)",
+        "DETALLE DEL PRODUCTO (Descripción de la contratación)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares)", "SUBTOTAL", "TOTAL", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)",
         "CUATRIMESTRE 2 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 3 (marcar con una S en el cuatrimestre que va a contratar)", "TIPO DE PRODUCTO (normalizado / no normalizado)",
         "CATALOGO ELECTRÓNICO (si/no)", "PROCEDIMIENTO SUGERIDO (son los procedimientos de contratación)", "FONDOS BID (si/no)", "NUMERO CÓDIGO DE OPERACIÓN DEL PRÉSTAMO BID",
         "NUMERO CÓDIGO DE PROYECTO BID", "TIPO DE RÉGIMEN (común, especial)", "TIPO DE PRESUPUESTO (proyecto de inversión, gasto corriente)"
@@ -751,7 +751,7 @@ public class reporteExcel extends HttpServlet {
     private static final String[] titles2j = {
         "CODIGO CATEGORIA CPC A NIVEL 9", "TIPO COMPRA (Bien, obras, servicio o consultoría)",
         "DETALLE DEL PRODUCTO (Descripción de la contratación) (PLANIFICADO)", "DESCRIPCIÓN DEL REQUERIMIENTO", "CANTIDAD ANUAL (PLANIFICADO)", "UNIDAD (metro, litro etc)", "COSTO UNITARIO (Dólares) (PLANIFICADO)",
-        "COSTO TOTAL (Dólares)(PLANIFICADO)", "COSTO TOTAL IVA(Dólares)(PLANIFICADO)", "DETALLE DEL PRODUCTO (UNIFICADO)", "CANTIDAD ANUAL (UNIFICADO)", "COSTO UNITARIO (Dólares) (UNIFICADO)", "COSTO TOTAL (Dólares)(UNIFICADO)",
+        "SUBTOTAL", "TOTAL", "DETALLE DEL PRODUCTO (UNIFICADO)", "CANTIDAD ANUAL (UNIFICADO)", "COSTO UNITARIO (Dólares) (UNIFICADO)", "COSTO TOTAL (Dólares)(UNIFICADO)",
         "JUSTIFICATIVO", "CUATRIMESTRE 1 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 2 (marcar con una S en el cuatrimestre que va a contratar)", "CUATRIMESTRE 3 (marcar con una S en el cuatrimestre que va a contratar)",
         "TIPO DE PRODUCTO (normalizado / no normalizado)", "CATALOGO ELECTRÓNICO (si/no)", "PROCEDIMIENTO SUGERIDO (son los procedimientos de contratación)", "FONDOS BID (si/no)", "NUMERO CÓDIGO DE OPERACIÓN DEL PRÉSTAMO BID",
         "NUMERO CÓDIGO DE PROYECTO BID", "TIPO DE RÉGIMEN (común, especial)", "TIPO DE PRESUPUESTO (proyecto de inversión, gasto corriente)"
@@ -10220,7 +10220,7 @@ public class reporteExcel extends HttpServlet {
             }
             //Monto iva
             cRequ.setReq_cantidad(0.0);
-            String r = aRequ.IngresaComprometidos(cRequ, 2022);
+            String r = aRequ.IngresaComprometidos(cRequ, 2023);
             if (r.equals("Correcto")) {
                 cRequ.setTc_id(0);
                 r = aRequ.IngresaComprometidosestructura(cRequ);
@@ -11333,16 +11333,16 @@ public class reporteExcel extends HttpServlet {
             //Reforma
             switch (filar.getCell(43).getCellTypeEnum().toString()) {
                 case "NUMERIC":
-                    cRequ.setReq_nombre(String.valueOf(filar.getCell(43).getNumericCellValue()));
+                    cRequ.setReq_estado((int)(filar.getCell(43).getNumericCellValue()));
                     break;
                 case "STRING":
-                    cRequ.setReq_nombre(filar.getCell(43).getStringCellValue());
+                    cRequ.setReq_estado(Integer.parseInt(filar.getCell(43).getStringCellValue()));
                     break;
             }
 
             Integer r = aRequ.IngresarReqReformaPres(cRequ);
             if (r > 0) {
-                result = "," + r;
+                result = result+"," + r;
                 sum++;
             }
         }
