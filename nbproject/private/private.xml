@@ -5,17 +5,15 @@
         <group>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsRequerimientosJ.js</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/reportes/pdf/controladorReportePDF2.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/conexion/cConexion.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pProyectoMulti.jsp</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsProyectoListaU.js</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adTecho.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/controlador/servEjecucion.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pGenerarJ.jsp</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adEjecucion.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/controlador/servProyecto.java</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pCertificacionP.jsp</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/acceso/adProyecto.java</file>
             <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsCertificacionP.js</file>
-            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/protected/pListaProyectosU.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/src/java/poa/reportes/pdf/controladorReportePDF.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/Sistema3/poa20/web/javascript/jsProyectoCompletoMul.js</file>
         </group>
     </open-files>
 </project-private>
