@@ -814,6 +814,63 @@ public class adTecho {
         return rs;
     }
 
+    //Techo asignado con priorizaciones
+    static public Double techoPriorizadoTipo(Integer tipo, Integer anio) {
+        Double rs = null;
+        String SQL = "select * from f_listatechostipos(" + tipo + "," + anio + ")";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    rs = rsCodigo.getDouble("f_listatechostipos");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+
+    //Techo asignado con priorizaciones
+    static public Double obgligacionesComprometidos(Integer tipo, Integer anio) {
+        Double rs = null;
+        String SQL;
+        if (anio == 2023) {
+            if (tipo == 1) {
+                SQL = " SELECT sum(vdeudasmatriz23.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz23\n"
+                        + "          WHERE vdeudasmatriz23.presupuestofuente::text !~~ '998'::text and tipo like 'OBLIGACIONES PENDIENTES';";
+            } else if (tipo == 2) {
+                SQL = "SELECT sum(vdeudasmatriz23.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz23\n"
+                        + "          WHERE vdeudasmatriz23.presupuestofuente::text !~~ '998'::text and tipo like 'COMPROMETIDOS';";
+            } else {
+                SQL = "SELECT sum(vdeudasmatriz23.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz23\n"
+                        + "          WHERE vdeudasmatriz23.presupuestofuente::text ~~ '998'::text";
+            }
+        }else{
+            SQL="";
+        }
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    rs = rsCodigo.getDouble("sum");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+
     //Techo obligaciones pendientes
     static public Double techoObligaciones(Integer anio) {
         Double rs = null;

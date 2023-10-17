@@ -24,6 +24,13 @@ public class cUsuario {
     private String ag_nombre;
     private String usuario_titulo;
     private Integer usuario_estado;
+    private Integer per_id;
+    private String per_nombres;
+    private String per_apellidos;
+    private String per_correo;
+    private String per_cedula;
+    private String per_completos;
+    private String sexo;
 
     public String getLogin_cedula() {
         return login_cedula;
@@ -111,5 +118,61 @@ public class cUsuario {
 
     public void setUsuario_estado(Integer usuario_estado) {
         this.usuario_estado = usuario_estado;
+    }
+
+    public Integer getPer_id() {
+        return per_id;
+    }
+
+    public void setPer_id(Integer per_id) {
+        this.per_id = per_id;
+    }
+
+    public String getPer_nombres() {
+        return per_nombres;
+    }
+
+    public void setPer_nombres(String per_nombres) {
+        this.per_nombres = per_nombres;
+    }
+
+    public String getPer_apellidos() {
+        return per_apellidos;
+    }
+
+    public void setPer_apellidos(String per_apellidos) {
+        this.per_apellidos = per_apellidos;
+    }
+
+    public String getPer_correo() {
+        return per_correo;
+    }
+
+    public void setPer_correo(String per_correo) {
+        this.per_correo = per_correo;
+    }
+
+    public String getPer_cedula() {
+        return per_cedula;
+    }
+
+    public void setPer_cedula(String per_cedula) {
+        this.per_cedula = per_cedula;
+    }
+
+    public String getPer_completos() {
+        return per_completos;
+    }
+
+    public void setPer_completos(String per_completos) {
+        this.per_completos = per_completos;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }

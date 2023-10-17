@@ -2213,6 +2213,7 @@ public class adActividadRequerimiento {
                         cComp.setSolicitud_id(rsComp.getInt("sp_estado_dispo"));
                         cComp.setCuatri(ListarCertificacionesSP(rsComp.getInt("sp_id")));
                         cComp.setEstado_nombre(rsComp.getString("estadocp"));
+                        cComp.setAg_alias(rsComp.getString("sp_nombre_estudiante")+" "+rsComp.getString("sp_apellido_estudiante"));
                         result.add(cComp);
                     }
                     ad.desconectar();

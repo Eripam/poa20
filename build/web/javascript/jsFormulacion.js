@@ -65,11 +65,11 @@ $('#frmAddProyecto').submit(function (event) {
             })
                     .done(function (response) {
                         if (response === "Correcto") {
-                            alertaM(mensajeCorrecto, insertadoCorrecto+' el proyecto',correcto, alerta, 'fa-check-circle');
+                            alertaM(mensajeCorrecto, insertadoCorrecto + ' el proyecto', correcto, alerta, 'fa-check-circle');
                             resetform();
                             listarProyectos();
                         } else {
-                            alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
+                            alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
                         }
                     })
                     .fail(function () {
@@ -92,11 +92,11 @@ $('#frmAddProyecto').submit(function (event) {
                 })
                         .done(function (response) {
                             if (response === "Correcto") {
-                                alertaM(mensajeCorrecto, insertadoCorrecto+' el proyecto',correcto, alerta, 'fa-check-circle');
+                                alertaM(mensajeCorrecto, insertadoCorrecto + ' el proyecto', correcto, alerta, 'fa-check-circle');
                                 resetform();
                                 listarProyectos();
                             } else {
-                                alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
+                                alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
                             }
                         })
                         .fail(function () {
@@ -130,7 +130,7 @@ function comprueba_extension(archivo, nombre) {
         }
     }
     if (!permitida) {
-        alertaM(mensajeError, 'Compruebe la extensión de los archivos a subir.',error, alerta, 'fa-times-circle');
+        alertaM(mensajeError, 'Compruebe la extensión de los archivos a subir.', error, alerta, 'fa-times-circle');
     } else {
         return 1;
     }
@@ -233,7 +233,7 @@ $('#generarproy').on('click', function () {
                 if (response === "Correcto") {
                     window.location.reload();
                 } else {
-                    alertaM(mensajeError, response,error, alerta, 'fa-times-circle');
+                    alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

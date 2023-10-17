@@ -4030,7 +4030,6 @@ public class servEjecucion extends HttpServlet {
         String rec = request.getParameter("recurrenteCert");
         String fecha = request.getParameter("fechain");
         String liq = request.getParameter("liquCert");
-        String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
         if (codigo.isEmpty()) {
@@ -4039,23 +4038,16 @@ public class servEjecucion extends HttpServlet {
             result = "Debe ingresar el monto";
         } else if (fecha.isEmpty()) {
             result = "Debe ingresar la fecha de aprobación";
+        } else if (observacion.isEmpty()) {
+            result = "Debe ingresar la observacion";
         } else {
-            try {
-                if (observacion == null || observacion.isEmpty()) {
-                    obs = "Sin observación";
-                } else {
-                    obs = observacion;
-                }
-            } catch (Exception e) {
-                obs = "Sin observación";
-            }
             cAct.setActividad_id(Integer.parseInt(certpid));
             cAct.setAe_tiempo(Integer.parseInt(rec));
             cAct.setUnidad_id(Integer.parseInt(liq));
             cAct.setReq_costo_total(Double.parseDouble(valor));
             cAct.setReq_nombre(codigo);
             cAct.setTc_id(Integer.parseInt(tipo));
-            cAct.setAe_observacion(obs);
+            cAct.setAe_observacion(observacion);
             cAct.setFecha_inicio(fecha);
             if (tipo.equals("1")) {
                 result = adEj.ModificarCertificacionPRec(cAct);
@@ -4085,11 +4077,10 @@ public class servEjecucion extends HttpServlet {
         String tipo = request.getParameter("rectoringsp");
         String codigo = request.getParameter("codigocpsp");
         String valor = request.getParameter("valorcpsp");
-        String observacion = request.getParameter("observacionsp");
+        String observacion = request.getParameter("txtobservacionsp");
         String rec = request.getParameter("recurrenteCertsp");
         String fecha = request.getParameter("fechainsp");
         String liq = request.getParameter("liquCertsp");
-        String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
         if (codigo.isEmpty()) {
@@ -4098,22 +4089,15 @@ public class servEjecucion extends HttpServlet {
             result = "Debe ingresar el monto";
         } else if (fecha.isEmpty()) {
             result = "Debe ingresar la fecha de aprobación";
+        } else if (observacion.isEmpty()) {
+            result = "Debe ingresar la observación";
         } else {
-            try {
-                if (observacion == null || observacion.isEmpty()) {
-                    obs = "Sin observación";
-                } else {
-                    obs = observacion;
-                }
-            } catch (Exception e) {
-                obs = "Sin observación";
-            }
             cAct.setActividad_id(Integer.parseInt(certpid));
             cAct.setAe_tiempo(Integer.parseInt(rec));
             cAct.setReq_costo_total(Double.parseDouble(valor));
             cAct.setReq_nombre(codigo);
             cAct.setTc_id(Integer.parseInt(tipo));
-            cAct.setAe_observacion(obs);
+            cAct.setAe_observacion(observacion);
             cAct.setFecha_inicio(fecha);
             cAct.setUnidad_id(Integer.parseInt(liq));
             if (tipo.equals("1")) {
@@ -4144,10 +4128,9 @@ public class servEjecucion extends HttpServlet {
         String tipo = request.getParameter("rectoringsp");
         String codigo = request.getParameter("codigocpsp");
         String valor = request.getParameter("valorcpsp");
-        String observacion = request.getParameter("observacionsp");
+        String observacion = request.getParameter("txtobservacionsp");
         String rec = request.getParameter("recurrenteCertsp");
         String fecha = request.getParameter("fechainsp");
-        String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
         if (codigo.isEmpty()) {
@@ -4156,22 +4139,15 @@ public class servEjecucion extends HttpServlet {
             result = "Debe ingresar el monto";
         } else if (fecha.isEmpty()) {
             result = "Debe ingresar la fecha de aprobación";
+        } else if (observacion.isEmpty()) {
+            result = "Debe ingresar la observación";
         } else {
-            try {
-                if (observacion == null || observacion.isEmpty()) {
-                    obs = "Sin observación";
-                } else {
-                    obs = observacion;
-                }
-            } catch (Exception e) {
-                obs = "Sin observación";
-            }
             cAct.setActividad_id(Integer.parseInt(certpid));
             cAct.setAe_tiempo(Integer.parseInt(rec));
             cAct.setReq_costo_total(Double.parseDouble(valor));
             cAct.setReq_nombre(codigo);
             cAct.setTc_id(Integer.parseInt(tipo));
-            cAct.setAe_observacion(obs);
+            cAct.setAe_observacion(observacion);
             cAct.setFecha_inicio(fecha);
             if (tipo.equals("1")) {
                 result = adEj.ModificarCertificacionPRecSPOP(cAct);
@@ -4205,7 +4181,6 @@ public class servEjecucion extends HttpServlet {
         String rec = request.getParameter("recurrenteCertm");
         String fecha = request.getParameter("fechainm");
         String liq = request.getParameter("liquCertm");
-        String obs;
         adEjecucion adEj = new adEjecucion();
         cActividadRequerimiento cAct = new cActividadRequerimiento();
         if (codigo.isEmpty()) {
@@ -4214,22 +4189,15 @@ public class servEjecucion extends HttpServlet {
             result = "Debe ingresar el monto";
         } else if (fecha.isEmpty()) {
             result = "Debe ingresar la fecha de aprobación.";
+        } else if (observacion.isEmpty()) {
+            result = "Debe ingresar la observación.";
         } else {
-            try {
-                if (observacion == null || observacion.isEmpty()) {
-                    obs = "Sin observación";
-                } else {
-                    obs = observacion;
-                }
-            } catch (Exception e) {
-                obs = "Sin observación";
-            }
             cAct.setActividad_id(Integer.parseInt(certpid));
             cAct.setAe_tiempo(Integer.parseInt(rec));
             cAct.setReq_costo_total(Double.parseDouble(valor));
             cAct.setReq_nombre(codigo);
             cAct.setTc_id(Integer.parseInt(tipo));
-            cAct.setAe_observacion(obs);
+            cAct.setAe_observacion(observacion);
             cAct.setFecha_inicio(fecha);
             cAct.setUnidad_id(Integer.parseInt(liq));
             if (tipo.equals("1")) {

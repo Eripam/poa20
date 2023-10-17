@@ -228,7 +228,11 @@ $('#listaServicios').on('click', '.encabezado .estilobody #modificarCP', functio
     $('#certpidm').val(data['id']);
     $('#codigocpm').val(data['codigo']);
     $('#valorcpm').val(data['valor']);
-    $('#txtobservacionm').val(data['obs']);
+    if (data['obs'] == 'Sin observación') {
+        $('#txtobservacionm').val('');
+    } else {
+        $('#txtobservacionm').val(data['obs']);
+    }
     $('#fechainm').val(data['fecha']);
     $('#rectoringm').find('option[value="' + data['tc'] + '"]').remove();
     $('#rectoringm').append('<option value="' + data['tc'] + '" selected="selected">' + data['tcnombre'] + '</option>');

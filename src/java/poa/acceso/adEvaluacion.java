@@ -937,7 +937,7 @@ public class adEvaluacion {
         String SQL = "select proceso_id, proceso_nombre, actproceso_codigo, actproceso_nombre, proyectoid, proyectocodigo, proyectonombre, proyectoproposito, dependencia, responsable, planificado, programa, devengado, comprometido,\n"
                 + "(select pe_eficiencia from proyecto_evaluacion where pe_proyecto=proyectoid and pe_cuatrimestre="+cuatrimestre+") as eficiencia\n"
                 + "from f_listaproyectoprograma("+anio+") left join acciones_mejora on proyectoid=am_proyecto left join actividad_proceso on am_nombre=actproceso_id\n"
-                + "left join proceso on am_proceso=proceso_codigo order by proceso_id, actproceso_codigo, proyectoid";
+                + "left join proceso on am_proceso=proceso_codigo where am_validar is true order by proceso_id, actproceso_codigo, proyectoid";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

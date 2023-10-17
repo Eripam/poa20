@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import static poa.acceso.adTransaccion.ingresarTransaccion;
 import poa.acceso.adUsuario;
+import poa.acceso.adVinculacion;
 import poa.clases.cAreaGestion;
 import poa.clases.cTransaccion;
 import poa.clases.cUsuario;
@@ -59,6 +60,9 @@ public class servUsuario extends HttpServlet {
                 case "ListarUsuarioDir":
                     ListarUsuarioDir(request, response);
                     break;
+                case "listarTipoIntegrantes":
+                    listarTipoIntegrantes(request, response);
+                    break;
                 case "ModificarUsuario":
                     ModificarUsuario(request, response);
                     break;
@@ -67,6 +71,9 @@ public class servUsuario extends HttpServlet {
                     break;
                 case "DesactivarUsuaurio":
                     DesactivarUsuaurio(request, response, intIdAreaGestion);
+                    break;
+                case "BuscarCedulaCentralizada":
+                    BuscarCedulaCentralizada(request, response, intIdAreaGestion);
                     break;
             }
         }
@@ -327,6 +334,18 @@ public class servUsuario extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
+    
+    private void listarTipoIntegrantes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        adUsuario aUsuario = new adUsuario();
+        String objetivo = request.getParameter("objetivo");
+        List<cUsuario> result = new ArrayList<cUsuario>();
+        result = aUsuario.ListaTipoUsuarios(Integer.parseInt(objetivo));
+
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
 
     private void ModificarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nombre = request.getParameter("nombreUsuario");
@@ -410,6 +429,18 @@ public class servUsuario extends HttpServlet {
             objTransaccion.setTransaccion_tipo(1);
             ingresarTransaccion(objTransaccion);
         }
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+    
+    private void BuscarCedulaCentralizada(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion) throws IOException {
+        String cedula = request.getParameter("cedula");
+        adVinculacion adVin = new adVinculacion();
+        cUsuario result = new cUsuario();
+        result = adVin.obtenerPersonasCedula(cedula);
+
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

@@ -24,15 +24,17 @@
                 <%@include file="plantillas/menu.jsp" %> 
                 <div class="content col-11 container-fluid">
                     <div class="tab-content ml-5 mr-5 pestania">
+                         <p class="titulo">LISTA DE PROYECTOS</p>
                         <%if (intIdTipoUsuario == 1) {%>
                         <div class="row main-end">
-                            <div class="col-2 main-end" style="font-weight: bold">Techo Asignado:</div>
+                            <div class="col-7 col-md-2 main-end" style="font-weight: bold">Techo Asignado:</div>
                             <%
                                 adTecho aT = new adTecho();
                                 DecimalFormat formateador = new DecimalFormat("####,###,###.##");
                             %>
-                            <div class="col-2">$ <%=formateador.format(aT.techoInstitucional(intAnio))%></div>
+                            <div class="col-5 col-md-2" style="font-weight: bold">$ <%=formateador.format(aT.techoInstitucional(intAnio))%></div>
                         </div>
+                        <%if (intAnio != 2023) {%>
                         <div class="row main-end">
                             <div class="col-2 main-end" style="font-weight: bold">Obligaciones:</div>
                             <div class="col-2">$ <%=formateador.format(aT.techoObligaciones(intAnio))%></div>
@@ -41,16 +43,54 @@
                             <div class="col-2 main-end" style="font-weight: bold">Techo Disponible:</div>
                             <%
                                 double total;
-                                if((aT.techoInstitucional(intAnio) - (aT.techoPriorizado(intAnio) + aT.techoObligaciones(intAnio)))<0){
-                                    total=0.0;
-                                }else{
-                                    total=aT.techoInstitucional(intAnio) - (aT.techoPriorizado(intAnio) + aT.techoObligaciones(intAnio));
+                                if ((aT.techoInstitucional(intAnio) - (aT.techoPriorizado(intAnio) + aT.techoObligaciones(intAnio))) < 0) {
+                                    total = 0.0;
+                                } else {
+                                    total = aT.techoInstitucional(intAnio) - (aT.techoPriorizado(intAnio) + aT.techoObligaciones(intAnio));
                                 }
                             %>
-                        <div class="col-2"> $ <%=formateador.format(total)%>     </div>
+                            <div class="col-2"> $ <%=formateador.format(total)%>     </div>
+                        </div>
+                        <%} else {
+                        double pac=aT.techoPriorizadoTipo(1, intAnio), npac=aT.techoPriorizadoTipo(2, intAnio), op=aT.obgligacionesComprometidos(1, intAnio), scnd=aT.obgligacionesComprometidos(2, intAnio), total=pac+npac+op+scnd, f998=aT.obgligacionesComprometidos(3, intAnio);
+                        double dato=aT.techoInstitucional(intAnio)-total;
+                        if(dato>-1 && dato<0){
+                            dato=0;
+                        }%>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end">PAC:</div>
+                            <div class="col-5 col-md-2">$ <%=formateador.format(pac)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end">NO PAC:</div>
+                            <div class="col-5 col-md-2">$ <%=formateador.format(npac)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end">Obligaciones Pend:</div>
+                            <div class="col-5 col-md-2">$ <%=formateador.format(op)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end">SCND Fuente activa:</div>
+                            <div class="col-5 col-md-2" style="border-bottom:1px solid black">$ <%=formateador.format(scnd)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end" style="font-weight: bold">Total POA Efectivo:</div>
+                            <div class="col-5 col-md-2" style="font-weight: bold">$ <%=formateador.format(total)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end">SCND Fuente 998:</div>
+                            <div class="col-5 col-md-2">$ <%=formateador.format(f998)%></div>
+                        </div>
+                        <div class="row main-end">
+                            <div class="col-7 col-md-3 main-end" style="font-weight: bold">Total POA y Presupuesto <%=intAnio%>:</div>
+                            <div class="col-5 col-md-2" style="font-weight: bold; border-bottom: 1px solid black">$ <%=formateador.format(f998+total)%></div>
+                        </div>
+                        <div class="row main-end mb-2">
+                            <div class="col-7 col-md-3 main-end" style="font-weight: bold">Disponibilidad:</div>
+                            <div class="col-5 col-md-2" style="font-weight: bold;">$ <%=formateador.format(dato)%></div>
                         </div>
                         <%}%>
-                        <p class="titulo">LISTA DE PROYECTOS</p>
+                        <%}%>
                         <input type="hidden" name="tipoAg" id="tipoAg" value="<%=intIdTipoAreaGestion%>">
                         <input type="hidden" name="areaPadre" id="areaPadre" value="<%=IntIdAreaGestion%>">
                         <input type="hidden" name="tipoUsuario" id="tipoUsuario" value="<%=intIdTipoUsuario%>">

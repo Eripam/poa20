@@ -4184,7 +4184,7 @@ public class adEjecucion {
 
     //Ingresar certificación presupuestaria valores pendientes
     public String IngresarCertificacionPV(cActividadRequerimiento cComp, Integer tipo) {
-        String result = "Error al ingresar";
+        String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
         String SQL = "INSERT INTO public.certificacion_presupuestaria_valores(\n"
                 + "	cpv_id, cpv_codigo, cpv_valor_monto, cpv_fecha, cpv_tipo, cpv_deuda, cpv_solicitud, cpv_observacion, cpv_tipov, cpv_fecha_ingreso)\n"
                 + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', now(), '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + tipo + "', '" + cComp.getFecha_inicio() + "');";
@@ -4208,7 +4208,7 @@ public class adEjecucion {
 
     //Ingresar certificación presupuestaria valores pendientes
     public String IngresarCertificacionPVRec(cActividadRequerimiento cComp, Integer tipo) {
-        String result = "Error al ingresar";
+        String result = "Error, valor sobrepasa el disponible. Por favor verifique el monto ingresado.";
         String SQL = "INSERT INTO public.certificacion_presupuestaria_valores(\n"
                 + "	cpv_id, cpv_codigo, cpv_valor_monto, cpv_fecha, cpv_tipo, cpv_deuda, cpv_solicitud, cpv_observacion, cpv_recurrente, cpv_tipov, cpv_fecha_ingreso, cpv_liquidacion)\n"
                 + "	VALUES ('" + cComp.getActividad_id() + "', '" + cComp.getReq_nombre() + "', '" + cComp.getReq_costo_total() + "', now(), '" + cComp.getTc_id() + "', '" + cComp.getReq_id() + "', '" + cComp.getSolicitud_id() + "', '" + cComp.getAe_observacion() + "', '" + cComp.getAe_tiempo() + "', '" + tipo + "', '" + cComp.getFecha_inicio() + "', '" + cComp.getUnidad_id() + "');";
@@ -4304,7 +4304,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria
     public String ModificarCertificacionP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria SET\n"
                 + "	cp_codigo='" + cComp.getReq_nombre() + "', cp_valor='" + cComp.getReq_costo_total() + "', cp_tipo='" + cComp.getTc_id() + "', cp_observacion='" + cComp.getAe_observacion() + "', cp_fecha_ingreso='" + cComp.getFecha_inicio() + "' where\n"
                 + "	cp_id='" + cComp.getActividad_id() + "';";
@@ -4328,7 +4328,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria servicios profesionales
     public String ModificarCertificacionPSP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_sp SET\n"
                 + "	cpsp_codigo='" + cComp.getReq_nombre() + "', cpsp_valor='" + cComp.getReq_costo_total() + "', cpsp_tipo='" + cComp.getTc_id() + "', cpsp_observacion='" + cComp.getAe_observacion() + "', cpsp_fecha_ingreso='" + cComp.getFecha_inicio() + "' where\n"
                 + "	cpsp_id='" + cComp.getActividad_id() + "';";
@@ -4352,7 +4352,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria servicios profesionales op
     public String ModificarCertificacionPSPOP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_sp_op SET\n"
                 + "	cpspo_codigo='" + cComp.getReq_nombre() + "', cpspo_valor='" + cComp.getReq_costo_total() + "', cpspo_tipo='" + cComp.getTc_id() + "', cpspo_observacion='" + cComp.getAe_observacion() + "', cpspo_fecha_ingreso='" + cComp.getFecha_inicio() + "' where\n"
                 + "	cpspo_id='" + cComp.getActividad_id() + "';";
@@ -4376,7 +4376,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria valores
     public String ModificarCertificacionPVP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_valores SET\n"
                 + "	cpv_codigo='" + cComp.getReq_nombre() + "', cpv_valor_monto='" + cComp.getReq_costo_total() + "', cpv_tipo='" + cComp.getTc_id() + "', cpv_observacion='" + cComp.getAe_observacion() + "', cpv_fecha_ingreso='" + cComp.getFecha_inicio() + "' where\n"
                 + "	cpv_id='" + cComp.getActividad_id() + "';";
@@ -4400,7 +4400,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria
     public String ModificarCertificacionPRec(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria SET\n"
                 + "	cp_codigo='" + cComp.getReq_nombre() + "', cp_valor='" + cComp.getReq_costo_total() + "', cp_tipo='" + cComp.getTc_id() + "', cp_observacion='" + cComp.getAe_observacion() + "', cp_recurrente='" + cComp.getAe_tiempo() + "', cp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cp_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cp_id='" + cComp.getActividad_id() + "';";
@@ -4424,7 +4424,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria servicio profesionales
     public String ModificarCertificacionPRecSP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_sp SET\n"
                 + "	cpsp_codigo='" + cComp.getReq_nombre() + "', cpsp_valor='" + cComp.getReq_costo_total() + "', cpsp_tipo='" + cComp.getTc_id() + "', cpsp_observacion='" + cComp.getAe_observacion() + "', cpsp_recurrente='" + cComp.getAe_tiempo() + "', cpsp_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpsp_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cpsp_id='" + cComp.getActividad_id() + "';";
@@ -4448,7 +4448,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria servicio profesionales op
     public String ModificarCertificacionPRecSPOP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_sp_op SET\n"
                 + "	cpspo_codigo='" + cComp.getReq_nombre() + "', cpspo_valor='" + cComp.getReq_costo_total() + "', cpspo_tipo='" + cComp.getTc_id() + "', cpspo_observacion='" + cComp.getAe_observacion() + "', cpspo_recurrente='" + cComp.getAe_tiempo() + "', cpspo_fecha_ingreso='" + cComp.getFecha_inicio() + "' where\n"
                 + "	cpspo_id='" + cComp.getActividad_id() + "';";
@@ -4472,7 +4472,7 @@ public class adEjecucion {
 
     //Modificar certificación presupuestaria valores pendientes
     public String ModificarCertificacionPRecVP(cActividadRequerimiento cComp) {
-        String result = "Error al modificar la certificación presupuestaria";
+        String result = "Error al modificar la certificación presupuestaria, verifique los montos y verifique si ingreso la observación";
         String SQL = "UPDATE certificacion_presupuestaria_valores SET\n"
                 + "	cpv_codigo='" + cComp.getReq_nombre() + "', cpv_valor_monto='" + cComp.getReq_costo_total() + "', cpv_tipo='" + cComp.getTc_id() + "', cpv_observacion='" + cComp.getAe_observacion() + "', cpv_recurrente='" + cComp.getAe_tiempo() + "', cpv_fecha_ingreso='" + cComp.getFecha_inicio() + "', cpv_liquidacion='" + cComp.getUnidad_id() + "' where\n"
                 + "	cpv_id='" + cComp.getActividad_id() + "';";

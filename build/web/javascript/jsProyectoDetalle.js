@@ -14,6 +14,7 @@ $(document).ready(function () {
         $('#btn-guardar').removeClass('d-none');
         $('#btn-guardar').css({display: 'flex'});
         $('#btn-cross-perfil').removeClass('d-none');
+        $('#res-mod').removeClass('d-none');
 
         $('#modAccionInstitucional').addClass('d-none');
         $('#modAccionCarrera').addClass('d-none');
@@ -226,6 +227,14 @@ function listaFechaActual() {
                     maxDate: "31/12/" + response
                 });
                 $('#ffin-mod').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+                $('#fechaIIntegrante').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+                $('#fechaFIntegrante').datepicker({
                     minDate: "01/01/" + response,
                     maxDate: "31/12/" + response
                 });

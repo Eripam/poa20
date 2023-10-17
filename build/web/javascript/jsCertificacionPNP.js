@@ -90,7 +90,7 @@ function listaCertificacion() {
                         });
                     }
                     if (this.actividad_eval.length > 0) {
-                        var tipo, div, estadosp, fechaf, fechai;
+                        var tipo, div, estadosp, fechaf, fechai, estudiante;
                         $.each(this.actividad_eval, function (indice, ser) {
                             sumcert = 0, sum = 0;
                             if (ser.actividad_id === 1) {
@@ -117,13 +117,21 @@ function listaCertificacion() {
                             } else {
                                 estadosp = ser.estado_nombre;
                             }
+                            if(ser.ag_alias == "null null"){
+                                estudiante='---'
+                            }else{
+                                estudiante=ser.ag_alias;
+                            }
                             if (!validacion) {
                                 div = '<i class="fas fa-angle-down" id="listaCPSP" data-req="' + ser.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             } else {
                                 div = '<i class="fas fa-plus" id="ingresarCPsp" data-req="' + ser.req_id + '" data-costosi="' + ser.req_costo_sin_iva + '" data-costot="' + ser.req_costo_total + '" data-serv="1" title="Ingresar Certificaci\u00f3n"></i><i class="fas fa-angle-down" id="listaCPSP" data-req="' + ser.req_id + '" title="Listar Certificaci\u00f3n"></i>';
                             }
                             saldo = Math.round(ser.req_costo_total * 100) / 100;
-                            $('#listaServicios').children('#servicios' + req).append('<div class="encabezado_2 estilobody text-justify" style="font-weight:bold;">Nombres: ' + ser.req_nombre + ' ' + ser.req_descripcion + '</div><div class="encabezado_5 estilobody text-justify" style="font-weight:bold;">Tipo: ' + tipo + '</div><div class="encabezado_5 estilobody" style="justify-content: center; font-weight:bold;">Valor: ' + new Intl.NumberFormat("US", options2).format(ser.req_costo_total) + '</div><div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Fecha In: ' + fechai + '</div><div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Fecha Fin: ' + fechaf + '</div><div class="encabezado_5 estilobody" style="justify-content: center; font-weight:bold;">Estado: ' + estadosp + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">' + div + '</div><div style="display:none; background:rgba(0, 0, 0, 0.1);" id="certipserv' + ser.req_id + '" class="align-self-center encabezado p-0"></div>');
+                            $('#listaServicios').children('#servicios' + req).append('<div class="encabezado_2 estilobody" style="justify-content: center; font-weight:bold;">Nombres</div><div class="encabezado_4 estilobody" style="font-weight:bold; justify-content: center;">Tipo</div><div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Valor</div><div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Fecha Inicio</div><div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Fecha Fin</div>\n\
+                            <div class="encabezado_4 estilobody" style="justify-content: center; font-weight:bold;">Estudiante</div><div class="encabezado_5 estilobody" style="justify-content: center; font-weight:bold;">Estado</div><div class="encabezado_5 estilobody" style="justify-content: center; font-weight:bold;">Acciones</div>');
+                            $('#listaServicios').children('#servicios' + req).append('<div class="encabezado_2 estilobody text-justify">' + ser.req_nombre + ' ' + ser.req_descripcion + '</div><div class="encabezado_4 estilobody" style="justify-content: center;">' + tipo + '</div><div class="encabezado_4 estilobody" style="justify-content: center;">' + new Intl.NumberFormat("US", options2).format(ser.req_costo_total) + '</div><div class="encabezado_4 estilobody" style="justify-content: center;">' + fechai + '</div><div class="encabezado_4 estilobody" style="justify-content: center;">' + fechaf + '</div>\n\
+                            <div class="encabezado_4 estilobody" style="justify-content: center;">' + estudiante + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">' + estadosp + '</div><div class="encabezado_5 estilobody" style="justify-content: center;">' + div + '</div><div style="display:none; background:rgba(0, 0, 0, 0.1);" id="certipserv' + ser.req_id + '" class="align-self-center encabezado p-0"></div>');
                             if (ser.cuatri.length > 0) {
                                 $.each(ser.cuatri, function (indice, cp) {
                                     if (cp.fecha_inicio == null || cp.fecha_inicio === "undefined") {
@@ -137,7 +145,7 @@ function listaCertificacion() {
                                         sum = sum + 1;
                                     }
                                     if (sum === 1) {
-                                        saldo = Math.round(sumcert * 100) / 100;
+                                        saldo = Math.round(cp.req_costo_total * 100) / 100;
                                     }
                                     saldo = Math.round((saldo - cp.req_costo_total) * 100) / 100;
                                     if (!validacion) {
@@ -251,6 +259,7 @@ $('#listaServicios').on('click', '.encabezado .estilobody #modificarCPSP', funct
         $('[name="recurrenteCertsp"][value="0"]').prop("checked", true);
     }
     $('#fechainsp').val(data['fecha']);
+    $('#txtobservacionsp').val(data['obs']);
     $('#rectoringsp').selectpicker('refresh');
     $('#codigoivaCPsp').addClass('d-none');
     $('#montoIvaCPsp').addClass('d-none');

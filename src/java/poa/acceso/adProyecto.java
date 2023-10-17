@@ -193,8 +193,8 @@ public class adProyecto {
     public String IngresarIntegrantes(cProyecto oProy) {
         String result = "Error al ingresar acciones";
         String SQL = "INSERT INTO public.integrantes(\n"
-                + "	integrante_id, integrante_nombre, integrante_proyecto)\n"
-                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "');";
+                + "	integrante_id, integrante_nombre, integrante_proyecto, integrante_cedula)\n"
+                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"');";
 
         try {
             // Crear un AccesoDatos
@@ -246,7 +246,7 @@ public class adProyecto {
         String result = "Error al ingresar el proyecto";
         String SQL = "SELECT public.f_ingresar_proyecto('" + cProy.getProyecto_nombre() + "', '" + cProy.getProyecto_proposito() + "', '" + cProy.getProyecto_fin() + "', \n"
                 + "	'" + cProy.getProyecto_fi() + "', '" + cProy.getProyecto_ff() + "', '" + cProy.getProyecto_doc() + "', '" + cProy.getProyecto_responsable() + "', '" + cProy.getProyecto_integrantes() + "', \n"
-                + "	'" + cProy.getProyecto_ap() + "','{" + area + "}','" + cProy.getProyecto_multi() + "', '" + cProy.getProyecto_servicio() + "', '" + cProy.getProyecto_codigo() + "', '" + cProy.getProyecto_id() + "', '" + cProy.getTi_fecha() + "');";
+                + "	'" + cProy.getProyecto_ap() + "','{" + area + "}','" + cProy.getProyecto_multi() + "', '" + cProy.getProyecto_servicio() + "', '" + cProy.getProyecto_codigo() + "', '" + cProy.getProyecto_id() + "', '" + cProy.getTi_fecha() + "', '"+cProy.getProyecto_responsable_ced()+"');";
 
         try {
             // Crear un AccesoDatos
@@ -994,9 +994,9 @@ public class adProyecto {
         List<cProyecto> result = new ArrayList<cProyecto>();
         String SQL = "select distinct on (proyecto_id) proyecto_id, perspectiva_id, perspectiva_tp, perspectiva_nombre, objetivo_id, objetivo_nombre, tp_id, tp_nombre, \n"
                 + "proyecto_nombre, proyecto_fin, proyecto_fi, proyecto_ff, proyecto_responsable, proyecto_multidiscip, proyecto_proposito, proyecto_doc, \n"
-                + "proyecto_integrantes, proyecto_estado, proyecto_servicio, proyecto_monto, proyecto_ag, pe_estado, estado_nombre, pe_fecha, ap_id, ap_nombre, proyecto_plurianual, ag_nombre, proyecto_fi_rep, proyecto_ff_rep, proyecto_perfil_rep, proyecto_anio, ag_alias, ap_estado from(select perspectiva_id, perspectiva_tp, perspectiva_nombre, objetivo_id, objetivo_nombre, tp_id, tp_nombre, proyecto_id, \n"
+                + "proyecto_integrantes, proyecto_estado, proyecto_servicio, proyecto_monto, proyecto_ag, pe_estado, estado_nombre, pe_fecha, ap_id, ap_nombre, proyecto_plurianual, ag_nombre, proyecto_fi_rep, proyecto_ff_rep, proyecto_perfil_rep, proyecto_anio, ag_alias, ap_estado, proyecto_responsable_ced, perspectiva_tp from(select perspectiva_id, perspectiva_tp, perspectiva_nombre, objetivo_id, objetivo_nombre, tp_id, tp_nombre, proyecto_id, \n"
                 + "proyecto_nombre, proyecto_fin, proyecto_fi, proyecto_ff, proyecto_responsable, proyecto_multidiscip, proyecto_proposito, proyecto_doc, \n"
-                + "proyecto_integrantes, proyecto_estado, proyecto_servicio, proyecto_monto, proyecto_ag, pe_estado, estado_nombre, pe_fecha, ap_id, ap_nombre, proyecto_plurianual, ag_nombre, proyecto_fi_rep, proyecto_ff_rep, proyecto_perfil_rep, proyecto_anio, ag_alias, ap_estado from perspectiva inner join objetivo on perspectiva_id=objetivo_perspectiva join tipo_proyecto \n"
+                + "proyecto_integrantes, proyecto_estado, proyecto_servicio, proyecto_monto, proyecto_ag, pe_estado, estado_nombre, pe_fecha, ap_id, ap_nombre, proyecto_plurianual, ag_nombre, proyecto_fi_rep, proyecto_ff_rep, proyecto_perfil_rep, proyecto_anio, ag_alias, ap_estado, proyecto_responsable_ced from perspectiva inner join objetivo on perspectiva_id=objetivo_perspectiva join tipo_proyecto \n"
                 + "on perspectiva_tp=tp_id join actividad_presupuestaria on objetivo_id=ap_objetivo join proyecto on ap_id=proyecto_ap join area_gestion on proyecto_ag=ag_id left join proyecto_estado on proyecto_id=pe_proyecto left join estado on pe_estado=estado_id where proyecto_id=? order by pe_fecha desc) as con;";
         try {
             // Crear un AccesoDatos
@@ -1020,6 +1020,7 @@ public class adProyecto {
                         oProy.setProyecto_integrantes(rsProy.getString("proyecto_integrantes"));
                         oPers.setPerspectiva_id(rsProy.getInt("perspectiva_id"));
                         oPers.setPerspectiva_nombre(rsProy.getString("perspectiva_nombre"));
+                        oPers.setPerspectiva_estado(rsProy.getInt("perspectiva_tp"));
                         oPers.setTo_id(rsProy.getInt("perspectiva_tp"));
                         oPers.setObjetivo_id(rsProy.getInt("objetivo_id"));
                         oPers.setObjetivo_nombre(rsProy.getString("objetivo_nombre"));
@@ -1037,6 +1038,7 @@ public class adProyecto {
                         oProy.setProyecto_plurianual(rsProy.getInt("proyecto_plurianual"));
                         oProy.setProyecto_anio(rsProy.getInt("proyecto_anio"));
                         oProy.setProyecto_ag(rsProy.getInt("ap_estado"));
+                        oProy.setProyecto_responsable_ced(rsProy.getString("proyecto_responsable_ced"));
                         oProy.setAg(cAg);
                         oProy.setEstado(ListarProyectoEstados(proy));
                         oProy.setAreas(ListarProyectoAreas(proy));
@@ -1105,6 +1107,7 @@ public class adProyecto {
                         cProyecto oProy = new cProyecto();
                         oProy.setEstado_id(rsProy.getInt("integrante_id"));
                         oProy.setProyecto_integrantes(rsProy.getString("integrante_nombre"));
+                        oProy.setProyecto_responsable_ced(rsProy.getString("integrante_cedula"));
                         result.add(oProy);
                     }
                     ad.desconectar();
@@ -1243,7 +1246,7 @@ public class adProyecto {
                 + "	'" + cProy.getProyecto_fin() + "', '" + cProy.getProyecto_fi() + "', \n"
                 + "	'" + cProy.getProyecto_ff() + "', '" + cProy.getProyecto_doc() + "', \n"
                 + "	'" + cProy.getProyecto_responsable() + "','" + cProy.getProyecto_integrantes() + "', \n"
-                + "	'" + cProy.getProyecto_multi() + "','" + cProy.getProyecto_id() + "', '" + cProy.getProyecto_ap() + "')";
+                + "	'" + cProy.getProyecto_multi() + "','" + cProy.getProyecto_id() + "', '" + cProy.getProyecto_ap() + "', '"+cProy.getProyecto_responsable_ced()+"')";
 
         try {
             // Crear un AccesoDatos
@@ -1373,7 +1376,7 @@ public class adProyecto {
     public String EliminarIntegrantes(Integer proy) {
         String result = "Error al eliminar";
         String SQL = "DELETE FROM public.integrantes\n"
-                + "	WHERE integrante_proyecto='" + proy + "';";
+                + "	WHERE integrante_id='" + proy + "';";
 
         try {
             // Crear un AccesoDatos

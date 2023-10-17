@@ -335,6 +335,12 @@ $('.col-12').on('click', '.row #integrantesMos .row #iconoplusint', function () 
     $('#integrantesMos').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="accmejca" name="textIntegrantes[]" placeholder="Integrante de proyecto"></textarea></div><i class="fas fa-minus" id="iconoremoveinte"></i></div>');
 });
 
+//Agregar integrantes
+$('.col-12').on('click', '.row #integrantesMos .col-1 #iconoplusint', function () {
+    $('#integrantesMos').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="accmejca" name="textIntegrantes[]" placeholder="Integrante de proyecto"></textarea></div><i class="fas fa-minus" id="iconoremoveinte"></i></div>');
+    $('#integrantesMos').append('<div class="row container cross-center" id="acminte"><input type="text" class="form-control col-10 col-xs-10 col-md-10" id="textIntegranteCed" name="textIntegranteCed[]" placeholder="Cédula" required maxlength="10" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");"><div class="col-1 col-xs-1 col-md-1 m-0 p-0"><i class="fas fa-search" id="buscarCedInt"></i><i class="fas fa-plus" id="iconoplusint"></i></div><input type="text" class="form-control col-12 col-xs-12 col-md-12 mt-1" id="textIntegrantes" name="textIntegrantes[]" required readonly></div>');
+});
+
 $(document).on('click', '#iconoremovecar', function () {
     $(this).closest('#acmcar').remove();
 });

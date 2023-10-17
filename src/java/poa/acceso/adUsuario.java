@@ -531,5 +531,29 @@ public class adUsuario {
         }
         return result;
     }
+    
+    public List<cUsuario> ListaTipoUsuarios(Integer objetivo) {
+         List<cUsuario> result = new ArrayList<cUsuario>();
+        String SQL = "select * from tipo_integrante where tin_estado=1 and tin_objetivo="+objetivo+";";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsLogin = ad.getRs();
+                    while (rsLogin.next()) {
+                        cUsuario oUsuario = new cUsuario();
+                        oUsuario.setTu_id(rsLogin.getInt("tin_id"));
+                        oUsuario.setTu_nombre(rsLogin.getString("tin_descripcion"));
+                        result.add(oUsuario);
+                    }
+                    ad.desconectar();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 
 }

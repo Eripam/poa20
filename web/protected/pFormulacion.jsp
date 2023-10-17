@@ -132,7 +132,11 @@
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6  mb-3">
                                 <div class="row main-center">
                                     <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Responsable:</label>
-                                    <input type="text" class="form-control col-10 col-xs-10 col-md-8" id="textResponsable" name="textResponsable" required maxlength="50" pattern="[A-ZÑÁÉÍÓÚ, A-ZÑÁÉÍÓÚ]{1,50}">
+                                    <div class="row col-9 col-xs-9 col-md-8 p-0 m-0">
+                                        <input type="text" class="form-control col-10 col-xs-10 col-md-10" id="textResponsableCed" name="textResponsableCed" placeholder="Cédula" required maxlength="10" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="col-1 col-xs-1 col-md-1" id="buscarCed"><i class="fas fa-search"></i></div>
+                                        <input type="text" class="form-control col-12 col-xs-12 col-md-12 mt-1" id="textResponsable" name="textResponsable" required readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6  mb-3">
@@ -153,8 +157,17 @@
                                     <input type="file" class="form-control-file col-10 col-xs-10 col-md-8 p-0" id="filePerfil" name="filePerfil">
                                 </div>
                             </div>
-                            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3" id="integrantesInV">
-                                <div class="row main-center">
+                            <!--<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3" id="integrantesInV">
+                                 <div class="row main-center">
+                                    <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Integrantes:</label>
+                                    <div class="row col-9 col-xs-9 col-md-8 p-0 m-0" id="integrantesMos">
+                                        <input type="text" class="form-control col-10 col-xs-10 col-md-10" id="textIntegranteCed" name="textIntegranteCed[]" placeholder="Cédula" required maxlength="10" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        <div class="col-1 col-xs-1 col-md-1 m-0 p-0"><i class="fas fa-search" id="buscarCedInt"></i><i class="fas fa-plus" id="iconoplusint"></i></div>
+                                        <input type="text" class="form-control col-12 col-xs-12 col-md-12 mt-1" id="textIntegrantes" name="textIntegrantes[]" required readonly>
+                                    </div>
+                                </div>
+                                
+                                <!--<div class="row main-center">
                                     <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Integrantes:</label>
                                     <div class="col-10 col-xs-10 col-md-9" id="integrantesMos">
                                         <div class="row container cross-center">
@@ -165,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3 d-none" id="coejeSelec">
                                 <div class="row main-center">
                                     <label for="validationCustom01" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Coejecución:</label>
@@ -362,5 +375,6 @@
     <script src="../javascript/jsPerspObjetivo.js" type="text/javascript"></script>
     <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="../javascript/jsFormulacion.js"></script>
+    <script src="../javascript/jsCentralizada.js"></script>
 </body>
 </html>

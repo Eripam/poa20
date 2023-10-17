@@ -81,6 +81,7 @@ public class cProyecto {
     private Double deudas_monto_pendiente;
     private Timestamp tiempo_fecha;
     private Integer deudas_reforma;
+    private String proyecto_responsable_ced;
 
     public String getProyecto_proceso() {
         return proyecto_proceso;
@@ -608,5 +609,13 @@ public class cProyecto {
 
     public void setDeudas_reforma(Integer deudas_reforma) {
         this.deudas_reforma = deudas_reforma;
+    }
+
+    public String getProyecto_responsable_ced() {
+        return proyecto_responsable_ced;
+    }
+
+    public void setProyecto_responsable_ced(String proyecto_responsable_ced) {
+        this.proyecto_responsable_ced = proyecto_responsable_ced;
     }
 }

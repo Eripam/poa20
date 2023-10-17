@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <link rel="stylesheet" href="../css/dataTables.bootstrap4.min.css">
     <body>
-        <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="eliminarModal" tabindex="-1" style="z-index:1000000000" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -107,6 +107,83 @@
                 </div>
             </div>
         </div>
+        <!--MODAL INTEGRANTES-->
+        <div class="modal fade bd-example-modal-xl" id="integrantesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <input type="hidden" value="<%=strCedulaUsuario%>" id="cedulaProyecto" name="cedulaProyecto">
+                    <div class="modal-header">
+                        <h5 class="modal-title main-center" id="exampleModalLabel" style="color:#133351">INTEGRANTES DE PROYECTO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <div class="col-11 col-xs-1 col-md-11">
+                                        <label for="recipient-name" class="col-form-label">Cédula:</label>
+                                        <input type="text" class="form-control" id="textIntegranteCed" name="textIntegranteCed">
+                                    </div>
+                                    <div class="row col-1 col-xs-1 col-md-1 align-items-center integrantes" id="buscarCed" title="Buscar"><i class="fas fa-search"></i></div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Nombres:</label>
+                                        <input type="text" class="form-control" name="nombreIntegrante" id="nombreIntegrante" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                                        <input type="text" class="form-control" name="apellidoIntegrante" id="apellidoIntegrante" readonly>
+                                    </div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Inicio:</label>
+                                        <input type="text" class="form-control" name="fechaIIntegrante" id="fechaIIntegrante">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Fin:</label>
+                                        <input type="text" class="form-control" name="fechaFIntegrante" id="fechaFIntegrante">
+                                    </div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <label class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Tipo de Integrante: </label>
+                                    <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" id="selTipoIn" name="selTipoIn"></select>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <div class="row col-6 justify-content-end p-0 m-0">
+                                        <button type="button" class="btn bton" id="ingresarIntegrantes">GUARDAR</button>
+                                    </div>
+                                    <div class="row col-6 justify-content-start p-0 m-0">
+                                        <button type="button" class="btn bton" id="limpiarIntegrantes">LIMPIAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="alertProyecto">
+                            </div>
+                            <table class="table-hover table-striped" style="width: 100%">
+                                <thead class="table-azul">
+                                    <tr>
+                                        <th class="text-center align-middle">CÉDULA</th>
+                                        <th class="text-center align-middle">NOMBRE</th>
+                                        <th class="text-center align-middle">TIPO</th>
+                                        <th class="text-center align-middle">SEXO</th>
+                                        <th class="text-center align-middle">FECHA INICIO</th>
+                                        <th class="text-center align-middle"><i class="fas fa-times"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaintegrantes"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%@include file="plantillas/header.jsp" %> 
         <div class="container-fluid p-0 main">
             <div class="row mt-3">
@@ -183,12 +260,16 @@
                                         <div class="col-10 col-xs-10 col-md-8 text-justify input-vista" id="propositoF"></div>
                                         <textarea class="form-control col-10 col-xs-10 col-md-8 d-none" id="prop-mod" name="prop-mod" required minlength="2"></textarea>
                                     </div>
-                                </div>
+                                </div>  
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-5  mb-3">
                                     <div class="row main-center">
                                         <label for="validationCustom01" class="col-12 col-xs-12 col-md-4 justify-content-center justify-content-md-end cross-center">Responsable:</label>
                                         <div class="col-10 col-xs-10 col-md-8 text-justify input-vista" id="responsableF"></div>
-                                        <input type="text" class="form-control col-10 col-xs-10 col-md-8 d-none" id="res-mod" name="res-mod" required maxlength="50" pattern="[A-ZÑÁÉÍÓÚ, A-ZÑÁÉÍÓÚ]{1,50}">
+                                        <div class="row col-10 col-xs-10 col-md-8 p-0 m-0 d-none" id="res-mod">
+                                            <input type="text" class="form-control col-10 col-xs-10 col-md-10" id="textResponsableCed" name="textResponsableCed" placeholder="Cédula" required maxlength="10" pattern="[0-9]+" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                            <div class="col-1 col-xs-1 col-md-1" id="buscarCed"><i class="fas fa-search"></i></div>
+                                            <input type="text" class="form-control col-12 col-xs-12 col-md-12 mt-1" id="textResponsable" name="textResponsable" required readonly>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-5  mb-3">
@@ -382,6 +463,7 @@
                             <%}%>
                         </form>
                         <div class="form-row d-flex justify-content-center mt-3">
+                            <button class="btn bton" id="btn-integrantes">AGREGAR INTEGRANTES</button>
                             <button class="btn bton" id="btn-modificar">MODIFICAR</button>
                             <button class="btn bton d-none" type="submit" id="btn-guardar">GUARDAR</button>
                             <a href="pProyectoPlan.jsp?id=<%=request.getParameter("id")%>" class="btn bton mr-3" id="btn_proyecto_planificado">PLANIFICADO</a>
@@ -1378,7 +1460,7 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                               <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
                                                     <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
@@ -2098,7 +2180,7 @@
                                                 </div>
                                             </div>-->
                                             <div class="row col-12 justify-content-center">
-                                               <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
+                                                <div class="alert alert-info col-11 mb-3 row p-1" role="alert">
                                                     <div class="col-1 align-self-center"><i class="fas fa-exclamation-circle fa-2x"></i></div>
                                                     <div class="col-11 text-justify">Conforme lo dispuesto en el Acuerdo No. 0075 del Ministerio de Economía y Finanzas, en el artículo 1, literal a) (…) <b><i>“La entidad que inicie nuevos procesos de contratación deberá certificar únicamente por el valor de la base imponible que implique el bien o servicio a contratar y procederá al registro contable del IVA.”</i></b>, en esta razón, en la planificación operativa anual no se debe considerar el IVA en los requerimientos, sino únicamente el monto neto del bien o servicio.</div>
                                                 </div>
@@ -2309,5 +2391,6 @@
         <script src="../js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="../javascript/jsProyectoDetalle.js"></script>
         <script src="../javascript/jsProyectoCompletoRepr.js"></script>
+        <script src="../javascript/jsCentralizada.js"></script>
     </body>
 </html>

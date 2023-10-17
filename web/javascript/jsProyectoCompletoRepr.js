@@ -3,6 +3,10 @@ let tusu = $('#tipousuario').val();
 let tiempo;
 let m, prio, banAnio = false;
 $(document).ready(function () {
+    listaCompletaProyecto();
+});
+
+function listaCompletaProyecto() {
     $.ajax({
         url: "../proyecto?accion=ListarProyectoCompleto" + "&proy=" + $("#idProy").val(),
         type: 'POST',
@@ -24,11 +28,11 @@ $(document).ready(function () {
                     }
                     if ((this.proyecto_integrantes == null || this.proyecto_integrantes === 'null') && this.integrantes.length > 0) {
                         $.each(this.integrantes, function (indice, inte) {
-                            if (su === 0) {
-                                $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]">' + inte.proyecto_integrantes + '</textarea></div><i class="fas fa-plus" id="iconoplusint"></i></div>');
-                            } else {
-                                $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]">' + inte.proyecto_integrantes + '</textarea></div><i class="fas fa-minus" id="iconoremoveinte"></i></div>');
-                            }
+                            /*if (su === 0) {
+                             $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]">' + inte.proyecto_integrantes + '</textarea></div><i class="fas fa-plus" id="iconoplusint"></i></div>');
+                             } else {
+                             $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]">' + inte.proyecto_integrantes + '</textarea></div><i class="fas fa-minus" id="iconoremoveinte"></i></div>');
+                             }*/
                             su++;
                             if (su === tint) {
                                 integrantes += ' - ' + inte.proyecto_integrantes;
@@ -40,12 +44,12 @@ $(document).ready(function () {
                         integrantes = "No tiene integrantes";
                     } else if ((this.proyecto_integrantes == null || this.proyecto_integrantes == 'null') && this.integrantes.length == 0 && (this.per.to_id == '2' || this.per.to_id == '3')) {
                         integrantes = "No tiene integrantes";
-                        $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]"></textarea></div><i class="fas fa-plus" id="iconoplusint"></i></div>');
+                        // $('#inpintegrantes').append('<div class="row container cross-center" id="acminte"><div class="col-10 col-xs-10 col-md-9"><textarea class="form-control" id="textIntegrantes" name="textIntegrantes[]"></textarea></div><i class="fas fa-plus" id="iconoplusint"></i></div>');
                     } else {
                         integrantes = this.proyecto_integrantes;
                     }
 
-                    persp = this.perspectiva_id;
+                    persp = this.per.perspectiva_id;
                     $('#tituloAg').html(this.ag.ag_nombre);
                     $('#objEstartF').html(this.per.perspectiva_nombre);
                     $('#objest option[value="' + this.per.perspectiva_id + '"]').prop('selected', 'true');
@@ -61,6 +65,7 @@ $(document).ready(function () {
                     $('#finp-mod').val(this.proyecto_fin);
                     $('#propositoF').html(this.proyecto_proposito);
                     $('#prop-mod').val(this.proyecto_proposito);
+                    $('#textResponsableCed').val(this.proyecto_responsable_ced);
                     if (this.proyecto_fi_rep == null || this.proyecto_fi_req === '') {
                         $('#fechaInicioF').html(this.proyecto_fi);
                         fi = this.proyecto_fi;
@@ -78,7 +83,7 @@ $(document).ready(function () {
                     $('#fini-mod').val(this.proyecto_fi);
                     $('#ffin-mod').val(this.proyecto_ff);
                     $('#responsableF').html(this.proyecto_responsable);
-                    $('#res-mod').val(this.proyecto_responsable);
+                    $('#textResponsable').val(this.proyecto_responsable);
                     $('#integrantesF').html(integrantes);
                     $('#perfilF').append(perfil + ' <a class="d-none" id="btn-cross-perfil" style="color:red" title="Eliminar" href="#"><i class="fas fa-times"></i></a>');
                     $('#inpmodificarPerfil').val(this.proyecto_doc);
@@ -188,6 +193,7 @@ $(document).ready(function () {
                         $('#modAccionInstitucionalMod').append('<div class="row container main-center cross-center" id="acmins"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejins[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconoplusins"></i></div></div>');
                         $('#modAccionCarreraMod').append('<div class="row container main-center cross-center" id="acmcar"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejca[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconopluscar"></i></div></div>');
                     }
+
                     if ((tusu === "15" || tusu === "3") && estadof === 3) {
                         $('#btn-modificar').css({"display": "flex"});
                         $('#btn_proyecto_eliminar').css({"display": "flex"});
@@ -223,6 +229,22 @@ $(document).ready(function () {
                         $('#btn-modificar').addClass('d-none');
                         $('#btn_proyecto_eliminar').addClass('d-none');
                         $('#btn_proyecto_articulacion').addClass('d-none');
+                    }
+
+                    if ((tusu === "15" || tusu === "3") && estadof === 3 && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').css({"display": "flex"});
+                    } else if ((tusu === "2" || tusu === "5" || tusu === "15" || tusu === "3" || tusu === "8" || tusu === "7" || tusu === "19") && (estadof === 0 || estadof === 3 || estadof === 5 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26) && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').css({"display": "flex"});
+                    } else if ((tusu === "2" || tusu === "5" || tusu === "7" || tusu === "8" || tusu === "19") && (estadof === 1 || estadof === 8 || estadof === 4) && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').addClass('d-none');
+                    } else if ((tusu === "3") && (estadof === 1) && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').addClass('d-none');
+                    } else if (tusu === "3" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26) && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').removeClass('d-none');
+                    } else if ((tusu === "2" || tusu === "3" || tusu === "5" || tusu === "7" || tusu === "8" || tusu === "15" || tusu === "19") && estadof === 51 && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').addClass('d-none');
+                    } else {
+                        $('#btn-integrantes').addClass('d-none');
                     }
 
                     if (this.proyecto_anio === 2020) {
@@ -281,7 +303,7 @@ $(document).ready(function () {
             .always(function () {
                 console.log('Se completo correctamente');
             });
-});
+}
 
 //Listar fechas
 function tiempos(id2) {
@@ -2711,6 +2733,28 @@ $('#eliminarModalBton').on('click', function () {
                 .always(function () {
                     console.log('Se completo correctamente');
                 });
+    } else if (tipo === "integrantes") {
+        $.ajax({
+            url: "../proyecto?accion=EliminarIntegrantes",
+            type: 'POST',
+            data: {id: $('#idintegrante').val(), proyecto: $('#idProy').val(), integrante: $('#nombreIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                        $('#eliminarModal').modal('toggle');
+                    } else {
+                        alert(response);
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
     }
 });
 
@@ -2719,21 +2763,21 @@ $('#btn_proyecto_enviar').on('click', function (event) {
     let proy;
     $('#alertEnviar').empty();
     $('#alertEnviarV').empty();
-    let alertEnviar=document.getElementById('alertEnviar');
-    let alertEnviarV=document.getElementById('alertEnviarV');
-    if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="2") {
+    let alertEnviar = document.getElementById('alertEnviar');
+    let alertEnviarV = document.getElementById('alertEnviarV');
+    if ($('#tipousuario').val() === "15" && $('#tipoAg').val() === "2") {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 1;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a.', 'info', alertEnviar);
-    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="3") {
+    } else if ($('#tipousuario').val() === "15" && $('#tipoAg').val() === "3") {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 1;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Coordinador/a de Carrera.', 'info', alertEnviar);
-    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="4") {
+    } else if ($('#tipousuario').val() === "15" && $('#tipoAg').val() === "4") {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 1;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad.', 'info', alertEnviar);
-    }else if ($('#tipousuario').val() === "15" && $('#tipoAg').val()==="5") {
+    } else if ($('#tipousuario').val() === "15" && $('#tipoAg').val() === "5") {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 1;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede.', 'info', alertEnviar);
@@ -2748,15 +2792,15 @@ $('#btn_proyecto_enviar').on('click', function (event) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         alertaModal('NOTA:', 'Debe recordar que al enviar su proyecto iniciara con el proceso de validacion.', 'info', alertEnviarV);
         proy = 2;
-    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="2" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val() === "2" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 8;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a.', 'info', alertEnviar);
-    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="4" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val() === "4" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 8;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad.', 'info', alertEnviar);
-    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val()==="5" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
+    } else if ($('#tipousuario').val() === "3" && $('#tipoAg').val() === "5" && (estadof === 0 || estadof === 7 || estadof === 12 || estadof === 13 || estadof === 14 || estadof === 20 || estadof === 25 || estadof === 26 || estadof === 51)) {
         $('#enviarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('\u00bfEsta seguro que desea enviar el proyecto?<input type="hidden" name="estadoproy" id="estadoproy">');
         proy = 8;
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede.', 'info', alertEnviar);
@@ -2830,4 +2874,103 @@ $('#guardarEnviar').on('click', function () {
             .always(function () {
                 console.log('Se completo correctamente');
             });
+});
+
+//Integrantes
+$('#btn-integrantes').on('click', function () {
+    $('#textIntegranteCed').val('');
+    $('#nombreIntegrante').val('');
+    $('#apellidoIntegrante').val('');
+    $('#integrantesModal').modal();
+    listarTipoIntegrantes();
+    listarIntegrantes();
+});
+
+$('#limpiarIntegrantes').on('click', function () {
+    $('#textIntegranteCed').val('');
+    $('#nombreIntegrante').val('');
+    $('#apellidoIntegrante').val('');
+});
+
+$('#ingresarIntegrantes').on('click', function () {
+    if ($('#textIntegranteCed').val() == "") {
+        alertaM(mensajeError, "Debe ingresar el n\u00FAmero de c\u00E9dula.", error, alerta, 'fa-times-circle');
+    } else {
+        $.ajax({
+            url: "../proyecto?accion=IngresarIntegrantes",
+            type: 'POST',
+            data: {proyecto: $('#idProy').val(), cedula: $('#textIntegranteCed').val(), nombre: $('#nombreIntegrante').val() + ' ' + $('#apellidoIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                    } else {
+                        alert(response);
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    }
+});
+
+function listarIntegrantes() {
+    $('#listaintegrantes').empty();
+    $.ajax({
+        url: "../proyecto?accion=ListarIntegrantes",
+        type: 'POST',
+        data: {proyecto: $('#idProy').val()},
+        dataType: 'json'
+    })
+            .done(function (response) {
+                if (response.length > 0) {
+                    $.each(response, function () {
+                        $('#listaintegrantes').append('<tr><td class="text-center">' + this.proyecto_responsable_ced + '</td><td>' + this.proyecto_integrantes + '</td><td><i id="eliminarIntegrante" data-id="' + this.estado_id + '" data-integrante="' + this.proyecto_integrantes + '" class="fas fa-times"></i></td></tr>')
+                    });
+                } else {
+                    $('#listaintegrantes').append('<tr><td colspan="2">No existen registros</td></tr>')
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+function listarTipoIntegrantes() {
+    $('#selTipoIn').empty();
+    $.ajax({
+        url: "../usuario?accion=listarTipoIntegrantes",
+        type: 'POST',
+        data: {objetivo: persp},
+        dataType: 'json'
+    })
+            .done(function (response) {
+                if (response.length > 0) {
+                    $.each(response, function () {
+                        alert(this.tu_nombre);
+                        //$('.modal-dialog').children('.modal-content').children('.modal-body').children('.container-fluid').children('.row').children('.row').children('.dropdown').children('#selTipoIn').append('<option value="'+this.tu_id+'">'+this.tu_nombre+'</option>')
+                        $('.dropdown').children('#selTipoIn').append('<option value="'+this.tu_id+'">'+this.tu_nombre+'</option>')
+                    });
+                } 
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+$('#listaintegrantes').on('click', 'tr td #eliminarIntegrante', function () {
+    var data = $(this).data();
+    $('#eliminarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('Esta seguro que desea eliminar el integrante <b>"' + data['integrante'] + '"</b>?<input type="hidden" name="idintegrante" id="idintegrante" value="' + data['id'] + '"><input type="hidden" name="nombreIntegrante" id="nombreIntegrante" value="' + data['integrante'] + '"><input type="hidden" name="tipom" id="tipom" value="integrantes">');
+    $('#eliminarModal').modal();
 });

@@ -28,11 +28,13 @@ import poa.acceso.adProyecto;
 import static poa.acceso.adProyecto.obtenerProyectoPorId;
 import poa.acceso.adTecho;
 import static poa.acceso.adTransaccion.ingresarTransaccion;
+import poa.acceso.adVinculacion;
 import poa.clases.cActividadRequerimiento;
 import poa.clases.cProcesoAcciones;
 import poa.clases.cProyecto;
 import poa.clases.cRequerimientosGenerales;
 import poa.clases.cTransaccion;
+import poa.clases.cUsuario;
 
 /**
  *
@@ -57,6 +59,9 @@ public class servProyecto extends HttpServlet {
                     break;
                 case "ListarProyecto":
                     ListarProyecto(request, response);
+                    break;
+                case "ListarIntegrantes":
+                    ListarIntegrantes(request, response);
                     break;
                 case "ListarProyectoCom":
                     ListarProyectoCom(request, response);
@@ -223,6 +228,12 @@ public class servProyecto extends HttpServlet {
                 case "EjecutarFuncionMontos":
                     EjecutarFuncionMontos(request, response);
                     break;
+                case "IngresarIntegrantes":
+                    IngresarIntegrantes(request, response, intIdAreaGestion, strCedula);
+                    break;
+                case "EliminarIntegrantes":
+                    EliminarIntegrantes(request, response, intIdAreaGestion, strCedula);
+                    break;
             }
         }
     }
@@ -235,7 +246,8 @@ public class servProyecto extends HttpServlet {
         String fi = request.getParameter("textFechaI");
         String ff = request.getParameter("textFechaF");
         String responsable = request.getParameter("textResponsable");
-        String integrantes[] = request.getParameterValues("textIntegrantes[]");
+        String cedula = request.getParameter("textResponsableCed");
+        //String integrantes[] = request.getParameterValues("textIntegrantes[]");
         String oei = request.getParameter("idOEIForm");
         String alias = request.getParameter("aliasAgFormulacion");
         String ag = request.getParameter("idAgFormulacion");
@@ -276,6 +288,8 @@ public class servProyecto extends HttpServlet {
             result = "Debe ingresar la fecha de inicio del proyecto.";
         } else if (ff.isEmpty()) {
             result = "Debe ingresar la fecha de fin del proyecto.";
+        } else if (cedula.isEmpty()) {
+            result = "Debe ingresar la cedula del responsable.";
         } else if (responsable.isEmpty()) {
             result = "Debe ingresar el responsable del proyecto.";
         } else {
@@ -289,6 +303,7 @@ public class servProyecto extends HttpServlet {
             oProy.setProyecto_ff(ff);
             oProy.setTi_fecha(Integer.parseInt(anio));
             oProy.setProyecto_responsable(responsable);
+            oProy.setProyecto_responsable_ced(cedula);
             if (servicio == null) {
                 oProy.setProyecto_servicio(0);
             } else {
@@ -309,33 +324,33 @@ public class servProyecto extends HttpServlet {
             }
             if (multi == null && coe == null) {
                 oProy.setProyecto_multi(false);
-                if ((integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) && (oei.equals("2") || oei.equals("3"))) {
+                /*if ((integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) && (oei.equals("2") || oei.equals("3"))) {
                     result = "Debe ingresar los integrantes del proyecto.";
-                } else {
-                    result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
-                }
+                } else {*/
+                result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
+                //}
             } else if (coe == null && multi != null) {
                 if (multi[0].equals("0")) {
                     oProy.setProyecto_multi(false);
-                    if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty()) && (oei.equals("2") || oei.equals("3"))) {
+                    /*if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty()) && (oei.equals("2") || oei.equals("3"))) {
                         result = "Debe ingresar los integrantes del proyecto.";
-                    } else {
-                        result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
-                    }
+                    } else {*/
+                    result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
+                    // }
                 } else {
                     oProy.setProyecto_multi(true);
-                    if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) {
+                    /*if (integrantes.length == 0 || (integrantes.length==1 && integrantes[0].isEmpty())) {
                         result = "Debe ingresar los integrantes del proyecto.";
-                    } else {
-                        result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
-                        if (result.equals("Correcto")) {
-                            for (String proy_are1 : multi) {
-                                oProy.setProyecto_id(proye);
-                                oProy.setProyecto_ag(Integer.parseInt(proy_are1));
-                                result = aProy.IngresarAreasProyecto(oProy);
-                            }
+                    } else {*/
+                    result = aProy.IngresarProyecto(oProy, Integer.parseInt(ag));
+                    if (result.equals("Correcto")) {
+                        for (String proy_are1 : multi) {
+                            oProy.setProyecto_id(proye);
+                            oProy.setProyecto_ag(Integer.parseInt(proy_are1));
+                            result = aProy.IngresarAreasProyecto(oProy);
                         }
                     }
+                    //}
                 }
             } else if (multi == null && coe != null) {
                 if (coe[0].equals("0")) {
@@ -417,7 +432,7 @@ public class servProyecto extends HttpServlet {
                     result = "No se ingresaron " + sum + ", porque ya fueron ingresadas";
                 }
             }
-            if (integrantes.length > 0) {
+            /*if (integrantes.length > 0) {
                 for (String integrante1 : integrantes) {
                     oProy.setProyecto_id(proye);
                     oProy.setProyecto_integrantes(integrante1);
@@ -425,7 +440,7 @@ public class servProyecto extends HttpServlet {
                         result = aProy.IngresarIntegrantes(oProy);
                     }
                 }
-            }
+            }*/
             cTransaccion objTransaccion = new cTransaccion();
             objTransaccion.setTransaccion_cedula(strCedula);
             objTransaccion.setTransaccion_ag(intIdAreaGestion);
@@ -434,6 +449,64 @@ public class servProyecto extends HttpServlet {
             ingresarTransaccion(objTransaccion);
         }
 
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void IngresarIntegrantes(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException, ServletException {
+        String proyecto = request.getParameter("proyecto");
+        String cedulaIn = request.getParameter("cedula");
+        cUsuario oUsu = new cUsuario();
+        adVinculacion adVin = new adVinculacion();
+        String result = "";
+
+        cProyecto oProy = new cProyecto();
+        adProyecto aProy = new adProyecto();
+
+        oProy.setProyecto_id(Integer.parseInt(proyecto));
+        oUsu = adVin.obtenerPersonasCedula(cedulaIn);
+        oProy.setProyecto_integrantes(oUsu.getPer_completos());
+        oProy.setProyecto_responsable_ced(cedulaIn);
+        if (oUsu.getPer_cedula() == null) {
+            result = "No existe ese número de cédula";
+        } else {
+            result = aProy.IngresarIntegrantes(oProy);
+        }
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_cedula(strCedula);
+            objTransaccion.setTransaccion_ag(intIdAreaGestion);
+            objTransaccion.setTransaccion_tipo(1);
+            objTransaccion.setTransaccion_descripcion("El integrante: \"" + oUsu.getPer_completos() + "\" se ingresó correctamente en el proyecto  \"" + proyecto + "\".");
+            ingresarTransaccion(objTransaccion);
+        }
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void EliminarIntegrantes(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException, ServletException {
+        String proyecto = request.getParameter("proyecto");
+        String integrante = request.getParameter("integrante");
+        String codigo = request.getParameter("id");
+        String result = "";
+
+        adProyecto aProy = new adProyecto();
+
+        result = aProy.EliminarIntegrantes(Integer.parseInt(codigo));
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_cedula(strCedula);
+            objTransaccion.setTransaccion_ag(intIdAreaGestion);
+            objTransaccion.setTransaccion_tipo(1);
+            objTransaccion.setTransaccion_descripcion("El integrante: \"" + integrante + "\" se eliminó correctamente en el proyecto  \"" + proyecto + "\".");
+            ingresarTransaccion(objTransaccion);
+        }
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -507,6 +580,19 @@ public class servProyecto extends HttpServlet {
         adProyecto aProy = new adProyecto();
 
         result = aProy.ListarProyecto(Integer.parseInt(ag), Integer.parseInt(anio));
+
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void ListarIntegrantes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String proyecto = request.getParameter("proyecto");
+        List<cProyecto> result = new ArrayList<cProyecto>();
+        adProyecto aProy = new adProyecto();
+
+        result = aProy.ListaIntegrantes(Integer.parseInt(proyecto));
 
         String json = new Gson().toJson(result);
         response.setContentType("application/json");
@@ -701,7 +787,7 @@ public class servProyecto extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
-    
+
     private void EjecutarFuncionMontos(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String anio = request.getParameter("anio");
         String result;
@@ -723,7 +809,8 @@ public class servProyecto extends HttpServlet {
             String proposito = request.getParameter("prop-mod");
             String fi = request.getParameter("fini-mod");
             String ff = request.getParameter("ffin-mod");
-            String responsable = request.getParameter("res-mod");
+            String cedula = request.getParameter("textResponsableCed");
+            String responsable = request.getParameter("textResponsable");
             String multi = request.getParameter("ismulti");
             String oei = request.getParameter("objest");
             String oop = request.getParameter("objobj");
@@ -737,6 +824,8 @@ public class servProyecto extends HttpServlet {
             cProyecto objProyectoBuscar = obtenerProyectoPorId(Integer.valueOf(proye));
             cProyecto oProy = new cProyecto();
             adProyecto aProy = new adProyecto();
+            cUsuario oUsu = new cUsuario();
+            adVinculacion adVin = new adVinculacion();
 
             Part filePart = request.getPart("permod");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -753,6 +842,8 @@ public class servProyecto extends HttpServlet {
                 result = "Debe ingresar la fecha de inicio del proyecto.";
             } else if (ff.isEmpty()) {
                 result = "Debe ingresar la fecha de fin del proyecto.";
+            } else if (cedula.isEmpty()) {
+                result = "Debe ingresar la cédula del responsable.";
             } else if (responsable.isEmpty()) {
                 result = "Debe ingresar el responsable del proyecto.";
             } else {
@@ -762,8 +853,10 @@ public class servProyecto extends HttpServlet {
                 oProy.setProyecto_fin(fin);
                 oProy.setProyecto_fi(fi);
                 oProy.setProyecto_ff(ff);
-                oProy.setProyecto_responsable(responsable);
+                oUsu = adVin.obtenerPersonasCedula(cedula);
+                oProy.setProyecto_responsable(oUsu.getPer_completos());
                 oProy.setProyecto_ap(Integer.parseInt(actp));
+                oProy.setProyecto_responsable_ced(cedula);
 
                 if (fileName.equals("")) {
                     oProy.setProyecto_doc("vacio");
@@ -882,7 +975,7 @@ public class servProyecto extends HttpServlet {
         String proyecto = request.getParameter("proyectoArt");
         String actividades[] = request.getParameterValues("selectAcciones[]");
         String proceso = request.getParameter("selectProceso");
-        
+
         String result = "Error";
         adProyecto aProy = new adProyecto();
         cProyecto cProy = new cProyecto();
@@ -897,9 +990,9 @@ public class servProyecto extends HttpServlet {
                 if (aProy.ValidarAcciones(cProy)) {
                     sum++;
                 } else {
-                    if(TipoUsuario==26){
+                    if (TipoUsuario == 26) {
                         result = aProy.IngresarAccionesCarreraProyecto(cProy, true);
-                    }else{
+                    } else {
                         result = aProy.IngresarAccionesCarreraProyecto(cProy, false);
                     }
                 }
@@ -1069,7 +1162,7 @@ public class servProyecto extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
-    
+
     private void EliminarEstadoDeuda(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String proyecto = request.getParameter("deuda");
         String cedulaad = request.getParameter("cedulaProyecto");
@@ -1188,7 +1281,7 @@ public class servProyecto extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
-    
+
     private void ValidarArticulacion(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException {
         String proyecto = request.getParameter("proyecto");
         String actividad = request.getParameter("id");
