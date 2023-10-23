@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import poa.acceso.adRequerimientosGenerales;
+import static poa.acceso.adTransaccion.ingresarTransaccion;
 import poa.clases.cRequerimientosGenerales;
+import poa.clases.cTransaccion;
 
 /**
  *
@@ -30,11 +32,11 @@ public class servRequerimientosGenerales extends HttpServlet {
 
             String strAccion = request.getParameter("accion");
             HttpSession sesionOk = request.getSession(false);
-            String strCedula = (String) sesionOk.getAttribute("Cedula");
+            String strCedula = (String) sesionOk.getAttribute("cedulaUsuario");
             Integer intIdAreaGestion = (Integer) sesionOk.getAttribute("idAreaGestion");
             switch (strAccion) {
                 case "IngresarRequerimientoGeneral":
-                    IngresarRequerimientoGeneral(request, response);
+                    IngresarRequerimientoGeneral(request, response, strCedula, intIdAreaGestion);
                     break;
                 case "ListarRequerimientoGenerales":
                     ListarRequerimientosGenerales(request, response);
@@ -55,7 +57,7 @@ public class servRequerimientosGenerales extends HttpServlet {
         }
     }
 
-    private void IngresarRequerimientoGeneral(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void IngresarRequerimientoGeneral(HttpServletRequest request, HttpServletResponse response, String cedula, Integer area) throws IOException {
         String nombre = request.getParameter("nombreRequerimientoGeneral");
         String descripcion = request.getParameter("descripcionRequerimientoGeneral");
         String cpc = request.getParameter("cpcRequerimientoGeneral");
@@ -85,6 +87,15 @@ public class servRequerimientosGenerales extends HttpServlet {
             oRequerimiento.setRg_cpc(cpc);
             oRequerimiento.setRg_unidad(unidad);
             result = aRequerimiento.ingresarRequerimientosGenerales(oRequerimiento);
+        }
+        
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_descripcion("El requerimiento general de nombre: \"" + nombre + "\" , descripción: \"" + descripcion + "\", costo: \"" + precio + "\", año: \"" + anio + "\", cpc: \"" + cpc + "\", area: \"" + nombre + "\" se ingresó correctamente");
+            objTransaccion.setTransaccion_cedula(cedula);
+            objTransaccion.setTransaccion_ag(area);
+            objTransaccion.setTransaccion_tipo(1);
+            ingresarTransaccion(objTransaccion);
         }
         String json = new Gson().toJson(result);
         response.setContentType("application/json");

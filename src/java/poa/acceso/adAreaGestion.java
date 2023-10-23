@@ -99,6 +99,24 @@ public class adAreaGestion {
         }
         return rs;
     }
+    
+    //Mostrar tipo proyecto
+    static public ResultSet listaAreasGestionActivas() {
+        ResultSet rs = null;
+        String SQL = "select * from area_gestion where ag_estado=1 order by ag_id asc";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    rs = ad.getRs();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
 
     //Mostrar tipo usuario
     static public ResultSet listaTipoUsuarios() {
@@ -385,6 +403,41 @@ public class adAreaGestion {
     static public ResultSet listaAreaGestionDeudas() {
         ResultSet rs = null;
         String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    rs = ad.getRs();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+    //Mostrar area gestion asignadas
+    static public ResultSet listaAreaGestionDeudasActivas() {
+        ResultSet rs = null;
+        String SQL = "select * from area_gestion where ag_estado=1 and (ag_tag=2 or ag_tag=4 or ag_tag=5) order by ag_id";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    rs = ad.getRs();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+    
+     //Mostrar area gestion asignadas
+    static public ResultSet listaAreaGestionPOA(Integer anio) {
+        ResultSet rs = null;
+        String SQL = "select agid as ag_id, agnombre as ag_nombre, agalias as ag_alias, agtag as ag_tag, agestado as ag_estado, agareagid as are_ag_id from f_listaunidadespoa("+anio+")";
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {

@@ -49,6 +49,7 @@ $('.row').on('click', '.row .integrantes#buscarCed', function () {
                 } else {
                     $('#nombreIntegrante').val(response.per_nombres);
                     $('#apellidoIntegrante').val(response.per_apellidos);
+                    $('#sexoIntegrante').val(response.sexo);
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

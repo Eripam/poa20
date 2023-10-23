@@ -95,7 +95,7 @@
                                         } else if (intIdTipoUsuario == 6 || intIdTipoUsuario == 7 || intIdTipoUsuario == 8 || intIdTipoUsuario == 19) {
                                             rs = adAreaGestion.listaAreaGestionFE();
                                         } else if (intIdTipoUsuario == 14) {
-                                            rs = adAreaGestion.listaAreaGestionDeudas();
+                                            rs = adAreaGestion.listaAreaGestionPOA(intAnio);
                                         } else {
                                             rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion);
                                         }

@@ -82,6 +82,10 @@ public class cProyecto {
     private Timestamp tiempo_fecha;
     private Integer deudas_reforma;
     private String proyecto_responsable_ced;
+    private String integrante_sexo;
+    private Integer integrante_tipo;
+    private String integrante_tipo_nombre;
+    private String integrante_tipo_contrato;
 
     public String getProyecto_proceso() {
         return proyecto_proceso;
@@ -617,5 +621,37 @@ public class cProyecto {
 
     public void setProyecto_responsable_ced(String proyecto_responsable_ced) {
         this.proyecto_responsable_ced = proyecto_responsable_ced;
+    }
+
+    public String getIntegrante_sexo() {
+        return integrante_sexo;
+    }
+
+    public void setIntegrante_sexo(String integrante_sexo) {
+        this.integrante_sexo = integrante_sexo;
+    }
+
+    public Integer getIntegrante_tipo() {
+        return integrante_tipo;
+    }
+
+    public void setIntegrante_tipo(Integer integrante_tipo) {
+        this.integrante_tipo = integrante_tipo;
+    }
+
+    public String getIntegrante_tipo_nombre() {
+        return integrante_tipo_nombre;
+    }
+
+    public void setIntegrante_tipo_nombre(String integrante_tipo_nombre) {
+        this.integrante_tipo_nombre = integrante_tipo_nombre;
+    }
+
+    public String getIntegrante_tipo_contrato() {
+        return integrante_tipo_contrato;
+    }
+
+    public void setIntegrante_tipo_contrato(String integrante_tipo_contrato) {
+        this.integrante_tipo_contrato = integrante_tipo_contrato;
     }
 }

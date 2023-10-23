@@ -476,7 +476,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tableCalidad.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("NUM. ACT", fuentetitulo));
+                cell = new PdfPCell(new Paragraph("NUM. ACT/ NUM. IND", fuentetitulo));
                 cell.setPadding(5);
                 cell.setBackgroundColor(azul);
                 cell.setBorderWidthRight(1);
@@ -492,7 +492,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tableCalidad.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("ACTIVIDAD", fuentetitulo));
+                cell = new PdfPCell(new Paragraph("ACTIVIDAD/INDICADOR", fuentetitulo));
                 cell.setPadding(5);
                 cell.setBackgroundColor(azul);
                 cell.setBorderWidthRight(1);

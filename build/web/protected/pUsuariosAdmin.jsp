@@ -79,7 +79,7 @@
                                         <select class="selectpicker my-select" data-width="67%" data-live-search="true" name="agu" id="agu">
                                             <%
                                                 ResultSet rs2;
-                                                rs2 = adAreaGestion.listaAreasGestion();
+                                                rs2 = adAreaGestion.listaAreasGestionActivas();
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>
@@ -102,7 +102,7 @@
                                         <select class="selectpicker my-select" multiple data-width="67%" data-live-search="true" name="ag" id="ag">
                                             <%
                                                 ResultSet rs4;
-                                                rs4 = adAreaGestion.listaAreaGestionDeudas();
+                                                rs4 = adAreaGestion.listaAreaGestionDeudasActivas();
                                                 while (rs4.next()) {
                                             %>
                                             <option title="<%=rs4.getString("ag_alias")%>" value="<%= rs4.getString("ag_id")%>"><%=rs4.getString("ag_nombre")%></option>

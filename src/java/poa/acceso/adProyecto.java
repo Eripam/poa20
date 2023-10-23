@@ -193,8 +193,8 @@ public class adProyecto {
     public String IngresarIntegrantes(cProyecto oProy) {
         String result = "Error al ingresar acciones";
         String SQL = "INSERT INTO public.integrantes(\n"
-                + "	integrante_id, integrante_nombre, integrante_proyecto, integrante_cedula)\n"
-                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"');";
+                + "	integrante_id, integrante_nombre, integrante_proyecto, integrante_cedula, integrante_tipo, integrante_fechai, integrante_fechaf, integrante_sexo, integrante_contrato)\n"
+                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"', '"+oProy.getIntegrante_tipo()+"', '"+oProy.getProyecto_fi()+"', '"+oProy.getProyecto_ff()+"', '"+oProy.getIntegrante_sexo()+"', '"+oProy.getIntegrante_tipo_contrato()+"');";
 
         try {
             // Crear un AccesoDatos
@@ -1096,7 +1096,7 @@ public class adProyecto {
     //Listar integrantes
     public List<cProyecto> ListaIntegrantes(Integer proy) {
         List<cProyecto> result = new ArrayList<cProyecto>();
-        String SQL = "select * from integrantes where integrante_proyecto=? and integrante_estado=1;";
+        String SQL = "select * from integrantes inner join tipo_integrante ON tipo_integrante.tin_id = integrantes.integrante_tipo where integrante_proyecto=? and integrante_estado=1;";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1108,6 +1108,12 @@ public class adProyecto {
                         oProy.setEstado_id(rsProy.getInt("integrante_id"));
                         oProy.setProyecto_integrantes(rsProy.getString("integrante_nombre"));
                         oProy.setProyecto_responsable_ced(rsProy.getString("integrante_cedula"));
+                        oProy.setProyecto_fi(rsProy.getString("integrante_fechai"));
+                        oProy.setProyecto_ff(rsProy.getString("integrante_fechaf"));
+                        oProy.setIntegrante_tipo(rsProy.getInt("integrante_tipo"));
+                        oProy.setIntegrante_tipo_nombre(rsProy.getString("tin_descripcion"));
+                        oProy.setIntegrante_sexo(rsProy.getString("integrante_sexo"));
+                        oProy.setIntegrante_tipo_contrato(rsProy.getString("integrante_contrato"));
                         result.add(oProy);
                     }
                     ad.desconectar();

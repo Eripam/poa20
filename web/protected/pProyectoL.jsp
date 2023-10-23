@@ -381,9 +381,9 @@
                                     <div class="table-azul encabezado p-0">
                                         <div class="p-0 estilo encabezado_4">COD. PLAN</div>
                                         <div class="p-0 estilo encabezado_4">PLAN</div>
-                                        <div class="estilo encabezado_4">NUM. ACT</div>
+                                        <div class="estilo encabezado_4">NUM. ACT/ NUM. IND</div>
                                         <div class="estilo encabezado_2">META</div>
-                                        <div class="estilo encabezado_7">ACTIVIDAD</div>
+                                        <div class="estilo encabezado_7">ACTIVIDAD/INDICADOR</div>
                                         <div class="estilo encabezado_5">RESPONSABLE</div>
                                         <div class="estilo encabezado_4">VALIDACIÓN</div>
                                     </div>

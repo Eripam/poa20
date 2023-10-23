@@ -3,22 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adEvaluacion.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/conexion/cConexion.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servUsuario.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pRequerimientosGenerales.jsp</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servProyecto.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pListaProyectosU.jsp</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pFormulacion.jsp</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsCentralizada.js</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/clases/cUsuario.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsCertificacionPNP.js</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsRequerimientosGenerales.js</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servRequerimientosGenerales.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsProyectoCompletoRepr.js</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pWelcome.jsp</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pProyecto.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pUsuarios.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pUsuariosAdmin.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/controlador/servUsuario.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pProyectoPlan.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/javascript/jsCentralizada.js</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/javascript/jsProyectoCompletoLRep.js</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/conexion/cConexion.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pProyectoL.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pProyecto.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/acceso/adProyecto.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/acceso/adAreaGestion.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/javascript/jsProyectoCompletoRepr.js</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pProyectoMulti.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pListaProyectosEvaluacionL.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/reportes/pdf/controladorReportePDF.java</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/web/protected/pProyectoPrio.jsp</file>
+            <file>file:/C:/Users/WinUser/Documents/NetBeansProjects/Respaldos/SIPLAN/poa20/src/java/poa/controlador/servProyecto.java</file>
         </group>
     </open-files>
 </project-private>

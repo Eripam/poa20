@@ -121,12 +121,16 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
+                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
+                                    <label class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Tipo de Integrante: </label>
+                                    <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" id="selTipoIn" name="selTipoIn"></select>
+                                </div>
                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
                                     <div class="col-11 col-xs-1 col-md-11">
                                         <label for="recipient-name" class="col-form-label">Cédula:</label>
                                         <input type="text" class="form-control" id="textIntegranteCed" name="textIntegranteCed">
                                     </div>
-                                    <div class="row col-1 col-xs-1 col-md-1 align-items-center integrantes" id="buscarCed" title="Buscar"><i class="fas fa-search"></i></div>
+                                    <div class="row col-1 col-xs-1 col-md-1 align-items-center integrantes" id="buscarCed" title="Buscar"><i id="buscador" class="fas fa-search"></i></div>
                                 </div>
                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
                                     <div class="col-6">
@@ -140,17 +144,23 @@
                                 </div>
                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
                                     <div class="col-6">
-                                        <label for="recipient-name" class="col-form-label">Fecha Inicio:</label>
-                                        <input type="text" class="form-control" name="fechaIIntegrante" id="fechaIIntegrante">
+                                        <label for="recipient-name" class="col-form-label">Sexo:</label>
+                                        <input type="text" class="form-control" name="sexoIntegrante" id="sexoIntegrante" readonly>
                                     </div>
                                     <div class="col-6">
-                                        <label for="recipient-name" class="col-form-label">Fecha Fin:</label>
-                                        <input type="text" class="form-control" name="fechaFIntegrante" id="fechaFIntegrante">
+                                        <label for="recipient-name" class="col-form-label">Tipo Contrato:</label>
+                                        <input type="text" class="form-control" name="tipocontratoIntegrante" id="tipocontratoIntegrante">
                                     </div>
                                 </div>
                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
-                                    <label class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Tipo de Integrante: </label>
-                                    <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" id="selTipoIn" name="selTipoIn"></select>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Inicio:</label>
+                                        <input type="text" class="form-control" name="fechaIIntegrante" id="fechaIIntegrante" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Fin:</label>
+                                        <input type="text" class="form-control" name="fechaFIntegrante" id="fechaFIntegrante" readonly>
+                                    </div>
                                 </div>
                                 <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-3">
                                     <div class="row col-6 justify-content-end p-0 m-0">
@@ -168,9 +178,11 @@
                                     <tr>
                                         <th class="text-center align-middle">CÉDULA</th>
                                         <th class="text-center align-middle">NOMBRE</th>
-                                        <th class="text-center align-middle">TIPO</th>
+                                        <th class="text-center align-middle">CARGO</th>
                                         <th class="text-center align-middle">SEXO</th>
+                                        <th class="text-center align-middle">TIPO CONTRATO</th>
                                         <th class="text-center align-middle">FECHA INICIO</th>
+                                        <th class="text-center align-middle">FECHA FIN</th>
                                         <th class="text-center align-middle"><i class="fas fa-times"></i></th>
                                     </tr>
                                 </thead>
@@ -520,9 +532,9 @@
                                     <div class="table-azul encabezado p-0">
                                         <div class="p-0 estilo encabezado_4">COD. PLAN</div>
                                         <div class="p-0 estilo encabezado_4">PLAN</div>
-                                        <div class="estilo encabezado_4">NUM. ACT</div>
+                                        <div class="estilo encabezado_4">NUM. ACT / NUM. IND</div>
                                         <div class="estilo encabezado_7">META</div>
-                                        <div class="estilo encabezado_7">ACTIVIDAD</div>
+                                        <div class="estilo encabezado_7">ACTIVIDAD / INDICADOR</div>
                                         <div class="estilo encabezado_5">RESPONSABLE</div>
                                         <div class="estilo encabezado_8">X</div>
                                     </div>

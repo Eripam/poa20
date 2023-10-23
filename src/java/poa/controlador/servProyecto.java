@@ -458,6 +458,12 @@ public class servProyecto extends HttpServlet {
     private void IngresarIntegrantes(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException, ServletException {
         String proyecto = request.getParameter("proyecto");
         String cedulaIn = request.getParameter("cedula");
+        String tipocontrato = request.getParameter("tipocontrato");
+        String tipointegrante = request.getParameter("tipoin");
+        String nombres = request.getParameter("nombre");
+        String sexo = request.getParameter("sexo");
+        String fechai = request.getParameter("fechai");
+        String fechaf = request.getParameter("fechaf");
         cUsuario oUsu = new cUsuario();
         adVinculacion adVin = new adVinculacion();
         String result = "";
@@ -466,12 +472,25 @@ public class servProyecto extends HttpServlet {
         adProyecto aProy = new adProyecto();
 
         oProy.setProyecto_id(Integer.parseInt(proyecto));
-        oUsu = adVin.obtenerPersonasCedula(cedulaIn);
-        oProy.setProyecto_integrantes(oUsu.getPer_completos());
-        oProy.setProyecto_responsable_ced(cedulaIn);
-        if (oUsu.getPer_cedula() == null) {
+        if (tipointegrante.equals("3")) {
+            oProy.setProyecto_responsable_ced(cedulaIn);
+            oProy.setIntegrante_sexo(sexo);
+            oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
+            oProy.setIntegrante_tipo_contrato(tipocontrato);
+            oProy.setProyecto_integrantes(nombres);
+        } else {
+            oUsu = adVin.obtenerPersonasCedula(cedulaIn);
+            oProy.setProyecto_integrantes(oUsu.getPer_completos());
+            oProy.setProyecto_responsable_ced(cedulaIn);
+             oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
+            oProy.setIntegrante_tipo_contrato(tipocontrato);
+            oProy.setIntegrante_sexo(oUsu.getSexo());
+        }
+        if (cedulaIn.isEmpty()) {
             result = "No existe ese número de cédula";
         } else {
+            oProy.setProyecto_fi(fechai);
+            oProy.setProyecto_ff(fechaf);
             result = aProy.IngresarIntegrantes(oProy);
         }
 
