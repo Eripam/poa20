@@ -75,7 +75,7 @@ function listaCertificacion() {
                             } else {
                                 sum = sum + 1;
                             }
-                            if (sum === 1) {
+                            if (sum === 1 && sumcert > 0) {
                                 saldo = Math.round(sumcert * 100) / 100;
                             }
                             if (saldo === 0) {
@@ -117,10 +117,10 @@ function listaCertificacion() {
                             } else {
                                 estadosp = ser.estado_nombre;
                             }
-                            if(ser.ag_alias == "null null"){
-                                estudiante='---'
-                            }else{
-                                estudiante=ser.ag_alias;
+                            if (ser.ag_alias == "null null") {
+                                estudiante = '---'
+                            } else {
+                                estudiante = ser.ag_alias;
                             }
                             if (!validacion) {
                                 div = '<i class="fas fa-angle-down" id="listaCPSP" data-req="' + ser.req_id + '" title="Listar Certificaci\u00f3n"></i>';
@@ -144,10 +144,14 @@ function listaCertificacion() {
                                     } else {
                                         sum = sum + 1;
                                     }
-                                    if (sum === 1) {
-                                        saldo = Math.round(cp.req_costo_total * 100) / 100;
+                                    if (sum === 1 && sumcert > 0) {
+                                        saldo = Math.round(sumcert * 100) / 100;
+                                    } 
+                                    if (saldo === 0) {
+                                        saldo = cp.req_costo_total;
                                     }
                                     saldo = Math.round((saldo - cp.req_costo_total) * 100) / 100;
+                                    
                                     if (!validacion) {
                                         $('#listaServicios').children('#servicios' + req).children('#certipserv' + ser.req_id).append('<div class="encabezado_5 estilobody text-justify m-0">C\u00f3digo: ' + cp.req_nombre + '</div><div class="encabezado_4 estilobody text-justify m-0" style="justify-content: center;">' + cp.tc_nombre + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Valor: ' + new Intl.NumberFormat("US", options2).format(cp.req_costo_total) + '</div><div class="encabezado_2 estilobody m-0" style="justify-content: center;">Fecha aprobación: ' + fecha + '</div><div class="encabezado_5 estilobody m-0" style="justify-content: center;">Saldo: ' + new Intl.NumberFormat("US", options2).format(saldo) + '</div><div class="encabezado_2 estilobody m-0">Observación: ' + cp.ae_observacion + '</div>');
                                     } else {

@@ -1,6 +1,6 @@
 var alerta = document.getElementById('alertProyecto');
 
-$('.col-12').on('click', '.row .row .col-1#buscarCed',function () {
+$('.col-12').on('click', '.row .row .col-1#buscarCed', function () {
     $.ajax({
         url: "../usuario?accion=BuscarCedulaCentralizada",
         data: {cedula: $('#textResponsableCed').val()},
@@ -37,19 +37,20 @@ $('.col-12').on('click', '.row .row .col-1#buscarCed',function () {
 });
 
 $('.row').on('click', '.row .integrantes#buscarCed', function () {
+    var url = "https://centralizada2.espoch.edu.ec/rutadinardap/informacionregistrocivil/" + $('#textIntegranteCed').val();
     $.ajax({
-        url: "../usuario?accion=BuscarCedulaCentralizada",
-        data: {cedula: $('#textIntegranteCed').val()},
-        type: 'POST',
+        //url: "../usuario?accion=BuscarCedulaCentralizada",
+        //data: {cedula: $('#textIntegranteCed').val()},
+        url: url,
+        type: 'GET',
         dataType: 'json'
     }).
             done(function (response) {
-                if (response.per_id == 'undefined' || response.per_id == null || response.per_id == "") {
-                    alertaM(mensajeError, "No existe el n\u00FAmero de c\u00E9dula ingresado.", error, alerta, 'fa-times-circle');
+                if (response.success) {
+                    $('#nombreIntegrante').val(response.listado[1].nombre);
+                    $('#sexoIntegrante').val(response.listado[13].sexo);
                 } else {
-                    $('#nombreIntegrante').val(response.per_nombres);
-                    $('#apellidoIntegrante').val(response.per_apellidos);
-                    $('#sexoIntegrante').val(response.sexo);
+                    alertaM(mensajeError, response.mensaje, error, alerta, 'fa-times-circle');
                 }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

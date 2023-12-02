@@ -45,20 +45,20 @@
                                             <option value="15">Técnico Encargado</option>
                                             <%if (IntIdAreaGestion == 65) {%>
                                             <option value="23">Analista Talento Humano</option>
-                                            <%} else if (IntIdAreaGestion == 53) {%>
+                                            <%} else if (IntIdAreaGestion == 53 || IntIdAreaGestion == 86) {%>
                                             <option value="26">Analista DEAC</option>
                                             <%}%>
                                         </select>
                                     </div>
                                 </div>
-                                <%if (IntIdAreaGestion == 53) {%>
+                                <%if (IntIdAreaGestion == 53 || IntIdAreaGestion == 86) {%>
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3 d-none" id="selecAgU">
                                     <div class="row main-center">
                                         <label for="areasGestion" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end ">Unidad:</label>
                                         <select class="selectpicker my-select" multiple data-width="67%" data-live-search="true" name="ag" id="ag">
                                             <%
                                                 ResultSet rs2;
-                                                rs2 = adAreaGestion.listaFaculAdmin();
+                                                rs2 = adAreaGestion.listaFaculAdmin(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

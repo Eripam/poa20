@@ -56,7 +56,7 @@
                 <%
                 } else {
                 %>
-                <a class="dropdown-item" href="../usuario?accion=Redirigir&idTipoUsuario=<%=objLogin.getTu_id()%>&nombreTipoUsuario=<%=objLogin.getTu_nombre()%>&idAreaGestion=<%=objLogin.getAg().getAg_id()%>&nombreAreaGestion=<%=objLogin.getAg().getAg_nombre()%>&aliasAreaGestion=<%=objLogin.getAg().getAg_alias()%>&idTipoAG=<%=objLogin.getAg().getTag_id()%>&nombreTipoAG=<%=objLogin.getAg().getTag_nombre()%>&anioplan=<%=objLogin.getAnio()%>"><%=objLogin.getTu_nombre()%> - <%=objLogin.getAg().getAg_alias()%></a>
+                <a class="dropdown-item" href="../usuario?accion=Redirigir&idTipoUsuario=<%=objLogin.getTu_id()%>&nombreTipoUsuario=<%=objLogin.getTu_nombre()%>&idAreaGestion=<%=objLogin.getAg().getAg_id()%>&nombreAreaGestion=<%=objLogin.getAg().getAg_nombre()%>&aliasAreaGestion=<%=objLogin.getAg().getAg_alias()%>&idTipoAG=<%=objLogin.getAg().getTag_id()%>&nombreTipoAG=<%=objLogin.getAg().getTag_nombre()%>&anioplan=<%=objLogin.getAnio()%>&agestado=<%=objLogin.getAg().getAg_estado()%>"><%=objLogin.getTu_nombre()%> - <%=objLogin.getAg().getAg_alias()%></a>
                 <%
                         }
                     }

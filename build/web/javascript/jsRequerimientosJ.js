@@ -93,7 +93,7 @@ function POAPLAN(t) {
                     } else {
                         estado = this.actividad_nombre;
                     }
-                    if (this.solicitud_estado === 28 || this.solicitud_estado === 29 || this.solicitud_estado === 30 || this.solicitud_estado === 50 || this.solicitud_estado === 53) {
+                    if (this.solicitud_estado === 28 || this.solicitud_estado === 29 || this.solicitud_estado === 30 || this.solicitud_estado === 50 || this.solicitud_estado === 53 || this.solicitud_estado === 54) {
                         addID = t.row.add(['<div style="text-align:justify;">' + this.ag_nombre + '</div>', '<div>OEI-' + this.perspectiva_id + '</div>', '<div class="text-justify">' + this.proyecto_nombre + '</div>',
                             '<div>' + this.req_nombre + '</div>', '<div style="text-align:center;">' + this.req_cantidad + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(this.req_costo_unitario) + '</div>', '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(this.req_costo_sin_iva) + '</div>',
                             '<div style="text-align:center;">' + new Intl.NumberFormat("US", options2).format(this.req_costo_total) + '</div>', '<div style="text-align:center;">' + observacion + '</div>', '<div class="dat">' + estado + '</div>', '<div class="dat"></div>']).draw(false);
@@ -266,6 +266,8 @@ $('.modalEnviarReqUnid').on('click', function () {
         $('#exampleModalLabelE').html('Requerimientos a Dirección Administrativa');
     } else if (data['id'] === 53) {
         $('#exampleModalLabelE').html('Requerimientos a DIM');
+    } else if (data['id'] === 54) {
+        $('#exampleModalLabelE').html('Requerimientos a Control Quimico');
     }
 
     var array = [];

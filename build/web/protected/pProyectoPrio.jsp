@@ -179,7 +179,7 @@
                                         <select class="selectpicker col-10 col-xs-10 col-md-8 d-none" data-live-search="true" multiple data-selected-text-format="count > 6" id="mul-mod" name="mul-mod">
                                             <option value="0">Ninguno</option>
                                             <%
-                                                ResultSet rs2 = adAreaGestion.listaAreaGestionMulti();
+                                                ResultSet rs2 = adAreaGestion.listaAreaGestionMulti(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

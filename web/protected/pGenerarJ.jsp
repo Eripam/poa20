@@ -185,6 +185,7 @@
                         <button class="btn bton mt-4 modalEnviarReqUnid" data-value="DIRCOM" data-id="30">ENVIAR DIRCOM</button>    
                         <button class="btn bton mt-4 modalEnviarReqUnid" data-value="ADMINISTRATIVO" data-id="50">ENVIAR DIR. ADMINISTRATIVA</button>    
                         <button class="btn bton mt-4 modalEnviarReqUnid" data-value="DIM" data-id="53">ENVIAR DIM</button>    
+                        <button class="btn bton mt-4 modalEnviarReqUnid" data-value="UCQ" data-id="54">ENVIAR CONTROL QUIMICO</button>    
                         <% if(adEjecucion.fechaporAño(intAnio)){%>
                         <button class="btn bton mt-4" id="btnGenerarJ">GENERAR JUSTIFICATIVO</button>  
                         <%}%>

@@ -49,10 +49,10 @@ function listarRequerimientos(ag, anio) {
                                     }
                                 });
                                 if (req.req_verificacion === 2) {
-                                    div = '<i class="fas fa-edit dataInfo"  title="Editar Requerimiento" id="modRequerimiento" data-id="' + req.req_id + '" data-cpc="' + req.req_cpc + '"></i>\n\
+                                    div = '<i class="fas fa-edit dataInfo'+req.req_id+'"  title="Editar Requerimiento" id="modRequerimiento" data-id="' + req.req_id + '" data-cpc="' + req.req_cpc + '"></i>\n\
                                             <a id="btnDevolverRequerimiento" data-toggle="modal" href="#devolverModal" data-id="' + req.req_id + '" data-proy="' + idProyecto + '" data-cpc="' + req.req_cpc + '"><i class="fas fa-share-square dataInfo"  title="Devolver Observación" id="devRequerimiento" ></i></a>';
                                 } else {
-                                    div = '<i class="fas fa-edit dataInfo"  title="Editar Requerimiento" id="modRequerimiento" data-id="' + req.req_id + '" data-cpc="' + req.req_cpc + '"></i>\n\
+                                    div = '<i class="fas fa-edit dataInfo'+req.req_id+'"  title="Editar Requerimiento" id="modRequerimiento" data-id="' + req.req_id + '" data-cpc="' + req.req_cpc + '"></i>\n\
                                             <a id="btnDevolverRequerimiento" data-toggle="modal" href="#devolverModal" data-id="' + req.req_id + '" data-proy="' + idProyecto + '" data-cpc="' + req.req_cpc + '"><i class="fas fa-share-square dataInfo"  title="Devolver Observación" id="devRequerimiento" ></i></a>\n\
                                             <input type="checkbox" name="verificar" id="checkveri' + req.req_id + '" onchange="guardarverificacion(' + req.req_id + ', ' + idProyecto + ')">';
                                 }
@@ -85,10 +85,10 @@ function listarRequerimientos(ag, anio) {
 $('#contenedorRequerimientos').on('click', '.tabla #modRequerimiento', function () {
     var data = $(this).data();
     $('#cpc' + data['id']).html('<input type="text" name="cpc" id="cpcrequ' + data['id'] + '" value="' + data['cpc'] + '">');
-    $('#modRequerimiento').attr("class", "fas fa-save dataInfo");
-    $('#modRequerimiento').attr("title", "Guardar Requerimiento");
-    $("#modRequerimiento").data("id", data['id']);
-    $('#modRequerimiento').attr("id", "guardarReq");
+    $('#modRequerimiento.dataInfo'+data['id']).attr("class", "fas fa-save dataInfo"+data['id']);
+    $('#modRequerimiento.dataInfo'+data['id']).attr("title", "Guardar Requerimiento");
+    $('#modRequerimiento.dataInfo'+data['id']).data("id", data['id']);
+    $('#modRequerimiento.dataInfo'+data['id']).attr("id", "guardarReq");
 });
 
 $('#contenedorRequerimientos').on('click', '.tabla  #guardarReq', function () {
@@ -104,12 +104,13 @@ $('#contenedorRequerimientos').on('click', '.tabla  #guardarReq', function () {
                 if (response === "Correcto") {
                     $("#cpcrequ" + data['id']).empty();
                     $('#cpc' + data['id']).html(cpc);//columna de la tabla con cpc
-                    $('#guardarReq').attr("class", "fas fa-edit dataInfo");
+                    $('#guardarReq').attr("class", "fas fa-edit dataInfo"+data['id']);
                     $('#guardarReq').attr("title", "Editar Requerimiento");
                     $("#guardarReq").data("id", data['id']);
+                    $("#guardarReq").attr("data-cpc", cpc);
+                    $('#modRequerimiento.dataInfo'+data['id']).attr("data-cpc", cpc);
                     $('#guardarReq').attr("id", "modRequerimiento");
                     $("#modRequerimiento").removeData("greeting");
-
                 } else {
                     alert(response);
                 }

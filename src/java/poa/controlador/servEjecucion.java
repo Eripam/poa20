@@ -3256,16 +3256,30 @@ public class servEjecucion extends HttpServlet {
         String tag = request.getParameter("tpag");
         String anio = request.getParameter("anio");
         Integer area, area2;
-        if (estado.equals("28")) {
-            area = 68;
-        } else if (estado.equals("30")) {
-            area = 54;
-        } else if (estado.equals("29")) {
-            area = 60;
-        } else if (estado.equals("50")) {
-            area = 57;
+        if (anio.equals("2023")) {
+            if (estado.equals("28")) {
+                area = 68;
+            } else if (estado.equals("30")) {
+                area = 54;
+            } else if (estado.equals("29")) {
+                area = 60;
+            } else if (estado.equals("50")) {
+                area = 57;
+            } else {
+                area = 59;
+            }
         } else {
-            area = 59;
+            if (estado.equals("28")) {
+                area = 68;
+            } else if (estado.equals("30")) {
+                area = 54;
+            } else if (estado.equals("29")) {
+                area = 105;
+            } else if (estado.equals("50")) {
+                area = 57;
+            } else {
+                area = 59;
+            }
         }
 
         if (tag.equals("4")) {

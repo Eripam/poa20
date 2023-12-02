@@ -42,9 +42,9 @@
                                         <input type="hidden" value="<%=intAnio%>" name="anioS" id="anioS">
                                         <%if (intAnio == 2020 && intIdTipoUsuario != 9) {%>
                                         <input type="hidden" value="reporteExcel" name="accion">
-                                        <%} else if ((intAnio == 2021 || intAnio == 2022 || intAnio == 2023) && intIdTipoUsuario != 9) {%>
+                                        <%} else if ((intAnio >=2021) && intIdTipoUsuario != 9) {%>
                                         <input type="hidden" value="reporteExcel21" name="accion">
-                                        <%} else if ((intAnio == 2021 || intAnio == 2022 || intAnio == 2023) && intIdTipoUsuario == 9) {%>
+                                        <%} else if ((intAnio >= 2021) && intIdTipoUsuario == 9) {%>
                                         <input type="hidden" value="reporteExcelCompras" name="accion">
                                         <%}%>
                                         <a href="#" onclick="activarEx();"><i class="fas fa-file-download"></i></a>
@@ -225,7 +225,7 @@
                                                 <option value="0">Todos</option>
                                                 <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>
                                                 <%
-                                                    ResultSet rs = adAreaGestion.listaAreaGestionDeudas();
+                                                    ResultSet rs = adAreaGestion.listaAreaGestionDeudas(intAnio);
                                                     while (rs.next()) {
                                                 %>
                                                 <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>

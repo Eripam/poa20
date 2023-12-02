@@ -420,6 +420,7 @@ public class servPerspectivaObjetivo extends HttpServlet {
         String result = "";
         cPerspectivaObjetivo cPers = new cPerspectivaObjetivo();
         String oei = request.getParameter("slcObjUni");
+        String anio = request.getParameter("anioActivo");
         String ag[] = request.getParameterValues("slAg");
         List<cAreaGestion> resultA = new ArrayList<cAreaGestion>();
 
@@ -436,7 +437,7 @@ public class servPerspectivaObjetivo extends HttpServlet {
                 ingresarTransaccion(objTransaccion);
             }
             if (result.equals("Correcto") && (adAg.tipoAreaG(Integer.parseInt(ag1)).equals("2") || adAg.tipoAreaG(Integer.parseInt(ag1)).equals("3") || adAg.tipoAreaG(Integer.parseInt(ag1)).equals("5"))) {
-                resultA = adAreaGestion.obtenerAreasGestionHijas(Integer.parseInt(ag1));
+                resultA = adAreaGestion.obtenerAreasGestionHijas(Integer.parseInt(ag1), Integer.parseInt(anio));
                 for (int i = 0; i < resultA.size(); i++) {
                     cPers.setPerspectiva_id(Integer.parseInt(oei));
                     cPers.setAp_id(resultA.get(i).getAg_id());

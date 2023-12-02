@@ -127,7 +127,7 @@
                                     <%if (intIdTipoUsuario != 11) {%>
                                     <option value="0">Todos</option>
                                     <%}
-                                        ResultSet rs = adAreaGestion.listaAreaGestionDeudas();
+                                        ResultSet rs = adAreaGestion.listaAreaGestionDeudas(intAnio);
                                         while (rs.next()) {
                                     %>
                                     <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>

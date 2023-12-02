@@ -91,7 +91,7 @@
                                                 <option value="0">Todos</option>
                                                 <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>
                                                 <%
-                                                    rs = adAreaGestion.listaAreaGestionFE();
+                                                    rs = adAreaGestion.listaAreaGestionFE(intAnio);
                                                     while (rs.next()) {
                                                 %>
                                                 <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>
@@ -100,7 +100,7 @@
                                                 <option value="0">Todos</option>  
                                                 <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>
                                                 <%
-                                                    rs = adAreaGestion.listaAreaGestionDeudas();
+                                                    rs = adAreaGestion.listaAreaGestionDeudas(intAnio);
                                                     while (rs.next()) {
                                                 %>
                                                 <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>
@@ -108,7 +108,7 @@
                                                 } else if (intIdTipoUsuario != 5 && intIdTipoUsuario != 19) {%>
                                                 <option value="0">Todos</option>
                                                 <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>    
-                                                <%rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion);
+                                                <%rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion, intAnio);
                                                     while (rs.next()) {
                                                 %>
                                                 <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>

@@ -1,15 +1,17 @@
 var groupColumn = 0;
 var estado, ag = $('#agjustificativo').val();
-if (ag === '68') {
+if (ag === '68' || ag === '99') {
     estado = 28;
 } else if (ag === '54') {
     estado = 30;
-} else if (ag === '60') {
+} else if (ag === '60' || ag === '105') {
     estado = 29;
 } else if (ag === '57') {
     estado = 50;
 } else if (ag === '69') {
     estado = 53;
+} else if (ag === '107') {
+    estado = 54;
 }
 var options2 = {style: "currency", currency: "USD"};
 var t = $('#example').DataTable({
@@ -52,22 +54,24 @@ POAPLAN(t);
 //Listado del POA Director
 function POAPLAN(t) {
     var estado, ag = $('#agjustificativo').val();
-    if (ag === '68') {
+    if (ag === '68' || ag === '99') {
         estado = 28;
     } else if (ag === '54') {
         estado = 30;
-    } else if (ag === '60') {
+    } else if (ag === '60' || ag === '105') {
         estado = 29;
     } else if (ag === '57') {
         estado = 50;
     } else if (ag === '69') {
         estado = 53;
+    } else if (ag === '107') {
+        estado = 54;
     }
     $('#loader').removeClass("d-none");
     $.ajax({
         url: "../solicitud?accion=ListRequeUnionReq",
         type: 'POST',
-        data: {estado: estado, anio:$('#selectanio').val()},
+        data: {estado: estado, anio: $('#selectanio').val()},
         dataType: 'json',
         dataSrc: ''
     })
@@ -119,7 +123,7 @@ $('#modalEnvRegresar').on('click', function () {
         $.ajax({
             url: "../solicitud?accion=EnviarRequerimientosReg",
             type: 'POST',
-            data: {req: $('#idreqregresar').val(), observacion: observacion, usuario: $('#usuariorequerimiento').val(), estado:3},
+            data: {req: $('#idreqregresar').val(), observacion: observacion, usuario: $('#usuariorequerimiento').val(), estado: 3},
             dataType: 'json'
         })
                 .done(function (response) {
@@ -262,16 +266,18 @@ $('#modalGuardarJust').on('click', function () {
 $('.modalEnviarReqUnid').on('click', function () {
     $('#listaRequerimientosSolReq').empty();
     var data = $(this).data();
-    if (data['id'] === 28) {
+    if (data['id'] === 28 || data['id'] === 99) {
         $('#exampleModalLabelE').html('Requerimientos al DTIC');
     } else if (data['id'] === 30) {
         $('#exampleModalLabelE').html('Requerimientos a DIRCOM');
-    } else if (data['id'] === 29) {
+    } else if (data['id'] === 29 || data['id'] === 105) {
         $('#exampleModalLabelE').html('Requerimientos a Bodega');
     } else if (data['id'] === 50) {
         $('#exampleModalLabelE').html('Requerimientos a Dirección Administrativa');
     } else if (data['id'] === 53) {
         $('#exampleModalLabelE').html('Requerimientos a DIM');
+    } else if (data['id'] === 54) {
+        $('#exampleModalLabelE').html('Requerimientos a Control Quimico');
     }
 
     var array = [];

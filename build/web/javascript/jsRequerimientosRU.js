@@ -1,15 +1,17 @@
 var groupColumn = 0;
 var estado, ag = $('#agjustificativo').val();
-if (ag === '68') {
+if (ag === '68' || ag === '99') {
     estado = 28;
 } else if (ag === '54') {
     estado = 30;
-} else if (ag === '60') {
+} else if (ag === '60' || ag === '105') {
     estado = 29;
 } else if (ag === '57') {
     estado = 50;
 } else if (ag === '69') {
     estado = 53;
+} else if (ag === '107') {
+    estado = 54;
 }
 var t = $('#example').DataTable({
     "columnDefs": [

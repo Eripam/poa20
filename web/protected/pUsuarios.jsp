@@ -76,7 +76,7 @@
                                         <label for="areasGestion" class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end ">Unidad:</label>
                                         <select class="selectpicker my-select" multiple data-width="67%" data-live-search="true" name="ag" id="ag">
                                             <%
-                                                ResultSet rs2 = adAreaGestion.listaAreaGestion();
+                                                ResultSet rs2 = adAreaGestion.listaFaculAdmin(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

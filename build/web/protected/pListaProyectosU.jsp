@@ -34,7 +34,7 @@
                             %>
                             <div class="col-5 col-md-2" style="font-weight: bold">$ <%=formateador.format(aT.techoInstitucional(intAnio))%></div>
                         </div>
-                        <%if (intAnio != 2023) {%>
+                        <%if (intAnio < 2023) {%>
                         <div class="row main-end">
                             <div class="col-2 main-end" style="font-weight: bold">Obligaciones:</div>
                             <div class="col-2">$ <%=formateador.format(aT.techoObligaciones(intAnio))%></div>
@@ -107,9 +107,9 @@
                                         if (intIdTipoUsuario == 11 || intIdTipoUsuario == 16 || intIdTipoUsuario == 17 || intIdTipoUsuario == 26) {
                                             rs = adAreaGestion.listaAreaGestionAsignadas(cedula);
                                         } else if (intIdTipoUsuario == 6 || intIdTipoUsuario == 7 || intIdTipoUsuario == 19) {
-                                            rs = adAreaGestion.listaAreaGestionFE();
+                                            rs = adAreaGestion.listaAreaGestionFE(intAnio);
                                         } else {
-                                            rs = adAreaGestion.listaAreaGestionDeudas();
+                                            rs = adAreaGestion.listaAreaGestionDeudas(intAnio);
                                         }
                                         while (rs.next()) {
                                     %>

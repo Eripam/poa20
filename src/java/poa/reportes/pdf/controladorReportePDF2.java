@@ -604,7 +604,7 @@ public class controladorReportePDF2 extends HttpServlet {
             double totalobliaca = 0, totalobliinv = 0, totaloblivin = 0, totalobliges = 0, totalobli = 0, totaluni = 0, totalanticipo = 0;
             List<cAreaGestion> cAg = new ArrayList<cAreaGestion>();
             adAreaGestion adAg = new adAreaGestion();
-            cAg = adAg.obtenerAreasGestionUnidadesEval();
+            cAg = adAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
             for (int i = 0; i < cAg.size(); i++) {
                 if (aTecho.ListarPresupuestoObligacionesA(Integer.parseInt(anio), cAg.get(i).getAg_id(), "82", 1) > 0 || aTecho.ListarPresupuestoObligacionesA(Integer.parseInt(anio), cAg.get(i).getAg_id(), "83", 1) > 0 || aTecho.ListarPresupuestoObligacionesA(Integer.parseInt(anio), cAg.get(i).getAg_id(), "84", 1) > 0 || aTecho.ListarPresupuestoObligacionesA(Integer.parseInt(anio), cAg.get(i).getAg_id(), "01", 1) > 0 || aTecho.ListarPresupuestoObligacionesA(Integer.parseInt(anio), cAg.get(i).getAg_id(), "0", 2) > 0) {
                     cell = new PdfPCell(new Paragraph(cAg.get(i).getAg_nombre(), fuente3ne));

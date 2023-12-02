@@ -31,21 +31,21 @@
                                     <option value="0" selected>Todos</option>
                                     <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>
                                     <%
-                                        ResultSet rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion);
+                                        ResultSet rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion, intAnio);
                                         while (rs.next()) {
                                     %>
                                     <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>
                                     <%}%>
                                 </select>
                             </div>
-                            <%} else if (adAreaGestion.numeroAreaGestion(IntIdAreaGestion) > 0 && (intIdTipoUsuario != 15 && IntIdAreaGestion != 45)) {%>
+                            <%} else if (adAreaGestion.numeroAreaGestion(IntIdAreaGestion, intAnio) > 0 && (intIdTipoUsuario != 15 && IntIdAreaGestion != 45)) {%>
                             <div class="col-3">
                                 <label>Unidad:</label>
                                 <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" data-selected-text-format="count > 6" id="selectareas" name="selectareas">
                                     <option value="0" selected>Todos</option>
                                     <option value="<%=IntIdAreaGestion%>"><%=strNombreAreaGestion%></option>
                                     <%
-                                        ResultSet rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion);
+                                        ResultSet rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion, intAnio);
                                         while (rs.next()) {
                                     %>
                                     <option title="<%=rs.getString("ag_alias")%>" value="<%= rs.getString("ag_id")%>"><%=rs.getString("ag_nombre")%></option>

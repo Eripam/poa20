@@ -1951,7 +1951,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultdeudas = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag), Integer.parseInt(anio));
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -2264,7 +2264,7 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     }
 
-                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id());
+                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id(), Integer.parseInt(anio));
                     if (resultareashijos.size() > 1) {
                         document.add(new Paragraph(" "));
                     }
@@ -2744,7 +2744,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultdeudas = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag), 2020);
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -3058,7 +3058,7 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     }
 
-                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id());
+                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id(),2020);
                     if (resultareashijos.size() > 1) {
                         document.add(new Paragraph(" "));
                     }
@@ -3540,7 +3540,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultPlurianual = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -4238,18 +4238,18 @@ public class controladorReportePDF extends HttpServlet {
                 if (cuatrimestre.equals("0")) {
                     if (sarea.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
                 } else {
                     if (sarea.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
                 }
 
@@ -4767,18 +4767,18 @@ public class controladorReportePDF extends HttpServlet {
                     if (cuatrimestre.equals("0")) {
                         if (sarea.equals("0")) {
                             resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), oe, Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                         } else {
                             resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), oe, Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                         }
                     } else {
                         if (sarea.equals("0")) {
                             resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(ag), oe, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                         } else {
                             resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(sarea), oe, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                         }
                     }
 
@@ -7268,7 +7268,7 @@ public class controladorReportePDF extends HttpServlet {
             if (sarea.equals("0")) {
                 nombre = request.getParameter("agnombrepoa");
             } else {
-                resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 nombre = resultareas.get(0).getAg_nombre();
             }
             String titulo;
@@ -7327,10 +7327,10 @@ public class controladorReportePDF extends HttpServlet {
             if (anio.equals("2020")) {
                 if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && !cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                    resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                 } else if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                    resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                 } else if (sarea.equals("0") && (tipousu.equals("16") || tipousu.equals("17")) && !cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(0, Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
                     if (tipousu.equals("16")) {
@@ -7347,10 +7347,10 @@ public class controladorReportePDF extends HttpServlet {
                     }
                 } else if (cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 } else {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 }
 
                 String tnombre;
@@ -7886,10 +7886,10 @@ public class controladorReportePDF extends HttpServlet {
                 for (int i = oeii; i <= oeif; i++) {
                     if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && !cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(ag), i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                        resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                     } else if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), i, Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                        resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                     } else if (sarea.equals("0") && (tipousu.equals("16") || tipousu.equals("17")) && !cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(0, i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
                         if (tipousu.equals("16")) {
@@ -7906,10 +7906,10 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     } else if (cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), i, Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(sarea), i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
 
                     String tnombre;
@@ -9081,7 +9081,7 @@ public class controladorReportePDF extends HttpServlet {
 
             if (sarea.equals("0")) {
                 for (int i = 0; i < resultareas.size(); i++) {
-                    resultunidadespadre = accAg.obtenerAreasGestionUnidades(resultareas.get(i).getAg_id());
+                    resultunidadespadre = accAg.obtenerAreasGestionUnidades(resultareas.get(i).getAg_id(), Integer.parseInt(anio));
                     if (anio.equals("2020")) {
                         if (resultareas.get(i).getTag_id() != 4) {
                             Chunk parte2 = new Chunk("Unidad Académica/Administrativa: " + resultareas.get(i).getAg_nombre(), fuen);
@@ -10318,7 +10318,7 @@ public class controladorReportePDF extends HttpServlet {
                     }
                 }
             } else {
-                resultunidadespadre = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                resultunidadespadre = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 if (anio.equals("2020")) {
                     if (resultunidadespadre.get(0).getTag_id() != 4) {
                         for (int k = 0; k < resultunidadespadre.size(); k++) {

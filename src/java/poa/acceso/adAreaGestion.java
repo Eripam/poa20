@@ -29,9 +29,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestion() {
+    static public ResultSet listaAreaGestion(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where are_ag_id=1 order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where are_ag_id=1 and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where are_ag_id=1 order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -65,9 +70,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestionFE() {
+    static public ResultSet listaAreaGestionFE(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=5 order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where (ag_tag=2 or ag_tag=5) and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where ag_tag=2 or ag_tag=5 order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -83,9 +93,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreasGestion() {
+    static public ResultSet listaAreasGestion(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -99,7 +114,7 @@ public class adAreaGestion {
         }
         return rs;
     }
-    
+
     //Mostrar tipo proyecto
     static public ResultSet listaAreasGestionActivas() {
         ResultSet rs = null;
@@ -137,9 +152,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestionUnidadesAdmin() {
+    static public ResultSet listaAreaGestionUnidadesAdmin(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where ag_tag=4 and are_ag_id=1 order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where ag_tag=4 and are_ag_id=1 and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where ag_tag=4 and are_ag_id=1 order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -155,9 +175,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestionUnidadesAdminTotas() {
+    static public ResultSet listaAreaGestionUnidadesAdminTotas(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where ag_tag=4 order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where ag_tag=4 and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where ag_tag=4 order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -173,9 +198,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestionMulti() {
+    static public ResultSet listaAreaGestionMulti(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where (ag_tag=3 or ag_tag=4 or ag_tag=5) order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where (ag_tag=3 or ag_tag=4 or ag_tag=5) and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where (ag_tag=3 or ag_tag=4 or ag_tag=5) order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -191,9 +221,14 @@ public class adAreaGestion {
     }
 
     //Mostrar tipo proyecto
-    static public ResultSet listaAreaGestionHijos(Integer ag) {
+    static public ResultSet listaAreaGestionHijos(Integer ag, Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where are_ag_id=? order by ag_id asc";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where are_ag_id=? and ag_estado=1 order by ag_id asc";
+        } else {
+            SQL = "select * from area_gestion where are_ag_id=? order by ag_id asc";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -207,11 +242,16 @@ public class adAreaGestion {
         }
         return rs;
     }
-    
+
     //Mostrar tipo proyecto
-    static public ResultSet listaFaculAdmin() {
+    static public ResultSet listaFaculAdmin(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "select * from area_gestion where (ag_tag=2 or ag_tag=4 or ag_tag=5) and ag_estado=1 order by ag_id";
+        } else {
+            SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -226,12 +266,20 @@ public class adAreaGestion {
         return rs;
     }
 
-    public static List<cAreaGestion> obtenerAreasGestionHijas(Integer intCodigoUnidad) {
+    public static List<cAreaGestion> obtenerAreasGestionHijas(Integer intCodigoUnidad, Integer anio) {
         List<cAreaGestion> result = new ArrayList<cAreaGestion>();
-        String SQL = "SELECT *\n"
-                + "FROM public.area_gestion\n"
-                + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
-                + "WHERE (are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 order by ag_id;";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "SELECT *\n"
+                    + "FROM public.area_gestion\n"
+                    + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
+                    + "WHERE (are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 and ag_estado=1 order by ag_id;";
+        } else {
+            SQL = "SELECT *\n"
+                    + "FROM public.area_gestion\n"
+                    + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
+                    + "WHERE (are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 order by ag_id;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -259,12 +307,20 @@ public class adAreaGestion {
         }
     }
 
-    public static List<cAreaGestion> obtenerAreasGestionUnidades(Integer intCodigoUnidad) {
+    public static List<cAreaGestion> obtenerAreasGestionUnidades(Integer intCodigoUnidad, Integer anio) {
         List<cAreaGestion> result = new ArrayList<cAreaGestion>();
-        String SQL = "SELECT *\n"
-                + "FROM public.area_gestion\n"
-                + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
-                + "WHERE (ag_id=" + intCodigoUnidad + " or are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 order by ag_id;";
+        String SQL;
+        if (anio > 2023) {
+            SQL = "SELECT *\n"
+                    + "FROM public.area_gestion\n"
+                    + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
+                    + "WHERE (ag_id=" + intCodigoUnidad + " or are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 and ag_estado=1 order by ag_id;";
+        } else {
+            SQL = "SELECT *\n"
+                    + "FROM public.area_gestion\n"
+                    + "JOIN tipo_area_gestion ON ag_tag=tag_id\n"
+                    + "WHERE (ag_id=" + intCodigoUnidad + " or are_ag_id=" + intCodigoUnidad + ") and tag_estado=1 order by ag_id;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -292,9 +348,14 @@ public class adAreaGestion {
         }
     }
 
-    public List<cAreaGestion> obtenerAreasGestionUnidadesEval() {
+    public List<cAreaGestion> obtenerAreasGestionUnidadesEval(Integer anio) {
         List<cAreaGestion> result = new ArrayList<cAreaGestion>();
-        String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        String SQL;
+        if(anio>2023){
+            SQL = "select * from area_gestion where (ag_tag=2 or ag_tag=4 or ag_tag=5) and ag_estado=1 order by ag_id";
+        }else{
+            SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -400,9 +461,14 @@ public class adAreaGestion {
     }
 
     //Mostrar area gestion asignadas
-    static public ResultSet listaAreaGestionDeudas() {
+    static public ResultSet listaAreaGestionDeudas(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        String SQL;
+        if(anio>2023){
+            SQL = "select * from area_gestion where (ag_tag=2 or ag_tag=4 or ag_tag=5) and ag_estado=1 order by ag_id";
+        }else{
+            SQL = "select * from area_gestion where ag_tag=2 or ag_tag=4 or ag_tag=5 order by ag_id";
+        }
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -416,6 +482,7 @@ public class adAreaGestion {
         }
         return rs;
     }
+
     //Mostrar area gestion asignadas
     static public ResultSet listaAreaGestionDeudasActivas() {
         ResultSet rs = null;
@@ -433,11 +500,11 @@ public class adAreaGestion {
         }
         return rs;
     }
-    
-     //Mostrar area gestion asignadas
+
+    //Mostrar area gestion asignadas
     static public ResultSet listaAreaGestionPOA(Integer anio) {
         ResultSet rs = null;
-        String SQL = "select agid as ag_id, agnombre as ag_nombre, agalias as ag_alias, agtag as ag_tag, agestado as ag_estado, agareagid as are_ag_id from f_listaunidadespoa("+anio+")";
+        String SQL = "select agid as ag_id, agnombre as ag_nombre, agalias as ag_alias, agtag as ag_tag, agestado as ag_estado, agareagid as are_ag_id from f_listaunidadespoa(" + anio + ")";
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) {
@@ -471,9 +538,14 @@ public class adAreaGestion {
     }
 
     //Codigo Siguiente proyecto
-    static public Integer numeroAreaGestion(Integer ag) {
+    static public Integer numeroAreaGestion(Integer ag, Integer anio) {
         Integer result = null;
-        String SQL = "SELECT count(ag_id) FROM area_gestion where are_ag_id=?;";
+        String SQL;
+        if(anio>2023){
+            SQL = "SELECT count(ag_id) FROM area_gestion where are_ag_id=? and ag_estado=1;";
+        }else{
+            SQL = "SELECT count(ag_id) FROM area_gestion where are_ag_id=?;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -614,7 +686,7 @@ public class adAreaGestion {
         }
         return result;
     }
-    
+
     //Lista tipo area
     public String tipoAreaG(Integer ag) {
         String result = "Error.";
@@ -641,7 +713,7 @@ public class adAreaGestion {
 
     public String modificarFechas(cProyecto oProy) {
         String result = "Error";
-        String SQL = "UPDATE tiempos set tiempos_fecha='" + oProy.getDeudas_contrato() + "', tiempos_observacion='"+oProy.getEstado_observacion()+"', tiempos_anio='"+oProy.getProyecto_anio()+"', tiempos_nombre='"+oProy.getTp_nombre()+"', tiempos_tipo='"+oProy.getDeudas_id()+"' where tiempos_id='" + oProy.getTp_id() + "';";
+        String SQL = "UPDATE tiempos set tiempos_fecha='" + oProy.getDeudas_contrato() + "', tiempos_observacion='" + oProy.getEstado_observacion() + "', tiempos_anio='" + oProy.getProyecto_anio() + "', tiempos_nombre='" + oProy.getTp_nombre() + "', tiempos_tipo='" + oProy.getDeudas_id() + "' where tiempos_id='" + oProy.getTp_id() + "';";
 
         try {
             // Crear un AccesoDatos
@@ -658,7 +730,7 @@ public class adAreaGestion {
         }
         return result;
     }
-    
+
     //Codigo Siguiente archivo
     public Integer codigoSiguienteFechas() {
         Integer result = null;
@@ -687,10 +759,10 @@ public class adAreaGestion {
             return result;
         }
     }
-    
+
     public String ingresarFechas(cProyecto oProy) {
         String result = "Error";
-        String SQL = "INSERT INTO tiempos(tiempos_id, tiempos_fecha, tiempos_observacion, tiempos_anio, tiempos_nombre, tiempos_tipo) VALUES ('"+oProy.getTp_id()+"', '"+oProy.getDeudas_contrato()+"', '"+oProy.getEstado_observacion()+"', '"+oProy.getProyecto_anio()+"', '"+oProy.getTp_nombre()+"', '"+oProy.getDeudas_id()+"');";
+        String SQL = "INSERT INTO tiempos(tiempos_id, tiempos_fecha, tiempos_observacion, tiempos_anio, tiempos_nombre, tiempos_tipo) VALUES ('" + oProy.getTp_id() + "', '" + oProy.getDeudas_contrato() + "', '" + oProy.getEstado_observacion() + "', '" + oProy.getProyecto_anio() + "', '" + oProy.getTp_nombre() + "', '" + oProy.getDeudas_id() + "');";
 
         try {
             // Crear un AccesoDatos

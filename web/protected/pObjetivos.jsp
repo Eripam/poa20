@@ -268,6 +268,7 @@
                     <div class="modal-body">
                         <form id="frmOU">
                             <div><label>Objetivo Estratégico:</label>
+                                <input type="hidden" name="anioActivo" id="anioActivo" value="<%=intAnio%>">
                                 <select class="form-control" id="slcObjUni" name="slcObjUni">
                                     <%                                        
                                         ResultSet rs5 = adPerspectivaObj.listaPerspectiva();
@@ -280,7 +281,7 @@
                             <div><label>Unidad/Dependencia:</label>
                                 <select class="form-control selectpicker" id="slAg" name="slAg" data-live-search="true" multiple data-selected-text-format="count > 6">
                                     <%                                        
-                                        ResultSet rs6 = adAreaGestion.listaFaculAdmin();
+                                        ResultSet rs6 = adAreaGestion.listaFaculAdmin(intAnio);
                                         while (rs6.next()) {
                                     %>
                                     <option value="<%= rs6.getString("ag_id")%>" title="<%=rs6.getString("ag_alias")%>"><%=rs6.getString("ag_nombre")%></option>

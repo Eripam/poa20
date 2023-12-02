@@ -18,7 +18,7 @@
             </ul>
         </li>
         <li><a href="pUsuariosDir.jsp"><label class="h6">Usuarios</label></a></li>
-            <% } else if (intIdTipoUsuario == 5 && IntIdAreaGestion != 57 && IntIdAreaGestion != 68 && IntIdAreaGestion != 54 && IntIdAreaGestion != 60 && IntIdAreaGestion != 69) {%>
+            <% } else if (intIdTipoUsuario == 5 && IntIdAreaGestion != 57 && IntIdAreaGestion != 68 && IntIdAreaGestion != 54 && IntIdAreaGestion != 60 && IntIdAreaGestion != 69 && IntIdAreaGestion != 99 && IntIdAreaGestion != 105 && IntIdAreaGestion != 107) {%>
         <li><a href="pTechosFacultad.jsp"><label class="h6">Techo Presupuestario</label></a></li>
         <li><a href="#"><label class="h6">Formulacion</label><i class="fas fa-angle-down"></i></a>
             <ul class="submenuUl">
@@ -71,7 +71,7 @@
             </ul>
         </li>
         <li><a href="pUsuariosDir.jsp"><label class="h6">Usuarios</label></a></li>
-            <% } else if (intIdTipoUsuario == 5 && (IntIdAreaGestion == 68 || IntIdAreaGestion == 54 || IntIdAreaGestion == 60 || IntIdAreaGestion == 69)) {%>
+            <% } else if (intIdTipoUsuario == 5 && (IntIdAreaGestion == 68 || IntIdAreaGestion == 54 || IntIdAreaGestion == 60 || IntIdAreaGestion == 69 || IntIdAreaGestion == 99 || IntIdAreaGestion == 105 || IntIdAreaGestion == 107)) {%>
         <li><a href="pTechosFacultad.jsp"><label class="h6">Techo Presupuestario</label></a></li>
         <li><a href="#"><label class="h6">Formulación</label><i class="fas fa-angle-down"></i></a>
             <ul class="submenuUl">

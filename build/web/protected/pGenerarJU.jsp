@@ -149,7 +149,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <%if (IntIdAreaGestion == 68) {%>
+                                <%if (IntIdAreaGestion == 68 || IntIdAreaGestion == 99) {%>
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                     <div class="row">
                                         <label for="recipient-name" class="col-form-label col-12">Partes y Piezas:</label>
@@ -159,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%}else if (IntIdAreaGestion == 60) {%>
+                                <%}else if (IntIdAreaGestion == 60 || IntIdAreaGestion == 105) {%>
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                     <div class="row">
                                         <label for="recipient-name" class="col-form-label col-12">Suministros de oficina o limpieza:</label>
@@ -169,7 +169,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%}else if (IntIdAreaGestion == 57 || IntIdAreaGestion == 69) {%>
+                                <%}else if (IntIdAreaGestion == 57 || IntIdAreaGestion == 69 || IntIdAreaGestion == 107) {%>
                                 <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                                     <div class="row">
                                         <label for="recipient-name" class="col-form-label col-12">Suma totales</label>

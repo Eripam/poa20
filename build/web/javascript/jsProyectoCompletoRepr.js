@@ -673,7 +673,7 @@ function listaProcesosAr() {
 }
 
 //Ver descripcion requerimientos
-$(".encabezado").on('click', '.encabezado_4 #btn_eliminar_articulacion', function () {
+$(".encabezado").on('click', '.encabezado_8 #btn_eliminar_articulacion', function () {
     var data = $(this).data();
     $('#eliminarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('Esta seguro que desea eliminar la articulación con la actividad <b>"' + data['actividadnombre'] + '"</b>?<input type="hidden" name="idactividadart" id="idactividadart" value="' + data['actividad'] + '"><input type="hidden" name="tipom" id="tipom" value="articulacion">');
     $('#eliminarModal').modal();
@@ -2877,11 +2877,39 @@ $('#guardarEnviar').on('click', function () {
 });
 
 //Integrantes
-$('#btn-integrantes').on('click', function () {
-    $('#textIntegranteCed').val('');
+//Integrantes
+$('#mostrarModalIntegrantes').on('click', function () {
+    $('#formIntegrantes').removeClass('d-none');
+    $('#tituloIntegrantes').html('AGREGAR INTEGRANTES');
+    $('#textIntegranteCed').val('').prop("readonly", false);
     $('#nombreIntegrante').val('');
-    $('#apellidoIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
     $('#integrantesModal').modal();
+    $('#tipocontratoIntegrante').prop("disabled", false);
+    $('#selTipoIn').prop("disabled", false);
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#idintegrante').val(0);
+});
+
+$('#cancelarIntegrantes').on('click', function () {
+    $('#formIntegrantes').addClass('d-none');
+});
+
+$('#btn-integrantes').on('click', function () {
+    $('#textIntegranteCed').val('').prop("readonly", false);
+    $('#nombreIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
+    $('#integrantesModal').modal();
+    $('#tipocontratoIntegrante').prop("disabled", false);
+    $('#selTipoIn').prop("disabled", false);
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#formIntegrantes').addClass('d-none');
     listarTipoIntegrantes();
     listarIntegrantes();
 });
@@ -2889,25 +2917,56 @@ $('#btn-integrantes').on('click', function () {
 $('#limpiarIntegrantes').on('click', function () {
     $('#textIntegranteCed').val('');
     $('#nombreIntegrante').val('');
-    $('#apellidoIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
 });
 
 $('#ingresarIntegrantes').on('click', function () {
     if ($('#textIntegranteCed').val() == "") {
         alertaM(mensajeError, "Debe ingresar el n\u00FAmero de c\u00E9dula.", error, alerta, 'fa-times-circle');
-    } else {
+    } else if ($('#idintegrante').val() == 0) {
         $.ajax({
             url: "../proyecto?accion=IngresarIntegrantes",
             type: 'POST',
-            data: {proyecto: $('#idProy').val(), cedula: $('#textIntegranteCed').val(), nombre: $('#nombreIntegrante').val() + ' ' + $('#apellidoIntegrante').val(), sexo:$('#sexoIntegrante').val(), tipocontrato:$('#tipocontratoIntegrante').val(), tipoin:$('#selTipoIn').val(), fechai:$('#fechaIIntegrante').val(), fechaf:$('#fechaFIntegrante').val()},
+            data: {proyecto: $('#idProy').val(), cedula: $('#textIntegranteCed').val(), nombre: $('#nombreIntegrante').val(), sexo: $('#sexoIntegrante').val(), tipocontrato: $('#tipocontratoIntegrante').val(), tipoin: $('#selTipoIn').val(), fechai: $('#fechaIIntegrante').val(), fechaf: $('#fechaFIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        $('#textIntegranteCed').val('');
+                        $('#nombreIntegrante').val('');
+                        $('#sexoIntegrante').val('');
+                        $('#fechaIIntegrante').val('');
+                        $('#fechaFIntegrante').val('');
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                        alertaM(mensajeCorrecto, insertadoCorrecto + ' el integrante', correcto, alerta, 'fa-check-circle');
+                    } else {
+                        alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    } else {
+        $.ajax({
+            url: "../proyecto?accion=EliminarIntegrantes",
+            type: 'POST',
+            data: {id: $('#idintegrante').val(), proyecto: $('#idProy').val(), integrante: $('#nombreIntegrante').val()},
             dataType: 'json'
         })
                 .done(function (response) {
                     if (response === "Correcto") {
                         listarIntegrantes();
                         listaCompletaProyecto();
+                        $('#formIntegrantes').addClass('d-none');
+                        alertaM(mensajeCorrecto, eliminadoCorrecto + ' el integrante', correcto, alerta, 'fa-check-circle');
                     } else {
-                        alert(response);
+                        alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
                     }
                 })
                 .fail(function () {
@@ -2930,10 +2989,10 @@ function listarIntegrantes() {
             .done(function (response) {
                 if (response.length > 0) {
                     $.each(response, function () {
-                        $('#listaintegrantes').append('<tr><td class="text-center">' + this.proyecto_responsable_ced + '</td><td>' + this.proyecto_integrantes + '</td><td>'+this.integrante_tipo_nombre+'</td><td>'+this.integrante_sexo+'</td><td>'+this.integrante_tipo_contrato+'</td><td>'+this.proyecto_fi+'</td><td>'+this.proyecto_ff+'</td><td><i id="eliminarIntegrante" data-id="' + this.estado_id + '" data-integrante="' + this.proyecto_integrantes + '" class="fas fa-times"></i></td></tr>')
+                        $('#listaintegrantes').append('<tr><td class="text-center">' + this.proyecto_responsable_ced + '</td><td>' + this.proyecto_integrantes + '</td><td>' + this.integrante_tipo_nombre + '</td><td>' + this.integrante_sexo + '</td><td>' + this.integrante_tipo_contrato + '</td><td>' + this.proyecto_fi + '</td><td>' + this.proyecto_ff + '</td><td><i id="eliminarIntegrante" data-id="' + this.estado_id + '" data-integrante="' + this.proyecto_integrantes + '" data-cedula="' + this.proyecto_responsable_ced + '" data-sexo="' + this.integrante_sexo + '" data-fechai="' + this.proyecto_fi + '" data-fechaf="' + this.proyecto_ff + '" data-tipo="' + this.integrante_tipo + '" data-tcontrato="' + this.integrante_tcontrato + '" data-tnombre="' + this.integrante_tipo_nombre + '" data-tcontraton="' + this.integrante_tipo_contrato + '" class="fas fa-times"></i></td></tr>')
                     });
                 } else {
-                    $('#listaintegrantes').append('<tr><td colspan="2">No existen registros</td></tr>')
+                    $('#listaintegrantes').append('<tr><td colspan="8">No existen registros</td></tr>')
                 }
             })
             .fail(function () {
@@ -2955,9 +3014,9 @@ function listarTipoIntegrantes() {
             .done(function (response) {
                 if (response.length > 0) {
                     $.each(response, function () {
-                        $('#selTipoIn').append('<option value="'+this.tu_id+'">'+this.tu_nombre+'</option>')
+                        $('#selTipoIn').append('<option value="' + this.tu_id + '">' + this.tu_nombre + '</option>')
                     });
-                } 
+                }
                 $('#selTipoIn').selectpicker('refresh');
             })
             .fail(function () {
@@ -2968,23 +3027,37 @@ function listarTipoIntegrantes() {
             });
 }
 
-$('#selTipoIn').on('change', function(){
-   var dato=$(this).val();
-   if(dato==3){
-       $('#buscador').addClass('d-none');
-       $('#nombreIntegrante').prop('readonly', false).val('');
-       $('#apellidoIntegrante').prop('readonly', false).val('');
-       $('#sexoIntegrante').prop('readonly', false).val('');
-   }else{
+$('#selTipoIn').on('change', function () {
+    var dato = $(this).val();
+    if (dato == 6) {
+        $('#buscador').addClass('d-none');
+        $('#nombreIntegrante').prop('readonly', false).val('');
+        $('#sexoIntegrante').prop('readonly', false).val('');
+    } else {
         $('#buscador').removeClass('d-none');
-       $('#nombreIntegrante').prop('readonly', true);
-       $('#apellidoIntegrante').prop('readonly', true);
-       $('#sexoIntegrante').prop('readonly', true);
-   }
+        $('#nombreIntegrante').prop('readonly', true);
+        $('#sexoIntegrante').prop('readonly', true);
+    }
 });
 
 $('#listaintegrantes').on('click', 'tr td #eliminarIntegrante', function () {
     var data = $(this).data();
-    $('#eliminarModal').children('.modal-dialog').children('.modal-content').children('.modal-body').html('Esta seguro que desea eliminar el integrante <b>"' + data['integrante'] + '"</b>?<input type="hidden" name="idintegrante" id="idintegrante" value="' + data['id'] + '"><input type="hidden" name="tipom" id="tipom" value="integrantes">');
-    $('#eliminarModal').modal();
-});
+    $('#textIntegranteCed').val(data['cedula']).prop("readonly", true);
+    $('#nombreIntegrante').val(data['integrante']);
+    $('#sexoIntegrante').val(data['sexo']);
+    $('#fechaIIntegrante').val(data['fechai']);
+    $('#fechaFIntegrante').val(data['fechaf']);
+    $('#tipocontratoIntegrante').find('option[value="' + data['tcontrato'] + '"]').remove();
+    $('#tipocontratoIntegrante').append('<option value="' + data['tcontrato'] + '" selected="selected">' + data['tcontraton'] + '</option>');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#tipocontratoIntegrante').attr("disabled", true);
+    $('#selTipoIn').find('option[value="' + data['tipo'] + '"]').remove();
+    $('#selTipoIn').append('<option value="' + data['tipo'] + '" selected="selected">' + data['tnombre'] + '</option>');
+    $('#selTipoIn').selectpicker('refresh');
+    $('#selTipoIn').attr("disabled", true);
+    $('#formIntegrantes').removeClass('d-none');
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#idintegrante').val(data['id']);
+    $('#tituloIntegrantes').html('ELIMINAR INTEGRANTES');
+}); 
