@@ -446,11 +446,11 @@ public class servActividadRequerimiento extends HttpServlet {
             cComp.setAutoridades_cargo(apellidoEst);
         }
         cComp.setTc_id(Integer.parseInt(tipo));
-        if (((tipo.equals("3")) && intIdAreaGestion != 46)) {
+        if (((tipo.equals("3")) && intIdAreaGestion != 46 && intIdAreaGestion != 103)) {
             result = aComp.IngresarServiciosPF(cComp);
-        } else if (tipo.equals("3") && intIdAreaGestion == 46 && !aComp.VerificacionServicioProfesional(cComp)) {
+        } else if (tipo.equals("3") && (intIdAreaGestion == 46 || intIdAreaGestion == 103) && !aComp.VerificacionServicioProfesional(cComp)) {
             result = aComp.IngresarServiciosPFE(cComp);
-        } else if (tipo.equals("3") && intIdAreaGestion == 46 && aComp.VerificacionServicioProfesional(cComp)) {
+        } else if (tipo.equals("3") && (intIdAreaGestion == 46 || intIdAreaGestion == 103) && aComp.VerificacionServicioProfesional(cComp)) {
             result = "Estudiante";
         } else {
             result = aComp.IngresarServiciosP(cComp);
@@ -592,11 +592,11 @@ public class servActividadRequerimiento extends HttpServlet {
             cComp.setAutoridades_cargo(apellidoEst);
         }
         cComp.setTc_id(Integer.parseInt(tipo));
-        if (tipo.equals("3") && (intIdAreaGestion == 46 || intIdAreaGestion == 65) && cedulaEst != null && !aComp.VerificacionServicioProfesionalMod(cComp)) {
+        if (tipo.equals("3") && (intIdAreaGestion == 46 || intIdAreaGestion == 65 || intIdAreaGestion == 103) && cedulaEst != null && !aComp.VerificacionServicioProfesionalMod(cComp)) {
             result = aComp.ModificarServiciosPFE(cComp);
-        } else if ((tipo.equals("1") || tipo.equals("3")) && (intIdAreaGestion != 46 && cedulaEst == null)) {
+        } else if ((tipo.equals("1") || tipo.equals("3")) && (intIdAreaGestion != 46 && intIdAreaGestion != 103 && cedulaEst == null)) {
             result = aComp.ModificarServiciosP(cComp);
-        } else if (tipo.equals("3") && intIdAreaGestion == 46 && aComp.VerificacionServicioProfesionalMod(cComp)) {
+        } else if (tipo.equals("3") && (intIdAreaGestion == 46 || intIdAreaGestion == 103) && aComp.VerificacionServicioProfesionalMod(cComp)) {
             result = "El estudiante ya se ingreso con el mismo miembro o tutor";
         } else {
             result = aComp.ModificarServiciosP(cComp);

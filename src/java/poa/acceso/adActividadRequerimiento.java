@@ -5147,7 +5147,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "', '"+cComp.getPresupuesto_organismo()+"', '"+cComp.getPresupuesto_correlativo()+"')";
 
         try {
             // Crear un AccesoDatos

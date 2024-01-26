@@ -419,7 +419,8 @@ public class cAccesoDatos {
             stm.setString(4, cCom.getIndicador_ejecutado());
             stm.setString(5, cCom.getIndicador_planificado());
             stm.setDouble(6, cCom.getIndicador_numero());
-            stm.setInt(7, cCom.getIndicador_id());
+            stm.setInt(7, cCom.getIndicador_valor());
+            stm.setInt(8, cCom.getIndicador_id());
             stm.executeUpdate();
             desconectar();
             this.rs = null;

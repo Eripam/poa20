@@ -625,29 +625,44 @@ public class servComponenteMeta extends HttpServlet {
         String cedula = request.getParameter("cedulaProyecto");
         cComponenteMeta cComp = new cComponenteMeta();
         adComponenteMeta aComp = new adComponenteMeta();
+        JsonObject objJson = new JsonObject();
 
         if (nombre.isEmpty()) {
             result = "Debe ingresar el nombre del indicador.";
         } else if (descripcion.isEmpty()) {
             result = "Debe ingresar la descripción del indicador";
         } else {
+            cComp.setIndicador_id(Integer.parseInt(indicador));
             cComp.setIndicador_nombre(nombre);
             cComp.setIndicador_descripcion(descripcion);
             cComp.setIndicador_tipo(tipo);
-            cComp.setIndicador_id(Integer.parseInt(indicador));
+            objJson.addProperty("indicador", nombre);
+            objJson.addProperty("idIndicador", indicador);
+            objJson.addProperty("descripcion", descripcion);
+            objJson.addProperty("tipo", tipo);
             if (tipo.equals("Cuantitativo")) {
-                cComp.setIndicador_ejecutado(ejecu);
-                cComp.setIndicador_planificado(plan);
-                if (tiponum.equals("1")) {
-                    cComp.setIndicador_numero(Double.parseDouble(valplan) / 100);
+                if (ejecu.isEmpty()) {
+                    result = "Debe ingresar la meta ejecutada";
+                } else if (plan.isEmpty()) {
+                    result = "Debe ingresar la meta planificada";
+                } else if (valplan.isEmpty()) {
+                    result = "Debe ingresar el valor planificado";
                 } else {
+                    cComp.setIndicador_ejecutado(ejecu);
+                    cComp.setIndicador_planificado(plan);
+                    cComp.setIndicador_valor(Integer.parseInt(tiponum));
                     cComp.setIndicador_numero(Double.parseDouble(valplan));
+                    objJson.addProperty("ejecutado", ejecu);
+                    objJson.addProperty("planificado", plan);
+                    objJson.addProperty("valor", valplan);
+                    objJson.addProperty("tipoval", tiponum);
+                    result = aComp.ModificarIndicadorFormula(cComp);
                 }
-                result = aComp.ModificarIndicadorFormula(cComp);
             } else {
                 cComp.setIndicador_ejecutado("vacio");
                 cComp.setIndicador_planificado("vacio");
                 cComp.setIndicador_numero(0.0);
+                cComp.setIndicador_valor(0);
                 result = aComp.ModificarIndicadorFormula(cComp);
             }
             if (result.equals("Correcto")) {
@@ -660,10 +675,11 @@ public class servComponenteMeta extends HttpServlet {
             }
         }
 
-        String json = new Gson().toJson(result);
+        objJson.addProperty("result", result);
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        response.getWriter().write(objJson.toString());
     }
 
     private void IngresarIndicadorReprog(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion) throws IOException {

@@ -1105,7 +1105,8 @@ $('.contenedorIndicador').submit(function (event) {
                 dataType: 'json'
             })
                     .done(function (response) {
-                        if (response === "Correcto") {
+                        if (response.result === "Correcto") {
+                            $("#botonActividad" + data['id']).removeClass('d-none');
                             $("#contenedorIndicador" + data['id']).removeClass('d-none');
                             alertaM(mensajeCorrecto, modificadoCorrecto + ' el indicador.', correcto, alertIndicador, 'fa-check-circle');
                             listarIndicador($("#idMeta" + data['id']).val(), data['id']);

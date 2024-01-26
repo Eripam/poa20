@@ -714,7 +714,7 @@ public class adComponenteMeta {
         String result = "Error al ingresar el indicador";
         String SQL = "UPDATE public.indicador\n"
                 + "	SET indicador_nombre=?, indicador_descripcion=?, indicador_tipo=?, indicador_ejecutado=?, "
-                + "     indicador_planificado=?, indicador_evaluacion=?\n"
+                + "     indicador_planificado=?, indicador_evaluacion=?, indicador_valor=?\n"
                 + "	WHERE indicador_id=?;";
 
         try {
