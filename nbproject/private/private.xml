@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/controlador/servActividadRequerimiento.java</file>
             <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pGenerarNPTH.jsp</file>
             <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adActividadRequerimiento.java</file>
             <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/conexion/cConexion.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/centralizada/conexion/cAccesoDatos.java</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/protected/pRequerimientosAnalista.jsp</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/reportes/pdf/controladorReportePDF2.java</file>
+            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/src/java/poa/acceso/adTecho.java</file>
             <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsRequerimientosJNPTH.js</file>
-            <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/javascript/jsRequerimientos.js</file>
             <file>file:/C:/Users/erika.arevalo/Documents/NetbeansProject/poa20/web/WEB-INF/web.xml</file>
         </group>
     </open-files>

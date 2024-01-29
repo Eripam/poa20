@@ -2285,7 +2285,7 @@ public class adProyecto {
                         cComp.setCuatri(ListarCuatrimestreProyecto(cComp));
                         cComp.setProyecto_plurianual(rsComp.getInt("proyecto_plurianual"));
                         cComp.setTp_id(rsComp.getInt("tp_id"));
-                        //cComp.setMp_monto(montoproyectoPluri(area, rsComp.getInt("proyecto_id"), anio));
+                        cComp.setMp_monto(montoproyectoPluri(area, rsComp.getInt("proyecto_id"), anio));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2546,7 +2546,7 @@ public class adProyecto {
     //Monto proyecto plurianual
     public Double montoproyectoPluri(Integer ag, Integer proyecto, Integer anio) {
         Double result = null;
-        String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio='" + anio + "';";
+        String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio>'" + anio + "';";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
