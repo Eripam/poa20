@@ -2374,7 +2374,7 @@ public class servEjecucion extends HttpServlet {
         cComp.setMes_id(Integer.parseInt(anio));
 
         if (req_id.length > 0) {
-            if ((estado.equals("28") && !partes.equals("1")) || (estado.equals("29") && !partes.equals("1")) || (estado.equals("50") && !partes.equals("1"))) {
+            if ((estado.equals("28") && !partes.equals("1")) || (estado.equals("29") && !partes.equals("1")) || (estado.equals("30") && !partes.equals("1")) || (estado.equals("50") && !partes.equals("1")) || (estado.equals("54") && !partes.equals("1"))) {
                 for (int i = 0; i < req_id.length; i++) {
                     if (Double.parseDouble(costouni) <= Double.parseDouble(req_id[i][1])) {
                         cantidad += Double.parseDouble(req_id[i][2]);
@@ -2851,7 +2851,7 @@ public class servEjecucion extends HttpServlet {
         Integer con = 0;
 
         if (req_id.length > 0) {
-            if ((estado.equals("28") && !partes.equals("1")) || (estado.equals("29") && !partes.equals("1")) || (estado.equals("50") && !partes.equals("1"))) {
+            if ((estado.equals("28") && !partes.equals("1")) || (estado.equals("29") && !partes.equals("1")) || (estado.equals("50") && !partes.equals("1")) || (estado.equals("54") && !partes.equals("1"))) {
                 for (String[] req_id1 : req_id) {
                     if (Double.parseDouble(costouni) <= Double.parseDouble(req_id1[2])) {
                         cantidad += Double.parseDouble(req_id1[1]);
@@ -3373,8 +3373,10 @@ public class servEjecucion extends HttpServlet {
             result = aEjecucion.ListarRequerimientosExcel21();
         } else if (anio.equals("2022")) {
             result = aEjecucion.ListarRequerimientosExcel22();
-        } else {
+        } else if(anio.equals("2023")){
             result = aEjecucion.ListarRequerimientosExcel23();
+        } else {
+            result = aEjecucion.ListarRequerimientosExcel24();
         }
 
         String json = new Gson().toJson(result);

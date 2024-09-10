@@ -123,7 +123,7 @@
                 <li><a href="pListaProyectosEvaluacion.jsp">Lista Proyectos</a></li>
             </ul>
         </li>
-        <% } else if (intIdTipoUsuario == 3 && IntIdAreaGestion == 68) {%>
+        <% } else if (intIdTipoUsuario == 3 && (IntIdAreaGestion == 68 || IntIdAreaGestion == 99)) {%>
         <li><a href="#"><label class="h6">Formulacion</label><i class="fas fa-angle-down"></i></a>
             <ul class="submenuUl">
                 <li><a href="pFormulacion.jsp">Formulación Proyectos</a></li>

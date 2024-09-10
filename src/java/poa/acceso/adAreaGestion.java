@@ -417,7 +417,7 @@ public class adAreaGestion {
         List<cProyecto> result = new ArrayList<cProyecto>();
         String SQL = "select * from usuario inner join asignar_usuario on usuario_cedula=au_usuario inner join tipo_usuario on au_tu=tu_id left join cargos on au_ag=cargo_ag where au_ag='" + area + "' \n"
                 + "and (au_tu=2 or au_tu=4 or au_tu=5 or au_tu=7 or au_tu=8 or au_tu=19) and usuario_cedula not like '0606043867' and usuario_cedula not like '0603014739' \n"
-                + "and usuario_cedula not like '0202104717' and usuario_cedula not like '0602556961' and usuario_cedula not like '1804150686' and au_estado=1";
+                + "and usuario_cedula not like '0202104717' and usuario_cedula not like '0602556961' and usuario_cedula not like '1804150686' and usuario_cedula not like '0603884438' and usuario_cedula not like '0602905028' and au_estado=1";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

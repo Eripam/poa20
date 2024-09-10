@@ -921,7 +921,7 @@ public class adActividadRequerimiento {
     //Listar cuatrimestre
     public List<cActividadRequerimiento> ListarMesesRep(Integer componente) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select * from actividad_mes where am_actividad='" + componente + "';";
+        String SQL = "select * from actividad_mes where am_actividad='" + componente + "' and am_estado=1;";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -4651,8 +4651,10 @@ public class adActividadRequerimiento {
             SQL = "select * from f_listarequerimientosexcel21() where agid='" + ag + "' or agidp='" + agp + "';";
         } else if (anio == 2022) {
             SQL = "select * from f_listarequerimientosexcel22() where agid='" + ag + "' or agidp='" + agp + "';";
-        } else {
+        } else if(anio==2023){
             SQL = "select * from f_listarequerimientosexcel23() where agid='" + ag + "' or agidp='" + agp + "';";
+        } else {
+            SQL = "select * from f_listarequerimientosexcel24() where agid='" + ag + "' or agidp='" + agp + "';";
         }
         try {
             //Crear un AccesoDatos

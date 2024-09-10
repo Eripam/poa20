@@ -2133,7 +2133,7 @@ public class adProyecto {
     public Boolean VerificacionEnviosE(Integer proy, Integer cuatrimestre) {
         Boolean result = false;
         String SQL = "select exists(select * from proyecto inner join estado_evaluacion on proyecto_id=ee_proyecto inner join area_gestion on proyecto_ag=ag_id where ((ee_estado=2 and ag_tag=4 and ag_id<>47 and ag_id<>45) or ((ee_estado=4 or ee_estado=8) and (ag_tag=2 or ag_tag=3 or ag_tag=5)) or (ee_estado=27 and ag_id=45) \n"
-                + "                    or (ee_estado=1 and ag_id=47)) and proyecto_id='" + proy + "' and ee_cuatrimestre='" + cuatrimestre + "');";
+                + "                    or (ee_estado=1 and (ag_id=47 or ag_id=48 or ag_id=93 or ag_id=95))) and proyecto_id='" + proy + "' and ee_cuatrimestre='" + cuatrimestre + "');";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -2543,8 +2543,30 @@ public class adProyecto {
         }
     }
 
-    //Monto proyecto plurianual
+    //Monto proyecto anual
     public Double montoproyectoPluri(Integer ag, Integer proyecto, Integer anio) {
+        Double result = null;
+        String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio='" + anio + "';";
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    result = rsCodigo.getDouble("sum");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+
+        } finally {
+            return result;
+        }
+    }
+    
+    //Monto proyecto plurianual
+    public Double montoproyectoPlurianual(Integer ag, Integer proyecto, Integer anio) {
         Double result = null;
         String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio>'" + anio + "';";
         try {

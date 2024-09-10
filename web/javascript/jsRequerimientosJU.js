@@ -416,12 +416,6 @@ $('#modalUnificarReq').on('click', function () {
         sumci = sumci + array[i].costou;
     }
     $('#cantidadunif').val(sumto);
-    if ($('#agsol').val() === '54') {
-        $('#costounif').val(sum);
-        $('#costounif').prop('readonly', true);
-    } else {
-        $('#costounif').prop('readonly', false);
-    }
     $('#listaRequerimientosUnificaReq').append('<tr><td colspan="4" class="text-center">TOTAL</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(sumci) + '</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(sum) + '</td><td class="text-center">' + new Intl.NumberFormat("US", options2).format(total) + '</td></tr>');
     $('#unificarR').modal();
 });

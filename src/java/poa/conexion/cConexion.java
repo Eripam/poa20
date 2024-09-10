@@ -14,7 +14,7 @@ public class cConexion {
     /*Base local*/
     public static String driverClass = "org.postgresql.Driver";
     //public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-17-11-2022";
-    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-26-01-2024";
+    public static String databaseURL = "jdbc:postgresql://localhost:5432/sipserver-22-07-2024";
     public static String usuarioDB = "postgres";
     public static String claveDB = "123";
     

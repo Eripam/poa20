@@ -136,7 +136,7 @@ $('#example').on('click', 'div div #agregarS', function () {
     $('select[name=rectoring]').val('0');
     $('#cargo').val('');
     banservicios = true;
-    if (data['req'] != 10151 && data['req'] != 10143 && data['req'] != 14994 && data['req'] != 14995 && data['req'] != 14996 && data['req'] != 19979 && data['req'] != 21485 && data['req'] != 29055 && data['req'] != 30225 && data['req'] != 30229) {
+    if (data['req'] != 10151 && data['req'] != 10143 && data['req'] != 14994 && data['req'] != 14995 && data['req'] != 14996 && data['req'] != 19979 && data['req'] != 21485 && data['req'] != 29055 && data['req'] != 30225 && data['req'] != 30229 && data['req'] != 36271) {
         $('#fechainicio').datepicker("destroy");
         $('#fechafin').datepicker("destroy");
         listaFechaActual();
