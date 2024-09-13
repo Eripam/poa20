@@ -118,7 +118,6 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
     var data = $(this).data();
     var fi = data['fi'];
     var ff = data['ff'];
-    var s1=0, s2=0, s3=0;
     var cuatrimestre = data['cuatrimestre'];
     $('#nombreP').html('<input type="hidden" name="idact" id="idact" value="' + data['actividad'] + '"><input type="hidden" name="ididact" id="ididact" value="' + data['actividadid'] + '">' + data['nombre'])
     var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -134,23 +133,18 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
     for (var i = 0; i < mes.length; i++) {
         if ((j >= (fia.getMonth() + 1))) {
             if ((j <= (ffa.getMonth() + 1))) {
+                console.log(cuatrimestre);
                 if(cuatrimestre==0 && i<4){
-                    s1++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes"><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 }else if(cuatrimestre==0 && i>3 && i<8){
-                    s2++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes"><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 }else if(cuatrimestre==0 && i>7){
-                    s3++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes"><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 }else if (cuatrimestre == 2 && i > 7) {
-                    s2++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes"><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 } else if (cuatrimestre == 1 && i > 3) {
-                    s1++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes"><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 } else {
-                    s3++;
                     $('#frmIngresarCP').children('.container-fluid').children('.row').children('.mesactividad').children('#programacionactividad').append('<div class="form-check col-12 col-xs-12 col-md-3"><input class="form-check-input" type="checkbox" value="' + j + '" name="checkmes" id="checkmes" disabled><label class="form-check-label"  style="font-weight: normal;">' + mes[i] + '</label></div>');
                 }
             }
@@ -164,7 +158,7 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
         }
 
     }
-    if (s1 > 0) {
+    if (data['cuatri1'] > 0) {
         $('#pori').removeClass('d-none');
         $('#pori').addClass('d-flex');
         $('#porcentajei').val(data['cuatri1'].toFixed(2)).removeAttr("readonly");
@@ -173,7 +167,7 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
         $('#pori').addClass('d-none');
         $('#porcentajei').val("").removeAttr("readonly");
     }
-    if (s2 > 0) {
+    if (data['cuatri2'] > 0) {
         $('#porii').removeClass('d-none');
         $('#porii').addClass('d-flex');
         $('#porcentajeii').val(data['cuatri2'].toFixed(2)).removeAttr("readonly");
@@ -182,7 +176,7 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
         $('#porii').addClass('d-none');
         $('#porcentajeii').val("").removeAttr("readonly");
     }
-    if (s3 > 0) {
+    if (data['cuatri3'] > 0) {
         $('#poriii').removeClass('d-none');
         $('#poriii').addClass('d-flex');
         $('#porcentajeiii').val(data['cuatri3'].toFixed(2)).removeAttr("readonly");
@@ -211,6 +205,58 @@ $('.table').on('click', 'tbody tr td #modActividad', function () {
     }
 
     $('#modificarProy').modal();
+});
+
+//Check
+$('#frmIngresarCP').on('change', '.container-fluid .row .mesactividad',function () {
+    var data = $(this).data();
+    var i = [1, 2, 3, 4];
+    var ii = [5, 6, 7, 8];
+    var iii = [9, 10, 11, 12];
+    var cont1 = 0, cont2 = 0, cont3 = 0;
+    $('#checkmes:checked').each(
+            function () {
+                for (var k = 0; k < i.length; k++) {
+                    if (i[k] == $(this).val()) {
+                        cont1++;
+                    }
+                }
+                for (var k = 0; k < ii.length; k++) {
+                    if (ii[k] == $(this).val()) {
+                        cont2++;
+                    }
+                }
+                for (var k = 0; k < iii.length; k++) {
+                    if (iii[k] == $(this).val()) {
+                        cont3++;
+                    }
+                }
+            }
+    );
+    if (cont1 > 0) {
+        $('#pori').removeClass('d-none');
+        $('#pori').addClass('d-flex');
+    } else {
+        $('#pori').removeClass('d-flex');
+        $('#pori').addClass('d-none');
+        $('#porcentajei').val("");
+    }
+    if (cont2 > 0) {
+        $('#porii').removeClass('d-none');
+        $('#porii').addClass('d-flex');
+    } else {
+        $('#porii').removeClass('d-flex');
+        $('#porii').addClass('d-none');
+        $('#porcentajeii').val("");
+    }
+    if (cont3 > 0) {
+        $('#poriii').removeClass('d-none');
+        $('#poriii').addClass('d-flex');
+    } else {
+        $('#poriii').removeClass('d-flex');
+        $('#poriii').addClass('d-none');
+        $('#porcentajeiii').val("");
+    }
 });
 
 $('#modalGuardarEstados').on('click', function () {

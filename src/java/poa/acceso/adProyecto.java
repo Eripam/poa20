@@ -191,10 +191,33 @@ public class adProyecto {
 
     //Ingresar Integrantes
     public String IngresarIntegrantes(cProyecto oProy) {
-        String result = "Error al ingresar acciones";
+        String result = "Verifique si el integrante no esta duplicado y que las fechas esten dentro del rango de fechas del proyecto";
         String SQL = "INSERT INTO public.integrantes(\n"
-                + "	integrante_id, integrante_nombre, integrante_proyecto, integrante_cedula, integrante_tipo, integrante_fechai, integrante_fechaf, integrante_sexo, integrante_contrato)\n"
-                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"', '"+oProy.getIntegrante_tipo()+"', '"+oProy.getProyecto_fi()+"', '"+oProy.getProyecto_ff()+"', '"+oProy.getIntegrante_sexo()+"', '"+oProy.getIntegrante_tipo_contrato()+"');";
+                + "	integrante_id, integrante_nombre, integrante_proyecto, integrante_cedula, integrante_tipo, integrante_fechai, integrante_fechaf, integrante_sexo, integrante_Tcontrato)\n"
+                + "	VALUES ('" + codigoSiguienteIntegrantes() + "', '" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"', '"+oProy.getIntegrante_tipo()+"', '"+oProy.getProyecto_fi()+"', '"+oProy.getProyecto_ff()+"', '"+oProy.getIntegrante_sexo()+"', '"+oProy.getIntegrante_tcontrato()+"');";
+
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.executeUpdate(SQL) != 0) {
+                    result = "Correcto";
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        }
+        return result;
+    }
+    
+    //Ingresar Integrantes eliminados
+    public String IngresarIntegrantesEliminados(cProyecto oProy) {
+        String result = "Se debe actualizar las fechas";
+        String SQL = "INSERT INTO public.integrantes_eliminados(\n"
+                + "	intelim_nombre, intelim_proyecto, intelim_cedula, intelim_tipo, intelim_fechai, intelim_fechaf, intelim_sexo, intelim_Tcontrato, intelim_cedula_usuario)\n"
+                + "	VALUES ('" + oProy.getProyecto_integrantes() + "', '" + oProy.getProyecto_id() + "', '"+oProy.getProyecto_responsable_ced()+"', '"+oProy.getIntegrante_tipo()+"', '"+oProy.getProyecto_fi()+"', '"+oProy.getProyecto_ff()+"', '"+oProy.getIntegrante_sexo()+"', '"+oProy.getIntegrante_tcontrato()+"', '"+oProy.getProyecto_responsable()+"');";
 
         try {
             // Crear un AccesoDatos
@@ -1096,7 +1119,7 @@ public class adProyecto {
     //Listar integrantes
     public List<cProyecto> ListaIntegrantes(Integer proy) {
         List<cProyecto> result = new ArrayList<cProyecto>();
-        String SQL = "select * from integrantes inner join tipo_integrante ON tipo_integrante.tin_id = integrantes.integrante_tipo where integrante_proyecto=? and integrante_estado=1;";
+        String SQL = "select * from integrantes inner join tipo_integrante ON tipo_integrante.tin_id = integrantes.integrante_tipo inner join tipo_contrato on tcont_id=integrante_tcontrato where integrante_proyecto=? and integrante_estado=1;";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -1113,7 +1136,8 @@ public class adProyecto {
                         oProy.setIntegrante_tipo(rsProy.getInt("integrante_tipo"));
                         oProy.setIntegrante_tipo_nombre(rsProy.getString("tin_descripcion"));
                         oProy.setIntegrante_sexo(rsProy.getString("integrante_sexo"));
-                        oProy.setIntegrante_tipo_contrato(rsProy.getString("integrante_contrato"));
+                        oProy.setIntegrante_tipo_contrato(rsProy.getString("tcont_nombre"));
+                        oProy.setIntegrante_tcontrato(rsProy.getInt("integrante_tcontrato"));
                         result.add(oProy);
                     }
                     ad.desconectar();
@@ -2109,7 +2133,7 @@ public class adProyecto {
     public Boolean VerificacionEnviosE(Integer proy, Integer cuatrimestre) {
         Boolean result = false;
         String SQL = "select exists(select * from proyecto inner join estado_evaluacion on proyecto_id=ee_proyecto inner join area_gestion on proyecto_ag=ag_id where ((ee_estado=2 and ag_tag=4 and ag_id<>47 and ag_id<>45) or ((ee_estado=4 or ee_estado=8) and (ag_tag=2 or ag_tag=3 or ag_tag=5)) or (ee_estado=27 and ag_id=45) \n"
-                + "                    or (ee_estado=1 and ag_id=47)) and proyecto_id='" + proy + "' and ee_cuatrimestre='" + cuatrimestre + "');";
+                + "                    or (ee_estado=1 and (ag_id=47 or ag_id=48 or ag_id=93 or ag_id=95))) and proyecto_id='" + proy + "' and ee_cuatrimestre='" + cuatrimestre + "');";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -2261,7 +2285,7 @@ public class adProyecto {
                         cComp.setCuatri(ListarCuatrimestreProyecto(cComp));
                         cComp.setProyecto_plurianual(rsComp.getInt("proyecto_plurianual"));
                         cComp.setTp_id(rsComp.getInt("tp_id"));
-                        //cComp.setMp_monto(montoproyectoPluri(area, rsComp.getInt("proyecto_id"), anio));
+                        cComp.setMp_monto(montoproyectoPluri(area, rsComp.getInt("proyecto_id"), anio));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2519,10 +2543,32 @@ public class adProyecto {
         }
     }
 
-    //Monto proyecto plurianual
+    //Monto proyecto anual
     public Double montoproyectoPluri(Integer ag, Integer proyecto, Integer anio) {
         Double result = null;
         String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio='" + anio + "';";
+        try {
+            // Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) { //  Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsCodigo = ad.getRs();
+                    rsCodigo.next();
+                    result = rsCodigo.getDouble("sum");
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+
+        } finally {
+            return result;
+        }
+    }
+    
+    //Monto proyecto plurianual
+    public Double montoproyectoPlurianual(Integer ag, Integer proyecto, Integer anio) {
+        Double result = null;
+        String SQL = "select sum(req_costototal) from f_listarequerimientosexcelunid('" + ag + "',0,'" + anio + "') where proyectoid='" + proyecto + "' and reqanio>'" + anio + "';";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

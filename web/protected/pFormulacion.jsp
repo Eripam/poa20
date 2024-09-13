@@ -14,7 +14,7 @@
     <%@include file="plantillas/head.jsp" %> 
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <body>
-        <%@include file="plantillas/header.jsp" %> 
+        <%@include file="plantillas/header.jsp"%> 
         <div class="container-fluid p-0 main">
             <div class="row mt-3">
                 <%@include file="plantillas/menu.jsp" %>
@@ -185,7 +185,7 @@
                                     <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" multiple data-selected-text-format="count > 6" id="selectAgC" name="selectAgC">
                                         <option value="0">Ninguno</option>
                                         <%
-                                            ResultSet rs6 = adAreaGestion.listaAreaGestionUnidadesAdminTotas();
+                                            ResultSet rs6 = adAreaGestion.listaAreaGestionUnidadesAdminTotas(intAnio);
                                             while (rs6.next()) {
                                         %>
                                         <option title="<%=rs6.getString("ag_alias")%>" value="<%=rs6.getString("ag_id")%>"><%=rs6.getString("ag_nombre")%></option>
@@ -200,7 +200,7 @@
                                     <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" data-live-search="true" multiple data-selected-text-format="count > 6" id="selectAgM" name="selectAgM">
                                         <option value="0">Ninguno</option>
                                         <%
-                                            ResultSet rs2 = adAreaGestion.listaAreaGestionMulti();
+                                            ResultSet rs2 = adAreaGestion.listaAreaGestionMulti(intAnio);
                                             while (rs2.next()) {
                                         %>
                                         <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

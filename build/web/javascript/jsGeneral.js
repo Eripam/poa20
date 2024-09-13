@@ -9,6 +9,7 @@ let mensajeCorrecto = '\u00A1Transacci\u00F3n exitosa!';
 let mensajeError = '\u00A1Error de transacci\u00F3n!'
 let insertadoCorrecto = 'Se insert\u00F3 correctamente';
 let modificadoCorrecto = 'Se modific\u00F3 correctamente';
+let eliminadoCorrecto = 'Se elimin\u00F3 correctamente';
 
 $(':text,textarea').keyup('change', function () {
     $input = $(this);

@@ -79,7 +79,7 @@
                                         <select class="col-9 selectpicker p-0 m-0" data-live-search="true" id="tipoun" name="tipoun">
                                             <option selected disabled>Seleccionar...</option>
                                             <%
-                                                ResultSet rs2 = adAreaGestion.listaAreaGestion();
+                                                ResultSet rs2 = adAreaGestion.listaFaculAdmin(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

@@ -88,6 +88,7 @@ public class adUsuario {
                         cAg.setAg_alias(rsLogin.getString("ag_alias"));
                         cAg.setTag_id(rsLogin.getInt("tag_id"));
                         cAg.setTag_nombre(rsLogin.getString("tag_nombre"));
+                        cAg.setAg_estado(rsLogin.getInt("ag_estado"));
                         oLoginT.setAg(cAg);
                         oLoginT.setLogin_cedula(rsLogin.getString("au_usuario"));
                         oLoginT.setAnio(rsLogin.getInt("anio"));
@@ -107,7 +108,7 @@ public class adUsuario {
         String blnResultado = null;
         String SQL = "INSERT INTO public.usuario(\n"
                 + "	usuario_cedula, usuario_nombre, usuario_titulo)\n"
-                + "	VALUES ('" + objUsuario.getLogin_cedula() + "', '" + objUsuario.getLogin_nombre() + "', '"+objUsuario.getAg_nombre()+"');";
+                + "	VALUES ('" + objUsuario.getLogin_cedula() + "', '" + objUsuario.getLogin_nombre() + "', '" + objUsuario.getAg_nombre() + "');";
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) { //  Solicitar conectar a la BD
@@ -144,12 +145,12 @@ public class adUsuario {
         }
         return blnResultado;
     }
-    
+
     public String AsignarUsuarioEstado(cUsuario objUsuario) {
         String blnResultado = null;
         String SQL = "INSERT INTO public.asignar_usuario(\n"
                 + "	au_ag, au_usuario, au_tu, au_estado)\n"
-                + "	VALUES ('" + objUsuario.getAg().getAg_id() + "', '" + objUsuario.getLogin_cedula() + "','" + objUsuario.getTu_id() + "', '"+objUsuario.getUsuario_estado()+"');";
+                + "	VALUES ('" + objUsuario.getAg().getAg_id() + "', '" + objUsuario.getLogin_cedula() + "','" + objUsuario.getTu_id() + "', '" + objUsuario.getUsuario_estado() + "');";
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) { //  Solicitar conectar a la BD
@@ -234,6 +235,7 @@ public class adUsuario {
                         oUsuario.setTu_nombre(rsLogin.getString("tu_nombre"));
                         oUsuario.setTu_id(rsLogin.getInt("tu_id"));
                         oUsuario.setAg_nombres(rsLogin.getString("ag"));
+                        oUsuario.setAnio(rsLogin.getInt("au_ag"));
                         oUsuario.setUsuario_estado(rsLogin.getInt("au_estado"));
                         oUsuario.setAreas(ListarUsuarioComprasAreas(oUsuario));
                         result.add(oUsuario);
@@ -344,7 +346,7 @@ public class adUsuario {
         String blnResultado = null;
         String result = "Error el usuario.";
         String SQL = "UPDATE usuario SET "
-                + "usuario_nombre='" + objUsuario.getLogin_nombre() + "', usuario_titulo='"+objUsuario.getUsuario_titulo()+"',"
+                + "usuario_nombre='" + objUsuario.getLogin_nombre() + "', usuario_titulo='" + objUsuario.getUsuario_titulo() + "',"
                 + "usuario_estado= 1 "
                 + "where usuario_cedula like '" + objUsuario.getLogin_cedula() + "' ";
         try {
@@ -362,12 +364,12 @@ public class adUsuario {
         }
         return result;
     }
-    
+
     //Modificar registro de usuarios
     public String DesactivarUsuario(cUsuario objUsuario) {
         String blnResultado = null;
         String result = "Error.";
-        String SQL = "delete from asignar_usuario where au_usuario like '" + objUsuario.getLogin_cedula() + "' and au_tu='"+objUsuario.getTu_id()+"' and au_ag='"+objUsuario.getAnio()+"';";
+        String SQL = "delete from asignar_usuario where au_usuario like '" + objUsuario.getLogin_cedula() + "' and au_tu='" + objUsuario.getTu_id() + "' and au_ag='" + objUsuario.getAnio() + "';";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -531,10 +533,10 @@ public class adUsuario {
         }
         return result;
     }
-    
+
     public List<cUsuario> ListaTipoUsuarios(Integer objetivo) {
-         List<cUsuario> result = new ArrayList<cUsuario>();
-        String SQL = "select * from tipo_integrante where tin_estado=1 and tin_objetivo="+objetivo+";";
+        List<cUsuario> result = new ArrayList<cUsuario>();
+        String SQL = "select * from tipo_integrante where tin_estado=1 and tin_objetivo=" + objetivo + ";";
         try {
             cAccesoDatos ad = new cAccesoDatos();
             if (ad.conectar() != 0) { //  Solicitar conectar a la BD
@@ -556,4 +558,21 @@ public class adUsuario {
         return result;
     }
 
+    //Listar tipo de contratos
+    static public ResultSet listaTipoContrato() {
+        ResultSet rs = null;
+        String SQL = "select * from tipo_contrato where tcont_estado=1 order by tcont_id asc";
+        try {
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    rs = ad.getRs();
+                }
+            }
+            ad.desconectar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
 }

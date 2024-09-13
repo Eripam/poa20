@@ -74,9 +74,9 @@
                             <%
                                 ResultSet rs2;
                                 if (request.getParameter("tipo").equals("1")) {
-                                    rs2 = adAreaGestion.listaAreaGestionFE();
+                                    rs2 = adAreaGestion.listaAreaGestionFE(intAnio);
                                 } else {
-                                    rs2 = adAreaGestion.listaAreaGestionUnidadesAdmin();
+                                    rs2 = adAreaGestion.listaAreaGestionUnidadesAdmin(intAnio);
                                 }
                                 while (rs2.next()) {
                             %>

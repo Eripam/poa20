@@ -146,6 +146,8 @@ function listaProyecto(proye, cuatrimestre) {
                     $('#btn_proyecto_enviar').css({"display": "flex"});
                 } else if (tusu === "7" && (estadof === 41)) {
                     $('#btn_proyecto_enviar').css({"display": "flex"});
+                } else if (tusu === "8" && (estadof === 41)) {
+                    $('#btn_proyecto_enviar').css({"display": "flex"});
                 } else {
                     $('#btn_proyecto_enviar').addClass('d-none');
                 }
@@ -1168,6 +1170,9 @@ $('#btn_proyecto_enviar').on('click', function (event) {
     } else if ($('#tipousuario').val() === "7" && estadof === 41) {
         $('#aprobarRadios').val(10);
         $('#modificarRadios').val(12);
+    } else if ($('#tipousuario').val() === "8" && estadof === 41) {
+        $('#aprobarRadios').val(11);
+        $('#modificarRadios').val(13);
     } else if (($('#tipousuario').val() === "2" || $('#tipousuario').val() === "5" || $('#tipousuario').val() === "8") && (estadof === 1 || estadof === 8)) {
         $('#aprobarRadios').val(2);
         $('#modificarRadios').val(3);

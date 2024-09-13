@@ -921,7 +921,7 @@ public class adActividadRequerimiento {
     //Listar cuatrimestre
     public List<cActividadRequerimiento> ListarMesesRep(Integer componente) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
-        String SQL = "select * from actividad_mes where am_actividad='" + componente + "';";
+        String SQL = "select * from actividad_mes where am_actividad='" + componente + "' and am_estado=1;";
         try {
             //Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -2213,7 +2213,7 @@ public class adActividadRequerimiento {
                         cComp.setSolicitud_id(rsComp.getInt("sp_estado_dispo"));
                         cComp.setCuatri(ListarCertificacionesSP(rsComp.getInt("sp_id")));
                         cComp.setEstado_nombre(rsComp.getString("estadocp"));
-                        cComp.setAg_alias(rsComp.getString("sp_nombre_estudiante")+" "+rsComp.getString("sp_apellido_estudiante"));
+                        cComp.setAg_alias(rsComp.getString("sp_nombre_estudiante") + " " + rsComp.getString("sp_apellido_estudiante"));
                         result.add(cComp);
                     }
                     ad.desconectar();
@@ -2861,11 +2861,11 @@ public class adActividadRequerimiento {
         }
         return result;
     }
-    
+
     //Validación de cuatrimestre con requerimiento
     public int ValidarRequerimientoCu(int actividad, int cuatrimestre) {
         int result = 0;
-        String SQL = "select sum(rm_porcentaje) from requerimiento inner join requerimiento_cuatrimestre on req_id=rm_req where req_actividad='"+actividad+"' and rm_mes='"+cuatrimestre+"';";
+        String SQL = "select sum(rm_porcentaje) from requerimiento inner join requerimiento_cuatrimestre on req_id=rm_req where req_actividad='" + actividad + "' and rm_mes='" + cuatrimestre + "';";
 
         try {
             // Crear un AccesoDatos
@@ -4134,6 +4134,118 @@ public class adActividadRequerimiento {
         }
     }
 
+//Lista para reporte excel
+    public List<cActividadRequerimiento> ListarRequerimientosExcel24() {
+        List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
+        String SQL = "select * from vSalvaguardar24;";
+        try {
+            //Crear un AccesoDatos
+            cAccesoDatos ad = new cAccesoDatos();
+            if (ad.conectar() != 0) {  //Solicitar conectar a la BD
+                if (ad.ejecutarSelect(SQL) != 0) {
+                    ResultSet rsComp = ad.getRs();
+                    while (rsComp.next()) {
+                        cActividadRequerimiento cComp = new cActividadRequerimiento();
+                        cComp.setReq_id(rsComp.getInt("req_reqid"));
+                        cComp.setReq_nombre(rsComp.getString("reqnombre"));
+                        cComp.setReq_descripcion(rsComp.getString("reqdescripcion"));
+                        cComp.setReq_cantidad(rsComp.getDouble("req_cantidadanual"));
+                        cComp.setReq_costo_unitario(rsComp.getDouble("req_costounitario"));
+                        cComp.setReq_costo_sin_iva(rsComp.getDouble("req_costo_siniva"));
+                        cComp.setReq_costo_total(rsComp.getDouble("req_costototal"));
+                        cComp.setActividad_nombre(rsComp.getString("actividadnombre"));
+                        cComp.setProyecto_nombre(rsComp.getString("proyectonombre"));
+                        cComp.setAg_nombre(rsComp.getString("agnombre_i"));
+                        cComp.setReq_estado(rsComp.getInt("reqestado"));
+                        cComp.setReq_cpc(rsComp.getString("paccpc"));
+                        cComp.setPac_catalogo(rsComp.getString("paccatalogo"));
+                        cComp.setPac_tipo_producto(rsComp.getString("pac_tipoproducto"));
+                        cComp.setPac_num_operacion(rsComp.getInt("pac_numoperacion"));
+                        cComp.setPac_codigo_proyecto(rsComp.getInt("pac_codigoproyecto"));
+                        cComp.setPac_tipo_regimen(rsComp.getString("pac_tiporegimen"));
+                        cComp.setPac_procedimiento_sug(rsComp.getString("pac_procedimientosug"));
+                        cComp.setPac_fondo_bid(rsComp.getString("pac_fondobid"));
+                        cComp.setTc_nombre(rsComp.getString("tcnombre"));
+                        cComp.setUnidad_nombre(rsComp.getString("unidadnombre"));
+                        cComp.setPresupuesto_unidad_desc(rsComp.getString("presupuesto_unidaddesc"));
+                        cComp.setPresupuesto_programa(rsComp.getString("presupuestoprograma"));
+                        cComp.setPresupuesto_subprograma(rsComp.getString("presupuestosubprograma"));
+                        cComp.setPresupuesto_proyecto(rsComp.getString("presupuestoproyecto"));
+                        cComp.setPresupuesto_actividad(rsComp.getString("presupuestoactividad"));
+                        cComp.setPresupuesto_obra(rsComp.getString("presupuestoobra"));
+                        cComp.setPresupuesto_geografico(rsComp.getString("presupuestogeografico"));
+                        cComp.setPresupuesto_renglo_aux(rsComp.getString("presupuesto_rengloaux"));
+                        cComp.setPresupuesto_fuente(rsComp.getString("presupuestofuente"));
+                        cComp.setPresupuesto_organismo(rsComp.getString("presupuestoorganismo"));
+                        cComp.setPresupuesto_correlativo(rsComp.getString("presupuestocorrelativo"));
+                        cComp.setPresupuesto_presupuesto(rsComp.getString("presupuestopresupuesto"));
+                        cComp.setPresupuesto_ejercicio(rsComp.getInt("presupuestoejercicio"));
+                        cComp.setPresupuesto_entidad(rsComp.getInt("presupuestoentidad"));
+                        cComp.setPresupuesto_unidad_ejec(rsComp.getInt("presupuesto_unidadejec"));
+                        cComp.setPresupuesto_renglo(rsComp.getInt("presupuestorenglo"));
+                        cComp.setFinanciamiento_nombre(rsComp.getString("financiamientonombre"));
+                        cComp.setPerspectiva_id(rsComp.getInt("perspectivatp"));
+                        cComp.setUnidad_nombre(rsComp.getString("unidadnombre"));
+                        cComp.setTc_nombre(rsComp.getString("tcnombre"));
+                        cComp.setAg_alias(rsComp.getString("agnombre_p"));
+                        cComp.setActividad_id(rsComp.getInt("actividadid"));
+                        cComp.setReq_prioridad_fecha(rsComp.getDate("reqprioridad_fecha"));
+                        cComp.setReq_reforma(rsComp.getInt("reqreforma"));
+                        cComp.setReq_req_id(rsComp.getInt("reqid"));
+                        cComp.setReq_anio(rsComp.getInt("reqanio"));
+                        cComp.setCuatri(ListarCuatrimestreReq(cComp));
+                        //cComp.setActividad_eval(ListarFechasRequerimientos(rsComp.getInt("req_reqid")));
+                        //cComp.setMes(ListarCertificacionespac(rsComp.getInt("req_reqid")));
+                        //cComp.setReq(ListarCertificacionesnopac(rsComp.getInt("req_reqid")));
+                        //cComp.setFechanopac(ListarFechasRequerimientosNP(rsComp.getInt("req_reqid")));
+
+                        cComp.setActividad_monto(rsComp.getDouble("verificados"));
+                        cComp.setActividad_porcentaje(rsComp.getDouble("verificadosu"));
+                        cComp.setC1(rsComp.getDouble("verificadosnpac"));
+                        cComp.setSolestado_observacion(rsComp.getString("estado"));
+                        cComp.setSolicitud_cargo(rsComp.getString("estadouni"));
+                        cComp.setReq_salvaguardar(rsComp.getBoolean("reqsalv"));
+                        cComp.setReq_reforma2(rsComp.getInt("reqreforma2"));
+                        if (rsComp.getInt("reqreforma") > rsComp.getInt("reqreforma2")) {
+                            cComp.setReq_incremento(0.0);
+                        } else {
+                            cComp.setReq_incremento(rsComp.getDouble("reqincremento"));
+                        }
+                        cComp.setPresupuesto_reforma(rsComp.getInt("prereforma"));
+                        cComp.setSolicitud_codigo(rsComp.getString("justificativo"));
+                        cComp.setSolicitud_centro_costo(rsComp.getString("justificativouni"));
+                        cComp.setSolicitud_nombre(rsComp.getString("justificativonpac"));
+                        cComp.setCp_valor(rsComp.getDouble("valorcertificacion"));
+                        cComp.setCp_tipo(rsComp.getString("tipocert"));
+                        cComp.setAe_observacion(rsComp.getString("codigocp"));
+                        //cComp.setAp_id(rsComp.getInt("apid"));
+                        cComp.setObjetivo_nombre(rsComp.getString("apr_nombre"));
+                        cComp.setVerificado_iva(rsComp.getDouble("verificados"));
+                        if (rsComp.getDouble("sp_total") > 0) {
+                            cComp.setVerificado_uni_npac(rsComp.getDouble("sp_total"));
+                        } else {
+                            cComp.setVerificado_uni_npac(rsComp.getDouble("verificadosnpac"));
+                        }
+                        if (rsComp.getInt("reqiva") == 1) {
+                            BigDecimal bd2 = new BigDecimal(rsComp.getDouble("verificadosu") * 1.12);
+                            bd2 = bd2.setScale(2, RoundingMode.HALF_UP);
+                            cComp.setVerificado_uni_iva(bd2.doubleValue());
+                        } else {
+                            cComp.setVerificado_uni_iva(rsComp.getDouble("verificadosu"));
+                        }
+                        result.add(cComp);
+                    }
+                    ad.desconectar();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getClass().getName() + " *** " + e.getMessage());
+            this.error = e;
+        } finally {
+            return result;
+        }
+    }
+
     //Lista para reporte fechas justificativos
     public List<cActividadRequerimiento> ListarFechasRequerimientos(Integer req) {
         List<cActividadRequerimiento> result = new ArrayList<cActividadRequerimiento>();
@@ -4539,8 +4651,10 @@ public class adActividadRequerimiento {
             SQL = "select * from f_listarequerimientosexcel21() where agid='" + ag + "' or agidp='" + agp + "';";
         } else if (anio == 2022) {
             SQL = "select * from f_listarequerimientosexcel22() where agid='" + ag + "' or agidp='" + agp + "';";
-        }else{
-              SQL = "select * from f_listarequerimientosexcel23() where agid='" + ag + "' or agidp='" + agp + "';";
+        } else if(anio==2023){
+            SQL = "select * from f_listarequerimientosexcel23() where agid='" + ag + "' or agidp='" + agp + "';";
+        } else {
+            SQL = "select * from f_listarequerimientosexcel24() where agid='" + ag + "' or agidp='" + agp + "';";
         }
         try {
             //Crear un AccesoDatos
@@ -4765,8 +4879,10 @@ public class adActividadRequerimiento {
         String SQL;
         if (anio == 2022) {
             SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz22;";
-        } else {
+        }else if (anio == 2023) {
             SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz23;";
+        }else{
+            SQL = "select *, (SELECT public.f_montocertificaciondeb(deudasid, tipoid)) as montocert, (select tipoc from f_certificaciontipodeb(deudasid, tipoid) as tipoc), (select codigoc from f_certificaciontipodeb(deudasid, tipoid) as codigoc) from vdeudasmatriz24;";
         }
         try {
             //Crear un AccesoDatos
@@ -5033,7 +5149,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "', '"+cComp.getPresupuesto_organismo()+"', '"+cComp.getPresupuesto_correlativo()+"')";
 
         try {
             // Crear un AccesoDatos
@@ -5061,7 +5177,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "', '"+cComp.getPresupuesto_organismo()+"', '"+cComp.getPresupuesto_correlativo()+"')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getPresupuesto_geografico() + "', '" + cComp.getPresupuesto_organismo() + "', '" + cComp.getPresupuesto_correlativo() + "')";
 
         try {
             // Crear un AccesoDatos
@@ -5512,7 +5628,7 @@ public class adActividadRequerimiento {
                 + "'" + cComp.getPresupuesto_unidad_ejec() + "', '" + cComp.getPresupuesto_unidad_desc() + "', '" + cComp.getPresupuesto_programa() + "',"
                 + "'" + cComp.getPresupuesto_subprograma() + "', '" + cComp.getPresupuesto_proyecto() + "', '" + cComp.getPresupuesto_actividad() + "', "
                 + "'" + cComp.getPresupuesto_obra() + "', '" + cComp.getPresupuesto_renglo_aux() + "', '" + cComp.getPresupuesto_fuente() + "', "
-                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getReq_estado()+ "', '" + cComp.getPresupuesto_geografico() + "', '" + cComp.getPresupuesto_correlativo() + "', '" + cComp.getPresupuesto_organismo() + "')";
+                + "'" + cComp.getPresupuesto_presupuesto() + "', '" + cComp.getPresupuesto_renglo() + "', '" + cComp.getReq_estado() + "', '" + cComp.getPresupuesto_geografico() + "', '" + cComp.getPresupuesto_correlativo() + "', '" + cComp.getPresupuesto_organismo() + "')";
 
         try {
             // Crear un AccesoDatos

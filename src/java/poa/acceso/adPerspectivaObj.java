@@ -410,8 +410,14 @@ public class adPerspectivaObj {
 
     //Listar Actividades Presupuestarias
     public List<cPerspectivaObjetivo> listarActividades(Integer obj, Integer estado) {
+        Integer anio;
+        if(estado==2024){
+            anio=2023;
+        }else{
+            anio=estado;
+        }
         List<cPerspectivaObjetivo> result = new ArrayList<cPerspectivaObjetivo>();
-        String SQL = "select * from actividad_presupuestaria where ap_objetivo='" + obj + "' and ap_estado='" + estado + "';";
+        String SQL = "select * from actividad_presupuestaria where ap_objetivo='" + obj + "' and ap_estado='" + anio + "';";
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();

@@ -79,6 +79,103 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade bd-example-modal-xl" id="integrantesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <input type="hidden" value="<%=strCedulaUsuario%>" id="cedulaProyecto" name="cedulaProyecto">
+                    <div class="modal-header">
+                        <h5 class="modal-title main-center" id="exampleModalLabel" style="color:#133351">INTEGRANTES DE PROYECTO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <button type="button" class="btn bton" id="mostrarModalIntegrantes" style="font-size: .7em">AGREGAR</button>
+                            <div id="formIntegrantes" class="row d-none" style="font-size: 0.80em">
+                                <input type="hidden" name="idintegrante" id="idintegrante">
+                                <p class="col-12 text-center mb-2 pb-2" id="tituloIntegrantes" style="font-size: 1.2em; font-weight: bold"></p>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-1">
+                                    <label class="col-12 col-xs-12 col-md-3 justify-content-center justify-content-md-end cross-center">Tipo de Integrante: </label>
+                                    <select class="selectpicker col-10 col-xs-10 col-md-8 p-0" id="selTipoIn" name="selTipoIn"></select>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-1">
+                                    <div class="col-11 col-xs-1 col-md-11">
+                                        <label for="recipient-name" class="col-form-label">Cédula:</label>
+                                        <input type="text" class="form-control" id="textIntegranteCed" name="textIntegranteCed">
+                                    </div>
+                                    <div class="row col-1 col-xs-1 col-md-1 align-items-center integrantes" id="buscarCed" title="Buscar"><i id="buscador" class="fas fa-search"></i></div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-1">
+                                    <div class="col-12">
+                                        <label for="recipient-name" class="col-form-label">Nombres:</label>
+                                        <input type="text" class="form-control" name="nombreIntegrante" id="nombreIntegrante" readonly>
+                                    </div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-1">
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Sexo:</label>
+                                        <input type="text" class="form-control" name="sexoIntegrante" id="sexoIntegrante" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Tipo Contrato:</label>
+                                        <select class="selectpicker col-12 col-xs-12 col-md-12 p-0" id="tipocontratoIntegrante" name="tipocontratoIntegrante">
+                                            <%
+                                                ResultSet rst1 = adUsuario.listaTipoContrato();
+                                                while (rst1.next()) {
+                                            %>
+                                            <option value="<%= rst1.getString("tcont_id")%>"><%=rst1.getString("tcont_nombre")%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row col-12 col-xs-12 col-sm-12 col-md-12 mb-2">
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Inicio:</label>
+                                        <input type="text" class="form-control" name="fechaIIntegrante" id="fechaIIntegrante" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="recipient-name" class="col-form-label">Fecha Fin:</label>
+                                        <input type="text" class="form-control" name="fechaFIntegrante" id="fechaFIntegrante" readonly>
+                                    </div>
+                                </div>
+                                <div class="row col-10 col-xs-10 col-sm-10 col-md-10 mb-1 justify-content-center text-center">
+                                    <div class="row col-4 justify-content-center p-0 m-0">
+                                        <button type="button" class="btn bton" id="ingresarIntegrantes">GUARDAR</button>
+                                    </div>
+                                    <div class="row col-4 justify-content-center p-0 m-0">
+                                        <button type="button" class="btn bton" id="limpiarIntegrantes">LIMPIAR</button>
+                                    </div>
+                                    <div class="row col-4 justify-content-center p-0 m-0">
+                                        <button type="button" class="btn bton" id="cancelarIntegrantes">CANCELAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="alertProyecto">
+                            </div>
+                            <table class="table-hover table-striped" style="width: 100%">
+                                <thead class="table-azul" style="font-size: 0.85em">
+                                    <tr>
+                                        <th class="text-center align-middle">CÉDULA</th>
+                                        <th class="text-center align-middle">NOMBRE</th>
+                                        <th class="text-center align-middle">CARGO</th>
+                                        <th class="text-center align-middle">SEXO</th>
+                                        <th class="text-center align-middle">TIPO CONTRATO</th>
+                                        <th class="text-center align-middle">FECHA INICIO</th>
+                                        <th class="text-center align-middle">FECHA FIN</th>
+                                        <th class="text-center align-middle"><i class="fas fa-times"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaintegrantes" style="font-size: 0.73em"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bton" data-dismiss="modal">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%@include file="plantillas/header.jsp" %> 
         <div class="container-fluid p-0 main">
             <div class="row mt-3">
@@ -201,7 +298,7 @@
                                         <select class="selectpicker col-10 col-xs-10 col-md-8 d-none" data-live-search="true" multiple data-selected-text-format="count > 6" id="mul-mod" name="mul-mod">
                                             <option value="0">Ninguno</option>
                                             <%
-                                                ResultSet rs2 = adAreaGestion.listaAreaGestionMulti();
+                                                ResultSet rs2 = adAreaGestion.listaAreaGestionMulti(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>
@@ -329,7 +426,8 @@
                             </div>  
                             <%}%>
                         </form>
-                        <div class="form-row d-flex justify-content-center mt-3">                                
+                        <div class="form-row d-flex justify-content-center mt-3">      
+                            <button class="btn bton" id="btn-integrantes">INTEGRANTES</button>
                             <button class="btn bton" id="btn_proyecto_enviar" data-toggle="modal" data-target="#enviarModal">ENVIAR</button>
                             <a href="pProyectoPlan.jsp?id=<%=request.getParameter("id")%>" class="btn bton mr-3" id="btn_proyecto_planificado">PLANIFICADO</a>
                             <form method="POST" action="../controladorReportePDF" target="_blank">
@@ -2069,7 +2167,9 @@
         <!--<script src="../javascript/jsPerspObjetivo.js" type="text/javascript"></script>-->
         <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
         <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="../js/moment.min.js" type="text/javascript"></script>
         <script src="../js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="../javascript/jsProyectoCompletoLRep.js"></script>
+        <script src="../javascript/jsCentralizada.js"></script>
     </body>
 </html>

@@ -6,6 +6,8 @@ if (ag === '68') {
     estado = 30;
 } else if (ag === '60') {
     estado = 29;
+} else if (ag === '105') {
+    estado = 29;
 }
 var groupColumn = 0;
 var t = $('#example').DataTable({
@@ -42,7 +44,7 @@ function listaSolicitud(t) {
     $.ajax({
         url: "../solicitud?accion=ListaSolicitudesUnif",
         type: 'POST',
-        data: {area: $('#areaPadre').val(), anio:$('#selectanio').val()},
+        data: {area: $('#areaPadre').val(), anio: $('#selectanio').val()},
         dataType: 'json'
     })
             .done(function (response) {
@@ -62,7 +64,7 @@ function listaSolicitud(t) {
                     if (this.solicitud_codigo == null || this.solicitud_codigo === "undefined") {
                         codigo = '----';
                     } else {
-                        codigo = this.solicitud_codigo + '-UCP-'+$('#selectanio').val();
+                        codigo = this.solicitud_codigo + '-UCP-' + $('#selectanio').val();
                     }
                     var div;
                     if (this.solicitud_estado === 0 || this.solicitud_estado === 19) {
@@ -71,7 +73,7 @@ function listaSolicitud(t) {
                         <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '"><i class="far fa-calendar-alt"></i></a>';
                     } else if (this.solicitud_estado === 31 || this.solicitud_estado === 37 || this.solicitud_estado === 38) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-cedula="' + this.solicitud_cedula + '" data-nombre="' + this.solicitud_nombre + '" data-cargo="' + this.solicitud_cargo + '"><i class="fas fa-eye"></i></a>\n\
-                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '"><i class="far fa-calendar-alt"></i></a><form method="POST" action="../controladorReportePDF" id="FrmDescargarJust' + this.solicitud_id + '" class="instructivos_archivos_icono" target="_blank" style="margin:0; padding:0;" onclick="activarPDF(' + this.solicitud_id + ');"><input type="hidden" value="reporteJustificativoUni" name="accion"><input type="hidden" name="idjustificativo" id="idjustificativo" value="' + this.solicitud_id + '"><input type="hidden" name="idestadojust" id="idestadojust" value="' + this.solicitud_estado + '"><input type="hidden" name="anioid" id="anioid" value="'+$('#selectanio').val()+'"><a href="#" title="Descargar Justificativo" class="icon_sol" id="descargarJust" data-sol="' + this.solicitud_id + '"><i class="fas fa-file-download"></i></a></form>';
+                        <a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '"><i class="far fa-calendar-alt"></i></a><form method="POST" action="../controladorReportePDF" id="FrmDescargarJust' + this.solicitud_id + '" class="instructivos_archivos_icono" target="_blank" style="margin:0; padding:0;" onclick="activarPDF(' + this.solicitud_id + ');"><input type="hidden" value="reporteJustificativoUni" name="accion"><input type="hidden" name="idjustificativo" id="idjustificativo" value="' + this.solicitud_id + '"><input type="hidden" name="idestadojust" id="idestadojust" value="' + this.solicitud_estado + '"><input type="hidden" name="anioid" id="anioid" value="' + $('#selectanio').val() + '"><a href="#" title="Descargar Justificativo" class="icon_sol" id="descargarJust" data-sol="' + this.solicitud_id + '"><i class="fas fa-file-download"></i></a></form>';
                     } else if (this.solicitud_estado === 33 || this.solicitud_estado === 35) {
                         div = '<a href="#" title="Visualizar el Justificativo" class="icon_sol" id="visualReq" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-cedula="' + this.solicitud_cedula + '" data-nombre="' + this.solicitud_nombre + '" data-cargo="' + this.solicitud_cargo + '"><i class="fas fa-eye"></i></a>\n\
                         <a href="#" title="Editar Justificativo" class="icon_sol" id="modJustiInfo" data-sol="' + this.solicitud_id + '" data-centro="' + this.solicitud_centro_costo + '" data-autoridades="' + this.solicitud_autoridades + '" data-autoridadesnombre="' + this.autoridades_nombre + '" data-cedula="' + this.solicitud_cedula + '" data-nombre="' + this.solicitud_nombre + '" data-cargo="' + this.solicitud_cargo + '"><i class="fas fa-pencil-alt"></i></a><a href="#" title="Listar Fechas de Envio" class="icon_sol" id="listarFechas" data-sol="' + this.solicitud_id + '"><i class="far fa-calendar-alt"></i></a><a href="#" title="Enviar justificativo" class="icon_sol" id="enviarSol" data-solicitud="' + this.solicitud_id + '" data-estado="' + this.solicitud_estado + '"><i class="fas fa-location-arrow"></i></a>';
@@ -552,14 +554,14 @@ $('#listaRequerimientosSolVis').on('click', 'tr td #mostrarReq', function () {
     $('#costounif').val(data['costo']);
     $('#unidadinp').val(data['unidad']);
     $('#listaRequerimientosUnificaReq').empty();
-    if(data['cantidad']>1){
-        tipo=2;
-    }else{
-        tipo=1;
+    if (data['cantidad'] > 1) {
+        tipo = 2;
+    } else {
+        tipo = 1;
     }
     $.ajax({
         url: "../solicitud?accion=ListaRequerimientosU",
-        data: {req: data['req'], tipo:tipo},
+        data: {req: data['req'], tipo: tipo},
         type: 'POST',
         dataType: 'json'
     })

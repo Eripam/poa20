@@ -86,6 +86,7 @@ public class cProyecto {
     private Integer integrante_tipo;
     private String integrante_tipo_nombre;
     private String integrante_tipo_contrato;
+    private Integer integrante_tcontrato;
 
     public String getProyecto_proceso() {
         return proyecto_proceso;
@@ -653,5 +654,13 @@ public class cProyecto {
 
     public void setIntegrante_tipo_contrato(String integrante_tipo_contrato) {
         this.integrante_tipo_contrato = integrante_tipo_contrato;
+    }
+
+    public Integer getIntegrante_tcontrato() {
+        return integrante_tcontrato;
+    }
+
+    public void setIntegrante_tcontrato(Integer integrante_tcontrato) {
+        this.integrante_tcontrato = integrante_tcontrato;
     }
 }

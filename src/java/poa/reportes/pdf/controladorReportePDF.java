@@ -1951,7 +1951,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultdeudas = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag), Integer.parseInt(anio));
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -2264,7 +2264,7 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     }
 
-                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id());
+                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id(), Integer.parseInt(anio));
                     if (resultareashijos.size() > 1) {
                         document.add(new Paragraph(" "));
                     }
@@ -2744,7 +2744,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultdeudas = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionHijas(Integer.parseInt(ag), 2020);
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -3058,7 +3058,7 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     }
 
-                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id());
+                    resultareashijos = accAg.obtenerAreasGestionHijas(resultareas.get(i).getAg_id(), 2020);
                     if (resultareashijos.size() > 1) {
                         document.add(new Paragraph(" "));
                     }
@@ -3540,7 +3540,7 @@ public class controladorReportePDF extends HttpServlet {
             List<cProyecto> resultPlurianual = new ArrayList<cProyecto>();
             adAreaGestion accAg = new adAreaGestion();
             adProyecto aComp = new adProyecto();
-            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
 
             Font fuente = new Font();
             fuente.setSize(10);
@@ -3553,7 +3553,6 @@ public class controladorReportePDF extends HttpServlet {
             BaseColor azul = WebColors.getRGBColor("#133351");
             double totalfacultad = 0, totalpluri = 0;
             int taca = 0, tinv = 0, tvin = 0, tges = 0;
-            int an = Integer.parseInt(anio) + 1;
             for (int i = 0; i < resultareas.size(); i++) {
                 resultproyectos = aComp.ListaProyectoPOA(resultareas.get(i).getAg_id(), Integer.parseInt(anio));
                 if (resultproyectos.size() > 0) {
@@ -3876,7 +3875,7 @@ public class controladorReportePDF extends HttpServlet {
                 tablePlu.setLockedWidth(true);
                 PdfPCell cell;
 
-                cell = new PdfPCell(new Paragraph("PLANIFICACIÓN PLURIANUAL " + an + " - " + alias, fuentetexto));
+                cell = new PdfPCell(new Paragraph("PLANIFICACIÓN PLURIANUAL - " + alias, fuentetexto));
                 cell.setPadding(5);
                 cell.setColspan(4);
                 cell.setBackgroundColor(azul);
@@ -3913,7 +3912,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tablePlu.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("MONTO " + an, fuentetexto));
+                cell = new PdfPCell(new Paragraph("MONTO PLURIANUAL", fuentetexto));
                 cell.setPadding(5);
                 cell.setBackgroundColor(azul);
                 cell.setBorderWidthRight(1);
@@ -3942,20 +3941,20 @@ public class controladorReportePDF extends HttpServlet {
                     cell.setVerticalAlignment(Element.ALIGN_CENTER);
                     tablePlu.addCell(cell);
 
-                    cell = new PdfPCell(new Paragraph("$" + formateador.format(aComp.montoproyectoPluri(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), 2020)), fuente3));
+                    cell = new PdfPCell(new Paragraph("$" + formateador.format(aComp.montoproyectoPluri(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), Integer.parseInt(anio))), fuente3));
                     cell.setBackgroundColor(BaseColor.WHITE);
                     cell.setPadding(3);
                     cell.setBorderWidth(1);
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     tablePlu.addCell(cell);
 
-                    cell = new PdfPCell(new Paragraph("$" + formateador.format(aComp.montoproyectoPluri(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), 2021)), fuente3));
+                    cell = new PdfPCell(new Paragraph("$" + formateador.format(aComp.montoproyectoPlurianual(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), Integer.parseInt(anio))), fuente3));
                     cell.setBackgroundColor(BaseColor.WHITE);
                     cell.setPadding(3);
                     cell.setBorderWidth(1);
                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                     tablePlu.addCell(cell);
-                    totalpluri += aComp.montoproyectoPluri(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), 2021);
+                    totalpluri += aComp.montoproyectoPlurianual(Integer.parseInt(ag), resultPlurianual.get(rd).getProyecto_id(), Integer.parseInt(anio));
 
                     cell = new PdfPCell(new Paragraph("$" + formateador.format(resultPlurianual.get(rd).getProyecto_monto()), fuente3));
                     cell.setBackgroundColor(BaseColor.WHITE);
@@ -3982,7 +3981,7 @@ public class controladorReportePDF extends HttpServlet {
             cell.setBorderColorBottom(BaseColor.WHITE);
             tableTot.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("TOTAL PROYECTO PLURIANUAL " + an + " - " + alias, fuentetexto));
+            cell = new PdfPCell(new Paragraph("TOTAL PLURIANUAL - " + alias, fuentetexto));
             cell.setPadding(5);
             cell.setBackgroundColor(azul);
             cell.setBorderWidthRight(1);
@@ -3990,7 +3989,7 @@ public class controladorReportePDF extends HttpServlet {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             tableTot.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("TOTAL POA " + anio + "-" + an + " - " + alias, fuentetexto));
+            cell = new PdfPCell(new Paragraph("TOTAL POA " + anio + " - " + alias, fuentetexto));
             cell.setPadding(5);
             cell.setBackgroundColor(azul);
             cell.setBorderWidthRight(1);
@@ -4238,18 +4237,18 @@ public class controladorReportePDF extends HttpServlet {
                 if (cuatrimestre.equals("0")) {
                     if (sarea.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
                 } else {
                     if (sarea.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
                 }
 
@@ -4767,18 +4766,18 @@ public class controladorReportePDF extends HttpServlet {
                     if (cuatrimestre.equals("0")) {
                         if (sarea.equals("0")) {
                             resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), oe, Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                         } else {
                             resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), oe, Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                         }
                     } else {
                         if (sarea.equals("0")) {
                             resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(ag), oe, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(ag), Integer.parseInt(anio));
                         } else {
                             resultunidades = aComp.ListaProyectoPOAEval(Integer.parseInt(sarea), oe, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                            resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                         }
                     }
 
@@ -4813,17 +4812,14 @@ public class controladorReportePDF extends HttpServlet {
                         document.add(new Paragraph(" "));
 
                         PdfPTable tablef;
-                        if ((cuatrimestre.equals("3") && anio.equals("2020")) || (anio.equals("2021") && !cuatrimestre.equals("0"))) {
-                            tablef = new PdfPTable(9);
-                            tablef.setTotalWidth(new float[]{140, 70, 70, 70, 70, 70, 70, 70, 70});
-                            tablef.setLockedWidth(true);
-                        } else if (cuatrimestre.equals("0")) {
+                       
+                        if (cuatrimestre.equals("0")) {
                             tablef = new PdfPTable(8);
                             tablef.setTotalWidth(new float[]{170, 80, 70, 70, 70, 70, 80, 80});
                             tablef.setLockedWidth(true);
                         } else {
-                            tablef = new PdfPTable(5);
-                            tablef.setTotalWidth(new float[]{230, 115, 115, 120, 120});
+                             tablef = new PdfPTable(9);
+                            tablef.setTotalWidth(new float[]{140, 70, 70, 70, 70, 70, 70, 70, 70});
                             tablef.setLockedWidth(true);
                         }
 
@@ -4870,7 +4866,6 @@ public class controladorReportePDF extends HttpServlet {
                         cell.setBorderColorBottom(BaseColor.WHITE);
                         tablef.addCell(cell);
 
-                        if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                             cell = new PdfPCell(new Paragraph("EFICIENCIA", fuentetitulo));
                             cell.setBackgroundColor(azul);
                             cell.setPadding(5);
@@ -4902,7 +4897,6 @@ public class controladorReportePDF extends HttpServlet {
                             cell.setBorderWidthBottom(1);
                             cell.setBorderColorBottom(BaseColor.WHITE);
                             tablef.addCell(cell);
-                        }
 
                         double tefi = 0, tefic = 0, tefe = 0, teje = 0, tmplan = 0;
                         int tplan = 0, tcuat = 0, teval = 0, sum = 0;
@@ -5065,7 +5059,6 @@ public class controladorReportePDF extends HttpServlet {
                                     tablef.addCell(cell);
                                     tefi += resultunidades.get(j).getPe_eficacia();
 
-                                    if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                         if (resultunidades.get(j).getProyecto_plurianual() > 0) {
                                             cell = new PdfPCell(new Paragraph(formateador.format(resultunidades.get(j).getPe_eficiencia()) + "%", fuente3));
                                         } else {
@@ -5109,7 +5102,6 @@ public class controladorReportePDF extends HttpServlet {
                                         cell.setVerticalAlignment(Element.ALIGN_CENTER);
                                         tablef.addCell(cell);
                                         teje += resultunidades.get(j).getPe_ejecucion();
-                                    }
                                 }
                             }
                         } else {
@@ -5167,7 +5159,7 @@ public class controladorReportePDF extends HttpServlet {
                                 tablef.addCell(cell);
                                 tefi += resultunidades.get(j).getPe_eficacia();
 
-                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+                               // if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                     if (resultunidades.get(j).getProyecto_plurianual() > 0) {
                                         cell = new PdfPCell(new Paragraph(formateador.format(resultunidades.get(j).getPe_eficiencia()) + "%", fuente3));
                                     } else {
@@ -5211,7 +5203,7 @@ public class controladorReportePDF extends HttpServlet {
                                     cell.setVerticalAlignment(Element.ALIGN_CENTER);
                                     tablef.addCell(cell);
                                     teje += resultunidades.get(j).getPe_ejecucion();
-                                }
+                                //}
                             }
                         }
                         cell = new PdfPCell(new Paragraph("TOTAL", fuentetitulo));
@@ -5271,7 +5263,7 @@ public class controladorReportePDF extends HttpServlet {
                         cell.setVerticalAlignment(Element.ALIGN_CENTER);
                         tablef.addCell(cell);
 
-                        if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+                        //if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                             cell = new PdfPCell(new Paragraph(formateador.format(efict.doubleValue()) + "%", fuente3));
                             cell.setBackgroundColor(BaseColor.WHITE);
                             cell.setPadding(3);
@@ -5303,7 +5295,7 @@ public class controladorReportePDF extends HttpServlet {
                             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                             cell.setVerticalAlignment(Element.ALIGN_CENTER);
                             tablef.addCell(cell);
-                        }
+                        //}
 
                         if (oe == 1) {
                             tpplan1 = tplan;
@@ -6275,15 +6267,15 @@ public class controladorReportePDF extends HttpServlet {
                                 document.add(new Paragraph(" "));
 
                                 PdfPTable tablef;
-                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+//                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                     tablef = new PdfPTable(9);
                                     tablef.setTotalWidth(new float[]{80, 120, 70, 70, 70, 70, 70, 70, 70});
                                     tablef.setLockedWidth(true);
-                                } else {
-                                    tablef = new PdfPTable(5);
-                                    tablef.setTotalWidth(new float[]{170, 235, 100, 100, 85});
-                                    tablef.setLockedWidth(true);
-                                }
+//                                } else {
+//                                    tablef = new PdfPTable(5);
+//                                    tablef.setTotalWidth(new float[]{170, 235, 100, 100, 85});
+//                                    tablef.setLockedWidth(true);
+//                                }
                                 PdfPCell cell;
 
                                 cell = new PdfPCell(new Paragraph("CÓDIGO", fuentetexto));
@@ -6319,7 +6311,7 @@ public class controladorReportePDF extends HttpServlet {
                                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                                 tablef.addCell(cell);
 
-                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+//                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                     cell = new PdfPCell(new Paragraph("EFICIENCIA", fuentetexto));
                                     cell.setPadding(5);
                                     cell.setBackgroundColor(azul);
@@ -6351,7 +6343,7 @@ public class controladorReportePDF extends HttpServlet {
                                     cell.setBorderColorRight(BaseColor.WHITE);
                                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                                     tablef.addCell(cell);
-                                }
+//                                }
 
                                 cell = new PdfPCell(new Paragraph("OBSERVACIÓN", fuentetexto));
                                 cell.setPadding(5);
@@ -6487,7 +6479,7 @@ public class controladorReportePDF extends HttpServlet {
                                 BigDecimal efec = BigDecimal.valueOf(totalefe);
                                 efec = efec.setScale(2, RoundingMode.HALF_UP);
 
-                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+//                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                     if (tot == 0) {
                                         cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
                                     } else {
@@ -6540,20 +6532,20 @@ public class controladorReportePDF extends HttpServlet {
                                     cell.setPadding(3);
                                     cell.setColspan(2);
                                     tablef.addCell(cell);
-                                } else {
-                                    if (tot == 0) {
-                                        cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
-                                    } else {
-                                        cell = new PdfPCell(new Paragraph(formateador.format(efit.doubleValue() / tot) + "%", fuente3));
-                                    }
-                                    cell.setBackgroundColor(BaseColor.WHITE);
-                                    cell.setBorderWidth(1);
-                                    cell.setColspan(2);
-                                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                    cell.setVerticalAlignment(Element.ALIGN_CENTER);
-                                    cell.setPadding(3);
-                                    tablef.addCell(cell);
-                                }
+//                                } else {
+//                                    if (tot == 0) {
+//                                        cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
+//                                    } else {
+//                                        cell = new PdfPCell(new Paragraph(formateador.format(efit.doubleValue() / tot) + "%", fuente3));
+//                                    }
+//                                    cell.setBackgroundColor(BaseColor.WHITE);
+//                                    cell.setBorderWidth(1);
+//                                    cell.setColspan(2);
+//                                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                                    cell.setVerticalAlignment(Element.ALIGN_CENTER);
+//                                    cell.setPadding(3);
+//                                    tablef.addCell(cell);
+//                                }
                                 document.add(tablef);
                                 document.add(new Paragraph(" "));
                             }
@@ -7009,7 +7001,7 @@ public class controladorReportePDF extends HttpServlet {
                                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                                 tablef.addCell(cell);
 
-                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+//                                if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                     if (resultproyectos.get(j).getPe_eficacia() > -1) {
                                         cell = new PdfPCell(new Paragraph(formateador.format(resultproyectos.get(j).getPe_eficiencia()) + "%", fuente3));
                                         totalefi += resultproyectos.get(j).getPe_eficiencia();
@@ -7057,7 +7049,7 @@ public class controladorReportePDF extends HttpServlet {
                                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                                     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                                     tablef.addCell(cell);
-                                }
+//                                }
 
                                 if (resultproyectos.get(j).getPe_eficacia() > -1) {
                                     cell = new PdfPCell(new Paragraph("--", fuente3));
@@ -7096,7 +7088,7 @@ public class controladorReportePDF extends HttpServlet {
                             BigDecimal efec = BigDecimal.valueOf(totalefe);
                             efec = efec.setScale(2, RoundingMode.HALF_UP);
 
-                            if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
+//                            if (cuatrimestre.equals("3") || cuatrimestre.equals("0") || anio.equals("2021")) {
                                 if (tot == 0) {
                                     cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
                                 } else {
@@ -7149,20 +7141,20 @@ public class controladorReportePDF extends HttpServlet {
                                 cell.setPadding(3);
                                 cell.setColspan(2);
                                 tablef.addCell(cell);
-                            } else {
-                                if (tot == 0) {
-                                    cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
-                                } else {
-                                    cell = new PdfPCell(new Paragraph(formateador.format(efit.doubleValue() / tot) + "%", fuente3));
-                                }
-                                cell.setBackgroundColor(BaseColor.WHITE);
-                                cell.setBorderWidth(1);
-                                cell.setColspan(2);
-                                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                                cell.setVerticalAlignment(Element.ALIGN_CENTER);
-                                cell.setPadding(3);
-                                tablef.addCell(cell);
-                            }
+//                            } else {
+//                                if (tot == 0) {
+//                                    cell = new PdfPCell(new Paragraph(formateador.format(efit) + "%", fuente3));
+//                                } else {
+//                                    cell = new PdfPCell(new Paragraph(formateador.format(efit.doubleValue() / tot) + "%", fuente3));
+//                                }
+//                                cell.setBackgroundColor(BaseColor.WHITE);
+//                                cell.setBorderWidth(1);
+//                                cell.setColspan(2);
+//                                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                                cell.setVerticalAlignment(Element.ALIGN_CENTER);
+//                                cell.setPadding(3);
+//                                tablef.addCell(cell);
+//                            }
                             document.add(tablef);
                             document.add(new Paragraph(" "));
                         }
@@ -7268,7 +7260,7 @@ public class controladorReportePDF extends HttpServlet {
             if (sarea.equals("0")) {
                 nombre = request.getParameter("agnombrepoa");
             } else {
-                resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 nombre = resultareas.get(0).getAg_nombre();
             }
             String titulo;
@@ -7327,10 +7319,10 @@ public class controladorReportePDF extends HttpServlet {
             if (anio.equals("2020")) {
                 if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && !cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                    resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                 } else if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), Integer.parseInt(tipo), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                    resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                 } else if (sarea.equals("0") && (tipousu.equals("16") || tipousu.equals("17")) && !cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(0, Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
                     if (tipousu.equals("16")) {
@@ -7347,10 +7339,10 @@ public class controladorReportePDF extends HttpServlet {
                     }
                 } else if (cuatrimestre.equals("0")) {
                     resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 } else {
                     resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(sarea), Integer.parseInt(tipo), Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                    resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 }
 
                 String tnombre;
@@ -7886,10 +7878,10 @@ public class controladorReportePDF extends HttpServlet {
                 for (int i = oeii; i <= oeif; i++) {
                     if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && !cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(ag), i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                        resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                     } else if (sarea.equals("0") && !tipousu.equals("16") && !tipousu.equals("17") && cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(ag), i, Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidadesEval();
+                        resultareas = accAg.obtenerAreasGestionUnidadesEval(Integer.parseInt(anio));
                     } else if (sarea.equals("0") && (tipousu.equals("16") || tipousu.equals("17")) && !cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(0, i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
                         if (tipousu.equals("16")) {
@@ -7906,10 +7898,10 @@ public class controladorReportePDF extends HttpServlet {
                         }
                     } else if (cuatrimestre.equals("0")) {
                         resultunidades = aComp.ListaProyectoPOAEvalAdminComp(Integer.parseInt(sarea), i, Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     } else {
                         resultunidades = aComp.ListaProyectoPOAEvalAdmin(Integer.parseInt(sarea), i, Integer.parseInt(cuatrimestre), Integer.parseInt(anio));
-                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                        resultareas = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                     }
 
                     String tnombre;
@@ -9081,7 +9073,7 @@ public class controladorReportePDF extends HttpServlet {
 
             if (sarea.equals("0")) {
                 for (int i = 0; i < resultareas.size(); i++) {
-                    resultunidadespadre = accAg.obtenerAreasGestionUnidades(resultareas.get(i).getAg_id());
+                    resultunidadespadre = accAg.obtenerAreasGestionUnidades(resultareas.get(i).getAg_id(), Integer.parseInt(anio));
                     if (anio.equals("2020")) {
                         if (resultareas.get(i).getTag_id() != 4) {
                             Chunk parte2 = new Chunk("Unidad Académica/Administrativa: " + resultareas.get(i).getAg_nombre(), fuen);
@@ -10318,7 +10310,7 @@ public class controladorReportePDF extends HttpServlet {
                     }
                 }
             } else {
-                resultunidadespadre = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea));
+                resultunidadespadre = accAg.obtenerAreasGestionUnidades(Integer.parseInt(sarea), Integer.parseInt(anio));
                 if (anio.equals("2020")) {
                     if (resultunidadespadre.get(0).getTag_id() != 4) {
                         for (int k = 0; k < resultunidadespadre.size(); k++) {
@@ -11617,14 +11609,25 @@ public class controladorReportePDF extends HttpServlet {
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String today = formatter.format(solicitudda.get(i).getSolestado_fecha());
                 String today2 = formatter.format(date);
-                cell = new PdfPCell(new Paragraph("FACULTAD/DEPARTAMENTO: " + solicitudda.get(i).getAg_nombre(), fuen));
-                cell.setColspan(6);
+
+                cell = new PdfPCell(new Paragraph("UNIDAD ACADÉMICA / ADMINISTRATIVA: ", fuen));
+                cell.setColspan(2);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Paragraph(solicitudda.get(i).getAg_nombre(), fuendatossn));
+                cell.setColspan(4);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBorderWidthBottom((float) 0.1);
+                cell.setBorderColorBottom(BaseColor.WHITE);
+                cell.setBorderWidthLeft((float) 0.1);
+                cell.setBorderColorLeft(BaseColor.WHITE);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("No: " + solicitudda.get(i).getSolicitud_codigo() + "-UCP-" + anio, fuen));
@@ -11635,12 +11638,22 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("CENTRO DE COSTO: " + solicitudda.get(i).getSolicitud_centro_costo(), fuen));
-                cell.setColspan(6);
+                cell = new PdfPCell(new Paragraph("CENTRO DE COSTO: ", fuen));
+                cell.setColspan(2);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph(solicitudda.get(i).getSolicitud_centro_costo(), fuendatossn));
+                cell.setColspan(4);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBorderWidthBottom((float) 0.1);
+                cell.setBorderColorBottom(BaseColor.WHITE);
+                cell.setBorderWidthLeft((float) 0.1);
+                cell.setBorderColorLeft(BaseColor.WHITE);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("USO EXCLUSIVO U.COMPRAS PUBLICAS", fuen2));
@@ -11745,7 +11758,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("(6) PRESUPUESTO REFERENCIAL TOTAL (1X4) (SIN IVA)", fuendatost));
+                cell = new PdfPCell(new Paragraph("(6) PRESUPUESTO REFERENCIAL TOTAL (SIN IVA)", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -11974,7 +11987,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(3);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph(solicitudda.get(i).getUsuario_cedula(), fuendatost));
+                cell = new PdfPCell(new Paragraph("CI: " + solicitudda.get(i).getUsuario_cedula(), fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthTop((float) 0.1);
@@ -12041,7 +12054,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(8);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN OPERATIVO ANUAL", fuendatost));
+                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN ANUAL DE CONTRATACIÓN", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -12055,19 +12068,18 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthRight((float) 0.1);
-                cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(6);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+                cell.setColspan(8);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("CONTROL DE TRAMITE", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
+//                cell = new PdfPCell(new Paragraph("CONTROL DE TRAMITE", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
                 cell = new PdfPCell(new Paragraph("EXISTE LO SOLICITADO EN EL PAC:", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -12104,15 +12116,24 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorTop(BaseColor.WHITE);
                 cell.setBorderWidthLeft((float) 0.1);
                 cell.setBorderColorLeft(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(4);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE INGRESO", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE INGRESO", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setBorderWidthTop((float) 0.1);
+                cell.setBorderColorTop(BaseColor.WHITE);
+                cell.setColspan(8);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12122,19 +12143,18 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(8);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -12158,6 +12178,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
+                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("_____________________________________", fuendatost));
@@ -12169,15 +12190,20 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
+                cell.setBorderWidthRight((float) 0.1);
+                cell.setBorderColorRight(BaseColor.WHITE);
                 cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBorderWidthBottom((float) 0.1);
+                cell.setBorderColorBottom(BaseColor.WHITE);
+                cell.setBorderWidthLeft((float) 0.1);
+                cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12189,7 +12215,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorRight(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(4);
+                cell.setColspan(5);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("COORDINADOR ADMINISTRATIVO DE COMPRAS PÚBLICAS", fuendatost));
@@ -12201,73 +12227,82 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorTop(BaseColor.WHITE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE SALIDA", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthRight((float) 0.1);
                 cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(4);
+                cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("CC:", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE SALIDA", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBorderWidthBottom((float) 0.1);
+                cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthLeft((float) 0.1);
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(5);
+//                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph("CC:", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthLeft((float) 0.1);
+//                cell.setBorderColorLeft(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthLeft((float) 0.1);
+//                cell.setBorderColorLeft(BaseColor.WHITE);
+//                table.addCell(cell);
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthRight((float) 0.1);
-                cell.setBorderColorRight(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(8);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
                 cell = new PdfPCell(new Paragraph("PROCESO DE CONTRATACIÓN", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -12316,7 +12351,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("SI __", fuendatos));
+                cell = new PdfPCell(new Paragraph(" ", fuendatos));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthRight((float) 0.1);
@@ -12325,7 +12360,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("NO __", fuendatos));
+                cell = new PdfPCell(new Paragraph(" ", fuendatos));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthLeft((float) 0.1);
@@ -12534,22 +12569,36 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("DIRECCIÓN DE PLANIFICACIÓN", fuendatost));
+                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN OPERATIVO ANUAL", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.LIGHT_GRAY);
-                cell.setColspan(8);
+                cell.setColspan(5);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN OPERATIVO ANUAL", fuendatost));
+                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PRESUPUESTO", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.LIGHT_GRAY);
-                cell.setColspan(8);
+                cell.setBorderWidthBottom((float) 0.1);
+                cell.setBorderColorBottom(BaseColor.LIGHT_GRAY);
+                cell.setColspan(3);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Paragraph("DIRECCIÓN DE PLANIFICACIÓN", fuendatost));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                cell.setColspan(5);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Paragraph("DIRECCIÓN DE FINANCIERA", fuendatost));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 //Planificacion
@@ -12560,7 +12609,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthRight((float) 0.1);
                 cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(3);
+                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("SI X             NO __", fuendatost));
@@ -12584,12 +12633,12 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("CONTROL DE TRAMITE", fuendatost));
+                cell = new PdfPCell(new Paragraph("Unidad de Presupuesto: Sirvase emitir la certificación presupuestaria y continué con el trámite correspondiente.", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12599,15 +12648,17 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(5);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE INGRESO", fuendatost));
+                cell = new PdfPCell(new Paragraph("", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setBorderWidthTop((float) 0.1);
+                cell.setBorderColorTop(BaseColor.WHITE);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12617,7 +12668,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(5);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12627,7 +12678,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12637,7 +12688,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(5);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12647,7 +12698,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("OEI-01 Docencia", fuendatost));
@@ -12675,7 +12726,6 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthRight((float) 0.1);
                 cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12697,7 +12747,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("OEI-02 Investigación", fuendatost));
@@ -12725,7 +12775,6 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthRight((float) 0.1);
                 cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("_____________________________________", fuendatost));
@@ -12740,12 +12789,14 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE SALIDA", fuendatost));
+                cell = new PdfPCell(new Paragraph("_____________________________________", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setBorderWidthTop((float) 0.1);
+                cell.setBorderColorTop(BaseColor.WHITE);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("OEI-03 Vinculación", fuendatost));
@@ -12773,7 +12824,6 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorLeft(BaseColor.WHITE);
                 cell.setBorderWidthRight((float) 0.1);
                 cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("DIRECTOR/A DE PLANIFICACIÓN", fuendatost));
@@ -12788,14 +12838,14 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("", fuendatost));
+                cell = new PdfPCell(new Paragraph("DIRECTOR/A FINANCIERO/A", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph("OEI-04 Gestión Administrativa", fuendatost));
@@ -12823,10 +12873,9 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorRight(BaseColor.WHITE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("CC:", fuendatost));
+                cell = new PdfPCell(new Paragraph("", fuendatost));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthTop((float) 0.1);
@@ -12845,7 +12894,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setBorderColorTop(BaseColor.WHITE);
                 cell.setBorderWidthBottom((float) 0.1);
                 cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12853,7 +12902,7 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
+                cell.setColspan(5);
                 table.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(" ", fuendatost));
@@ -12861,237 +12910,237 @@ public class controladorReportePDF extends HttpServlet {
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setBorderWidthTop((float) 0.1);
                 cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
+                cell.setColspan(3);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("DIRECCIÓN FINANCIERA", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.LIGHT_GRAY);
-                cell.setColspan(8);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN OPERATIVO ANUAL", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.LIGHT_GRAY);
-                cell.setColspan(8);
-                table.addCell(cell);
-
-                //Financiero
-                cell = new PdfPCell(new Paragraph("Unidad de Presupuesto: Sirvase emitir la certificación presupuestaria y continué con el trámite correspondiente.", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("CONTROL DE TRAMITE", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE INGRESO", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthRight((float) 0.1);
-                cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(4);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("_____________________________________", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthLeft((float) 0.1);
-                cell.setBorderColorLeft(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE SALIDA", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthRight((float) 0.1);
-                cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setColspan(4);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("DIRECTOR/A FINANCIERO/A", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthLeft((float) 0.1);
-                cell.setBorderColorLeft(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthRight((float) 0.1);
-                cell.setBorderColorRight(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(4);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("CC:", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthLeft((float) 0.1);
-                cell.setBorderColorLeft(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setBorderWidthBottom((float) 0.1);
-                cell.setBorderColorBottom(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(6);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph(" ", fuendatost));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setBorderWidthTop((float) 0.1);
-                cell.setBorderColorTop(BaseColor.WHITE);
-                cell.setColspan(2);
-                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph("DIRECCIÓN FINANCIERA", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.LIGHT_GRAY);
+//                cell.setColspan(8);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("VERIFICACIÓN PLAN OPERATIVO ANUAL", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.LIGHT_GRAY);
+//                cell.setColspan(8);
+//                table.addCell(cell);
+//
+//                //Financiero
+//                cell = new PdfPCell(new Paragraph("Unidad de Presupuesto: Sirvase emitir la certificación presupuestaria y continué con el trámite correspondiente.", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("CONTROL DE TRAMITE", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE INGRESO", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+//                cell.setColspan(4);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("_____________________________________", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthLeft((float) 0.1);
+//                cell.setBorderColorLeft(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("FIRMA Y FECHA DE SALIDA", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+//                cell.setColspan(4);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("DIRECTOR/A FINANCIERO/A", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthLeft((float) 0.1);
+//                cell.setBorderColorLeft(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthRight((float) 0.1);
+//                cell.setBorderColorRight(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(4);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph("CC:", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthLeft((float) 0.1);
+//                cell.setBorderColorLeft(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setBorderWidthBottom((float) 0.1);
+//                cell.setBorderColorBottom(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(6);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Paragraph(" ", fuendatost));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setBorderWidthTop((float) 0.1);
+//                cell.setBorderColorTop(BaseColor.WHITE);
+//                cell.setColspan(2);
+//                table.addCell(cell);
             }
 
             document.add(table);

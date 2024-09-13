@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <body>
         <%@include file="plantillas/header.jsp" %> 
-         <div class="cross-center main-center d-none" id="loader" style="background: rgba(0,0,0,.1); z-index: 1000; position: absolute; width: 100%; min-height: 100vh;">
+        <div class="cross-center main-center d-none" id="loader" style="background: rgba(0,0,0,.1); z-index: 1000; position: absolute; width: 100%; min-height: 100vh;">
             <div class="spinner-border text-info" style="width: 5rem; height: 5rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -18,6 +18,23 @@
         <div class="container-fluid p-0 main">
             <div class="row mt-6">
                 <%@include file="plantillas/menu.jsp" %> 
+                <div class="modal fade bd-example-modal-xl" id="enviarReq" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title main-center" style="color:#133351">DESACTIVAR USUARIO</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="bodyModal"></div>
+                            <div class="modal-footer">
+                                <button class="btn bton" id="modalGuardarJustEnv">GUARDAR</button>
+                                <button class="btn bton" data-dismiss="modal">CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="content col-11 container-fluid ">
                     <div class="tab-content ml-5 mr-5 pestania">
                         <p class="titulo2 mt-2">USUARIOS</p>
@@ -65,7 +82,7 @@
                                         <select class="selectpicker my-select" multiple data-width="67%" data-live-search="true" name="ag" id="ag">
                                             <%
                                                 ResultSet rs2;
-                                                rs2 = adAreaGestion.listaAreaGestionFE();
+                                                rs2 = adAreaGestion.listaAreaGestionFE(intAnio);
                                                 while (rs2.next()) {
                                             %>
                                             <option title="<%=rs2.getString("ag_alias")%>" value="<%= rs2.getString("ag_id")%>"><%=rs2.getString("ag_nombre")%></option>

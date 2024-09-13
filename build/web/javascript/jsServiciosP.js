@@ -81,15 +81,15 @@ function listaServiciosP() {
                             } else if (sp.actividad_id === 1) {
                                 tipo = 'HORAS CLASE';
                             }
-                            
-                            if(sp.solicitud_codigo=='undefined' || sp.solicitud_codigo==null){
-                                solicitud='----';
-                            }else{
-                                solicitud=sp.solicitud_codigo+'-STP-'+$('#selectanio').val();
+
+                            if (sp.solicitud_codigo == 'undefined' || sp.solicitud_codigo == null) {
+                                solicitud = '----';
+                            } else {
+                                solicitud = sp.solicitud_codigo + '-STP-' + $('#selectanio').val();
                             }
 
                             if (sp.solicitud_estado !== 1 && sp.solicitud_estado !== 32) {
-                                div = '<i class="fas fa-edit" id="modserv" data-req="' + req + '" data-id="' + sp.req_id + '" data-tipo="' + sp.actividad_id + '" data-cedula="' + sp.solicitud_cedula + '" data-horas="' + sp.n_horas + '" data-total="' + sp.req_costo_total + '" data-fi="' + sp.fecha_inicio + '" data-ff="' + sp.fecha_fin + '" data-cantidad="' + sp.cantidad + '" data-cargo="' + sp.actividad_nombre + '" data-nombre="' + sp.req_nombre + '" data-apellido="' + sp.req_descripcion + '" data-observacion="' + sp.solestado_observacion + '" data-cedest="' + sp.autoridades_cedula + '" data-nombreest="' + sp.autoridades_nombre + '" data-apellidoest="' + sp.autoridades_cargo + '" data-siniva="'+sp.req_costo_sin_iva+'"></i><i class="fas fa-trash" id="elimserv" data-id="' + sp.req_id + '"></i>';
+                                div = '<i class="fas fa-edit" id="modserv" data-req="' + req + '" data-id="' + sp.req_id + '" data-tipo="' + sp.actividad_id + '" data-cedula="' + sp.solicitud_cedula + '" data-horas="' + sp.n_horas + '" data-total="' + sp.req_costo_total + '" data-fi="' + sp.fecha_inicio + '" data-ff="' + sp.fecha_fin + '" data-cantidad="' + sp.cantidad + '" data-cargo="' + sp.actividad_nombre + '" data-nombre="' + sp.req_nombre + '" data-apellido="' + sp.req_descripcion + '" data-observacion="' + sp.solestado_observacion + '" data-cedest="' + sp.autoridades_cedula + '" data-nombreest="' + sp.autoridades_nombre + '" data-apellidoest="' + sp.autoridades_cargo + '" data-siniva="' + sp.req_costo_sin_iva + '"></i><i class="fas fa-trash" id="elimserv" data-id="' + sp.req_id + '"></i>';
                             } else {
                                 div = sp.estado_nombre;
                             }
@@ -136,7 +136,7 @@ $('#example').on('click', 'div div #agregarS', function () {
     $('select[name=rectoring]').val('0');
     $('#cargo').val('');
     banservicios = true;
-    if (data['req'] != 10151 && data['req'] != 10143 && data['req'] != 14994 && data['req'] != 14995 && data['req'] != 14996 && data['req']!=19979 && data['req']!=21485) {
+    if (data['req'] != 10151 && data['req'] != 10143 && data['req'] != 14994 && data['req'] != 14995 && data['req'] != 14996 && data['req'] != 19979 && data['req'] != 21485 && data['req'] != 29055 && data['req'] != 30225 && data['req'] != 30229 && data['req'] != 36271) {
         $('#fechainicio').datepicker("destroy");
         $('#fechafin').datepicker("destroy");
         listaFechaActual();

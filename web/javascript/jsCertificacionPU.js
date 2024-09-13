@@ -146,9 +146,34 @@ $('#listaServicios').on('click', '.encabezado .encabezado .estilobody #modificar
     $('#valorcp').val(data['valor']);
     $('#rectoring').find('option[value="' + data['tc'] + '"]').remove();
     $('#rectoring').append('<option value="' + data['tc'] + '" selected="selected">' + data['tcnombre'] + '</option>');
+    if (data['tc'] == "1") {
+        $('#recurrenteDiv').removeClass('d-none');
+    } else {
+        $('#recurrenteDiv').addClass('d-none');
+    }
+    if (data['rec'] == "1") {
+        $('[name="recurrenteCert"][value="' + data['rec'] + '"]').prop("checked", true);
+    } else {
+        $('[name="recurrenteCert"][value="0"]').prop("checked", true);
+    }
+    if (data['liquidacion'] == "1") {
+        $('[name="liquCert"][value="1"]').prop("checked", true);
+    } else {
+        $('[name="liquCert"][value="0"]').prop("checked", true);
+    }
+    if (data['fecha'] == null || data['fecha'] == 'undefined') {
+        $('#fechain').val('');
+    } else {
+        $('#fechain').val(data['fecha']);
+    }
     $('#rectoring').selectpicker('refresh');
     $('#codigoivaCP').addClass('d-none');
     $('#montoIvaCP').addClass('d-none');
+    if (data['obs'] == "Sin observación") {
+        $('#txtobservacion').val('');
+    } else {
+        $('#txtobservacion').val(data['obs']);
+    }
     $('#fechain').val(data['fecha']);
     $('#generarCP').modal();
     banservicios = false;

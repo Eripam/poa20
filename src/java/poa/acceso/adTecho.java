@@ -185,7 +185,12 @@ public class adTecho {
     //Listar Area gestion
     public List<cTecho> listarAreaGestionTecho(Integer area, Integer anio) {
         List<cTecho> result = new ArrayList<cTecho>();
-        String SQL = "SELECT distinct(ag_id) ag_id, ag_nombre FROM public.techo inner join area_gestion on techo_ag=ag_id and are_ag_id=" + area + " order by ag_id;";
+        String SQL;
+        if (area == 1 && anio>2023) {
+            SQL = "SELECT distinct(ag_id) ag_id, ag_nombre FROM public.techo inner join area_gestion on techo_ag=ag_id and (ag_tag=2 or ag_tag=4 or ag_tag=5) and techo_ti_fecha='"+anio+"' and  ag_estado=1 order by ag_id;";
+        } else {
+            SQL = "SELECT distinct(ag_id) ag_id, ag_nombre FROM public.techo inner join area_gestion on techo_ag=ag_id and are_ag_id=" + area + " order by ag_id;";
+        }
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -387,8 +392,10 @@ public class adTecho {
             SQL = "SELECT * FROM public.vpresupuesto2";
         } else if (anio == 2022) {
             SQL = "SELECT * FROM public.vpresupuesto3";
-        } else {
+        } else if (anio == 2023) {
             SQL = "SELECT * FROM public.vpresupuesto4";
+        } else {
+            SQL = "SELECT * FROM public.vpresupuesto5";
         }
         try {
             // Crear un AccesoDatos
@@ -519,9 +526,9 @@ public class adTecho {
             SQL = "select sum(sum) from(select sum(req_costototal) from f_listarequerimientosexcel23() where presupuestoprograma like '" + tipo + "' and (reqanio=" + anio + " or reqanio is null) union all \n"
                     + "SELECT sum(deudasmonto) FROM vdeudasmatriz23 where presupuestoprograma like '" + tipo + "' and presupuestofuente not like '998') as con";
         } else {
-            SQL = "select sum(sum) from(select sum(req_costototal) from f_listarequerimientosexcel23() where presupuestoprograma like '" + tipo + "' and (reqanio=" + anio + " or reqanio is null) union all \n"
-                    + "SELECT sum(deudasmonto) FROM vdeudasmatriz23 where presupuestoprograma like '" + tipo + "' and presupuestofuente not like '998') as con";
-        }
+            SQL = "select sum(sum) from(select sum(req_costototal) from f_listarequerimientosexcel24() where presupuestoprograma like '" + tipo + "' and (reqanio=" + anio + " or reqanio is null) union all \n"
+                    + "SELECT sum(deudasmonto) FROM vdeudasmatriz24 where presupuestoprograma like '" + tipo + "' and presupuestofuente not like '998') as con";
+        }         
         try {
             // Crear un AccesoDatos
             cAccesoDatos ad = new cAccesoDatos();
@@ -710,8 +717,10 @@ public class adTecho {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar21 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar21 as vs where reqanio>'" + anio + "'";
         } else if (anio == 2022) {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar22 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar22 as vs where reqanio>'" + anio + "'";
-        } else {
+        } else if (anio == 2023) {
             SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar23 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar23 as vs where reqanio>'" + anio + "'";
+        } else {
+            SQL = "select distinct on(vs.agid) agid, vs.agnombre_i, (select sum(req_costototal) from vsalvaguardar24 where reqanio>'" + anio + "' and agid=vs.agid) from vsalvaguardar24 as vs where reqanio>'" + anio + "'";
         }
         try {
             // Crear un AccesoDatos
@@ -852,8 +861,20 @@ public class adTecho {
                         + "           FROM vdeudasmatriz23\n"
                         + "          WHERE vdeudasmatriz23.presupuestofuente::text ~~ '998'::text";
             }
-        }else{
-            SQL="";
+        } else {
+            if (tipo == 1) {
+                SQL = " SELECT sum(vdeudasmatriz24.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz24\n"
+                        + "          WHERE vdeudasmatriz24.presupuestofuente::text !~~ '998'::text and tipo like 'OBLIGACIONES PENDIENTES';";
+            } else if (tipo == 2) {
+                SQL = "SELECT sum(vdeudasmatriz24.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz24\n"
+                        + "          WHERE vdeudasmatriz24.presupuestofuente::text !~~ '998'::text and tipo like 'COMPROMETIDOS';";
+            } else {
+                SQL = "SELECT sum(vdeudasmatriz24.deudasmonto) AS sum\n"
+                        + "           FROM vdeudasmatriz24\n"
+                        + "          WHERE vdeudasmatriz24.presupuestofuente::text ~~ '998'::text";
+            }
         }
         try {
             cAccesoDatos ad = new cAccesoDatos();

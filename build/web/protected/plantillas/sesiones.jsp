@@ -11,6 +11,7 @@
     String strNombreTipoAreaGestion = null;
     String strCedulaUsuario = null;
     Integer intAnio = null;
+    Integer intAgEstado= null;
     //ArrayList<cLogin> tipos = null;
     if (sesionOk == null) {
         response.sendRedirect("../index.jsp");
@@ -26,6 +27,7 @@
         strNombreTipoAreaGestion = (String) sesionOk.getAttribute("nombreTipoAreaGestion");
         strCedulaUsuario = (String) sesionOk.getAttribute("cedulaUsuario");
         intAnio = (Integer) sesionOk.getAttribute("anioplan");
+        intAgEstado = (Integer) sesionOk.getAttribute("agestado");
                 
         sesionOk.setAttribute("idTipoUsuario", intIdTipoUsuario);
         sesionOk.setAttribute("nombreTipoUsuario", strNombreTipoUsuario);
@@ -36,5 +38,6 @@
         sesionOk.setAttribute("nombreTipoAreaGestion", strNombreTipoAreaGestion);
         sesionOk.setAttribute("cedulaUsuario", strCedulaUsuario);
         sesionOk.setAttribute("anioplan", intAnio);
+        sesionOk.setAttribute("agestado", intAgEstado);
     }
 %>

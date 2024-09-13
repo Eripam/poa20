@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -233,6 +236,9 @@ public class servProyecto extends HttpServlet {
                     break;
                 case "EliminarIntegrantes":
                     EliminarIntegrantes(request, response, intIdAreaGestion, strCedula);
+                    break;
+                case "EliminarIntegrantesM":
+                    EliminarIntegrantesM(request, response, intIdAreaGestion, strCedula);
                     break;
             }
         }
@@ -472,18 +478,18 @@ public class servProyecto extends HttpServlet {
         adProyecto aProy = new adProyecto();
 
         oProy.setProyecto_id(Integer.parseInt(proyecto));
-        if (tipointegrante.equals("3")) {
+        if (tipointegrante.equals("6")) {
             oProy.setProyecto_responsable_ced(cedulaIn);
             oProy.setIntegrante_sexo(sexo);
             oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
-            oProy.setIntegrante_tipo_contrato(tipocontrato);
+            oProy.setIntegrante_tcontrato(Integer.parseInt(tipocontrato));
             oProy.setProyecto_integrantes(nombres);
         } else {
             oUsu = adVin.obtenerPersonasCedula(cedulaIn);
             oProy.setProyecto_integrantes(oUsu.getPer_completos());
             oProy.setProyecto_responsable_ced(cedulaIn);
-             oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
-            oProy.setIntegrante_tipo_contrato(tipocontrato);
+            oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
+            oProy.setIntegrante_tcontrato(Integer.parseInt(tipocontrato));
             oProy.setIntegrante_sexo(oUsu.getSexo());
         }
         if (cedulaIn.isEmpty()) {
@@ -524,6 +530,50 @@ public class servProyecto extends HttpServlet {
             objTransaccion.setTransaccion_ag(intIdAreaGestion);
             objTransaccion.setTransaccion_tipo(1);
             objTransaccion.setTransaccion_descripcion("El integrante: \"" + integrante + "\" se eliminó correctamente en el proyecto  \"" + proyecto + "\".");
+            ingresarTransaccion(objTransaccion);
+        }
+        String json = new Gson().toJson(result);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void EliminarIntegrantesM(HttpServletRequest request, HttpServletResponse response, Integer intIdAreaGestion, String strCedula) throws IOException, ServletException {
+        String proyecto = request.getParameter("proyecto");
+        String cedulaIn = request.getParameter("cedula");
+        String tipocontrato = request.getParameter("tipocontrato");
+        String tipointegrante = request.getParameter("tipoin");
+        String nombres = request.getParameter("nombre");
+        String sexo = request.getParameter("sexo");
+        String fechai = request.getParameter("fechai");
+        String fechaf = request.getParameter("fechaf");
+        String codigo = request.getParameter("id");
+        String result = "";
+        adProyecto aProy = new adProyecto();
+        cProyecto oProy = new cProyecto();
+
+        oProy.setProyecto_id(Integer.parseInt(proyecto));
+        oProy.setProyecto_responsable_ced(cedulaIn);
+        oProy.setIntegrante_sexo(sexo);
+        oProy.setIntegrante_tipo(Integer.parseInt(tipointegrante));
+        oProy.setIntegrante_tcontrato(Integer.parseInt(tipocontrato));
+        oProy.setProyecto_integrantes(nombres);
+        oProy.setProyecto_responsable(strCedula);
+        oProy.setProyecto_fi(fechai);
+        oProy.setProyecto_ff(fechaf);
+
+        result = aProy.IngresarIntegrantesEliminados(oProy);
+
+        if (result.equals("Correcto")) {
+            result = aProy.EliminarIntegrantes(Integer.parseInt(codigo));
+        }
+
+        if (result.equals("Correcto")) {
+            cTransaccion objTransaccion = new cTransaccion();
+            objTransaccion.setTransaccion_cedula(strCedula);
+            objTransaccion.setTransaccion_ag(intIdAreaGestion);
+            objTransaccion.setTransaccion_tipo(1);
+            objTransaccion.setTransaccion_descripcion("El integrante: \"" + nombres + "\" se eliminó correctamente en el proyecto  \"" + proyecto + "\".");
             ingresarTransaccion(objTransaccion);
         }
         String json = new Gson().toJson(result);

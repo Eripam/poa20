@@ -1,7 +1,12 @@
-let proy, mul, fi, ff, long, banIndicador = true, banActividad = true, banRequerimiento = true, estadof, proynombre, persp, banIndicaroEl = true, banActividadElim = true, banRequerimientoElim = true;
+let proy, mul, fi, ff, long, banIndicador = true, banActividad = true, banRequerimiento = true, estadof, proynombre, persp, banIndicaroEl = true, banActividadElim = true, banRequerimientoElim = true, tipoei;
 let tusu = $('#tipousuario').val();
+var alerta = document.getElementById('alertProyecto');
 let m, prio, banAnio = false;
 $(document).ready(function () {
+    listaCompletaProyecto();
+});
+
+function listaCompletaProyecto() {
     $.ajax({
         url: "../proyecto?accion=ListarProyectoCompleto" + "&proy=" + $("#idProy").val(),
         type: 'POST',
@@ -39,7 +44,8 @@ $(document).ready(function () {
                     } else {
                         integrantes = this.proyecto_integrantes;
                     }
-                    persp = this.perspectiva_id;
+                    persp = this.per.perspectiva_id;
+                    tipoei = this.per.perspectiva_estado;
                     $('#tituloAg').html(this.ag.ag_nombre);
                     $('#objEstartF').html(this.per.perspectiva_nombre);
                     $('#objObjF').html(this.per.objetivo_nombre);
@@ -156,23 +162,35 @@ $(document).ready(function () {
                         $('#modAccionInstitucionalMod').append('<div class="row container main-center cross-center" id="acmins"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejins[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconoplusins"></i></div></div>');
                         $('#modAccionCarreraMod').append('<div class="row container main-center cross-center" id="acmcar"><div class="col-10 col-xs-10 col-md-9"><textarea name="accmejca[]" class="evaluacion" rows="3"></textarea><i class="fa fa-plus" title="agregar" id="iconopluscar"></i></div></div>');
                     }
-                    if ((tusu === "3" && estadof === 2) || (tusu === "4" && (estadof === 4 || estadof === 8 || estadof === 9)) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || (tusu === "5" && (estadof === 2 || estadof === 9)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 27 || estadof === 22 || estadof === 2 || estadof === 9)) && (tusu !== "26")) {
-                        //if ((tusu === "3" && estadof === 2) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 21 || estadof === 22 || estadof === 2))) {
-                        $('#btn_proyecto_enviar').css({"display": "flex"});
-                        $('#btn_proyecto_articulacion').addClass('d-none');
-                    } else if (tusu === "7" && (estadof === 4 || estadof === 8 || estadof === 9)) {
-                        $('#btn_proyecto_enviar').css({"display": "flex"});
-                        $('#btn_proyecto_articulacion').addClass('d-none');
-                    } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
-                        $('#btn_proyecto_enviar').css({"display": "flex"});
-                        $('#btn_proyecto_articulacion').css({"display": "flex"});
-                    } else {
+
+                    if ((tipoei == 2 || tipoei == 3) && ((this.integrantes == null || this.integrantes == '' || this.integrantes == 'undefined'))) {
                         $('#btn_proyecto_enviar').addClass('d-none');
-                        $('#btn_proyecto_articulacion').addClass('d-none');
+                    } else {
+                        if ((tusu === "3" && estadof === 2) || (tusu === "4" && (estadof === 4 || estadof === 8 || estadof === 9)) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || (tusu === "5" && (estadof === 2 || estadof === 9)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 27 || estadof === 22 || estadof === 2 || estadof === 9)) && (tusu !== "26")) {
+                            //if ((tusu === "3" && estadof === 2) || ((tusu === "7" || tusu === "8") && (estadof === 6 || estadof === 23 || estadof === 24)) || (tusu === "19" && (estadof === 2 || estadof === 9 || estadof === 10)) || ((tusu === "16" || tusu === "17") && estadof === 6) || (tusu === "11" && (estadof === 11 || estadof === 21 || estadof === 22 || estadof === 2))) {
+                            $('#btn_proyecto_enviar').css({"display": "flex"});
+                            $('#btn_proyecto_articulacion').addClass('d-none');
+                        } else if (tusu === "7" && (estadof === 4 || estadof === 8 || estadof === 9)) {
+                            $('#btn_proyecto_enviar').css({"display": "flex"});
+                            $('#btn_proyecto_articulacion').addClass('d-none');
+                        } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
+                            $('#btn_proyecto_enviar').css({"display": "flex"});
+                            $('#btn_proyecto_articulacion').css({"display": "flex"});
+                        } else {
+                            $('#btn_proyecto_enviar').addClass('d-none');
+                            $('#btn_proyecto_articulacion').addClass('d-none');
+                        }
+                    }
+
+                    if ((tusu === "16" || tusu === "17") && (this.per.perspectiva_estado === 2 || this.per.perspectiva_estado === 3)) {
+                        $('#btn-integrantes').css({"display": "flex"});
+                    } else {
+                        $('#btn-integrantes').addClass('d-none');
                     }
                 });
                 listarComponente(proy);
                 listaProcesosAr();
+                listaFechaActual();
             })
             .fail(function () {
                 console.log('No existe conexión con la base de datos.');
@@ -180,7 +198,39 @@ $(document).ready(function () {
             .always(function () {
                 console.log('Se completo correctamente');
             });
-});
+}
+
+function listaFechaActual() {
+    $.ajax({
+        url: "../proyecto?accion=ListarFecha",
+        type: 'POST',
+        dataType: 'json'
+    })
+            .done(function (response) {
+                $('#fini-mod').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+                $('#ffin-mod').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+                $('#fechaIIntegrante').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+                $('#fechaFIntegrante').datepicker({
+                    minDate: "01/01/" + response,
+                    maxDate: "31/12/" + response
+                });
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
 
 function myFunction() {
     var options = document.getElementById("selectAcciones");
@@ -237,9 +287,9 @@ function listaProcesosAr() {
                             div = '<i class="fas fa-trash" id="btn_eliminar_articulacion" data-actividad="' + this.am_id + '" data-actividadnombre="' + this.am_nombre + '" title="Eliminar articulación"></i>';
                         } else if (tusu === "26" && (estadof === 15 || estadof === 6 || estadof === 10 || estadof === 11)) {
                             if (this.am_validar) {
-                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" checked name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                                div = '<input type="checkbox" id="checkvalidar' + this.proceso_tipo + '" checked name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
                             } else {
-                                div = '<input type="checkbox" id="checkvalidar'+this.proceso_tipo+'" name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
+                                div = '<input type="checkbox" id="checkvalidar' + this.proceso_tipo + '" name="checkvalidar" onchange="validarArt(' + this.proceso_tipo + ')">';
                             }
                         } else {
                             if (this.am_validar) {
@@ -266,7 +316,7 @@ function validarArt(id) {
     $.ajax({
         url: "../proyecto?accion=ValidarArticulacion",
         type: 'POST',
-        data: {proyecto: $("#idProy").val(), id: id, validar: $('#checkvalidar'+id).is(':checked')},
+        data: {proyecto: $("#idProy").val(), id: id, validar: $('#checkvalidar' + id).is(':checked')},
         dataType: 'json',
         cache: false
     })
@@ -835,16 +885,16 @@ $('.btn_indicador_detalle').on('click', function () {
 $('#btn_proyecto_enviar').on('click', function (event) {
     event.preventDefault();
     $('#alertEnviar').empty();
-    let alertEnviar=document.getElementById('alertEnviar');
-    if ($('#tipousuario').val() === "3" && estadof === 2 && ($('#tipoAg').val()==="2" || $('#tipoAg').val()==="3")) {
+    let alertEnviar = document.getElementById('alertEnviar');
+    if ($('#tipousuario').val() === "3" && estadof === 2 && ($('#tipoAg').val() === "2" || $('#tipoAg').val() === "3")) {
         $('#aprobarRadios').val(4);
         $('#modificarRadios').val(5);
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Decano/a y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
-    }else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val()==="5") {
+    } else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val() === "5") {
         $('#aprobarRadios').val(4);
         $('#modificarRadios').val(5);
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Sede y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
-    }else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val()==="4") {
+    } else if ($('#tipousuario').val() === "3" && estadof === 2 && ('#tipoAg').val() === "4") {
         $('#aprobarRadios').val(4);
         $('#modificarRadios').val(5);
         alertaModal('NOTA:', 'Con el presente envio, su proyecto se va al Director/a de Unidad y los requerimientos pac a la Unidad de Compra Publicas', 'info', alertEnviar);
@@ -859,11 +909,11 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                         if (response.numrequerimientos !== response.numrequerimientosverificado) {
                             $('#aprobarRadios').prop("disabled", true);
                             if ($('#tipousuario').val() === "4") {
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                                 $('#modificarRadios').val(7);
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#modificarRadios').val(3);
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#modificarRadios').val(12);
                             } else if ($('#tipousuario').val() === "11") {
@@ -873,19 +923,19 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             if ($('#tipousuario').val() === "4") {
                                 $('#aprobarRadios').val(6);
                                 $('#modificarRadios').val(7);
-                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la unidad correspondiente de validaci\u00F3n.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la unidad correspondiente de validaci\u00F3n.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#aprobarRadios').val(22);
                                 $('#modificarRadios').val(3);
-                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la Direcci\u00F3n de Planificaci\u00F3n.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el presente envio, el proyecto se va a la Direcci\u00F3n de Planificaci\u00F3n.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#aprobarRadios').val(10);
                                 $('#modificarRadios').val(12);
-                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "11") {
                                 $('#aprobarRadios').val(15);
                                 $('#modificarRadios').val(14);
-                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);
                             }
                         }
                     } else {
@@ -893,10 +943,10 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             $('#aprobarRadios').prop("disabled", true);
                             if ($('#tipousuario').val() === "4") {
                                 $('#modificarRadios').val(7);
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#modificarRadios').val(3);
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#modificarRadios').val(12);
                             } else if ($('#tipousuario').val() === "11") {
@@ -906,19 +956,19 @@ $('#btn_proyecto_enviar').on('click', function (event) {
                             if ($('#tipousuario').val() === "4") {
                                 $('#aprobarRadios').val(6);
                                 $('#modificarRadios').val(7);
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "5") {
                                 $('#aprobarRadios').val(22);
                                 $('#modificarRadios').val(3);
-                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'El bot\u00F3n aprobar se activa unicamente si todos los requerimientos PAC fueron validados por la Unidad de Compras Publicas.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "7") {
                                 $('#aprobarRadios').val(10);
                                 $('#modificarRadios').val(12);
-                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);
                             } else if ($('#tipousuario').val() === "11") {
                                 $('#aprobarRadios').val(15);
                                 $('#modificarRadios').val(14);
-                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);      
+                                alertaModal('NOTA:', 'Con el siguiente envio, el proyecto se va a la validaci\u00F3n de la DEAC.', 'info', alertEnviar);
                             }
                         }
                     }
@@ -937,21 +987,21 @@ $('#btn_proyecto_enviar').on('click', function (event) {
         $('#modificarRadios').val(3);
     } else if ($('#tipousuario').val() === "7") {
         $('#aprobarRadios').val(10);
-        $('#modificarRadios').val(12);    
+        $('#modificarRadios').val(12);
     } else if ($('#tipousuario').val() === "8") {
         $('#aprobarRadios').val(11);
-        $('#modificarRadios').val(13); 
+        $('#modificarRadios').val(13);
     } else if ($('#tipousuario').val() === "7" && estadof === 9) {
         $('#aprobarRadios').val(10);
         $('#modificarRadios').val(12);
     } else if ($('#tipousuario').val() === "16") {
         $('#aprobarRadios').val(23);
         $('#modificarRadios').val(25);
-        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a IDI.', 'info', alertEnviar);  
+        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a IDI.', 'info', alertEnviar);
     } else if ($('#tipousuario').val() === "17") {
         $('#aprobarRadios').val(24);
         $('#modificarRadios').val(26);
-        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a de Vinculaci\u00F3n.', 'info', alertEnviar);  
+        alertaModal('NOTA:', 'Con el presente envio, el proyecto se va al Director/a de Vinculaci\u00F3n.', 'info', alertEnviar);
     } else if ($('#tipousuario').val() === "11" && estadof === 9) {
         $('#aprobarRadios').val(15);
         $('#modificarRadios').val(14);
@@ -983,3 +1033,212 @@ $('#guardarEnviar').on('click', function () {
                 console.log('Se completo correctamente');
             });
 });
+
+//Integrantes
+$('#mostrarModalIntegrantes').on('click', function () {
+    $('#formIntegrantes').removeClass('d-none');
+    $('#tituloIntegrantes').html('AGREGAR INTEGRANTES');
+    $('#textIntegranteCed').val('').prop("readonly", false);
+    $('#nombreIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
+    $('#integrantesModal').modal();
+    $('#tipocontratoIntegrante').prop("disabled", false);
+    $('#selTipoIn').prop("disabled", false);
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#idintegrante').val(0);
+});
+
+$('#cancelarIntegrantes').on('click', function () {
+    $('#formIntegrantes').addClass('d-none');
+});
+
+$('#btn-integrantes').on('click', function () {
+    $('#textIntegranteCed').val('').prop("readonly", false);
+    $('#nombreIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
+    $('#integrantesModal').modal();
+    $('#tipocontratoIntegrante').prop("disabled", false);
+    $('#selTipoIn').prop("disabled", false);
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#formIntegrantes').addClass('d-none');
+    listarTipoIntegrantes();
+    listarIntegrantes();
+});
+
+$('#limpiarIntegrantes').on('click', function () {
+    $('#textIntegranteCed').val('');
+    $('#nombreIntegrante').val('');
+    $('#sexoIntegrante').val('');
+    $('#fechaIIntegrante').val('');
+    $('#fechaFIntegrante').val('');
+});
+
+$('#ingresarIntegrantes').on('click', function () {
+    if ($('#textIntegranteCed').val() == "") {
+        alertaM(mensajeError, "Debe ingresar el n\u00FAmero de c\u00E9dula.", error, alerta, 'fa-times-circle');
+    } else if ($('#idintegrante').val() == 0) {
+        $.ajax({
+            url: "../proyecto?accion=IngresarIntegrantes",
+            type: 'POST',
+            data: {proyecto: $('#idProy').val(), cedula: $('#textIntegranteCed').val(), nombre: $('#nombreIntegrante').val(), sexo: $('#sexoIntegrante').val(), tipocontrato: $('#tipocontratoIntegrante').val(), tipoin: $('#selTipoIn').val(), fechai: $('#fechaIIntegrante').val(), fechaf: $('#fechaFIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        $('#textIntegranteCed').val('');
+                        $('#nombreIntegrante').val('');
+                        $('#sexoIntegrante').val('');
+                        $('#fechaIIntegrante').val('');
+                        $('#fechaFIntegrante').val('');
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                        alertaM(mensajeCorrecto, insertadoCorrecto + ' el integrante', correcto, alerta, 'fa-check-circle');
+                    } else {
+                        alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    }
+    else if ($('#idintegrante').val() > 0 && estadof !== 17 && estadof !== 18){
+        $.ajax({
+            url: "../proyecto?accion=EliminarIntegrantes",
+            type: 'POST',
+            data: {id: $('#idintegrante').val(), proyecto: $('#idProy').val(), integrante: $('#nombreIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                        $('#formIntegrantes').addClass('d-none');
+                        alertaM(mensajeCorrecto, eliminadoCorrecto + ' el integrante', correcto, alerta, 'fa-check-circle');
+                    } else {
+                        alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    }else{
+         $.ajax({
+            url: "../proyecto?accion=EliminarIntegrantesM",
+            type: 'POST',
+            data: {id: $('#idintegrante').val(), proyecto: $('#idProy').val(), cedula: $('#textIntegranteCed').val(), nombre: $('#nombreIntegrante').val(), sexo: $('#sexoIntegrante').val(), tipocontrato: $('#tipocontratoIntegrante').val(), tipoin: $('#selTipoIn').val(), fechai: $('#fechaIIntegrante').val(), fechaf: $('#fechaFIntegrante').val()},
+            dataType: 'json'
+        })
+                .done(function (response) {
+                    if (response === "Correcto") {
+                        listarIntegrantes();
+                        listaCompletaProyecto();
+                        $('#formIntegrantes').addClass('d-none');
+                        alertaM(mensajeCorrecto, eliminadoCorrecto + ' el integrante', correcto, alerta, 'fa-check-circle');
+                    } else {
+                        alertaM(mensajeError, response, error, alerta, 'fa-times-circle');
+                    }
+                })
+                .fail(function () {
+                    console.log('No existe conexión con la base de datos.');
+                })
+                .always(function () {
+                    console.log('Se completo correctamente');
+                });
+    }
+});
+
+function listarIntegrantes() {
+    $('#listaintegrantes').empty();
+    $.ajax({
+        url: "../proyecto?accion=ListarIntegrantes",
+        type: 'POST',
+        data: {proyecto: $('#idProy').val()},
+        dataType: 'json'
+    })
+            .done(function (response) {
+                if (response.length > 0) {
+                    $.each(response, function () {
+                        $('#listaintegrantes').append('<tr><td class="text-center">' + this.proyecto_responsable_ced + '</td><td>' + this.proyecto_integrantes + '</td><td>' + this.integrante_tipo_nombre + '</td><td>' + this.integrante_sexo + '</td><td>' + this.integrante_tipo_contrato + '</td><td>' + this.proyecto_fi + '</td><td>' + this.proyecto_ff + '</td><td><i id="eliminarIntegrante" data-id="' + this.estado_id + '" data-integrante="' + this.proyecto_integrantes + '" data-cedula="' + this.proyecto_responsable_ced + '" data-sexo="' + this.integrante_sexo + '" data-fechai="' + this.proyecto_fi + '" data-fechaf="' + this.proyecto_ff + '" data-tipo="' + this.integrante_tipo + '" data-tcontrato="' + this.integrante_tcontrato + '" data-tnombre="' + this.integrante_tipo_nombre + '" data-tcontraton="' + this.integrante_tipo_contrato + '" class="fas fa-times"></i></td></tr>')
+                    });
+                } else {
+                    $('#listaintegrantes').append('<tr><td colspan="2">No existen registros</td></tr>')
+                }
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+function listarTipoIntegrantes() {
+    $('#selTipoIn').empty();
+    $.ajax({
+        url: "../usuario?accion=listarTipoIntegrantes",
+        type: 'POST',
+        data: {objetivo: persp},
+        dataType: 'json'
+    })
+            .done(function (response) {
+                if (response.length > 0) {
+                    $.each(response, function () {
+                        $('#selTipoIn').append('<option value="' + this.tu_id + '">' + this.tu_nombre + '</option>')
+                    });
+                }
+                $('#selTipoIn').selectpicker('refresh');
+            })
+            .fail(function () {
+                console.log('No existe conexión con la base de datos.');
+            })
+            .always(function () {
+                console.log('Se completo correctamente');
+            });
+}
+
+$('#selTipoIn').on('change', function () {
+    var dato = $(this).val();
+    if (dato == 6) {
+        $('#buscador').addClass('d-none');
+        $('#nombreIntegrante').prop('readonly', false).val('');
+        $('#sexoIntegrante').prop('readonly', false).val('');
+    } else {
+        $('#buscador').removeClass('d-none');
+        $('#nombreIntegrante').prop('readonly', true);
+        $('#sexoIntegrante').prop('readonly', true);
+    }
+});
+
+$('#listaintegrantes').on('click', 'tr td #eliminarIntegrante', function () {
+    var data = $(this).data();
+    $('#textIntegranteCed').val(data['cedula']).prop("readonly", true);
+    $('#nombreIntegrante').val(data['integrante']);
+    $('#sexoIntegrante').val(data['sexo']);
+    $('#fechaIIntegrante').val(data['fechai']);
+    $('#fechaFIntegrante').val(data['fechaf']);
+    $('#tipocontratoIntegrante').find('option[value="' + data['tcontrato'] + '"]').remove();
+    $('#tipocontratoIntegrante').append('<option value="' + data['tcontrato'] + '" selected="selected">' + data['tcontraton'] + '</option>');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#tipocontratoIntegrante').attr("disabled", true);
+    $('#selTipoIn').find('option[value="' + data['tipo'] + '"]').remove();
+    $('#selTipoIn').append('<option value="' + data['tipo'] + '" selected="selected">' + data['tnombre'] + '</option>');
+    $('#selTipoIn').selectpicker('refresh');
+    $('#selTipoIn').attr("disabled", true);
+    $('#formIntegrantes').removeClass('d-none');
+    $('#selTipoIn').selectpicker('refresh');
+    $('#tipocontratoIntegrante').selectpicker('refresh');
+    $('#idintegrante').val(data['id']);
+    $('#tituloIntegrantes').html('ELIMINAR INTEGRANTES');
+});  

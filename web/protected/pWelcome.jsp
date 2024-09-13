@@ -75,7 +75,7 @@
                     <%
                     } else {
                     %>
-                    <a class="dropdown-item" href="../usuario?accion=Redirigir&idTipoUsuario=<%=objLogin.getTu_id()%>&nombreTipoUsuario=<%=objLogin.getTu_nombre()%>&idAreaGestion=<%=objLogin.getAg().getAg_id()%>&nombreAreaGestion=<%=objLogin.getAg().getAg_nombre()%>&aliasAreaGestion=<%=objLogin.getAg().getAg_alias()%>&idTipoAG=<%=objLogin.getAg().getTag_id()%>&nombreTipoAG=<%=objLogin.getAg().getTag_nombre()%>&anioplan=<%=objLogin.getAnio()%>"><%=objLogin.getTu_nombre()%> - <%=objLogin.getAg().getAg_alias()%></a>
+                    <a class="dropdown-item" href="../usuario?accion=Redirigir&idTipoUsuario=<%=objLogin.getTu_id()%>&nombreTipoUsuario=<%=objLogin.getTu_nombre()%>&idAreaGestion=<%=objLogin.getAg().getAg_id()%>&nombreAreaGestion=<%=objLogin.getAg().getAg_nombre()%>&aliasAreaGestion=<%=objLogin.getAg().getAg_alias()%>&idTipoAG=<%=objLogin.getAg().getTag_id()%>&nombreTipoAG=<%=objLogin.getAg().getTag_nombre()%>&anioplan=<%=objLogin.getAnio()%>&agestado=<%=objLogin.getAg().getAg_estado()%>"><%=objLogin.getTu_nombre()%> - <%=objLogin.getAg().getAg_alias()%></a>
                     <%
                             }
                         }
@@ -93,13 +93,15 @@
                     <input type="hidden" value="<%=strNombreTipoAreaGestion%>" id="nTipoAg" name="nTipoAg">
                     <input type="hidden" value="<%=strCedulaUsuario%>" id="cedulaUs" name="cedulaUs">
                     <input type="hidden" value="<%=intAnio%>" id="anioplan" name="anioplan">
+                    <input type="hidden" value="<%=intAgEstado%>" id="agestado" name="agestado">
                     <select name="selAnio" id="selAnio" class="col-4 col-md-3 col-lg-2 col-xl-2 form-control">
                         <%
                             ResultSet rs2 = adAreaGestion.listaTechosF();
                             while (rs2.next()) {
+                                if(intAgEstado==1 || (intAgEstado==0 && Integer.parseInt(rs2.getString("ti_fecha"))<2024)){
                         %>
                         <option value="<%= rs2.getString("ti_fecha")%>"><%=rs2.getString("ti_fecha")%></option>
-                        <%}%>
+                        <%}}%>
                     </select>
                 </div>
                 <%if (intIdTipoUsuario == 24) {%>
@@ -158,21 +160,27 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesAdmin"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                         <%} else if (intIdTipoUsuario == 2) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoPlanificadora"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="usuariodir"><i class="fas fa-users"></i></span><p class="col-10 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaEvaluacion"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-10 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoPlanificadora"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="usuariodir"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-users fa-3x"></i></span><p class="col-12 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
-                        <%} else if (intIdTipoUsuario == 5 && IntIdAreaGestion != 57 && IntIdAreaGestion != 68 && IntIdAreaGestion != 54 && IntIdAreaGestion != 60 && IntIdAreaGestion != 69) {%>
+                        <%} else if (intIdTipoUsuario == 5 && IntIdAreaGestion != 57 && IntIdAreaGestion != 68 && IntIdAreaGestion != 54 && IntIdAreaGestion != 60 && IntIdAreaGestion != 69 && IntIdAreaGestion != 99 && IntIdAreaGestion != 105 && IntIdAreaGestion != 107) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoPlanificadora"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="usuariodir"><i class="fas fa-users"></i></span><p class="col-10 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -188,7 +196,9 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoPlanificadora"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="usuariodir"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-users fa-3x"></i></span><p class="col-12 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -202,9 +212,11 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="evalDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
-                        <%} else if (intIdTipoUsuario == 5 && (IntIdAreaGestion == 54 || IntIdAreaGestion == 57 || IntIdAreaGestion == 68 || IntIdAreaGestion == 60 || IntIdAreaGestion == 69)) {%>
+                        <%} else if (intIdTipoUsuario == 5 && (IntIdAreaGestion == 54 || IntIdAreaGestion == 57 || IntIdAreaGestion == 68 || IntIdAreaGestion == 60 || IntIdAreaGestion == 69 || IntIdAreaGestion == 99 || IntIdAreaGestion == 105 || IntIdAreaGestion == 107)) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoPlanificadora"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="usuariodir"><i class="fas fa-users"></i></span><p class="col-10 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -219,7 +231,9 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoPlanificadora"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="usuariodir"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-users fa-3x"></i></span><p class="col-12 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -232,9 +246,11 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="evalDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
-                        <%} else if (intIdTipoUsuario == 3 && IntIdAreaGestion != 68) {%>
+                        <%} else if (intIdTipoUsuario == 3 && IntIdAreaGestion != 68 && IntIdAreaGestion != 99) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoPlanificadora"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaJust"><i class="fas fa-shopping-cart fa-3x"></i></span><p class="col-10 p-0 m-0">JUSTIFICATIVOS</p></div>
@@ -249,7 +265,9 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoPlanificadora"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaJust"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-shopping-cart fa-3x"></i></span><p class="col-12 p-0 m-0">JUSTIFICATIVOS</p></div>
@@ -262,8 +280,10 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="evalDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
-                        <%} else if (intIdTipoUsuario == 3 && IntIdAreaGestion == 68) {%>
+                        <%} else if (intIdTipoUsuario == 3 && (IntIdAreaGestion == 68 || IntIdAreaGestion == 99)) {%>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-clipboard-list"></i></span><p class="col-10 p-0 m-0">REQUERIMIENTOS GENERALES</p></div>
@@ -276,7 +296,9 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="evalDeudas"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-10 p-0 m-0">EVALUACIÓN VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarReq"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-list fa-3x"></i></span><p class="col-12 p-0 m-0">REQUERIMIENTOS GENERALES</p></div>
@@ -343,11 +365,15 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                         <%} else if (intIdTipoUsuario == 15) {%>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-list-ul"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaEvaluacion"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-10 p-0 m-0">EVALUACIÓN</p></div>
 
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosF"><i class="fas fa-list-ul fa-3x"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacion"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN</p></div>
                         <%} else if (intIdTipoUsuario == 11) {%>
@@ -371,14 +397,20 @@
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaEvaluacionF"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-clipboard-check fa-3x"></i></span><p class="col-12 p-0 m-0">EVALUACIÓN FACULTADES Y SEDES</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="reportesUsu"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-chart-line fa-3x"></i></span><p class="col-12 p-0 m-0">REPORTES</p></div>  
                         <%} else if (intIdTipoUsuario == 18) {%>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-list-ul"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
 
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosF"><i class="fas fa-list-ul fa-3x"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS</p></div>
                         <%} else if (intIdTipoUsuario == 19) {%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="techoDecano"><i class="fas fa-money-bill-alt"></i></span><p class="col-10 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="formulacionP"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="usuariodir"><i class="fas fa-users"></i></span><p class="col-10 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="listaProyectosC"><i class="fas fa-file-invoice-dollar"></i></span><p class="col-10 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="ingresarDeudas"><i class="fas fa-hand-holding-usd"></i></span><p class="col-10 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -390,7 +422,9 @@
                 <div class="row col-9 col-xs-9 col-sm-5 d-md-none d-lg-none d-xl-none botonmain"><span class="col-2 p-0 m-0 align-self-center" id="reportesUsu"><i class="fas fa-chart-line"></i></span><p class="col-10 p-0 m-0">REPORTES</p></div>
 
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="techoDecano"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-money-bill-alt fa-3x"></i></span><p class="col-12 p-0 m-0">TECHOS PRESUPUESTARIOS</p></div>
+                <%if(intAgEstado==1){%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="formulacionP"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">FORMULACIÓN</p></div>
+                <%}%>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="usuariodir"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-users fa-3x"></i></span><p class="col-12 p-0 m-0">USUARIOS</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="listaProyectosC"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-file-invoice-dollar fa-3x"></i></span><p class="col-12 p-0 m-0">LISTA PROYECTOS POA</p></div>
                 <div class="row col-9 col-xs-9 col-sm-5 col-md-3 col-lg-2 d-none d-xs-none d-sm-none d-md-block d-lg-block d-xl-block botonmainr" id="ingresarDeudas"><span class="col-12 p-0 m-0 align-self-center"><i class="fas fa-hand-holding-usd fa-3x"></i></span><p class="col-12 p-0 m-0">VALORES PENDIENTES DE PAGO</p></div>
@@ -610,8 +644,8 @@
             $("#selAnio option[value=" + $('#anioplan').val() + "]").attr("selected", true);
             $('#selAnio').change(function () {
                 var idAgObEs = $('#idAgObEs').val(), tipoAg = $('#tipoAg').val(), tipousuario = $('#tipousuario').val(), Ntipousuario = $('#Ntipousuario').val(),
-                        nAreaG = $('#nAreaG').val(), aliasAg = $('#aliasAg').val(), nTipoAg = $('#nTipoAg').val();
-                window.location.href = "../usuario?accion=Redirigir&idTipoUsuario=" + tipousuario + "&nombreTipoUsuario=" + Ntipousuario + "&idAreaGestion=" + idAgObEs + "&nombreAreaGestion=" + nAreaG + "&aliasAreaGestion=" + aliasAg + "&idTipoAG=" + tipoAg + "&nombreTipoAG=" + nTipoAg + "&anioplan=" + $(this).val();
+                        nAreaG = $('#nAreaG').val(), aliasAg = $('#aliasAg').val(), nTipoAg = $('#nTipoAg').val(), agestado=$('#agestado').val();
+                window.location.href = "../usuario?accion=Redirigir&idTipoUsuario=" + tipousuario + "&nombreTipoUsuario=" + Ntipousuario + "&idAreaGestion=" + idAgObEs + "&nombreAreaGestion=" + nAreaG + "&aliasAreaGestion=" + aliasAg + "&idTipoAG=" + tipoAg + "&nombreTipoAG=" + nTipoAg + "&anioplan=" + $(this).val()+"&agestado="+agestado;
             });
         </script>
     </body>

@@ -1177,8 +1177,10 @@ public class reporteExcel extends HttpServlet {
             re = aReq.ListarRequerimientosExcel21();
         } else if (anio.equals("2022")) {
             re = aReq.ListarRequerimientosExcel22();
-        } else {
+        } else if (anio.equals("2023")) {
             re = aReq.ListarRequerimientosExcel23();
+        }else{
+            re = aReq.ListarRequerimientosExcel24();
         }
         re2 = aReq.ListarRequerimientosExcelDeudas2(Integer.parseInt(anio));
         Row row = sheet.createRow(0);
@@ -4249,8 +4251,11 @@ public class reporteExcel extends HttpServlet {
         } else if (anio.equals("2022")) {
             re = aReq.ListarRequerimientosExcel22();
             deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
-        } else {
+        } else if (anio.equals("2023")) {
             re = aReq.ListarRequerimientosExcel23();
+            deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
+        } else {
+            re = aReq.ListarRequerimientosExcel24();
             deudas = aReq.ListarRequerimientosExcelDeudas22(Integer.parseInt(anio));
         }
         Row row = sheet.createRow(0);

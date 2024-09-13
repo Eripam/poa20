@@ -367,7 +367,7 @@ $('#example').on('click', 'div div #modserv', function () {
         $('#fechafin').val(data['ff']);
         $('#sueldoMensual').val(data['cantidad']);
         $('#datosEstu').addClass('d-none');
-    } else if (id === 3 && data['agid'] === 46) {
+    } else if (id === 3 && (data['agid'] === 46 || data['agid'] === 103)) {
         $('#horas').addClass('d-none');
         $('#shoras').addClass('d-none');
         $('#fehchai').removeClass('d-none');
@@ -381,7 +381,7 @@ $('#example').on('click', 'div div #modserv', function () {
         $('#apellidoEstu').val(data['apellidoest']);
         $('#datosEstu').removeClass('d-none');
         $('#totalpagar').val(data['siniva'].toFixed(2));
-    } else if (id === 3 && data['agid'] !== 46) {
+    } else if (id === 3 && data['agid'] !== 46 && data['agid'] !== 103) {
         $('#horas').addClass('d-none');
         $('#shoras').addClass('d-none');
         $('#fehchai').removeClass('d-none');

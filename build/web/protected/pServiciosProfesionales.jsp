@@ -129,7 +129,7 @@
                                         <input type="text" class="form-control" name="totalpagar" id="totalpagar">
                                     </div>
                                 </div>
-                                <%if (IntIdAreaGestion == 46) {%>
+                                <%if (IntIdAreaGestion == 46 || IntIdAreaGestion == 103) {%>
                                 <div class="col-12 row m-1 d-none" style="outline:1px solid #c6c8ca" id="datosEstu">
                                     <div class="col-12 titulopes p-0" style="font-size: 1.25em">DATOS ESTUDIANTE</div>
                                     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">

@@ -93,11 +93,11 @@
                                         if (intIdTipoUsuario == 11 || intIdTipoUsuario == 16 || intIdTipoUsuario == 17) {
                                             rs = adAreaGestion.listaAreaGestionAsignadas(cedula);
                                         } else if (intIdTipoUsuario == 6 || intIdTipoUsuario == 7 || intIdTipoUsuario == 8 || intIdTipoUsuario == 19) {
-                                            rs = adAreaGestion.listaAreaGestionFE();
+                                            rs = adAreaGestion.listaAreaGestionFE(intAnio);
                                         } else if (intIdTipoUsuario == 14) {
                                             rs = adAreaGestion.listaAreaGestionPOA(intAnio);
                                         } else {
-                                            rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion);
+                                            rs = adAreaGestion.listaAreaGestionHijos(IntIdAreaGestion, intAnio);
                                         }
                                         while (rs.next()) {
                                     %>

@@ -126,6 +126,7 @@ public class servUsuario extends HttpServlet {
                         sesionOk.setAttribute("nombreTipoAreaGestion", obj.getAg().getTag_nombre());
                         sesionOk.setAttribute("cedulaUsuario", obj.getLogin_cedula());
                         sesionOk.setAttribute("anioplan", obj.getAnio());
+                        sesionOk.setAttribute("agestado", obj.getAg().getAg_estado());
                     }
                 }
             }
@@ -152,6 +153,7 @@ public class servUsuario extends HttpServlet {
             Integer intIdTipoAreaGestion = Integer.valueOf(request.getParameter("idTipoAG"));
             String strNombreTipoAreaGestion = String.valueOf(request.getParameter("nombreTipoAG"));
             Integer anioplan = Integer.valueOf(request.getParameter("anioplan"));
+            Integer agestado = Integer.valueOf(request.getParameter("agestado"));
             HttpSession sesionOk = request.getSession();
             if (intIdTipoUsuario != null && strNombreTipoUsuario != null) {
                 sesionOk.setAttribute("idTipoUsuario", intIdTipoUsuario);
@@ -162,6 +164,7 @@ public class servUsuario extends HttpServlet {
                 sesionOk.setAttribute("idTipoAreaGestion", intIdTipoAreaGestion);
                 sesionOk.setAttribute("nombreTipoAreaGestion", strNombreTipoAreaGestion);
                 sesionOk.setAttribute("anioplan", anioplan);
+                sesionOk.setAttribute("agestado", agestado);
                 response.sendRedirect("protected/pWelcome.jsp");
             } else {
                 response.sendRedirect("protected/pVerificar.jsp");

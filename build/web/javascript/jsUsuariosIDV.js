@@ -79,7 +79,7 @@ function listarUsuarioIDV(tp) {
                                             data-cedula="' + this.login_cedula + '" data-nombre="' + this.login_nombre + '" data-areas="' + JSON.stringify(listaAreas) + '" data-tu="' + this.tu_id + '" data-tunombre="' + this.tu_nombre + '"\n\
                                              data-estado="' + this.usuario_estado + '" data-estadonombre="' + estado + '" data-titulo="'+this.usuario_titulo+'"></i>\n\
                                              <i class="fas fa-trash-alt dataInfo"  title="Eliminar Usuario" id="eliUsuario"  \n\
-                                            data-cedula="' + this.login_cedula + '" data-nombre="' + this.login_nombre + '" data-areas="' + JSON.stringify(listaAreas) + '" \n\
+                                            data-cedula="' + this.login_cedula + '" data-nombre="' + this.login_nombre + '" data-areas="' + JSON.stringify(listaAreas) + '" data-tipo="'+this.tu_id+'" data-area="'+this.anio+'"\n\
                                             ></i></td>\n\
                                             </tr>');
                     var cedula = this.login_cedula, tu = this.tu_id;
@@ -89,7 +89,6 @@ function listarUsuarioIDV(tp) {
                         });
                     }
                 });
-                $(".bton").html('Ingresar');
                 $('#frmAddUsuarioCompras').attr('action', '../usuario?accion=IngresarUsuario');
                 $('#loader').addClass('d-none');
             })
@@ -129,41 +128,32 @@ $('.table').on('click', '#listaUsuarios #modUsuario ', function () {
         //$('#ag').selectpicker('val', this);
     });
     $('#ag').selectpicker('refresh');
-    $(".bton").html('Modificar');
         window.location.href = '#frmAddUsuarioCompras';
 });
 
-$('.table').on('click', '#listaUsuarios #eliUsuario ', function () {
+
+$('.table').on('click', 'tbody tr td #eliUsuario ', function () {
     var data = $(this).data();
     $('#frmAddUsuarioCompras')[0].reset();
-    $("#cedulaUsuario").val(data['cedula']);
-    $("#nombreUsuario").val(data['nombre']);
-    $('#frmAddUsuarioCompras').attr('action', '../usuario?accion=EliminarUsuario');
-    $("#ag option:selected").each(function () {
-        $(this).removeAttr('selected');
-    });
+    $('#bodyModal').html('ESTA SEGURO QUE DESEA DESACTIVAR AL USUARIO <p style="font-weight:bold">' + data['nombre'] + ' </p></p><input type="hidden" id="ceduladesac" value="' + data['cedula'] + '">\n\
+    <input type="hidden" id="areadesac" value="' + data['area'] + '"><input type="hidden" id="tipodesac" value="' + data['tipo'] + '">');
+    $('#enviarReq').modal();
+});
 
-    $.each(data['areas'], function () {
-        //alert(this);
-        $('#ag option[value=' + this + ']').attr('selected', 'selected');
-        //$('#ag').selectpicker('val', this);
-    });
-    $('#ag').selectpicker('refresh');
-    $(".bton").html('Eliminar');
-    /**/;
-    event.preventDefault();
-    var metodo = $(this).attr("method");
-    var accion = $(this).attr("action");
-
+$('#modalGuardarJustEnv').on('click', function () {
     $.ajax({
-        url: accion,
-        type: metodo,
+        url: '../usuario?accion=DesactivarUsuaurio',
+        type: 'POST',
         dataType: 'json',
         cache: false,
-        data: $('#frmAddUsuarioCompras').serialize()
+        data: {cedula: $('#ceduladesac').val(), area: $('#areadesac').val(), tipo: $('#tipodesac').val(), cedulauser: $('#cedulaProyecto').val()}
     })
             .done(function (response) {
-                listarUsuarioIDV($('#agu').val());
+                if (response === "Correcto") {
+                    window.location.reload();
+                } else {
+                    alert(response);
+                }
             })
             .fail(function () {
                 console.log('No existe conexión con la base de datos.');
@@ -171,5 +161,5 @@ $('.table').on('click', '#listaUsuarios #eliUsuario ', function () {
             .always(function () {
                 console.log('Se completo correctamente');
             });
-    /**/
 });
+
